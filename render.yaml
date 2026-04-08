@@ -1,0 +1,17 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Connect this repo in the Render Dashboard: New → Blueprint → select repo (render.yaml at root).
+
+previews:
+  generation: automatic
+
+services:
+  - type: web
+    name: sentientweblanding2
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    repo: https://github.com/TingsongD/sentientweblanding2
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /
