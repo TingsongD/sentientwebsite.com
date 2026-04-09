@@ -147,34 +147,6 @@ export default function HomePage() {
                   No credit card required.
                 </p>
               </div>
-
-              <div className="mt-10 flex justify-center gap-3 lg:hidden">
-                <a
-                  href="mailto:hello@sentientwebsite.com"
-                  aria-label="Email"
-                  className="liquid-glass flex h-14 w-14 items-center justify-center rounded-[1rem] text-cream transition hover:bg-white/10"
-                >
-                  <Mail className="h-5 w-5" strokeWidth={1.75} />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="X"
-                  className="liquid-glass flex h-14 w-14 items-center justify-center rounded-[1rem] text-cream transition hover:bg-white/10"
-                >
-                  <Twitter className="h-5 w-5" strokeWidth={1.75} />
-                </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="liquid-glass flex h-14 w-14 items-center justify-center rounded-[1rem] text-cream transition hover:bg-white/10"
-                >
-                  <Github className="h-5 w-5" strokeWidth={1.75} />
-                </a>
-              </div>
             </div>
           </div>
         </section>

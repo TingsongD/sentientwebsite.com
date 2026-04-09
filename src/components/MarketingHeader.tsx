@@ -1,5 +1,4 @@
 import { Link, type To } from 'react-router-dom'
-import { Github, Mail, Twitter } from 'lucide-react'
 import { BOOK_DEMO_URL } from '../constants'
 
 const NAV: { label: string; to: To }[] = [
@@ -7,37 +6,6 @@ const NAV: { label: string; to: To }[] = [
   { label: 'Solutions', to: { pathname: '/', hash: 'solutions' } },
   { label: 'Pricing', to: '/pricing' },
 ]
-
-function SocialIconStack({ className = '' }: { className?: string }) {
-  const iconClass = 'h-5 w-5 text-cream'
-  const btnClass =
-    'liquid-glass flex h-14 w-14 shrink-0 items-center justify-center rounded-[1rem] text-cream transition hover:bg-white/10'
-  return (
-    <div className={`flex flex-col gap-3 ${className}`}>
-      <a href="mailto:hello@sentientwebsite.com" className={btnClass} aria-label="Email SentientWeb">
-        <Mail className={iconClass} strokeWidth={1.75} />
-      </a>
-      <a
-        href="https://x.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={btnClass}
-        aria-label="SentientWeb on X"
-      >
-        <Twitter className={iconClass} strokeWidth={1.75} />
-      </a>
-      <a
-        href="https://github.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={btnClass}
-        aria-label="SentientWeb on GitHub"
-      >
-        <Github className={iconClass} strokeWidth={1.75} />
-      </a>
-    </div>
-  )
-}
 
 export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
   const navInner = (
@@ -104,10 +72,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
           SentientWeb
         </Link>
         {nav}
-        <div className="ml-auto flex items-center gap-3">
-          {actions}
-          <SocialIconStack className="hidden xl:flex" />
-        </div>
+        <div className="ml-auto flex items-center gap-3">{actions}</div>
       </header>
     )
   }
@@ -121,10 +86,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
           <div className="pointer-events-auto">{nav}</div>
         </div>
-        <div className="ml-auto flex items-center gap-3">
-          {actions}
-          <SocialIconStack className="hidden xl:flex" />
-        </div>
+        <div className="ml-auto flex items-center gap-3">{actions}</div>
       </div>
     </header>
   )

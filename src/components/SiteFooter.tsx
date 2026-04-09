@@ -1,18 +1,29 @@
 import type { ReactNode } from 'react'
 import { Link, type To } from 'react-router-dom'
+import { BOOK_DEMO_URL } from '../constants'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
+import { SocialIconStack } from './SocialIconStack'
 
-const FOOTER_PRODUCT: { label: string; to?: To; href?: string }[] = [
-  { label: 'Lead qualification', to: { pathname: '/', hash: 'features' } },
-  { label: 'Demo booking', to: { pathname: '/', hash: 'features' } },
-  { label: 'Knowledge base', to: { pathname: '/', hash: 'features' } },
-  { label: 'APIs & SDKs', href: '#' },
-  { label: 'Documentation', href: '#' },
-  { label: 'Changelog', href: '#' },
+type FooterProductItem =
+  | { label: string; calendly: true }
+  | { label: string; to: To }
+
+const FOOTER_PRODUCT: FooterProductItem[] = [
+  { label: 'Demo booking', calendly: true },
+  { label: 'Knowledge base', to: '/knowledge-base' },
+  { label: 'APIs & SDKs', to: '/apis-sdks' },
+  { label: 'Documentation', to: '/documentation' },
+  { label: 'Changelog', to: '/changelog' },
   { label: 'Pricing', to: '/pricing' },
 ]
 
-const FOOTER_COMPANY = ['About', 'Careers', 'Trust & security'] as const
+type FooterCompanyItem = { label: string; to?: To; placeholder?: true }
+
+const FOOTER_COMPANY: FooterCompanyItem[] = [
+  { label: 'About', to: '/about' },
+  { label: 'Careers', placeholder: true },
+  { label: 'Trust & security', to: '/trust' },
+]
 
 const FOOTER_DEV = ['Blog', 'GitHub', 'Status'] as const
 
@@ -42,17 +53,22 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
     >
       <div className="mx-auto grid max-w-[1831px] gap-12 sm:grid-cols-2 lg:grid-cols-4">
         <LinkColumn title="Product">
-          {FOOTER_PRODUCT.map(({ label, to, href }) => (
-            <li key={label}>
-              {href === '#' ? (
-                <a href="#" className="transition hover:text-neon">
-                  {label}
+          {FOOTER_PRODUCT.map((item) => (
+            <li key={item.label}>
+              {'calendly' in item ? (
+                <a
+                  href={BOOK_DEMO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-neon"
+                >
+                  {item.label}
                 </a>
-              ) : to ? (
-                <Link to={to} className="transition hover:text-neon">
-                  {label}
+              ) : (
+                <Link to={item.to} className="transition hover:text-neon">
+                  {item.label}
                 </Link>
-              ) : null}
+              )}
             </li>
           ))}
         </LinkColumn>
@@ -66,11 +82,17 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
           ))}
         </LinkColumn>
         <LinkColumn title="Company">
-          {FOOTER_COMPANY.map((label) => (
-            <li key={label}>
-              <a href="#" className="transition hover:text-neon">
-                {label}
-              </a>
+          {FOOTER_COMPANY.map((item) => (
+            <li key={item.label}>
+              {item.placeholder ? (
+                <a href="#" className="transition hover:text-neon">
+                  {item.label}
+                </a>
+              ) : item.to ? (
+                <Link to={item.to} className="transition hover:text-neon">
+                  {item.label}
+                </Link>
+              ) : null}
             </li>
           ))}
         </LinkColumn>
@@ -84,10 +106,13 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
           ))}
         </LinkColumn>
       </div>
-      <div className="mx-auto mt-14 flex max-w-[1831px] flex-col gap-6 border-t border-white/10 pt-10 sm:flex-row sm:items-center sm:justify-between">
-        <Link to="/" className="font-grotesk text-[18px] uppercase tracking-wide text-cream">
-          SentientWeb
-        </Link>
+      <div className="mx-auto mt-14 flex max-w-[1831px] flex-col gap-8 border-t border-white/10 pt-10 sm:flex-row sm:items-center sm:justify-between lg:gap-10">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-10">
+          <Link to="/" className="font-grotesk text-[18px] uppercase tracking-wide text-cream">
+            SentientWeb
+          </Link>
+          <SocialIconStack />
+        </div>
         <div className="flex flex-wrap gap-6 font-mono text-[12px] uppercase text-cream/50">
           <a href="#" className="transition hover:text-neon">
             Privacy policy
