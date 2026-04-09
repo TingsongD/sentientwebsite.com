@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import AboutPage from './pages/AboutPage'
+import CareersPage from './pages/CareersPage'
 import ComingSoonPage from './pages/ComingSoonPage'
 import HomePage from './pages/HomePage'
 import PricingPage from './pages/PricingPage'
@@ -18,6 +19,7 @@ export default function App() {
       <Route path="/changelog" element={<ComingSoonPage title="Changelog" />} />
       <Route path="/trust" element={<TrustSecurityPage />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/careers" element={<CareersPage />} />
     </Routes>
   )
 }

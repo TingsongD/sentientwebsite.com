@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronRight, Github, Mail, Twitter } from 'lucide-react'
 import { MarketingHeader } from '../components/MarketingHeader'
@@ -67,16 +67,13 @@ const FEATURES = [
 export default function HomePage() {
   const { pathname, hash } = useLocation()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (pathname !== '/' || !hash) return
     const id = hash.replace(/^#/, '')
-    requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      })
-    })
+    const el = document.getElementById(id)
+    if (!el) return
+    const top = el.getBoundingClientRect().top + window.scrollY
+    window.scrollTo({ top, left: 0, behavior: 'smooth' })
   }, [pathname, hash])
 
   return (

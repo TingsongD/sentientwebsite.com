@@ -17,11 +17,9 @@ const FOOTER_PRODUCT: FooterProductItem[] = [
   { label: 'Pricing', to: '/pricing' },
 ]
 
-type FooterCompanyItem = { label: string; to?: To; placeholder?: true }
-
-const FOOTER_COMPANY: FooterCompanyItem[] = [
+const FOOTER_COMPANY: { label: string; to: To }[] = [
   { label: 'About', to: '/about' },
-  { label: 'Careers', placeholder: true },
+  { label: 'Careers', to: '/careers' },
   { label: 'Trust & security', to: '/trust' },
 ]
 
@@ -84,15 +82,9 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
         <LinkColumn title="Company">
           {FOOTER_COMPANY.map((item) => (
             <li key={item.label}>
-              {item.placeholder ? (
-                <a href="#" className="transition hover:text-neon">
-                  {item.label}
-                </a>
-              ) : item.to ? (
-                <Link to={item.to} className="transition hover:text-neon">
-                  {item.label}
-                </Link>
-              ) : null}
+              <Link to={item.to} className="transition hover:text-neon">
+                {item.label}
+              </Link>
             </li>
           ))}
         </LinkColumn>
