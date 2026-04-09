@@ -71,7 +71,11 @@ export default function HomePage() {
     if (pathname !== '/' || !hash) return
     const id = hash.replace(/^#/, '')
     requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      document.getElementById(id)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      })
     })
   }, [pathname, hash])
 
