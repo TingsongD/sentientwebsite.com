@@ -10,7 +10,7 @@ import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
 const HERO_VIDEO =
   'https://cdn.shopify.com/videos/c/o/v/76d9b746e42d4c979f7e3dfadf4cfa25.mp4'
 const ABOUT_VIDEO =
-  'https://cdn.shopify.com/videos/c/o/v/49df0dfc02a747cfb900cfa8d043f8d5.mp4'
+  'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
 const CTA_VIDEO =
   'https://cdn.shopify.com/videos/c/o/v/9c76561bb05d4ed9941cb20637732cc0.mp4'
 
