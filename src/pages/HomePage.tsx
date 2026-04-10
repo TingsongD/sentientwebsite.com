@@ -1,68 +1,18 @@
 import { useLayoutEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ChevronRight, Github, Mail, Twitter } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { MarketingHeader } from '../components/MarketingHeader'
 import { SiteFooter } from '../components/SiteFooter'
 import { BOOK_DEMO_URL } from '../constants'
+import { FEATURES, featureSectionId } from '../data/homeFeatures'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
 
 const HERO_VIDEO =
-  'https://cdn.shopify.com/videos/c/o/v/9c76561bb05d4ed9941cb20637732cc0.mp4'
+  'https://cdn.shopify.com/videos/c/o/v/76d9b746e42d4c979f7e3dfadf4cfa25.mp4'
 const ABOUT_VIDEO =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_151551_992053d1-3d3e-4b8c-abac-45f22158f411.mp4'
+  'https://cdn.shopify.com/videos/c/o/v/49df0dfc02a747cfb900cfa8d043f8d5.mp4'
 const CTA_VIDEO =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4'
-
-const FEATURES = [
-  {
-    title: 'Lead qualification',
-    bullets: [
-      'Asks the right questions — company size, use case, timeline.',
-      'Deterministic BANT-lite scoring ensures high-quality meetings.',
-      'Routes enterprise leads to sales and SMBs to automation.',
-    ],
-  },
-  {
-    title: 'Demo booking',
-    bullets: [
-      'Books meetings directly on the sales team’s calendar.',
-      'Native Calendly integration with UUID validation.',
-      'Zero friction: no forms, just a natural conversation.',
-    ],
-  },
-  {
-    title: 'Product Q&A',
-    bullets: [
-      'Answers technical questions from your docs and knowledge base.',
-      'Hybrid search (vector + FTS) ensures high-fidelity results.',
-      'Sub-1.2s TTFT provides a “sentient” response feel.',
-    ],
-  },
-  {
-    title: 'Proactive engagement',
-    bullets: [
-      'Detects high intent (pricing page, return visits).',
-      'Engages at the right moment based on behavioral scores.',
-      'Reduces bounce rate and increases conversion directly.',
-    ],
-  },
-  {
-    title: 'CRM integration (Phase 2)',
-    bullets: [
-      'Creates records in HubSpot or Salesforce automatically.',
-      'Full conversation context synced to the lead record.',
-      'Queue-based retry mechanism ensures zero data loss.',
-    ],
-  },
-  {
-    title: 'Content flywheel',
-    bullets: [
-      'Phase 2: Remotion-powered video generation from your docs.',
-      'Auto-posts hooks to X and LinkedIn to drive traffic.',
-      'Feedback loop: top questions generate new videos.',
-    ],
-  },
-] as const
+  'https://cdn.shopify.com/videos/c/o/v/9c76561bb05d4ed9941cb20637732cc0.mp4'
 
 export default function HomePage() {
   const { pathname, hash } = useLocation()
@@ -140,9 +90,6 @@ export default function HomePage() {
                     Book a demo
                   </a>
                 </div>
-                <p className="font-mono mt-4 text-[12px] uppercase text-cream/50">
-                  No credit card required.
-                </p>
               </div>
             </div>
           </div>
@@ -164,21 +111,22 @@ export default function HomePage() {
 
           <div className="relative z-10 mx-auto max-w-[1831px] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-10 lg:py-24 xl:py-32">
             <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-              <div className="relative shrink-0">
+              <div className="shrink-0">
                 <h2
                   id="phase-heading"
                   className="font-grotesk uppercase leading-none text-cream text-[32px] sm:text-[42px] md:text-[52px] lg:text-[60px]"
                 >
-                  Phase 1
-                  <br />
-                  Is live
+                  <span className="flex flex-nowrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
+                    <span className="block shrink-0">Phase 1</span>
+                    <span
+                      className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1"
+                      aria-hidden
+                    >
+                      Inbound
+                    </span>
+                  </span>
+                  <span className="mt-1 block sm:mt-0">Is live</span>
                 </h2>
-                <p
-                  className="font-condiment pointer-events-none absolute -bottom-2 right-0 translate-x-1/4 -rotate-1 text-[32px] text-neon mix-blend-exclusion sm:text-[44px] md:text-[54px] lg:text-[64px] normal-case"
-                  aria-hidden
-                >
-                  Inbound
-                </p>
               </div>
 
               <p className="font-mono max-w-[min(100%,420px)] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
@@ -189,7 +137,7 @@ export default function HomePage() {
             </div>
 
             <div className="mt-16 flex flex-row justify-between gap-8 lg:mt-24">
-              <div className="flex max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-[#010828] lg:text-cream lg:opacity-10 sm:text-[15px] md:text-[16px]">
+              <div className="flex max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-neon mix-blend-exclusion sm:text-[15px] md:text-[16px]">
                 <p>
                   One agent handles qualification, scheduling, and technical
                   Q&amp;A so revenue teams focus on live conversations.
@@ -199,7 +147,7 @@ export default function HomePage() {
                   leads with sales and SMBs in automated flows.
                 </p>
               </div>
-              <div className="hidden max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-cream opacity-10 sm:text-[15px] md:text-[16px] lg:flex">
+              <div className="hidden max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-neon mix-blend-exclusion sm:text-[15px] md:text-[16px] lg:flex">
                 <p>
                   Hybrid retrieval blends vector search with full-text search for
                   accurate answers from your docs.
@@ -216,7 +164,7 @@ export default function HomePage() {
         {/* Features */}
         <section
           id="features"
-          className="bg-background py-16 sm:py-20 md:py-24 lg:py-28"
+          className="scroll-mt-28 bg-background py-16 sm:py-20 md:py-24 lg:py-28"
           aria-labelledby="features-heading"
         >
           <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
@@ -249,7 +197,8 @@ export default function HomePage() {
               {FEATURES.map((f) => (
                 <article
                   key={f.title}
-                  className="liquid-glass rounded-[32px] p-6 transition hover:bg-white/10 sm:p-8"
+                  id={featureSectionId(f.title)}
+                  className="liquid-glass scroll-mt-28 rounded-[32px] p-6 transition hover:bg-white/10 sm:p-8"
                 >
                   <h3 className="font-grotesk mb-4 text-[20px] uppercase leading-tight text-cream sm:text-[22px]">
                     {f.title}
@@ -278,7 +227,7 @@ export default function HomePage() {
         {/* Solutions */}
         <section
           id="solutions"
-          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20"
           aria-labelledby="solutions-heading"
         >
           <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
@@ -314,39 +263,6 @@ export default function HomePage() {
           />
 
           <div className="pointer-events-none absolute inset-0">
-            <div className="pointer-events-auto absolute left-[8%] bottom-[12%] sm:bottom-[15%] lg:bottom-[20%]">
-              <div className="liquid-glass flex flex-col overflow-hidden rounded-[0.5rem] sm:rounded-[0.75rem] md:rounded-[1rem] lg:rounded-[1.25rem]">
-                <a
-                  href="mailto:hello@sentientwebsite.com"
-                  aria-label="Email"
-                  className="flex h-[14vw] w-[14vw] items-center justify-center border-b border-white/10 text-cream transition hover:bg-white/10 sm:h-[14.375rem] sm:w-[14.375rem] md:h-[10.78125rem] md:w-[10.78125rem] lg:h-[16.77rem] lg:w-[16.77rem]"
-                >
-                  <Mail className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.75} />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="X"
-                  className="flex h-[14vw] w-[14vw] items-center justify-center border-b border-white/10 text-cream transition hover:bg-white/10 sm:h-[14.375rem] sm:w-[14.375rem] md:h-[10.78125rem] md:w-[10.78125rem] lg:h-[16.77rem] lg:w-[16.77rem]"
-                >
-                  <Twitter
-                    className="h-5 w-5 sm:h-6 sm:w-6"
-                    strokeWidth={1.75}
-                  />
-                </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="flex h-[14vw] w-[14vw] items-center justify-center text-cream transition hover:bg-white/10 sm:h-[14.375rem] sm:w-[14.375rem] md:h-[10.78125rem] md:w-[10.78125rem] lg:h-[16.77rem] lg:w-[16.77rem]"
-                >
-                  <Github className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.75} />
-                </a>
-              </div>
-            </div>
-
             <div className="pointer-events-auto absolute top-1/2 right-0 w-full -translate-y-1/2 px-6 text-right sm:px-10 lg:pl-[15%] lg:pr-[20%]">
               <div className="relative ml-auto inline-block max-w-4xl">
                 <p

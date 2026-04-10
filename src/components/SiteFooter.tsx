@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link, type To } from 'react-router-dom'
-import { BOOK_DEMO_URL } from '../constants'
+import { BOOK_DEMO_URL, GITHUB_REPO_URL } from '../constants'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
 import { SocialIconStack } from './SocialIconStack'
 
@@ -23,7 +23,15 @@ const FOOTER_COMPANY: { label: string; to: To }[] = [
   { label: 'Trust & security', to: '/trust' },
 ]
 
-const FOOTER_DEV = ['Blog', 'GitHub', 'Status'] as const
+type FooterDevItem =
+  | { label: string; to: To }
+  | { label: string; href: string; external?: boolean }
+
+const FOOTER_DEV: FooterDevItem[] = [
+  { label: 'Blog', to: '/blog' },
+  { label: 'GitHub', href: GITHUB_REPO_URL, external: true },
+  { label: 'Status', to: '/status' },
+]
 
 function LinkColumn({
   title,
@@ -89,11 +97,23 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
           ))}
         </LinkColumn>
         <LinkColumn title="Developers">
-          {FOOTER_DEV.map((label) => (
-            <li key={label}>
-              <a href="#" className="transition hover:text-neon">
-                {label}
-              </a>
+          {FOOTER_DEV.map((item) => (
+            <li key={item.label}>
+              {'to' in item ? (
+                <Link to={item.to} className="transition hover:text-neon">
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  href={item.href}
+                  className="transition hover:text-neon"
+                  {...(item.external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                >
+                  {item.label}
+                </a>
+              )}
             </li>
           ))}
         </LinkColumn>
@@ -106,12 +126,12 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
           <SocialIconStack />
         </div>
         <div className="flex flex-wrap gap-6 font-mono text-[12px] uppercase text-cream/50">
-          <a href="#" className="transition hover:text-neon">
+          <Link to="/privacy" className="transition hover:text-neon">
             Privacy policy
-          </a>
-          <a href="#" className="transition hover:text-neon">
+          </Link>
+          <Link to="/terms" className="transition hover:text-neon">
             Terms of service
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

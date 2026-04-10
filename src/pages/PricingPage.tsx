@@ -87,15 +87,6 @@ export default function PricingPage() {
           >
             Pricing
           </h1>
-          <p className="font-mono max-w-3xl text-[14px] uppercase leading-relaxed text-cream/75 sm:text-[15px]">
-            Phase 1 agent alone — or the full Phase 2 flywheel. Both priced against labor, not
-            software (per investor deck positioning vs. $20–30K/yr enterprise chat and $25–100/mo
-            reactive bots).
-          </p>
-          <p className="font-mono mt-4 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/55 sm:text-[14px]">
-            Phase 1 ($499/mo): agent only. Phase 2 ($999/mo): agent + video + social — the flywheel
-            compounds.
-          </p>
 
           <div className="mt-12 overflow-x-auto rounded-[24px] liquid-glass">
             <table className="w-full min-w-[640px] border-collapse text-left">
@@ -199,14 +190,10 @@ export default function PricingPage() {
           >
             <h2
               id="shopify-heading"
-              className="font-grotesk mb-2 text-[24px] uppercase text-cream sm:text-[28px]"
+              className="font-grotesk mb-8 text-[24px] uppercase text-cream sm:text-[28px]"
             >
               Shopify App Store
             </h2>
-            <p className="font-mono mb-8 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/60 sm:text-[14px]">
-              Phase 3 distribution channel — same core engine with a commerce adapter (from deck:
-              freemium acquisition + Pro upsell).
-            </p>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="liquid-glass rounded-[24px] p-6 sm:p-8">
                 <h3 className="font-grotesk text-[18px] uppercase text-cream">Free</h3>
@@ -221,7 +208,7 @@ export default function PricingPage() {
               <div className="liquid-glass rounded-[24px] p-6 sm:p-8 ring-1 ring-neon/30">
                 <h3 className="font-grotesk text-[18px] uppercase text-cream">Pro</h3>
                 <p className="font-grotesk mt-2 text-[28px] text-cream sm:text-[32px]">
-                  $49<span className="font-mono text-[14px] uppercase text-cream/50">/month</span>
+                  $499<span className="font-mono text-[14px] uppercase text-cream/50">/month</span>
                 </p>
                 <ul className="font-mono mt-6 space-y-2 text-[12px] uppercase leading-relaxed text-cream/75 sm:text-[13px]">
                   <li className="flex gap-2">
