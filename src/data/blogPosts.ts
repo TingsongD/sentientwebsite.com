@@ -7,7 +7,7 @@ export type BlogPost = {
   body: string[]
 }
 
-export const BLOG_POSTS: Record<string, BlogPost> = {
+export const BLOG_POSTS = {
   'phase-1-live-now': {
     slug: 'phase-1-live-now',
     title: 'Phase 1 live now',
@@ -21,7 +21,7 @@ export const BLOG_POSTS: Record<string, BlogPost> = {
       'We are intentionally narrow in scope for this release. CRM sync, richer content flywheels, and distribution hooks remain on the roadmap; Phase 1 is about proving the core loop on your live site in days, not quarters. If you want to see qualification and booking on your own pages, book a demo — we will walk the snippet install, routing rules, and the playbook for the materials you want the agent to use.',
     ],
   },
-}
+} as const satisfies Record<string, BlogPost>
 
 export type BlogSlug = keyof typeof BLOG_POSTS
 
@@ -33,5 +33,5 @@ export const BLOG_POST_LIST = (Object.keys(BLOG_POSTS) as BlogSlug[]).map((slug)
 })).sort((a, b) => (a.date < b.date ? 1 : -1))
 
 export function isBlogSlug(s: string): s is BlogSlug {
-  return s in BLOG_POSTS
+  return Object.hasOwn(BLOG_POSTS, s)
 }

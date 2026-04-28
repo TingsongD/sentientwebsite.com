@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type RefObject } from 'react'
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { Link, type To, useLocation } from 'react-router-dom'
 import { BOOK_DEMO_URL, OPERATOR_LOGIN_URL } from '../constants'
@@ -19,6 +19,23 @@ const MOBILE_SUBLINK =
   'block w-full py-2.5 pl-4 text-left font-mono text-[12px] uppercase tracking-wide text-cream/75 transition hover:text-neon'
 
 type NavMenuId = 'product' | 'solutions' | 'integrations'
+
+const FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'button:not([disabled])',
+  'summary',
+  'textarea:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',')
+
+function getFocusableElements(root: HTMLElement) {
+  return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter((el) => {
+    const style = window.getComputedStyle(el)
+    return el.tabIndex >= 0 && style.display !== 'none' && style.visibility !== 'hidden'
+  })
+}
 
 function buildProductLinks(): { id: string; label: string; to: To }[] {
   return [
@@ -100,7 +117,6 @@ function PrimaryNavList() {
           id={productBtnId}
           className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
           aria-expanded={openMenu === 'product'}
-          aria-haspopup="true"
           aria-controls={productMenuId}
           onClick={() => toggle('product')}
         >
@@ -113,13 +129,12 @@ function PrimaryNavList() {
         {openMenu === 'product' ? (
           <ul
             id={productMenuId}
-            role="menu"
             aria-labelledby={productBtnId}
             className={DROPDOWN_PANEL}
           >
             {productLinks.map(({ id, label, to }) => (
-              <li key={id} role="presentation">
-                <Link role="menuitem" to={to} className={DROPDOWN_LINK} onClick={close}>
+              <li key={id}>
+                <Link to={to} className={DROPDOWN_LINK} onClick={close}>
                   {label}
                 </Link>
               </li>
@@ -134,7 +149,6 @@ function PrimaryNavList() {
           id={solutionsBtnId}
           className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
           aria-expanded={openMenu === 'solutions'}
-          aria-haspopup="true"
           aria-controls={solutionsMenuId}
           onClick={() => toggle('solutions')}
         >
@@ -147,13 +161,12 @@ function PrimaryNavList() {
         {openMenu === 'solutions' ? (
           <ul
             id={solutionsMenuId}
-            role="menu"
             aria-labelledby={solutionsBtnId}
             className={DROPDOWN_PANEL}
           >
             {solutionLinks.map(({ id, label, to }) => (
-              <li key={id} role="presentation">
-                <Link role="menuitem" to={to} className={DROPDOWN_LINK} onClick={close}>
+              <li key={id}>
+                <Link to={to} className={DROPDOWN_LINK} onClick={close}>
                   {label}
                 </Link>
               </li>
@@ -177,7 +190,6 @@ function PrimaryNavList() {
           id={integrationsBtnId}
           className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
           aria-expanded={openMenu === 'integrations'}
-          aria-haspopup="true"
           aria-controls={integrationsMenuId}
           onClick={() => toggle('integrations')}
         >
@@ -190,13 +202,12 @@ function PrimaryNavList() {
         {openMenu === 'integrations' ? (
           <ul
             id={integrationsMenuId}
-            role="menu"
             aria-labelledby={integrationsBtnId}
             className={DROPDOWN_PANEL}
           >
             {integrationLinks.map(({ id, label, to }) => (
-              <li key={id} role="presentation">
-                <Link role="menuitem" to={to} className={DROPDOWN_LINK} onClick={close}>
+              <li key={id}>
+                <Link to={to} className={DROPDOWN_LINK} onClick={close}>
                   {label}
                 </Link>
               </li>
@@ -212,27 +223,76 @@ function MobileNavPanel({
   open,
   onClose,
   menuId,
+  returnFocusRef,
 }: {
   open: boolean
   onClose: () => void
   menuId: string
+  returnFocusRef: RefObject<HTMLButtonElement | null>
 }) {
   const productLinks = buildProductLinks()
   const solutionLinks = buildSolutionLinks()
   const integrationLinks = buildIntegrationLinks()
+  const panelRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+    const previousOverflow = document.body.style.overflow
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const returnFocusTarget = returnFocusRef.current
+
+    const focusFirstElement = () => {
+      const panel = panelRef.current
+      if (!panel) return
+      const firstFocusable = getFocusableElements(panel)[0]
+      ;(firstFocusable || panel).focus({ preventScroll: true })
     }
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        onClose()
+        return
+      }
+
+      if (e.key !== 'Tab') return
+
+      const panel = panelRef.current
+      if (!panel) return
+      const focusable = getFocusableElements(panel)
+      if (focusable.length === 0) {
+        e.preventDefault()
+        panel.focus({ preventScroll: true })
+        return
+      }
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      const active = document.activeElement
+
+      if (e.shiftKey && active === first) {
+        e.preventDefault()
+        last.focus({ preventScroll: true })
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus({ preventScroll: true })
+      }
+    }
+
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
+    requestAnimationFrame(focusFirstElement)
+
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
+      document.body.style.overflow = previousOverflow
+      const focusTarget = returnFocusTarget || previouslyFocused
+      if (focusTarget && document.contains(focusTarget)) {
+        focusTarget.focus({ preventScroll: true })
+      }
     }
-  }, [open, onClose])
+  }, [open, onClose, returnFocusRef])
 
   if (!open) return null
 
@@ -245,10 +305,13 @@ function MobileNavPanel({
         type="button"
         className="absolute inset-0 bg-background/80 backdrop-blur-sm"
         aria-label="Close menu"
+        tabIndex={-1}
         onClick={onClose}
       />
       <div
         id={menuId}
+        ref={panelRef}
+        tabIndex={-1}
         className="absolute right-0 top-0 flex h-full w-[min(100%,20rem)] flex-col border-l border-white/10 bg-background shadow-2xl"
       >
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-4 pt-[max(1rem,env(safe-area-inset-top))]">
@@ -349,6 +412,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
   const { pathname } = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const mobileMenuId = useId()
+  const mobileButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     // Close drawer on client-side navigation (e.g. browser back).
@@ -411,6 +475,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
 
         <button
           type="button"
+          ref={mobileButtonRef}
           className="col-start-2 row-start-1 mt-4 shrink-0 rounded-xl border border-white/15 bg-white/[0.04] p-2.5 text-cream transition hover:bg-white/10 lg:hidden"
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileOpen}
@@ -433,7 +498,12 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         </div>
       </header>
 
-      <MobileNavPanel open={mobileOpen} onClose={closeMobileMenu} menuId={mobileMenuId} />
+      <MobileNavPanel
+        open={mobileOpen}
+        onClose={closeMobileMenu}
+        menuId={mobileMenuId}
+        returnFocusRef={mobileButtonRef}
+      />
     </>
   )
 }

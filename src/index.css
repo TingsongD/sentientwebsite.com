@@ -45,3 +45,16 @@
   mask-composite: exclude;
   pointer-events: none;
 }
+
+.ambient-video-fallback {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(181, 252, 65, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 72%, rgba(71, 134, 255, 0.16), transparent 32%),
+    linear-gradient(135deg, #010828 0%, #061134 52%, #101014 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-video-fallback {
+    background: linear-gradient(135deg, #010828 0%, #08132d 56%, #0d1d24 100%);
+  }
+}

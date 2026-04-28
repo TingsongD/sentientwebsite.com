@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
 import { ScrollToTop } from './components/ScrollToTop.tsx'
 import './index.css'
@@ -8,11 +9,21 @@ import { loadSentientWidget } from './loadSentientWidget.ts'
 
 loadSentientWidget()
 
-createRoot(document.getElementById('root')!).render(
+const app = (
   <StrictMode>
-    <BrowserRouter>
-      <ScrollToTop />
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
+  </StrictMode>
 )
+
+const root = document.getElementById('root')!
+
+if (root.hasChildNodes()) {
+  hydrateRoot(root, app)
+} else {
+  createRoot(root).render(app)
+}

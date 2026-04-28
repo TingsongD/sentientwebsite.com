@@ -1,6 +1,5 @@
-import { useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ChevronRight } from 'lucide-react'
 import { MarketingHeader } from '../components/MarketingHeader'
 import { SiteFooter } from '../components/SiteFooter'
 import { BOOK_DEMO_URL } from '../constants'
@@ -14,17 +13,103 @@ const ABOUT_VIDEO =
 const CTA_VIDEO =
   'https://cdn.shopify.com/videos/c/o/v/9c76561bb05d4ed9941cb20637732cc0.mp4'
 
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
+
+  useEffect(() => {
+    if (!window.matchMedia) return
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onChange = () => setPrefersReducedMotion(media.matches)
+
+    onChange()
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [])
+
+  return prefersReducedMotion
+}
+
+function AmbientVideo({
+  src,
+  className,
+  videoClassName = 'h-full w-full object-cover',
+  poster,
+  reducedMotion,
+}: {
+  src: string
+  className: string
+  videoClassName?: string
+  poster?: string
+  reducedMotion: boolean
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [clientReady, setClientReady] = useState(false)
+  const [canPlay, setCanPlay] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const shouldRenderVideo = clientReady && !reducedMotion && !hasError
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- keep video URLs out of SSR/hydration markup
+    setClientReady(true)
+  }, [])
+
+  useEffect(() => {
+    if (!shouldRenderVideo) return
+    const video = videoRef.current
+    if (!video) return
+
+    let cancelled = false
+    void video.play().catch(() => {
+      if (!cancelled) setHasError(true)
+    })
+
+    return () => {
+      cancelled = true
+      video.pause()
+    }
+  }, [shouldRenderVideo])
+
+  const showVideo = canPlay && shouldRenderVideo
+
+  return (
+    <div className={className} aria-hidden>
+      <div className="ambient-video-fallback absolute inset-0" />
+      {shouldRenderVideo ? (
+        <video
+          ref={videoRef}
+          className={`${videoClassName} relative z-10 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'}`}
+          src={src}
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={poster}
+          data-ambient-video
+          onCanPlay={() => setCanPlay(true)}
+          onError={() => setHasError(true)}
+        />
+      ) : null}
+    </div>
+  )
+}
+
 export default function HomePage() {
   const { pathname, hash } = useLocation()
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   useLayoutEffect(() => {
     if (pathname !== '/' || !hash) return
     const id = hash.replace(/^#/, '')
     const el = document.getElementById(id)
     if (!el) return
-    const top = el.getBoundingClientRect().top + window.scrollY
-    window.scrollTo({ top, left: 0, behavior: 'smooth' })
-  }, [pathname, hash])
+    el.scrollIntoView({
+      block: 'start',
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    })
+  }, [pathname, hash, prefersReducedMotion])
 
   return (
     <>
@@ -41,13 +126,10 @@ export default function HomePage() {
           className="relative min-h-screen overflow-hidden rounded-b-[32px] bg-background"
           aria-labelledby="hero-heading"
         >
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
+          <AmbientVideo
+            className="absolute inset-0 h-full w-full overflow-hidden"
             src={HERO_VIDEO}
-            autoPlay
-            loop
-            muted
-            playsInline
+            reducedMotion={prefersReducedMotion}
           />
 
           <div className="relative z-10 flex min-h-screen flex-col">
@@ -76,7 +158,9 @@ export default function HomePage() {
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <a
-                    href="#"
+                    href={BOOK_DEMO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="liquid-glass rounded-full px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[14px]"
                   >
                     Start pilot
@@ -100,13 +184,10 @@ export default function HomePage() {
           className="relative min-h-screen overflow-hidden bg-background"
           aria-labelledby="phase-heading"
         >
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
+          <AmbientVideo
+            className="absolute inset-0 h-full w-full overflow-hidden"
             src={ABOUT_VIDEO}
-            autoPlay
-            loop
-            muted
-            playsInline
+            reducedMotion={prefersReducedMotion}
           />
 
           <div className="relative z-10 mx-auto max-w-[1831px] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-10 lg:py-24 xl:py-32">
@@ -210,14 +291,6 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
-                  <button
-                    type="button"
-                    className="mt-6 flex items-center gap-2 font-grotesk text-[12px] uppercase tracking-wide text-neon transition hover:brightness-125"
-                    aria-label={`Learn more about ${f.title}`}
-                  >
-                    Learn more
-                    <ChevronRight className="h-4 w-4" strokeWidth={2} />
-                  </button>
                 </article>
               ))}
             </div>
@@ -253,13 +326,10 @@ export default function HomePage() {
 
         {/* CTA video + closing */}
         <section className="relative w-full bg-background" aria-labelledby="cta-heading">
-          <video
-            className="block h-auto w-full"
+          <AmbientVideo
+            className="relative block aspect-video w-full overflow-hidden"
             src={CTA_VIDEO}
-            autoPlay
-            loop
-            muted
-            playsInline
+            reducedMotion={prefersReducedMotion}
           />
 
           <div className="pointer-events-none absolute inset-0">
@@ -291,7 +361,9 @@ export default function HomePage() {
                       Book a demo
                     </a>
                     <a
-                      href="#"
+                      href={BOOK_DEMO_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="liquid-glass inline-block rounded-full px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:px-8 sm:text-[13px]"
                     >
                       Get started

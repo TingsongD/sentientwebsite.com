@@ -14,14 +14,14 @@ ENV NEXT_PUBLIC_SENTIENT_INSTALL_KEY=$NEXT_PUBLIC_SENTIENT_INSTALL_KEY
 
 RUN npm run build
 
-# Serve SPA (Render sets PORT)
+# Serve prerendered routes with the route-aware Node server (Render sets PORT)
 FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-RUN npm install -g serve@14
 
 COPY --from=builder /app/dist ./dist
+COPY server.mjs ./server.mjs
 
 EXPOSE 3000
-CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:${PORT:-3000}"]
+CMD ["node", "server.mjs"]

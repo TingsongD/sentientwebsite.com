@@ -1,4 +1,5 @@
-import { Github, Mail, Twitter } from 'lucide-react'
+import { Github, Mail } from 'lucide-react'
+import { GITHUB_REPO_URL } from '../constants'
 
 export function SocialIconStack({ className = '' }: { className?: string }) {
   const iconClass = 'h-5 w-5 text-cream'
@@ -10,16 +11,7 @@ export function SocialIconStack({ className = '' }: { className?: string }) {
         <Mail className={iconClass} strokeWidth={1.75} />
       </a>
       <a
-        href="https://x.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={btnClass}
-        aria-label="SentientWeb on X"
-      >
-        <Twitter className={iconClass} strokeWidth={1.75} />
-      </a>
-      <a
-        href="https://github.com"
+        href={GITHUB_REPO_URL}
         target="_blank"
         rel="noopener noreferrer"
         className={btnClass}

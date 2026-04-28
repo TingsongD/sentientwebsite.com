@@ -5,7 +5,7 @@ import { BOOK_DEMO_URL } from '../constants'
 import { SOLUTION_PAGES, type SolutionSlug } from '../data/solutionPagesContent'
 
 function isSolutionSlug(s: string): s is SolutionSlug {
-  return s in SOLUTION_PAGES
+  return Object.hasOwn(SOLUTION_PAGES, s)
 }
 
 export default function SolutionIndustryPage() {

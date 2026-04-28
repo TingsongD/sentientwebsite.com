@@ -4,7 +4,7 @@ import { BOOK_DEMO_URL } from '../constants'
 import { INTEGRATION_PAGES, type IntegrationSlug } from '../data/integrationPagesContent'
 
 function isIntegrationSlug(s: string): s is IntegrationSlug {
-  return s in INTEGRATION_PAGES
+  return Object.hasOwn(INTEGRATION_PAGES, s)
 }
 
 export default function IntegrationPage() {
