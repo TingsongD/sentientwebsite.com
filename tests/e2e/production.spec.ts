@@ -61,7 +61,7 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
   expect(pricingSchema).toMatchObject({
     '@type': 'WebPage',
     url: 'https://sentientwebsite.com/pricing',
-    name: 'Pricing | SentientWeb',
+    name: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
   })
 
   const blogResponse = await request.get('/blog/phase-1-live-now')
@@ -79,7 +79,11 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
 
 test('known routes return prerendered route-specific metadata', async ({ request }) => {
   const cases = [
-    ['/pricing', '<title>Pricing | SentientWeb</title>'],
+    ['/pricing', '<title>SentientWeb Pricing | Pay Only for Recovered Revenue</title>'],
+    ['/pricing/product', '<title>Product Track Pricing | SentientWeb</title>'],
+    ['/pricing/service', '<title>Service Track Pricing | SentientWeb</title>'],
+    ['/pricing/calculator', '<title>Revenue Recovery Calculator | SentientWeb</title>'],
+    ['/pricing/enterprise', '<title>Enterprise Pricing | SentientWeb</title>'],
     ['/blog/phase-1-live-now', '<title>Phase 1 live now | SentientWeb</title>'],
     ['/integrations/wordpress', '<title>WordPress Integration | SentientWeb</title>'],
     [
@@ -144,6 +148,26 @@ test('pricing responses include hardened security headers', async ({ request }) 
   expect(headers['content-security-policy']).toContain("object-src 'none'")
 })
 
+test('pricing deep links return 200 and appear in sitemap', async ({ request }) => {
+  const pricingPaths = [
+    '/pricing',
+    '/pricing/product',
+    '/pricing/service',
+    '/pricing/calculator',
+    '/pricing/enterprise',
+  ]
+
+  for (const path of pricingPaths) {
+    const response = await request.get(path)
+    expect(response.status(), path).toBe(200)
+  }
+
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  for (const path of pricingPaths) {
+    expect(sitemap).toContain(`https://sentientwebsite.com${path}`)
+  }
+})
+
 test('invalid dynamic slugs redirect before serving app HTML', async ({ request }) => {
   const cases = [
     ['/blog/toString', '/blog'],
@@ -202,6 +226,37 @@ test('solutions dropdown exposes new verticals only', async ({ page }) => {
   await expect(nav.getByRole('link', { name: 'Financial Services' })).toBeVisible()
   await expect(nav.getByRole('link', { name: 'Car dealerships' })).toHaveCount(0)
   await expect(nav.getByRole('link', { name: 'Legal services' })).toHaveCount(0)
+})
+
+test('pricing track selector highlights selected tracks and dims the other card', async ({ page }) => {
+  await page.goto('/pricing/product')
+
+  const productButton = page.getByRole('button', { name: 'I sell products online' })
+  const serviceButton = page.getByRole('button', { name: 'I book appointments' })
+  await expect(productButton).toHaveAttribute('aria-pressed', 'true')
+  await expect(serviceButton).toHaveAttribute('aria-pressed', 'false')
+
+  await expect(page.getByTestId('pricing-card-product')).toHaveCSS('opacity', '1')
+  await expect(page.getByTestId('pricing-card-service')).toHaveCSS('opacity', '0.6')
+
+  await serviceButton.click()
+  await expect(serviceButton).toHaveAttribute('aria-pressed', 'true')
+  await expect(page.getByTestId('pricing-card-product')).toHaveCSS('opacity', '0.6')
+  await expect(page.getByTestId('pricing-card-service')).toHaveCSS('opacity', '1')
+})
+
+test('pricing calculator updates estimates and CTAs use Calendly', async ({ page }) => {
+  await page.goto('/pricing/calculator')
+
+  await expect(page.getByTestId('calculator-recovered-revenue')).toHaveText('$52,500')
+  await page.locator('#product-aov').selectOption('250')
+  await expect(page.getByTestId('calculator-recovered-revenue')).toHaveText('$131,250')
+
+  await page.getByRole('button', { name: 'Service estimate' }).click()
+  await expect(page.getByTestId('calculator-recovered-revenue')).toHaveText('$75,000')
+
+  const cta = page.getByRole('link', { name: 'Start Free Pilot' }).first()
+  await expect(cta).toHaveAttribute('href', 'https://calendly.com/tingsong-dai/30min')
 })
 
 test('homepage and solution pages render new positioning and trust disclosure', async ({ page }) => {

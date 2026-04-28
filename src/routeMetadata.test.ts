@@ -12,6 +12,7 @@ import {
 import { BLOG_POSTS } from './data/blogPosts'
 import { FEATURES } from './data/homeFeatures'
 import { INTEGRATION_PAGES } from './data/integrationPagesContent'
+import { PRICING_META, PRICING_ROUTE_PATHS, TIER_TABLES, TRACKS } from './data/pricingStrategy'
 import { SOLUTION_NAV_LIST, SOLUTION_PAGES } from './data/solutionPagesContent'
 
 const FORBIDDEN_PUBLIC_TERMS = [
@@ -29,6 +30,15 @@ const FORBIDDEN_PUBLIC_TERMS = [
   /\bintelligent\b/i,
   /\bautonomous\b/i,
   /\bbehavioral analysis\b/i,
+  /\bsubscription\b/i,
+  /\busage-based\b/i,
+  /\bauto-renew\b/i,
+  /\boverage\b/i,
+  /\bsetup fee\b/i,
+  /\bsetup fees\b/i,
+  /\bper-seat\b/i,
+  /\bcontract\b/i,
+  /\bcheap\b/i,
 ]
 
 function collectStrings(value: unknown): string[] {
@@ -44,6 +54,10 @@ describe('route metadata manifest', () => {
   it('normalizes trailing slashes and recognizes known routes', () => {
     expect(normalizePathname('/pricing/')).toBe('/pricing')
     expect(isKnownRoutePath('/pricing/')).toBe(true)
+    expect(isKnownRoutePath('/pricing/product')).toBe(true)
+    expect(isKnownRoutePath('/pricing/service')).toBe(true)
+    expect(isKnownRoutePath('/pricing/calculator')).toBe(true)
+    expect(isKnownRoutePath('/pricing/enterprise')).toBe(true)
     expect(isKnownRoutePath('/blog/phase-1-live-now')).toBe(true)
     expect(isKnownRoutePath('/solutions/saas')).toBe(true)
     expect(isKnownRoutePath('/unknown-path')).toBe(false)
@@ -51,10 +65,21 @@ describe('route metadata manifest', () => {
 
   it('returns route-specific metadata for known pages', () => {
     expect(getPageMeta('/pricing')).toMatchObject({
-      title: 'Pricing',
+      title: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
       canonicalPath: '/pricing',
+      absoluteTitle: true,
     })
     expect(getPageMeta('/pricing').noindex).toBeUndefined()
+
+    expect(getPageMeta('/pricing/product')).toMatchObject({
+      title: 'Product Track Pricing',
+      canonicalPath: '/pricing/product',
+    })
+
+    expect(getPageMeta('/pricing/service')).toMatchObject({
+      title: 'Service Track Pricing',
+      canonicalPath: '/pricing/service',
+    })
 
     expect(getPageMeta('/blog/phase-1-live-now')).toMatchObject({
       title: 'Phase 1 live now',
@@ -93,6 +118,9 @@ describe('route metadata manifest', () => {
     expect(SOLUTION_NAV_LIST).toHaveLength(10)
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/legal')
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/financial-services')
+    for (const path of PRICING_ROUTE_PATHS) {
+      expect(KNOWN_ROUTE_PATHS).toContain(path)
+    }
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/legal-services')
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/car-dealerships')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/wordpress')
@@ -111,7 +139,7 @@ describe('route metadata manifest', () => {
     expect(getRouteStructuredData('/pricing')).toMatchObject({
       '@type': 'WebPage',
       url: 'https://sentientwebsite.com/pricing',
-      name: 'Pricing | SentientWeb',
+      name: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
     })
 
     expect(getRouteStructuredData('/blog/phase-1-live-now')).toMatchObject({
@@ -153,6 +181,9 @@ describe('route metadata manifest', () => {
       ...collectStrings(SOLUTION_PAGES),
       ...collectStrings(FEATURES),
       ...collectStrings(INTEGRATION_PAGES),
+      ...collectStrings(PRICING_META),
+      ...collectStrings(TRACKS),
+      ...collectStrings(TIER_TABLES),
       ...collectStrings(BLOG_POSTS),
       ...KNOWN_ROUTE_PATHS.flatMap((path) => {
         const meta = getPageMeta(path)

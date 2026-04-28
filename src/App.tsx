@@ -28,6 +28,10 @@ export default function App({ includeMeta = true }: { includeMeta?: boolean }) {
         <Route path="/terms" element={<TermsOfServicePage />} />
         <Route path="/integrations/:slug" element={<IntegrationPage />} />
         <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/pricing/product" element={<PricingPage />} />
+        <Route path="/pricing/service" element={<PricingPage />} />
+        <Route path="/pricing/calculator" element={<PricingPage />} />
+        <Route path="/pricing/enterprise" element={<PricingPage />} />
         <Route path="/solutions/:slug" element={<SolutionIndustryPage />} />
         <Route path="/knowledge-base" element={<ComingSoonPage title="Knowledge base" />} />
         <Route path="/apis-sdks" element={<ComingSoonPage title="APIs & SDKs" />} />

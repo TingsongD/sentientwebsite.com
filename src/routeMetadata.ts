@@ -8,6 +8,7 @@ import {
 } from './constants'
 import { BLOG_POSTS, type BlogSlug } from './data/blogPosts'
 import { INTEGRATION_PAGES, type IntegrationSlug } from './data/integrationPagesContent'
+import { PRICING_META } from './data/pricingStrategy'
 import {
   LEGACY_SOLUTION_REDIRECTS,
   SOLUTION_PAGES,
@@ -37,12 +38,7 @@ const STATIC_META = {
     canonicalPath: '/',
     absoluteTitle: true,
   },
-  '/pricing': {
-    title: 'Pricing',
-    description:
-      'SentientWeb pricing for revenue recovery paths, vertical playbooks, secure handoff, and high-intent website demand.',
-    canonicalPath: '/pricing',
-  },
+  ...PRICING_META,
   '/blog': {
     title: 'Blog',
     description: 'Product updates and revenue recovery thinking from the SentientWeb team.',
