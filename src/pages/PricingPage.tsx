@@ -7,15 +7,15 @@ import { BOOK_DEMO_URL } from '../constants'
 type Cell = boolean | 'text'
 
 const B2B_ROWS: { label: string; starter: Cell; growth: Cell; enterprise: Cell }[] = [
-  { label: 'Monthly conversations', starter: 'text', growth: 'text', enterprise: 'text' },
+  { label: 'Monthly recovered paths', starter: 'text', growth: 'text', enterprise: 'text' },
   { label: 'CRM integration (HubSpot, Salesforce)', starter: true, growth: true, enterprise: true },
-  { label: 'Knowledge base Q&A', starter: true, growth: true, enterprise: true },
-  { label: 'Lead qualification', starter: true, growth: true, enterprise: true },
-  { label: 'Calendly demo booking', starter: true, growth: true, enterprise: true },
-  { label: 'AI video generation (Remotion)', starter: false, growth: true, enterprise: true },
+  { label: 'Approved-source responses', starter: true, growth: true, enterprise: true },
+  { label: 'Revenue opportunity capture', starter: true, growth: true, enterprise: true },
+  { label: 'Calendar-ready next steps', starter: true, growth: true, enterprise: true },
+  { label: 'AI video generation', starter: false, growth: true, enterprise: true },
   { label: 'Auto-post to X + LinkedIn', starter: false, growth: true, enterprise: true },
-  { label: 'Advanced proactive triggers', starter: false, growth: true, enterprise: true },
-  { label: 'Attribution (content → visit → demo)', starter: false, growth: true, enterprise: true },
+  { label: 'Advanced intent prompts', starter: false, growth: true, enterprise: true },
+  { label: 'Attribution (content to visit to access)', starter: false, growth: true, enterprise: true },
   { label: 'Custom integrations', starter: false, growth: false, enterprise: true },
   { label: 'Dedicated onboarding', starter: false, growth: false, enterprise: true },
   { label: 'SLA guarantee', starter: false, growth: false, enterprise: true },
@@ -24,9 +24,9 @@ const B2B_ROWS: { label: string; starter: Cell; growth: Cell; enterprise: Cell }
 ]
 
 const B2B_TEXT: Record<'starter' | 'growth' | 'enterprise', Record<string, string>> = {
-  starter: { 'Monthly conversations': '1,000 / mo' },
-  growth: { 'Monthly conversations': 'Unlimited' },
-  enterprise: { 'Monthly conversations': 'Unlimited' },
+  starter: { 'Monthly recovered paths': '1,000 / mo' },
+  growth: { 'Monthly recovered paths': 'Unlimited' },
+  enterprise: { 'Monthly recovered paths': 'Unlimited' },
 }
 
 function PlanCell({
@@ -79,7 +79,7 @@ export default function PricingPage() {
           aria-labelledby="pricing-heading"
         >
           <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-            SentientWeb · B2B SaaS
+            SentientWeb / Revenue recovery
           </p>
           <h1
             id="pricing-heading"
@@ -91,7 +91,7 @@ export default function PricingPage() {
           <div className="mt-12 overflow-x-auto rounded-[24px] liquid-glass">
             <table className="w-full min-w-[640px] border-collapse text-left">
               <caption className="sr-only">
-                B2B SaaS plans: Starter, Growth, and Enterprise feature comparison
+                Revenue recovery plans: Starter, Growth, and Enterprise feature comparison
               </caption>
               <thead>
                 <tr>
@@ -151,13 +151,13 @@ export default function PricingPage() {
                     Phase focus
                   </td>
                   <td className="border-b border-white/10 px-4 py-3 text-center font-mono text-[11px] uppercase leading-snug text-cream/70 sm:px-5 sm:text-[12px]">
-                    Phase 1 — inbound agent
+                    Revenue leak recovery
                   </td>
                   <td className="border-b border-neon/30 bg-neon/5 px-4 py-3 text-center font-mono text-[11px] uppercase leading-snug text-cream/70 sm:px-5 sm:text-[12px]">
-                    Phase 2 — agent + video + social
+                    Recovery + video + social
                   </td>
                   <td className="border-b border-white/10 px-4 py-3 text-center font-mono text-[11px] uppercase leading-snug text-cream/70 sm:px-5 sm:text-[12px]">
-                    Phase 2 + enterprise rollout
+                    Enterprise recovery rollout
                   </td>
                 </tr>
               </thead>
@@ -192,7 +192,7 @@ export default function PricingPage() {
               id="shopify-heading"
               className="font-grotesk mb-8 text-[24px] uppercase text-cream sm:text-[28px]"
             >
-              Shopify App Store
+              Commerce recovery
             </h2>
             <div className="grid gap-6 md:grid-cols-2">
               <div className="liquid-glass rounded-[24px] p-6 sm:p-8">
@@ -201,7 +201,7 @@ export default function PricingPage() {
                 <ul className="font-mono mt-6 space-y-2 text-[12px] uppercase leading-relaxed text-cream/75 sm:text-[13px]">
                   <li className="flex gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-neon" aria-hidden />
-                    Up to 100 conversations / month
+                    Up to 100 recovered paths / month
                   </li>
                 </ul>
               </div>
@@ -213,11 +213,11 @@ export default function PricingPage() {
                 <ul className="font-mono mt-6 space-y-2 text-[12px] uppercase leading-relaxed text-cream/75 sm:text-[13px]">
                   <li className="flex gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-neon" aria-hidden />
-                    Unlimited conversations
+                    Unlimited recovered paths
                   </li>
                   <li className="flex gap-2">
                     <Check className="mt-0.5 h-4 w-4 shrink-0 text-neon" aria-hidden />
-                    Proactive triggers
+                    Intent-based prompts
                   </li>
                 </ul>
               </div>
@@ -231,7 +231,7 @@ export default function PricingPage() {
               rel="noopener noreferrer"
               className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
             >
-              Book a demo
+              Get instant access
             </a>
             <Link
               to="/"

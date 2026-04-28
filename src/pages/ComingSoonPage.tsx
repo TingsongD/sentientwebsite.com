@@ -21,8 +21,8 @@ export default function ComingSoonPage({ title }: { title: string }) {
           Coming soon
         </p>
         <p className="font-mono mt-6 text-[15px] normal-case leading-relaxed text-cream/80 sm:text-[16px]">
-          We are actively building this part of the platform. Check back shortly, or book a demo
-          if you would like early access or to discuss your use case with our team.
+          We are actively building this part of the platform. Check back shortly, or request
+          instant access if you would like to discuss your use case with our team.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link

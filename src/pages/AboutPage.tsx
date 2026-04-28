@@ -7,70 +7,44 @@ export default function AboutPage() {
     <MarketingPageLayout>
       <article className="mx-auto max-w-[800px] px-4 py-16 sm:px-6 sm:py-20 md:py-24">
         <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-          Company · About
+          Company / About
         </p>
         <h1 className="font-grotesk text-[34px] uppercase leading-[1.08] text-cream sm:text-[44px] md:text-[52px]">
-          How we empower the sentient web age
+          We fix the revenue leaks hiding inside websites
         </h1>
         <p className="font-mono mt-6 text-[14px] uppercase leading-relaxed text-cream/55 sm:text-[15px]">
-          Our mission statement
+          Digital plumbers for modern revenue teams
         </p>
 
         <div className="mt-12 space-y-8 font-mono text-[15px] normal-case leading-[1.75] text-cream/85 sm:text-[16px]">
           <p className="text-[17px] font-medium leading-snug text-cream sm:text-[18px]">
-            The web was built for pages. The next era belongs to{' '}
-            <span className="text-neon">presence</span>—systems that perceive intent, respond with
-            judgment, and take action on your behalf. We call that the{' '}
-            <strong className="font-semibold text-cream">sentient web</strong>: not science fiction,
-            but a practical layer of intelligence sitting on top of the sites and stacks you already
-            own.
+            SentientWeb exists because most websites leak revenue at the exact moment visitors are
+            ready to move. Forms wait. Teams sleep. Buyers hesitate. A competitor responds first.
           </p>
 
           <p>
-            For too long, meaningful automation was gated behind enterprise price tags and
-            quarter-long implementations, while everyone else got decorative chat bubbles that could
-            not book a meeting, update a CRM, or cite a real document. That split left millions of
-            businesses stuck between “too expensive to qualify” and “too shallow to trust.”
-            SentientWeb exists to close that gap.
+            We build AI-guided recovery paths that meet visitors with instant access, approved-source
+            next steps, and a clear route to human support. The goal is not to replace judgment. The
+            goal is to keep valuable intent alive until the right person can take over.
           </p>
 
           <p>
-            Our mission is to{' '}
-            <strong className="font-medium text-cream">
-              empower every serious B2B team with an autonomous website agent
-            </strong>
-            —one that qualifies visitors with structure, books time on real calendars, answers
-            product questions from knowledge you control, and engages when behavioral signals show
-            someone is ready to move. We believe those capabilities should be available on a sensible
-            monthly footprint, live in days not quarters, and integrate with the tools revenue teams
-            already run on.
+            The same system adapts across verticals: SaaS demo requests, home service estimates,
+            insurance quotes, carts, patient access, enrollments, direct bookings, property matches,
+            legal intake, and rate estimates. Each path is built around the revenue leak that market
+            actually feels.
           </p>
 
           <p>
-            “Sentient” here does not mean pretending to be human or replacing your judgment. It
-            means the surface you present to the world is{' '}
-            <strong className="font-medium text-cream">continuously attentive</strong>: watching for
-            intent, routing enterprise opportunities differently from self-serve paths, and
-            preserving full context when a conversation escalates to your people. The website stops
-            being a brochure and becomes part of your go-to-market engine.
+            Trust matters because these moments often include sensitive context. SentientWeb keeps
+            human support available, uses end-to-end encryption, and keeps zero data retention as a
+            core product principle.
           </p>
 
           <p>
-            We are building toward a platform-agnostic core—one engine, many adapters—so the same
-            ideas apply whether you sell software, professional services, hospitality, or
-            commerce. The sentient web age is not about any single channel; it is about{' '}
-            <strong className="font-medium text-cream">
-              reliable, accountable automation wherever your customers find you
-            </strong>
-            .
-          </p>
-
-          <p>
-            If that resonates, we would love to show you what live qualification and booking feel
-            like on your own site—and to work with you as we extend the product toward richer
-            content, attribution, and distribution. The sentient web is not a destination on a
-            roadmap; it is the standard we believe buyers will expect. Our job is to put it within
-            reach.
+            We are building for teams that want practical revenue recovery, not another dashboard to
+            manage. If your site already attracts demand, our job is to help more of that demand
+            reach the next step.
           </p>
         </div>
 
@@ -81,7 +55,7 @@ export default function AboutPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a demo
+            Get instant access
           </a>
           <Link
             to="/pricing"

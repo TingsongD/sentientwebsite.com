@@ -71,6 +71,10 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
     headline: 'Phase 1 live now',
     datePublished: '2026-04-10',
   })
+
+  const solutionResponse = await request.get('/solutions/saas')
+  const solutionSchema = readJsonLd(await solutionResponse.text())
+  expect(schemaTypes(solutionSchema)).toEqual(expect.arrayContaining(['WebPage', 'Service']))
 })
 
 test('known routes return prerendered route-specific metadata', async ({ request }) => {
@@ -78,7 +82,18 @@ test('known routes return prerendered route-specific metadata', async ({ request
     ['/pricing', '<title>Pricing | SentientWeb</title>'],
     ['/blog/phase-1-live-now', '<title>Phase 1 live now | SentientWeb</title>'],
     ['/integrations/wordpress', '<title>WordPress Integration | SentientWeb</title>'],
-    ['/solutions/legal-services', '<title>Legal services | SentientWeb</title>'],
+    [
+      '/solutions/saas',
+      '<title>Instant Demo Recovery for B2B SaaS | SentientWeb</title>',
+    ],
+    [
+      '/solutions/home-services',
+      '<title>Instant Estimate Recovery for Home Services | SentientWeb</title>',
+    ],
+    [
+      '/solutions/financial-services',
+      '<title>Rate Response Recovery for Lenders | SentientWeb</title>',
+    ],
   ] as const
 
   for (const [path, title] of cases) {
@@ -133,6 +148,14 @@ test('invalid dynamic slugs redirect before serving app HTML', async ({ request 
   const cases = [
     ['/blog/toString', '/blog'],
     ['/integrations/toString', '/'],
+    ['/solutions/b2b-saas', '/solutions/saas'],
+    ['/solutions/insurance-agencies', '/solutions/insurance'],
+    ['/solutions/luxury-ecommerce', '/solutions/ecommerce'],
+    ['/solutions/healthcare-clinics', '/solutions/healthcare'],
+    ['/solutions/education-edtech', '/solutions/edtech'],
+    ['/solutions/hotel-hospitality', '/solutions/hospitality'],
+    ['/solutions/legal-services', '/solutions/legal'],
+    ['/solutions/car-dealerships', '/#solutions'],
     ['/solutions/toString', '/#solutions'],
   ] as const
 
@@ -142,6 +165,56 @@ test('invalid dynamic slugs redirect before serving app HTML', async ({ request 
     expect(response.status(), path).toBe(302)
     expect(response.headers().location).toBe(location)
   }
+})
+
+test('new vertical pages return 200 and retired pages stay out of sitemap', async ({ request }) => {
+  const verticals = [
+    'saas',
+    'home-services',
+    'insurance',
+    'ecommerce',
+    'healthcare',
+    'edtech',
+    'hospitality',
+    'real-estate',
+    'legal',
+    'financial-services',
+  ]
+
+  for (const slug of verticals) {
+    const response = await request.get(`/solutions/${slug}`)
+    expect(response.status(), slug).toBe(200)
+  }
+
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  expect(sitemap).toContain('https://sentientwebsite.com/solutions/saas')
+  expect(sitemap).toContain('https://sentientwebsite.com/solutions/financial-services')
+  expect(sitemap).not.toContain('/solutions/b2b-saas')
+  expect(sitemap).not.toContain('/solutions/car-dealerships')
+})
+
+test('solutions dropdown exposes new verticals only', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Solutions' }).click()
+
+  const nav = page.getByRole('navigation', { name: 'Primary' }).first()
+  await expect(nav.getByRole('link', { name: 'B2B SaaS' })).toBeVisible()
+  await expect(nav.getByRole('link', { name: 'Financial Services' })).toBeVisible()
+  await expect(nav.getByRole('link', { name: 'Car dealerships' })).toHaveCount(0)
+  await expect(nav.getByRole('link', { name: 'Legal services' })).toHaveCount(0)
+})
+
+test('homepage and solution pages render new positioning and trust disclosure', async ({ page }) => {
+  await page.goto('/')
+  await expect(
+    page.getByRole('heading', { name: 'We are digital plumbers for your revenue leaks.' }),
+  ).toBeVisible()
+
+  await page.goto('/solutions/saas')
+  await expect(page.getByRole('heading', { name: 'We fix the leaks in your demo pipeline' })).toBeVisible()
+  await expect(page.getByText('Powered by AI').first()).toBeVisible()
+  await expect(page.getByText('Zero data retention').first()).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Transparent by design' })).toBeVisible()
 })
 
 test('home hash navigation respects section scroll margins', async ({ page }) => {

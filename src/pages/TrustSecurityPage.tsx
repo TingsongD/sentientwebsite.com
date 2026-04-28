@@ -13,7 +13,7 @@ export default function TrustSecurityPage() {
           Trust &amp; security
         </h1>
         <p className="font-mono mt-6 border-l-2 border-neon/50 pl-4 text-[13px] uppercase leading-relaxed text-cream/65 sm:text-[14px]">
-          SentientWeb is designed for teams that handle sensitive business conversations and
+          SentientWeb is designed for teams that handle sensitive business requests and
           customer data. We treat security and compliance as product requirements, not an
           afterthought.
         </p>
@@ -51,7 +51,7 @@ export default function TrustSecurityPage() {
               Data handling &amp; infrastructure
             </h2>
             <p>
-              Customer content processed through SentientWeb—including conversation transcripts,
+              Customer content processed through SentientWeb, including request transcripts,
               configuration, and knowledge sources you connect—is handled with contracts and
               technical controls appropriate to a B2B SaaS provider. We use modern encryption for data
               in transit, protect data at rest with industry-standard mechanisms, and limit internal
@@ -113,7 +113,7 @@ export default function TrustSecurityPage() {
               >
                 hello@sentientwebsite.com
               </a>
-              . We are happy to engage with procurement and InfoSec teams as we move through audit
+              . We are happy to work with procurement and InfoSec teams as we move through audit
               readiness.
             </p>
           </section>
@@ -132,7 +132,7 @@ export default function TrustSecurityPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a demo
+            Get instant access
           </a>
           <Link
             to="/"

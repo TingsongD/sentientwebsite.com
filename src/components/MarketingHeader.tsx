@@ -391,7 +391,7 @@ function MobileNavPanel({
               rel="noopener noreferrer"
               className="liquid-glass rounded-full px-4 py-3 text-center font-grotesk text-[12px] uppercase tracking-wide text-cream"
             >
-              Sign up
+              Start now
             </a>
             <a
               href={BOOK_DEMO_URL}
@@ -399,7 +399,7 @@ function MobileNavPanel({
               rel="noopener noreferrer"
               className="rounded-full bg-neon px-4 py-3 text-center font-grotesk text-[12px] uppercase tracking-wide text-background"
             >
-              Get a demo
+              Get instant access
             </a>
           </div>
         </nav>
@@ -445,7 +445,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         rel="noopener noreferrer"
         className="liquid-glass rounded-full px-4 py-2 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:bg-white/10 xl:px-5 xl:text-[13px]"
       >
-        Sign up
+        Start now
       </a>
       <a
         href={BOOK_DEMO_URL}
@@ -453,7 +453,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         rel="noopener noreferrer"
         className="rounded-full bg-neon px-4 py-2 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 xl:px-5 xl:text-[13px]"
       >
-        Get a demo
+        Get instant access
       </a>
     </div>
   )

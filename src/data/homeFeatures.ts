@@ -1,51 +1,51 @@
-/** Home page features grid — shared with nav Product dropdown anchor ids. */
+/** Home page feature grid, shared with the Product dropdown anchor ids. */
 export const FEATURES = [
   {
-    title: 'Lead qualification',
+    title: 'Revenue leak detection',
     bullets: [
-      'Asks the right questions — company size, use case, timeline.',
-      'Deterministic BANT-lite scoring ensures high-quality meetings.',
-      'Routes enterprise leads to sales and SMBs to automation.',
+      'Reads high-intent site signals before visitors disappear.',
+      'Surfaces the exact next step for each buyer path.',
+      'Turns stalled sessions into recoverable revenue moments.',
     ],
   },
   {
-    title: 'Demo booking',
+    title: 'Instant access paths',
     bullets: [
-      'Books meetings directly on the sales team’s calendar.',
-      'Native Calendly integration with UUID validation.',
-      'Zero friction: no forms, just a natural conversation.',
+      'Guides visitors to estimates, demos, quotes, or bookings.',
+      'Keeps momentum without long forms or delayed replies.',
+      'Routes complex needs to a human with context attached.',
     ],
   },
   {
-    title: 'Product Q&A',
+    title: 'Approved-source responses',
     bullets: [
-      'Answers technical questions from your docs and knowledge base.',
-      'Hybrid search (vector + FTS) ensures high-fidelity results.',
-      'Sub-1.2s TTFT provides a “sentient” response feel.',
+      'Uses your docs, policies, and product material as source content.',
+      'Delivers personalized next steps without unsupported claims.',
+      'Keeps teams aligned on what visitors see before handoff.',
     ],
   },
   {
-    title: 'Proactive engagement',
+    title: 'Zero-miss coverage',
     bullets: [
-      'Detects high intent (pricing page, return visits).',
-      'Engages at the right moment based on behavioral scores.',
-      'Reduces bounce rate and increases conversion directly.',
+      'Covers after-hours demand, seasonal spikes, and return visits.',
+      'Protects peak traffic without adding another intake shift.',
+      'Keeps humans focused on the highest-value moments.',
     ],
   },
   {
-    title: 'CRM integration (Phase 2)',
+    title: 'Secure handoff',
     bullets: [
-      'Creates records in HubSpot or Salesforce automatically.',
-      'Full conversation context synced to the lead record.',
-      'Queue-based retry mechanism ensures zero data loss.',
+      'Human support stays available when a visitor asks for it.',
+      'End-to-end encryption protects sensitive request paths.',
+      'Zero data retention keeps the recovery flow lean.',
     ],
   },
   {
-    title: 'Content flywheel',
+    title: 'Vertical playbooks',
     bullets: [
-      'Phase 2: Remotion-powered video generation from your docs.',
-      'Auto-posts hooks to X and LinkedIn to drive traffic.',
-      'Feedback loop: top questions generate new videos.',
+      'Tailored paths for SaaS, services, insurance, commerce, and more.',
+      'Market-specific CTAs match how each buyer wants to move.',
+      'One revenue recovery system adapts across your site.',
     ],
   },
 ] as const

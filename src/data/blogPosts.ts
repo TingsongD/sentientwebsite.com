@@ -14,11 +14,11 @@ export const BLOG_POSTS = {
     date: '2026-04-10',
     eyebrow: 'Product · Launch',
     excerpt:
-      'Inbound lead qualification, Calendly-backed demo booking, and knowledge-grounded Q&A are live — the same autonomous engine we have been building toward, shipping as a focused first chapter.',
+      'Revenue leak recovery is live: instant access paths, approved-source responses, and calendar-ready next steps for high-intent website visitors.',
     body: [
-      'Today we are calling Phase 1 live: the slice of SentientWeb that turns anonymous website traffic into qualified pipeline without another SDR round-robin or a brittle form wall. If you run a serious B2B site, you already know the gap — static copy and “book a demo” buttons do not negotiate timeline, budget, or fit. Phase 1 is our answer: an agent that asks the right questions, books real time on your calendar when thresholds are met, and cites the docs you approve when visitors ask product questions.',
-      'Under the hood, Phase 1 combines structured qualification (BANT-lite scoring with deterministic routing), native Calendly integration so meetings land where your team already works, and hybrid retrieval over your knowledge base so answers stay grounded instead of generic. Behavioral signals — pricing revisits, repeat sessions, depth in the funnel — feed proactive engagement so the agent shows up when intent is high, not only when someone hunts for a chat widget.',
-      'We are intentionally narrow in scope for this release. CRM sync, richer content flywheels, and distribution hooks remain on the roadmap; Phase 1 is about proving the core loop on your live site in days, not quarters. If you want to see qualification and booking on your own pages, book a demo — we will walk the snippet install, routing rules, and the playbook for the materials you want the agent to use.',
+      'Today we are calling Phase 1 live: the slice of SentientWeb that turns anonymous website traffic into recovered revenue opportunities without another brittle form wall. If you run a serious B2B site, you already know the gap: static copy and delayed response paths do not handle timeline, budget, or fit. Phase 1 is our answer: AI-guided next steps that schedule time when thresholds are met and cite the docs you approve.',
+      'Under the hood, Phase 1 combines structured intake, deterministic routing, native calendar integration, and hybrid retrieval over your knowledge base so responses stay grounded instead of generic. Pricing revisits, repeat sessions, and funnel depth help the system detect intent when visitors are closest to action.',
+      'We are intentionally narrow in scope for this release. CRM sync, richer content flywheels, and distribution hooks remain on the roadmap; Phase 1 is about proving the core loop on your live site in days, not quarters. If you want to see revenue recovery on your own pages, request instant access and we will walk through install, routing rules, and the playbook for the materials you want SentientWeb to use.',
     ],
   },
 } as const satisfies Record<string, BlogPost>

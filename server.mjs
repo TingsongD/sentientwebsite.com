@@ -6,6 +6,7 @@ const distDir = resolve('dist')
 const manifestPath = join(distDir, 'routes-manifest.json')
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
 const knownRoutes = new Set(manifest.knownRoutes)
+const legacyRedirects = manifest.legacyRedirects || {}
 const notFoundRoute = manifest.notFoundPath || '/404'
 const port = Number(getArgValue('--port') || process.env.PORT || 3000)
 const hostname = process.env.HOST || '0.0.0.0'
@@ -66,6 +67,7 @@ const contentTypes = {
   '.svg': 'image/svg+xml',
   '.txt': 'text/plain; charset=utf-8',
   '.webp': 'image/webp',
+  '.xml': 'application/xml; charset=utf-8',
 }
 
 function getArgValue(name) {
@@ -133,6 +135,7 @@ function isDeniedPublicPath(pathname) {
 function invalidDynamicRedirect(pathname) {
   const path = normalizePathname(pathname)
 
+  if (Object.hasOwn(legacyRedirects, path)) return legacyRedirects[path]
   if (path.startsWith('/blog/') && !knownRoutes.has(path)) return '/blog'
   if (path.startsWith('/integrations/') && !knownRoutes.has(path)) return '/'
   if (path.startsWith('/solutions/') && !knownRoutes.has(path)) return '/#solutions'

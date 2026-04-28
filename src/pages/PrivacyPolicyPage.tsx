@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
             <ul className="mt-4 list-inside list-disc space-y-2 marker:text-neon">
               <li>
                 <strong className="font-medium text-cream">Contact and account data</strong> — such
-                as name, email, company, and messages you send when you request a demo or contact us.
+                as name, email, company, and messages you send when you request access or contact us.
               </li>
               <li>
                 <strong className="font-medium text-cream">Usage and technical data</strong> — such
@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
             <p>We use information to:</p>
             <ul className="mt-4 list-inside list-disc space-y-2 marker:text-neon">
               <li>Provide, operate, and improve our website and services;</li>
-              <li>Respond to inquiries and schedule demos;</li>
+              <li>Respond to inquiries and schedule access sessions;</li>
               <li>Analyze usage and performance in aggregate;</li>
               <li>Comply with law and protect our rights and users’ safety.</li>
             </ul>

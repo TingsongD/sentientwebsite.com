@@ -8,7 +8,11 @@ import {
 } from './constants'
 import { BLOG_POSTS, type BlogSlug } from './data/blogPosts'
 import { INTEGRATION_PAGES, type IntegrationSlug } from './data/integrationPagesContent'
-import { SOLUTION_PAGES, type SolutionSlug } from './data/solutionPagesContent'
+import {
+  LEGACY_SOLUTION_REDIRECTS,
+  SOLUTION_PAGES,
+  type SolutionSlug,
+} from './data/solutionPagesContent'
 
 export type PageMetaData = {
   title: string
@@ -36,12 +40,12 @@ const STATIC_META = {
   '/pricing': {
     title: 'Pricing',
     description:
-      'SentientWeb pricing for B2B SaaS teams, Shopify app users, and enterprise rollouts.',
+      'SentientWeb pricing for revenue recovery paths, vertical playbooks, secure handoff, and high-intent website demand.',
     canonicalPath: '/pricing',
   },
   '/blog': {
     title: 'Blog',
-    description: 'Product updates, launch notes, and thinking from the SentientWeb team.',
+    description: 'Product updates and revenue recovery thinking from the SentientWeb team.',
     canonicalPath: '/blog',
   },
   '/privacy': {
@@ -56,12 +60,12 @@ const STATIC_META = {
   },
   '/trust': {
     title: 'Trust and Security',
-    description: 'SentientWeb security, privacy, access, and compliance practices.',
+    description: 'SentientWeb security, privacy, access, and compliance practices for sensitive revenue recovery paths.',
     canonicalPath: '/trust',
   },
   '/about': {
     title: 'About',
-    description: 'How SentientWeb is building autonomous website agents for serious B2B teams.',
+    description: 'How SentientWeb fixes website revenue leaks with instant access paths and human handoff.',
     canonicalPath: '/about',
   },
   '/careers': {
@@ -110,6 +114,13 @@ export const SOLUTION_ROUTE_PATHS = (Object.keys(SOLUTION_PAGES) as SolutionSlug
   (slug) => `/solutions/${slug}`,
 )
 
+export const LEGACY_ROUTE_REDIRECTS = Object.fromEntries(
+  Object.entries(LEGACY_SOLUTION_REDIRECTS).map(([slug, destination]) => [
+    `/solutions/${slug}`,
+    destination,
+  ]),
+) as Record<string, string>
+
 export const KNOWN_ROUTE_PATHS = [
   ...STATIC_ROUTE_PATHS,
   ...BLOG_ROUTE_PATHS,
@@ -134,6 +145,7 @@ export function isKnownRoutePath(pathname: string) {
 export function getInvalidDynamicRedirect(pathname: string) {
   const path = normalizePathname(pathname)
 
+  if (Object.hasOwn(LEGACY_ROUTE_REDIRECTS, path)) return LEGACY_ROUTE_REDIRECTS[path]
   if (path.startsWith('/blog/') && !isKnownRoutePath(path)) return '/blog'
   if (path.startsWith('/integrations/') && !isKnownRoutePath(path)) return '/'
   if (path.startsWith('/solutions/') && !isKnownRoutePath(path)) return '/#solutions'
@@ -170,8 +182,8 @@ export function getPageMeta(pathname: string): PageMetaData {
   if (hasOwn(SOLUTION_PAGES, solutionSlug)) {
     const page = SOLUTION_PAGES[solutionSlug]
     return {
-      title: page.navLabel,
-      description: page.hero.deckHook,
+      title: page.metaTitle,
+      description: page.metaDescription,
       canonicalPath: path,
     }
   }
@@ -212,7 +224,7 @@ function organizationSchema(): StructuredData {
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE_URL,
     description:
-      'B2B SaaS platform for autonomous website agents: inbound lead qualification, demo booking, product Q&A, and proactive engagement.',
+      'SentientWeb fixes website revenue leaks with instant access paths, secure AI-guided next steps, human handoff, and zero data retention.',
   }
 }
 
@@ -223,7 +235,7 @@ function websiteSchema(): StructuredData {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'The Autonomous Website Agent - platform-agnostic AI for lead qualification, demo booking, and on-site engagement.',
+      'Digital plumbers for your revenue leaks: instant access paths for high-intent website visitors.',
     publisher: { '@id': ORGANIZATION_ID },
     inLanguage: 'en-US',
   }
@@ -237,7 +249,7 @@ function softwareApplicationSchema(): StructuredData {
     operatingSystem: 'Web',
     offers: {
       '@type': 'Offer',
-      description: 'Start pilot.',
+      description: 'Get instant access.',
     },
   }
 }
@@ -294,6 +306,30 @@ export function getRouteStructuredData(pathname: string): StructuredData {
       author: { '@id': ORGANIZATION_ID },
       publisher: organizationSchema(),
       inLanguage: 'en-US',
+    }
+  }
+
+  const solutionSlug = path.match(/^\/solutions\/([^/]+)$/)?.[1] || ''
+  if (hasOwn(SOLUTION_PAGES, solutionSlug)) {
+    const page = SOLUTION_PAGES[solutionSlug]
+    const url = getCanonicalUrl(path)
+    const webPage = webPageSchema(meta)
+
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        webPage,
+        {
+          '@type': 'Service',
+          '@id': `${url}#service`,
+          name: page.metaTitle,
+          description: page.metaDescription,
+          provider: { '@id': ORGANIZATION_ID },
+          areaServed: page.marketLabel,
+          serviceType: 'Website revenue recovery',
+          url,
+        },
+      ],
     }
   }
 

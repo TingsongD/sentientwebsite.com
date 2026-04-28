@@ -14,8 +14,8 @@ const SYSTEMS: { name: string; detail: string; status: 'operational' }[] = [
     status: 'operational',
   },
   {
-    name: 'Agent API & widget delivery',
-    detail: 'Core conversational services',
+    name: 'Response API and delivery',
+    detail: 'Core instant access services',
     status: 'operational',
   },
 ]

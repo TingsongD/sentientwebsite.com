@@ -56,7 +56,7 @@ export default function BlogPostPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a demo
+            Get instant access
           </a>
           <Link
             to="/blog"

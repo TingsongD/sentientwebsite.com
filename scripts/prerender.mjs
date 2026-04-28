@@ -9,9 +9,10 @@ const templatePath = resolve(distDir, 'index.html')
 const ssrEntryPath = resolve(ssrDir, 'entry-server.js')
 
 const template = await readFile(templatePath, 'utf8')
-const { render, KNOWN_ROUTE_PATHS, NOT_FOUND_PATH } = await import(
+const { render, KNOWN_ROUTE_PATHS, LEGACY_ROUTE_REDIRECTS, NOT_FOUND_PATH } = await import(
   pathToFileURL(ssrEntryPath).href
 )
+const siteUrl = 'https://sentientwebsite.com/'
 
 const headPattern =
   /<!--app-head-start-->[\s\S]*?<!--app-head-end-->/
@@ -61,9 +62,20 @@ await writeFile(
   JSON.stringify(
     {
       knownRoutes: KNOWN_ROUTE_PATHS,
+      legacyRedirects: LEGACY_ROUTE_REDIRECTS,
       notFoundPath: NOT_FOUND_PATH,
     },
     null,
     2,
   ),
+)
+
+const sitemapEntries = KNOWN_ROUTE_PATHS.map((route) => {
+  const loc = new URL(route, siteUrl).toString()
+  return `  <url><loc>${loc}</loc></url>`
+}).join('\n')
+
+await writeFile(
+  resolve(distDir, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`,
 )

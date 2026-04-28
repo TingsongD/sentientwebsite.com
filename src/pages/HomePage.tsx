@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { MarketingHeader } from '../components/MarketingHeader'
 import { SiteFooter } from '../components/SiteFooter'
+import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
 import { FEATURES, featureSectionId } from '../data/homeFeatures'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
@@ -138,23 +139,23 @@ export default function HomePage() {
             <div className="mx-auto flex w-full max-w-[1831px] flex-1 flex-col justify-center px-4 pb-16 pt-10 sm:px-6 md:px-8 lg:px-10 lg:pb-24">
               <div className="relative max-w-[880px] lg:ml-16 xl:ml-32">
                 <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                  Sentient×B2B SaaS
+                  SentientWeb revenue recovery
                 </p>
                 <p className="font-mono mb-6 max-w-xl text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
-                  Introducing Phase 1: inbound lead qualification & demo booking
+                  Instant access paths for the revenue moments your website leaks today
                 </p>
                 <h1
                   id="hero-heading"
                   className="font-grotesk uppercase leading-[1.05] text-cream sm:leading-none text-[40px] sm:text-[56px] md:text-[72px] lg:text-[84px]"
                 >
-                  The autonomous website agent.
+                  We are digital plumbers for your revenue leaks.
                 </h1>
                 <p className="font-condiment pointer-events-none absolute -right-1 top-[42%] z-10 -translate-y-1/2 -rotate-1 text-[22px] text-neon opacity-90 mix-blend-exclusion sm:text-[28px] md:top-[48%] md:text-[36px] lg:right-[-8%] lg:text-[44px] normal-case">
-                  Always on
+                  Leak sealed
                 </p>
                 <p className="font-mono mt-8 max-w-[540px] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
-                  Platform-agnostic AI that qualifies leads, books demos, answers
-                  questions, and takes action — 24/7.
+                  AI-guided next steps that capture revenue opportunities, deliver instant
+                  response paths, and hand off to humans when it matters.
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <a
@@ -163,7 +164,7 @@ export default function HomePage() {
                     rel="noopener noreferrer"
                     className="liquid-glass rounded-full px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[14px]"
                   >
-                    Start pilot
+                    Start recovery
                   </a>
                   <a
                     href={BOOK_DEMO_URL}
@@ -171,9 +172,10 @@ export default function HomePage() {
                     rel="noopener noreferrer"
                     className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                   >
-                    Book a demo
+                    Get instant access
                   </a>
                 </div>
+                <TrustStrip className="mt-8 max-w-[880px]" />
               </div>
             </div>
           </div>
@@ -198,44 +200,43 @@ export default function HomePage() {
                   className="font-grotesk uppercase leading-none text-cream text-[32px] sm:text-[42px] md:text-[52px] lg:text-[60px]"
                 >
                   <span className="flex flex-nowrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
-                    <span className="block shrink-0">Phase 1</span>
+                    <span className="block shrink-0">Revenue</span>
                     <span
                       className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1"
                       aria-hidden
                     >
-                      Inbound
+                      Leaks
                     </span>
                   </span>
-                  <span className="mt-1 block sm:mt-0">Is live</span>
+                  <span className="mt-1 block sm:mt-0">Get fixed</span>
                 </h2>
               </div>
 
               <p className="font-mono max-w-[min(100%,420px)] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
-                Qualify visitors with BANT-lite scoring, book demos on your
-                calendar, and answer product questions from your knowledge base —
-                without adding headcount.
+                Turn stalled form starts, abandoned carts, slow replies, and after-hours
+                demand into instant next steps without adding intake headcount.
               </p>
             </div>
 
             <div className="mt-16 flex flex-row justify-between gap-8 lg:mt-24">
               <div className="flex max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-neon mix-blend-exclusion sm:text-[15px] md:text-[16px]">
                 <p>
-                  One agent handles qualification, scheduling, and technical
-                  Q&amp;A so revenue teams focus on live conversations.
+                  One revenue recovery system detects intent, delivers approved-source
+                  guidance, and opens the right path before the visitor disappears.
                 </p>
                 <p>
-                  Native integrations and deterministic routing keep enterprise
-                  leads with sales and SMBs in automated flows.
+                  Human support stays available, so complex or sensitive requests move
+                  to your team with context already attached.
                 </p>
               </div>
               <div className="hidden max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-neon mix-blend-exclusion sm:text-[15px] md:text-[16px] lg:flex">
                 <p>
-                  Hybrid retrieval blends vector search with full-text search for
-                  accurate answers from your docs.
+                  End-to-end encryption and zero data retention are built into the
+                  response path from the first interaction.
                 </p>
                 <p>
-                  Behavioral signals trigger outreach when intent is highest —
-                  pricing pages, repeat sessions, and funnel depth.
+                  Vertical playbooks adapt the same system to SaaS, services, insurance,
+                  commerce, healthcare, education, hospitality, real estate, legal, and finance.
                 </p>
               </div>
             </div>
@@ -253,24 +254,24 @@ export default function HomePage() {
               id="features-heading"
               className="font-grotesk mb-10 text-[32px] uppercase leading-none text-cream sm:mb-12 sm:text-[42px] md:text-[52px] lg:mb-16 lg:text-[60px]"
             >
-              Features
+              Revenue recovery system
             </h2>
 
             <div
               className="liquid-glass mb-12 rounded-[24px] p-6 font-mono text-[12px] uppercase leading-relaxed text-cream sm:p-8 sm:text-[13px] lg:mb-16"
               role="region"
-              aria-label="Example qualification transcript"
+              aria-label="Example revenue recovery event"
             >
-              <p className="text-neon">Bant score: 0.98</p>
+              <p className="text-neon">Leak signal: high intent</p>
               <p className="mt-2 text-neon">Intent: high</p>
               <p className="mt-4 text-cream/70">
-                &gt; Qualifying lead: Enterprise...
+                &gt; Visitor hesitated on pricing...
               </p>
               <p className="text-cream/70">
-                &gt; Score threshold met (0.95+)
+                &gt; Approved-source next step delivered
               </p>
               <p className="text-cream/70">
-                &gt; Booking demo on sales calendar...
+                &gt; Human support path prepared
               </p>
             </div>
 
@@ -311,13 +312,23 @@ export default function HomePage() {
               Solutions
             </h2>
             <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
-              Industry adapters and playbooks so the same engine fits legal,
-              hospitality, automotive, insurance, and more.
+              Ten vertical playbooks for the highest-value revenue leaks: demo requests,
+              emergency estimates, quotes, carts, bookings, applications, showings, intake,
+              and rate response.
             </p>
-            <div className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-[12px] uppercase text-cream/55 sm:text-[13px]">
-              {SOLUTION_NAV_LIST.map(({ slug, navLabel }) => (
-                <Link key={slug} to={`/solutions/${slug}`} className="transition hover:text-neon">
-                  {navLabel}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {SOLUTION_NAV_LIST.map(({ slug, navLabel, marketLabel }) => (
+                <Link
+                  key={slug}
+                  to={`/solutions/${slug}`}
+                  className="liquid-glass rounded-[20px] p-5 transition hover:bg-white/10"
+                >
+                  <span className="font-grotesk block text-[14px] uppercase tracking-wide text-cream">
+                    {navLabel}
+                  </span>
+                  <span className="font-mono mt-2 block text-[11px] uppercase leading-relaxed text-cream/55">
+                    {marketLabel}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -346,10 +357,10 @@ export default function HomePage() {
                   className="font-grotesk uppercase leading-tight text-cream text-[18px] sm:text-[32px] md:text-[44px] lg:text-[52px] xl:text-[60px]"
                 >
                   <span className="mb-4 block sm:mb-6 md:mb-8 lg:mb-10">
-                    Many adapters.
+                    Ten leak repair paths.
                   </span>
                   <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
-                    Book a demo · Get started
+                    Get instant access / start recovery
                   </span>
                   <span className="flex flex-wrap justify-end gap-4">
                     <a
@@ -358,7 +369,7 @@ export default function HomePage() {
                       rel="noopener noreferrer"
                       className="inline-block rounded-full bg-neon px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-background transition hover:brightness-110 sm:px-8 sm:text-[13px]"
                     >
-                      Book a demo
+                      Get instant access
                     </a>
                     <a
                       href={BOOK_DEMO_URL}
@@ -366,7 +377,7 @@ export default function HomePage() {
                       rel="noopener noreferrer"
                       className="liquid-glass inline-block rounded-full px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:px-8 sm:text-[13px]"
                     >
-                      Get started
+                      Start recovery
                     </a>
                   </span>
                 </h2>

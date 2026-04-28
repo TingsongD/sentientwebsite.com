@@ -25,7 +25,7 @@ export default function BlogIndexPage() {
           Blog
         </h1>
         <p className="font-mono mt-6 max-w-xl text-[14px] uppercase leading-relaxed text-cream/65 sm:text-[15px]">
-          Product updates, launch notes, and how we think about the sentient web.
+          Product updates, launch notes, and thinking on website revenue recovery.
         </p>
 
         <ul className="mt-14 space-y-12 border-t border-white/10 pt-12">

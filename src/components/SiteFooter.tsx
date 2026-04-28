@@ -9,7 +9,7 @@ type FooterProductItem =
   | { label: string; to: To }
 
 const FOOTER_PRODUCT: FooterProductItem[] = [
-  { label: 'Demo booking', calendly: true },
+  { label: 'Instant access', calendly: true },
   { label: 'Knowledge base', to: '/knowledge-base' },
   { label: 'APIs & SDKs', to: '/apis-sdks' },
   { label: 'Documentation', to: '/documentation' },
