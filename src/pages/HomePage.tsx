@@ -7,8 +7,6 @@ import { BOOK_DEMO_URL } from '../constants'
 import { FEATURES, featureSectionId } from '../data/homeFeatures'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
 
-const HERO_VIDEO =
-  'https://cdn.shopify.com/videos/c/o/v/76d9b746e42d4c979f7e3dfadf4cfa25.mp4'
 const ABOUT_VIDEO =
   'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
 const CTA_VIDEO =
@@ -127,11 +125,7 @@ export default function HomePage() {
           className="relative min-h-screen overflow-hidden rounded-b-[32px] bg-background"
           aria-labelledby="hero-heading"
         >
-          <AmbientVideo
-            className="absolute inset-0 h-full w-full overflow-hidden"
-            src={HERO_VIDEO}
-            reducedMotion={prefersReducedMotion}
-          />
+          <div className="ambient-video-fallback absolute inset-0 h-full w-full" aria-hidden />
 
           <div className="relative z-10 flex min-h-screen flex-col">
             <MarketingHeader layout="hero" />
