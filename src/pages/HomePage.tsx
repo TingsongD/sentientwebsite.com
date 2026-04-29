@@ -136,7 +136,7 @@ export default function HomePage() {
                   SentientWeb revenue recovery
                 </p>
                 <p className="font-mono mb-6 max-w-xl text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
-                  Instant access paths for the revenue moments your website leaks today
+                  24/7 auto revenue recovery. One click starts chasing past lost leads.
                 </p>
                 <h1
                   id="hero-heading"
