@@ -16,6 +16,7 @@ const sentientWidgetOrigin = normalizeOrigin(
     process.env.NEXT_PUBLIC_SENTIENT_WIDGET_ORIGIN ||
     '',
 )
+const sentientWidgetWebSocketOrigin = toWebSocketOrigin(sentientWidgetOrigin)
 
 function normalizeOrigin(value) {
   if (!value) return null
@@ -26,8 +27,27 @@ function normalizeOrigin(value) {
   }
 }
 
+function toWebSocketOrigin(origin) {
+  if (!origin) return null
+  try {
+    const url = new URL(origin)
+    if (url.protocol === 'https:') return `wss://${url.host}`
+    if (url.protocol === 'http:') return `ws://${url.host}`
+  } catch {
+    return null
+  }
+  return null
+}
+
 function buildContentSecurityPolicy() {
   const widgetSources = sentientWidgetOrigin ? ` ${sentientWidgetOrigin}` : ''
+  const widgetConnectSources = [
+    sentientWidgetOrigin,
+    sentientWidgetWebSocketOrigin,
+  ]
+    .filter(Boolean)
+    .map((source) => ` ${source}`)
+    .join('')
 
   return [
     "default-src 'self'",
@@ -36,11 +56,12 @@ function buildContentSecurityPolicy() {
     "frame-ancestors 'none'",
     "form-action 'self'",
     `script-src 'self' 'unsafe-inline'${widgetSources}`,
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com${widgetSources}`,
     "font-src 'self' https://fonts.gstatic.com",
-    `connect-src 'self'${widgetSources}`,
-    "img-src 'self' data: https://cdn.shopify.com",
-    "media-src 'self' https://cdn.shopify.com",
+    `connect-src 'self'${widgetConnectSources}`,
+    `img-src 'self' data: blob: https://cdn.shopify.com${widgetSources}`,
+    `media-src 'self' blob: https://cdn.shopify.com${widgetSources}`,
+    "worker-src 'self' blob:",
     "frame-src https://calendly.com",
   ].join('; ')
 }

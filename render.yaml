@@ -15,3 +15,12 @@ services:
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /
+    envVars:
+      - key: VITE_SENTIENT_WIDGET_ORIGIN
+        value: https://app.sentientwebsite.com
+      - key: NEXT_PUBLIC_SENTIENT_WIDGET_ORIGIN
+        value: https://app.sentientwebsite.com
+      - key: VITE_SENTIENT_INSTALL_KEY
+        sync: false
+      - key: NEXT_PUBLIC_SENTIENT_INSTALL_KEY
+        sync: false
