@@ -202,38 +202,12 @@ export default function HomePage() {
                       Leaks
                     </span>
                   </span>
-                  <span className="mt-1 block sm:mt-0">Get fixed</span>
+                  <span className="mt-1 block sm:mt-0">Turn into</span>
+                  <span className="mt-1 block sm:mt-0">Black holes</span>
                 </h2>
               </div>
-
-              <p className="font-mono max-w-[min(100%,420px)] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
-                Turn stalled form starts, abandoned carts, slow replies, and after-hours
-                demand into instant next steps without adding intake headcount.
-              </p>
             </div>
 
-            <div className="mt-16 flex flex-row justify-between gap-8 lg:mt-24">
-              <div className="flex max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-neon mix-blend-exclusion sm:text-[15px] md:text-[16px]">
-                <p>
-                  One revenue recovery system detects intent, delivers approved-source
-                  guidance, and opens the right path before the visitor disappears.
-                </p>
-                <p>
-                  Human support stays available, so complex or sensitive requests move
-                  to your team with context already attached.
-                </p>
-              </div>
-              <div className="hidden max-w-md flex-col gap-6 font-mono text-[14px] uppercase leading-relaxed text-neon mix-blend-exclusion sm:text-[15px] md:text-[16px] lg:flex">
-                <p>
-                  End-to-end encryption and zero data retention are built into the
-                  response path from the first interaction.
-                </p>
-                <p>
-                  Vertical playbooks adapt the same system to SaaS, services, insurance,
-                  commerce, healthcare, education, hospitality, real estate, legal, and finance.
-                </p>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -244,6 +218,10 @@ export default function HomePage() {
           aria-labelledby="features-heading"
         >
           <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
+              Patch leaks today. Let SentientWeb chase back past lost revenue from the leads your
+              funnel already let slip.
+            </p>
             <h2
               id="features-heading"
               className="font-grotesk mb-10 text-[32px] uppercase leading-none text-cream sm:mb-12 sm:text-[42px] md:text-[52px] lg:mb-16 lg:text-[60px]"
@@ -309,6 +287,10 @@ export default function HomePage() {
               Ten vertical playbooks for the highest-value revenue leaks: demo requests,
               emergency estimates, quotes, carts, bookings, applications, showings, intake,
               and rate response.
+            </p>
+            <p className="font-condiment mb-10 max-w-3xl text-[22px] normal-case leading-tight text-neon sm:text-[28px] md:text-[34px]">
+              Stalled demand becomes instant next steps, detects intent, opens the right path,
+              and hands off to humans with full context.
             </p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
               {SOLUTION_NAV_LIST.map(({ slug, navLabel, marketLabel }) => (

@@ -264,6 +264,7 @@ function StageSection({
   eyebrow,
   title,
   body,
+  subtotalLabel,
   subtotal,
   widthClass,
   children,
@@ -272,6 +273,7 @@ function StageSection({
   eyebrow: string
   title: string
   body: string
+  subtotalLabel: string
   subtotal: number
   widthClass: string
   children: ReactNode
@@ -281,7 +283,7 @@ function StageSection({
       <div className="mx-auto max-w-[1831px]">
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[780px]">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+            <p className="font-grotesk mb-4 text-[38px] uppercase leading-none text-neon sm:text-[58px] md:text-[76px]">
               {eyebrow}
             </p>
             <h2 className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px]">
@@ -292,11 +294,11 @@ function StageSection({
             </p>
           </div>
           <div className="border-y border-neon/30 py-4 lg:min-w-[280px] lg:text-right">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-cream/50">
-              Section subtotal
-            </p>
-            <p className="font-grotesk mt-1 text-[32px] leading-none text-neon sm:text-[40px]">
-              {formatCurrency(subtotal)}
+            <h2 className="font-grotesk text-[22px] uppercase leading-tight text-cream sm:text-[28px]">
+              {subtotalLabel}
+            </h2>
+            <p className="font-grotesk mt-2 text-[32px] leading-none text-[#FF8A8A] sm:text-[40px]">
+              {formatCurrency(subtotal)}/MO
             </p>
           </div>
         </div>
@@ -319,9 +321,10 @@ function FunnelOverview({ totalMonthlyLeak }: { totalMonthlyLeak: number }) {
               Find the holes from first touch to final sale
             </h2>
           </div>
-          <p className="font-mono text-[12px] uppercase tracking-wide text-cream/55">
-            Current leak: <span className="text-[#ff8a8a]">{formatCurrency(totalMonthlyLeak)}/mo</span>
-          </p>
+          <h2 className="font-grotesk text-[24px] uppercase leading-tight text-cream sm:text-[30px]">
+            Current leak:{' '}
+            <span className="text-[#FF8A8A]">{formatCurrency(totalMonthlyLeak)}/MO</span>
+          </h2>
         </div>
         <ol className="grid gap-3 lg:grid-cols-4">
           {FUNNEL_SEGMENTS.map((segment, index) => (
@@ -380,15 +383,15 @@ function GrandTotal({
     >
       <div className="liquid-glass rounded-[28px] p-7 text-center sm:p-10">
         <CircleDollarSign className="mx-auto h-10 w-10 text-neon" aria-hidden />
-        <p className="font-mono mt-5 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-          Here is what silence is costing you
-        </p>
         <h2
           id="grand-total-heading"
-          className="font-grotesk mt-3 text-[38px] uppercase leading-none text-cream sm:text-[58px]"
+          className="font-grotesk mt-5 text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
         >
-          {formatCurrency(totalMonthlyLeak)}/month
+          Here is what silence is costing you
         </h2>
+        <p className="font-grotesk mt-3 text-[38px] uppercase leading-none text-[#FF8A8A] sm:text-[58px]">
+          {formatCurrency(totalMonthlyLeak)}/month
+        </p>
         <div className="mx-auto mt-8 grid max-w-[780px] gap-4 sm:grid-cols-3">
           <div className="border-y border-white/10 py-4">
             <p className="font-mono text-[10px] uppercase tracking-widest text-cream/45">
@@ -469,7 +472,7 @@ function FixesTable() {
               <tr key={leak}>
                 <th
                   scope="row"
-                  className="border-b border-white/10 px-5 py-4 font-grotesk text-[13px] uppercase text-cream"
+                  className="border-b border-white/10 px-5 py-4 font-mono text-[14px] font-normal uppercase tracking-wide text-[#FF8A8A] sm:text-[15px]"
                 >
                   {leak}
                 </th>
@@ -612,6 +615,7 @@ export default function RevenueLeakCalculatorPage() {
           eyebrow="Top of funnel"
           title="They are finding you. But you are ignoring them."
           body="Public signals create trust before anyone reaches your site. Missed replies, dead social threads, and unattended reviews tell prospects to move on."
+          subtotalLabel="Top of funnel revenue leaks"
           subtotal={calculations.awareness.subtotal}
           widthClass="mx-auto max-w-[1831px]"
         >
@@ -779,6 +783,7 @@ export default function RevenueLeakCalculatorPage() {
           eyebrow="Middle of funnel"
           title="They are interested. But no one is there to help."
           body="Inquiry paths only work when someone answers fast, captures contact details, and keeps momentum while the buyer is active."
+          subtotalLabel="Middle of funnel revenue leaks"
           subtotal={calculations.engagement.subtotal}
           widthClass="mx-auto max-w-[1650px]"
         >
@@ -1041,6 +1046,7 @@ export default function RevenueLeakCalculatorPage() {
           eyebrow="Bottom of funnel"
           title="They are ready to buy. But you let them walk away."
           body="This is the hottest demand in the funnel: carts, checkout starts, and scheduled meetings that need immediate rescue."
+          subtotalLabel="Bottom of funnel revenue leaks"
           subtotal={calculations.conversion.subtotal}
           widthClass="mx-auto max-w-[1450px]"
         >
