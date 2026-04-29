@@ -556,11 +556,10 @@ export default function HomePage() {
                   className="font-grotesk uppercase leading-tight text-cream text-[18px] sm:text-[32px] md:text-[44px] lg:text-[52px] xl:text-[60px]"
                 >
                   <span className="mb-4 block text-[14px] sm:mb-6 sm:text-[20px] md:mb-8 md:text-[26px] lg:mb-10 lg:text-[30px] xl:text-[34px]">
-                    Runs up to 20 leak repair services 24/7 for you.
+                    Runs up to 20 revenue recovery channels 24/7.
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
-                    Your P&amp;L should not be holding its breath. Let&apos;s get it back above
-                    the surface.
+                    our P&amp;L should not be holding its breath. Let&apos;s bring it back above water.
                   </span>
                   <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
                     Get instant access / start recovery
