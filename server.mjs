@@ -69,7 +69,7 @@ function buildContentSecurityPolicy() {
 const defaultHeaders = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Permissions-Policy': 'camera=(), microphone=(self), display-capture=(self), geolocation=()',
   'Content-Security-Policy': buildContentSecurityPolicy(),
   ...(process.env.NODE_ENV === 'production'
     ? { 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains' }
