@@ -53,6 +53,32 @@
     linear-gradient(135deg, #010828 0%, #061134 52%, #101014 100%);
 }
 
+.integration-logo-marquee {
+  display: flex;
+  gap: 1rem;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  overflow: hidden;
+}
+
+.integration-logo-track {
+  animation: logo-marquee 30s linear infinite;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 1rem;
+  min-width: max-content;
+  padding-left: 1rem;
+}
+
+.integration-logo-marquee:hover .integration-logo-track {
+  animation-play-state: paused;
+}
+
+@keyframes logo-marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 .blackhole-drift-word {
   --blackhole-x: clamp(14rem, 46vw, 48rem);
   --blackhole-y: clamp(9rem, 36vh, 28rem);
@@ -151,6 +177,10 @@
   }
 
   .blackhole-drift-word {
+    animation: none;
+  }
+
+  .integration-logo-track {
     animation: none;
   }
 }

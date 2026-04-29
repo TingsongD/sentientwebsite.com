@@ -12,6 +12,17 @@ const ABOUT_VIDEO =
 const CTA_VIDEO =
   'https://cdn.shopify.com/videos/c/o/v/9c76561bb05d4ed9941cb20637732cc0.mp4'
 
+const INTEGRATION_LOGOS = [
+  { name: 'HubSpot', logoUrl: 'https://cdn.worldvectorlogo.com/logos/hubspot.svg' },
+  { name: 'OpenAI', logoUrl: 'https://cdn.worldvectorlogo.com/logos/openai.svg' },
+  { name: 'Gemini', logoUrl: 'https://cdn.worldvectorlogo.com/logos/gemini-6.svg' },
+  { name: 'Claude', logoUrl: 'https://cdn.worldvectorlogo.com/logos/claude-logo.svg' },
+  { name: 'Shopify', logoUrl: 'https://cdn.worldvectorlogo.com/logos/shopify.svg' },
+  { name: 'Webflow', logoUrl: 'https://cdn.worldvectorlogo.com/logos/webflow-logo-1.svg' },
+  { name: 'WordPress', logoUrl: 'https://cdn.worldvectorlogo.com/logos/wordpress-2.svg' },
+  { name: 'Wix', logoUrl: 'https://cdn.worldvectorlogo.com/logos/wix.svg' },
+] as const
+
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return false
@@ -92,6 +103,64 @@ function AmbientVideo({
         />
       ) : null}
     </div>
+  )
+}
+
+function IntegrationLogoItem({
+  name,
+  logoUrl,
+  hidden = false,
+}: {
+  name: string
+  logoUrl: string
+  hidden?: boolean
+}) {
+  return (
+    <li
+      className="flex min-w-[176px] items-center gap-3 rounded-[18px] border border-white/10 bg-cream px-5 py-4 shadow-sm sm:min-w-[204px]"
+      aria-hidden={hidden || undefined}
+    >
+      <img
+        src={logoUrl}
+        alt={hidden ? '' : `${name} logo`}
+        className="h-9 max-w-[92px] shrink-0 object-contain"
+        loading="eager"
+        decoding="async"
+      />
+      <span className="font-grotesk text-[13px] uppercase tracking-wide text-background sm:text-[14px]">
+        {name}
+      </span>
+    </li>
+  )
+}
+
+function IntegrationLogoStrip() {
+  return (
+    <section
+      className="overflow-hidden border-y border-white/10 bg-background py-8 sm:py-10"
+      aria-labelledby="integrations-strip-heading"
+    >
+      <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+        <h2
+          id="integrations-strip-heading"
+          className="font-mono mb-5 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]"
+        >
+          Integrates with
+        </h2>
+      </div>
+      <div className="integration-logo-marquee" role="list" aria-label="Integration logos">
+        <ul className="integration-logo-track">
+          {INTEGRATION_LOGOS.map((logo) => (
+            <IntegrationLogoItem key={logo.name} {...logo} />
+          ))}
+        </ul>
+        <ul className="integration-logo-track" aria-hidden>
+          {INTEGRATION_LOGOS.map((logo) => (
+            <IntegrationLogoItem key={`duplicate-${logo.name}`} {...logo} hidden />
+          ))}
+        </ul>
+      </div>
+    </section>
   )
 }
 
@@ -319,6 +388,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <IntegrationLogoStrip />
 
         {/* CTA video + closing */}
         <section className="relative w-full bg-background" aria-labelledby="cta-heading">

@@ -59,7 +59,7 @@ function buildContentSecurityPolicy() {
     `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com${widgetSources}`,
     "font-src 'self' https://fonts.gstatic.com",
     `connect-src 'self'${widgetConnectSources}`,
-    `img-src 'self' data: blob: https://cdn.shopify.com${widgetSources}`,
+    `img-src 'self' data: blob: https://cdn.shopify.com https://cdnjs.cloudflare.com https://cdn.worldvectorlogo.com${widgetSources}`,
     `media-src 'self' blob: https://cdn.shopify.com${widgetSources}`,
     "worker-src 'self' blob:",
     "frame-src https://calendly.com",
