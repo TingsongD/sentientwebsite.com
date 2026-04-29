@@ -53,8 +53,104 @@
     linear-gradient(135deg, #010828 0%, #061134 52%, #101014 100%);
 }
 
+.blackhole-drift-word {
+  --blackhole-x: clamp(14rem, 46vw, 48rem);
+  --blackhole-y: clamp(9rem, 36vh, 28rem);
+  display: inline-block;
+  transform-origin: center;
+  will-change: transform, opacity, filter;
+}
+
+.blackhole-drift-word--revenue {
+  animation: revenue-to-blackhole-turn 12s cubic-bezier(0.72, 0, 0.2, 1) infinite;
+}
+
+.blackhole-drift-word--profits {
+  --blackhole-x: clamp(11rem, 24vw, 24rem);
+  --blackhole-y: clamp(7rem, 24vh, 17rem);
+  animation: profits-to-blackhole-turn 12s cubic-bezier(0.72, 0, 0.2, 1) infinite;
+}
+
+@keyframes revenue-to-blackhole-turn {
+  0%,
+  14% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+
+  42% {
+    filter: blur(0.3px);
+    opacity: 0.88;
+    transform: translate3d(var(--blackhole-x), var(--blackhole-y), 0) scale(0.42)
+      rotate(-8deg);
+  }
+
+  52%,
+  61.99% {
+    filter: blur(2px);
+    opacity: 0;
+    transform: translate3d(var(--blackhole-x), var(--blackhole-y), 0) scale(0.06)
+      rotate(-24deg);
+  }
+
+  62%,
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes profits-to-blackhole-turn {
+  0%,
+  52% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+
+  78% {
+    filter: blur(0.3px);
+    opacity: 0.88;
+    transform: translate3d(var(--blackhole-x), var(--blackhole-y), 0) scale(0.42)
+      rotate(-8deg);
+  }
+
+  88%,
+  95.99% {
+    filter: blur(2px);
+    opacity: 0;
+    transform: translate3d(var(--blackhole-x), var(--blackhole-y), 0) scale(0.06)
+      rotate(-24deg);
+  }
+
+  96%,
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@media (max-width: 767px) {
+  .blackhole-drift-word--revenue {
+    --blackhole-x: clamp(8.5rem, 43vw, 11.5rem);
+    --blackhole-y: clamp(13rem, 35vh, 18rem);
+  }
+
+  .blackhole-drift-word--profits {
+    --blackhole-x: clamp(-6rem, -18vw, -2.5rem);
+    --blackhole-y: clamp(8.5rem, 24vh, 13rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ambient-video-fallback {
     background: linear-gradient(135deg, #010828 0%, #08132d 56%, #0d1d24 100%);
+  }
+
+  .blackhole-drift-word {
+    animation: none;
   }
 }

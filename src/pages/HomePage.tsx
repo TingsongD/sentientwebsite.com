@@ -193,17 +193,26 @@ export default function HomePage() {
                   id="phase-heading"
                   className="font-grotesk uppercase leading-none text-cream text-[32px] sm:text-[42px] md:text-[52px] lg:text-[60px]"
                 >
-                  <span className="flex flex-nowrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
-                    <span className="block shrink-0">Revenue</span>
+                  <span className="flex flex-wrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
+                    <span className="blackhole-drift-word blackhole-drift-word--revenue block shrink-0">
+                      Revenue
+                    </span>
                     <span
                       className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1"
                       aria-hidden
                     >
                       Leaks
                     </span>
+                    <span className="block">:</span>
                   </span>
-                  <span className="mt-1 block sm:mt-0">Turn into</span>
-                  <span className="mt-1 block sm:mt-0">Black holes</span>
+                  <span className="mt-1 block sm:mt-0">The Black Hole</span>
+                  <span className="mt-1 block sm:mt-0">
+                    Sucking Your{' '}
+                    <span className="blackhole-drift-word blackhole-drift-word--profits inline-block text-neon">
+                      Profits
+                    </span>{' '}
+                    Dry
+                  </span>
                 </h2>
               </div>
             </div>
