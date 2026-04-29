@@ -289,65 +289,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features */}
-        <section
-          id="features"
-          className="scroll-mt-28 bg-background py-16 sm:py-20 md:py-24 lg:py-28"
-          aria-labelledby="features-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
-              Patch leaks today. Let SentientWeb chase back past lost revenue from the leads your
-              funnel already let slip.
-            </p>
-            <h2
-              id="features-heading"
-              className="font-grotesk mb-10 text-[32px] uppercase leading-none text-cream sm:mb-12 sm:text-[42px] md:text-[52px] lg:mb-16 lg:text-[60px]"
-            >
-              Revenue recovery system
-            </h2>
-
-            <div
-              className="liquid-glass mb-12 rounded-[24px] p-6 font-mono text-[12px] uppercase leading-relaxed text-cream sm:p-8 sm:text-[13px] lg:mb-16"
-              role="region"
-              aria-label="Example revenue recovery event"
-            >
-              <p className="text-neon">Leak signal: high intent</p>
-              <p className="mt-2 text-neon">Intent: high</p>
-              <p className="mt-4 text-cream/70">
-                &gt; Visitor hesitated on pricing...
-              </p>
-              <p className="text-cream/70">
-                &gt; Approved-source next step delivered
-              </p>
-              <p className="text-cream/70">
-                &gt; Human support path prepared
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {FEATURES.map((f) => (
-                <article
-                  key={f.title}
-                  id={featureSectionId(f.title)}
-                  className="liquid-glass scroll-mt-28 rounded-[32px] p-6 transition hover:bg-white/10 sm:p-8"
-                >
-                  <h3 className="font-grotesk mb-4 text-[20px] uppercase leading-tight text-cream sm:text-[22px]">
-                    {f.title}
-                  </h3>
-                  <ul className="list-inside list-disc space-y-2 font-mono text-[13px] uppercase leading-relaxed text-cream/75 sm:text-[14px]">
-                    {f.bullets.map((b) => (
-                      <li key={b} className="marker:text-neon">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Solutions */}
         <section
           id="solutions"
@@ -370,17 +311,17 @@ export default function HomePage() {
               Stalled demand becomes instant next steps, detects intent, opens the right path,
               and hands off to humans with full context.
             </p>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <div className="grid gap-5 md:grid-cols-2 lg:gap-7">
               {SOLUTION_NAV_LIST.map(({ slug, navLabel, marketLabel }) => (
                 <Link
                   key={slug}
                   to={`/solutions/${slug}`}
-                  className="liquid-glass rounded-[20px] p-5 transition hover:bg-white/10"
+                  className="group flex min-h-[100px] flex-col justify-between rounded-[20px] border border-cream/70 bg-cream p-5 text-background shadow-[0_18px_60px_rgba(239,244,255,0.12)] transition hover:-translate-y-1 hover:bg-neon hover:shadow-[0_24px_80px_rgba(111,255,0,0.16)] sm:min-h-[116px] sm:p-6 lg:min-h-[130px]"
                 >
-                  <span className="font-grotesk block text-[14px] uppercase tracking-wide text-cream">
+                  <span className="font-grotesk block text-[24px] uppercase leading-none tracking-normal sm:text-[32px] lg:text-[42px]">
                     {navLabel}
                   </span>
-                  <span className="font-mono mt-2 block text-[11px] uppercase leading-relaxed text-cream/55">
+                  <span className="font-mono mt-4 block text-[14px] uppercase leading-relaxed tracking-wide text-background/65 transition group-hover:text-background/80 sm:text-[16px]">
                     {marketLabel}
                   </span>
                 </Link>
@@ -443,6 +384,65 @@ export default function HomePage() {
                   </span>
                 </h2>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section
+          id="features"
+          className="scroll-mt-28 bg-background py-16 sm:py-20 md:py-24 lg:py-28"
+          aria-labelledby="features-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
+              Patch leaks today. Let SentientWeb chase back past lost revenue from the leads your
+              funnel already let slip.
+            </p>
+            <h2
+              id="features-heading"
+              className="font-grotesk mb-10 text-[32px] uppercase leading-none text-cream sm:mb-12 sm:text-[42px] md:text-[52px] lg:mb-16 lg:text-[60px]"
+            >
+              Revenue recovery system
+            </h2>
+
+            <div
+              className="liquid-glass mb-12 rounded-[24px] p-6 font-mono text-[12px] uppercase leading-relaxed text-cream sm:p-8 sm:text-[13px] lg:mb-16"
+              role="region"
+              aria-label="Example revenue recovery event"
+            >
+              <p className="text-neon">Leak signal: high intent</p>
+              <p className="mt-2 text-neon">Intent: high</p>
+              <p className="mt-4 text-cream/70">
+                &gt; Visitor hesitated on pricing...
+              </p>
+              <p className="text-cream/70">
+                &gt; Approved-source next step delivered
+              </p>
+              <p className="text-cream/70">
+                &gt; Human support path prepared
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+              {FEATURES.map((f) => (
+                <article
+                  key={f.title}
+                  id={featureSectionId(f.title)}
+                  className="liquid-glass scroll-mt-28 rounded-[32px] p-6 transition hover:bg-white/10 sm:p-8"
+                >
+                  <h3 className="font-grotesk mb-4 text-[20px] uppercase leading-tight text-cream sm:text-[22px]">
+                    {f.title}
+                  </h3>
+                  <ul className="list-inside list-disc space-y-2 font-mono text-[13px] uppercase leading-relaxed text-cream/75 sm:text-[14px]">
+                    {f.bullets.map((b) => (
+                      <li key={b} className="marker:text-neon">
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
             </div>
           </div>
         </section>
