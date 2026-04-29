@@ -1,5 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { MarketingPageLayout } from '../components/MarketingPageLayout'
+import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { BOOK_DEMO_URL } from '../constants'
 import { INTEGRATION_PAGES, type IntegrationSlug } from '../data/integrationPagesContent'
 
@@ -67,6 +68,7 @@ export default function IntegrationPage() {
           </Link>
         </div>
       </article>
+      <RoiCalculatorCta />
     </MarketingPageLayout>
   )
 }

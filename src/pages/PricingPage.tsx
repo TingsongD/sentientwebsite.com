@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Check, CircleDollarSign, Wrench } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { MarketingHeader } from '../components/MarketingHeader'
+import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { BOOK_DEMO_URL } from '../constants'
 import {
@@ -861,6 +862,7 @@ export default function PricingPage() {
             </div>
           </section>
         </section>
+        <RoiCalculatorCta />
       </main>
       <SiteFooter />
     </>

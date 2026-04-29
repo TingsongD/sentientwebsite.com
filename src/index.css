@@ -79,6 +79,24 @@
   }
 }
 
+.leak-rate-flash {
+  animation: leak-rate-flash 2.4s ease-in-out infinite;
+  text-shadow: 0 0 18px rgba(255, 138, 138, 0.42);
+}
+
+@keyframes leak-rate-flash {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 18px rgba(255, 138, 138, 0.42);
+  }
+
+  50% {
+    opacity: 0.62;
+    text-shadow: 0 0 30px rgba(255, 138, 138, 0.86);
+  }
+}
+
 .blackhole-drift-word {
   --blackhole-x: clamp(14rem, 46vw, 48rem);
   --blackhole-y: clamp(9rem, 36vh, 28rem);
@@ -181,6 +199,10 @@
   }
 
   .integration-logo-track {
+    animation: none;
+  }
+
+  .leak-rate-flash {
     animation: none;
   }
 }

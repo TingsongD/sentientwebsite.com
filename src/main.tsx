@@ -21,8 +21,13 @@ const app = (
 )
 
 const root = document.getElementById('root')!
+const hasPrerenderedMarkup = Array.from(root.childNodes).some((node) => {
+  if (node.nodeType === Node.COMMENT_NODE) return false
+  if (node.nodeType === Node.TEXT_NODE) return Boolean(node.textContent?.trim())
+  return true
+})
 
-if (root.hasChildNodes()) {
+if (hasPrerenderedMarkup) {
   hydrateRoot(root, app)
 } else {
   createRoot(root).render(app)

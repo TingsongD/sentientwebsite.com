@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { ShieldCheck, UserRound } from 'lucide-react'
 import { MarketingHeader } from '../components/MarketingHeader'
+import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
@@ -244,6 +245,7 @@ export default function SolutionIndustryPage() {
             </div>
           </section>
         </article>
+        <RoiCalculatorCta />
       </main>
       <SiteFooter />
     </>

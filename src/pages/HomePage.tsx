@@ -1,11 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { MarketingHeader } from '../components/MarketingHeader'
+import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
 import { FEATURES, featureSectionId } from '../data/homeFeatures'
-import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
+import { SOLUTION_NAV_LIST, type SolutionSlug } from '../data/solutionPagesContent'
 
 const ABOUT_VIDEO =
   'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
@@ -22,6 +23,113 @@ const INTEGRATION_LOGOS = [
   { name: 'WordPress', logoUrl: 'https://cdn.worldvectorlogo.com/logos/wordpress-2.svg' },
   { name: 'Wix', logoUrl: 'https://cdn.worldvectorlogo.com/logos/wix.svg' },
 ] as const
+
+type LeakClockUnit = 'day' | 'hour'
+
+type LeakClockEstimate = {
+  usAnnualLeakUsd: number
+  typicalAnnualLeakUsd: number
+  sourceLabel: string
+  methodology: string
+}
+
+const LEAK_CLOCK_UNITS: LeakClockUnit[] = ['day', 'hour']
+
+const LEAK_CLOCK_ESTIMATES = {
+  saas: {
+    usAnnualLeakUsd: 35_000_000_000,
+    typicalAnnualLeakUsd: 180_000,
+    sourceLabel: 'Modeled from US SaaS revenue and speed-to-lead decay research.',
+    methodology:
+      'Uses US SaaS revenue benchmarks and a conservative modeled share of inbound demo pipeline lost to slow routing, weak follow-up, and delayed handoff.',
+  },
+  'home-services': {
+    usAnnualLeakUsd: 24_000_000_000,
+    typicalAnnualLeakUsd: 144_000,
+    sourceLabel: 'Modeled from US home-services market size and missed-call economics.',
+    methodology:
+      'Uses US home-services market estimates with a conservative missed-call and after-hours booking leakage model for HVAC, plumbing, and electrical demand.',
+  },
+  insurance: {
+    usAnnualLeakUsd: 18_000_000_000,
+    typicalAnnualLeakUsd: 120_000,
+    sourceLabel: 'Modeled from insurance lead response benchmarks.',
+    methodology:
+      'Uses insurance speed-to-lead and uncontacted-lead benchmarks, then applies a conservative lost-premium and broker-fee recovery model.',
+  },
+  ecommerce: {
+    usAnnualLeakUsd: 260_000_000_000,
+    typicalAnnualLeakUsd: 240_000,
+    sourceLabel: 'Baymard cart and checkout abandonment recovery estimates.',
+    methodology:
+      'Uses Baymard research on recoverable cart and checkout revenue, applied as the ecommerce benchmark for abandoned buying sessions.',
+  },
+  healthcare: {
+    usAnnualLeakUsd: 150_000_000_000,
+    typicalAnnualLeakUsd: 200_000,
+    sourceLabel: 'US healthcare no-show cost estimates.',
+    methodology:
+      'Uses published US healthcare no-show cost estimates and treats missed appointments, delayed reminders, and incomplete intake as the leak category.',
+  },
+  edtech: {
+    usAnnualLeakUsd: 12_000_000_000,
+    typicalAnnualLeakUsd: 90_000,
+    sourceLabel: 'Modeled from admissions and EdTech speed-to-lead benchmarks.',
+    methodology:
+      'Uses admissions response-time research and conservative program-value assumptions for inquiries that go cold before enrollment.',
+  },
+  hospitality: {
+    usAnnualLeakUsd: 10_000_000_000,
+    typicalAnnualLeakUsd: 175_000,
+    sourceLabel: 'Hotel booking abandonment and lost direct-booking estimates.',
+    methodology:
+      'Uses hospitality booking-abandonment research and published lost direct-booking estimates as the US-wide leakage baseline.',
+  },
+  'real-estate': {
+    usAnnualLeakUsd: 22_000_000_000,
+    typicalAnnualLeakUsd: 235_000,
+    sourceLabel: 'Modeled from real-estate speed-to-lead conversion gaps.',
+    methodology:
+      'Uses real-estate lead-response benchmarks and a conservative commission gap model for internet leads that go cold before contact.',
+  },
+  legal: {
+    usAnnualLeakUsd: 109_000_000_000,
+    typicalAnnualLeakUsd: 332_000,
+    sourceLabel: 'Clio/legal intake research plus vendor-cited missed-call estimates.',
+    methodology:
+      'Uses legal intake responsiveness research, missed-call benchmarks, and vendor-cited industry leakage estimates; values should be read as directional.',
+  },
+  'financial-services': {
+    usAnnualLeakUsd: 16_000_000_000,
+    typicalAnnualLeakUsd: 150_000,
+    sourceLabel: 'Modeled from financial-services lead response and application leakage.',
+    methodology:
+      'Uses financial-services response-time benchmarks and conservative assumptions for rate shoppers, application starts, and advisory inquiries that go stale.',
+  },
+} as const satisfies Record<SolutionSlug, LeakClockEstimate>
+
+const currency = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0,
+})
+
+const compactCurrency = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  notation: 'compact',
+  maximumFractionDigits: 1,
+})
+
+function annualLeakToRate(value: number, unit: LeakClockUnit) {
+  if (unit === 'hour') return value / 365 / 24
+  return value / 365
+}
+
+function formatLeakRate(value: number) {
+  if (value >= 1_000_000) return compactCurrency.format(value)
+  return currency.format(value)
+}
 
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
@@ -164,9 +272,87 @@ function IntegrationLogoStrip() {
   )
 }
 
+function SolutionLeakClock({
+  navLabel,
+  marketLabel,
+  estimate,
+  unit,
+  reducedMotion,
+}: {
+  navLabel: string
+  marketLabel: string
+  estimate: LeakClockEstimate
+  unit: LeakClockUnit
+  reducedMotion: boolean
+}) {
+  const usRate = formatLeakRate(annualLeakToRate(estimate.usAnnualLeakUsd, unit))
+  const typicalRate = formatLeakRate(annualLeakToRate(estimate.typicalAnnualLeakUsd, unit))
+
+  return (
+    <span className="grid min-w-0 gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+      <span className="flex min-w-0 flex-col gap-4">
+        <span className="font-mono text-[10px] uppercase leading-tight tracking-widest text-cream/55 sm:text-[11px]">
+          Industry-wide revenue leakage in the US
+        </span>
+        <span className="flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-end sm:gap-x-4">
+          <span className="font-grotesk block text-[24px] uppercase leading-none tracking-normal text-cream sm:text-[32px] lg:text-[42px]">
+            {navLabel}
+          </span>
+          <span
+            className={`font-grotesk text-[28px] uppercase leading-none text-[#FF8A8A] sm:text-[34px] lg:text-[40px] ${
+              reducedMotion ? '' : 'leak-rate-flash'
+            }`}
+          >
+            {usRate}/{unit}
+          </span>
+        </span>
+        <span className="font-mono block text-[14px] uppercase leading-relaxed tracking-wide text-cream/60 transition group-hover:text-cream/75 sm:text-[16px]">
+          {marketLabel}
+        </span>
+      </span>
+      <span className="font-mono text-[11px] uppercase leading-relaxed text-cream/55 sm:text-[12px] md:max-w-[190px] md:text-right">
+        Typical operator: <span className="text-[#FF8A8A]">{typicalRate}/{unit}</span>
+      </span>
+    </span>
+  )
+}
+
+function LeakClockMethodology() {
+  return (
+    <details className="liquid-glass mt-8 rounded-[20px] p-5 sm:p-6">
+      <summary className="cursor-pointer list-none font-grotesk text-[15px] uppercase tracking-wide text-cream [&::-webkit-details-marker]:hidden">
+        How these leak rates are estimated
+      </summary>
+      <div className="mt-5 grid gap-4 md:grid-cols-2">
+        {SOLUTION_NAV_LIST.map(({ slug, navLabel }) => {
+          const estimate = LEAK_CLOCK_ESTIMATES[slug]
+          return (
+            <article key={slug} className="border-t border-white/10 pt-4">
+              <h3 className="font-grotesk text-[13px] uppercase tracking-wide text-neon">
+                {navLabel}
+              </h3>
+              <p className="font-mono mt-2 text-[11px] uppercase leading-relaxed text-cream/55">
+                {estimate.sourceLabel}
+              </p>
+              <p className="font-mono mt-2 text-[12px] normal-case leading-relaxed text-cream/70">
+                {estimate.methodology}
+              </p>
+            </article>
+          )
+        })}
+      </div>
+      <p className="font-mono mt-5 border-t border-white/10 pt-4 text-[11px] uppercase leading-relaxed text-cream/45">
+        These are directional estimates for comparison, not audited financial claims.
+      </p>
+    </details>
+  )
+}
+
 export default function HomePage() {
   const { pathname, hash } = useLocation()
   const prefersReducedMotion = usePrefersReducedMotion()
+  const [leakClockUnit, setLeakClockUnit] = useState<LeakClockUnit>('day')
+  const activeLeakClockUnit = prefersReducedMotion ? 'day' : leakClockUnit
 
   useLayoutEffect(() => {
     if (pathname !== '/' || !hash) return
@@ -178,6 +364,19 @@ export default function HomePage() {
       behavior: prefersReducedMotion ? 'auto' : 'smooth',
     })
   }, [pathname, hash, prefersReducedMotion])
+
+  useEffect(() => {
+    if (prefersReducedMotion) return
+
+    const interval = window.setInterval(() => {
+      setLeakClockUnit((current) => {
+        const index = LEAK_CLOCK_UNITS.indexOf(current)
+        return LEAK_CLOCK_UNITS[(index + 1) % LEAK_CLOCK_UNITS.length]
+      })
+    }, 2400)
+
+    return () => window.clearInterval(interval)
+  }, [prefersReducedMotion])
 
   return (
     <>
@@ -316,17 +515,19 @@ export default function HomePage() {
                 <Link
                   key={slug}
                   to={`/solutions/${slug}`}
-                  className="group flex min-h-[100px] flex-col justify-between rounded-[20px] border border-cream/70 bg-cream p-5 text-background shadow-[0_18px_60px_rgba(239,244,255,0.12)] transition hover:-translate-y-1 hover:bg-neon hover:shadow-[0_24px_80px_rgba(111,255,0,0.16)] sm:min-h-[116px] sm:p-6 lg:min-h-[130px]"
+                  className="group block min-h-[176px] rounded-[20px] border border-cream/25 bg-black p-5 text-cream shadow-[0_18px_60px_rgba(0,0,0,0.34)] transition hover:-translate-y-1 hover:border-[#FF8A8A]/70 hover:shadow-[0_24px_80px_rgba(255,138,138,0.14)] sm:p-6 lg:min-h-[154px]"
                 >
-                  <span className="font-grotesk block text-[24px] uppercase leading-none tracking-normal sm:text-[32px] lg:text-[42px]">
-                    {navLabel}
-                  </span>
-                  <span className="font-mono mt-4 block text-[14px] uppercase leading-relaxed tracking-wide text-background/65 transition group-hover:text-background/80 sm:text-[16px]">
-                    {marketLabel}
-                  </span>
+                  <SolutionLeakClock
+                    navLabel={navLabel}
+                    marketLabel={marketLabel}
+                    estimate={LEAK_CLOCK_ESTIMATES[slug]}
+                    unit={activeLeakClockUnit}
+                    reducedMotion={prefersReducedMotion}
+                  />
                 </Link>
               ))}
             </div>
+            <LeakClockMethodology />
           </div>
         </section>
 
@@ -446,6 +647,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <RoiCalculatorCta />
 
         <SiteFooter anchorId="pricing-footer" />
       </main>
