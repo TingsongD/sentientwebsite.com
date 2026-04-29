@@ -64,6 +64,12 @@ const STATIC_META = {
     description: 'How SentientWeb fixes website revenue leaks with instant access paths and human handoff.',
     canonicalPath: '/about',
   },
+  '/revenue-leak-calculator': {
+    title: 'Revenue Leak Calculator',
+    description:
+      'Calculate how much revenue may be slipping through your funnel every month across social, site, checkout, and meeting paths.',
+    canonicalPath: '/revenue-leak-calculator',
+  },
   '/careers': {
     title: 'Careers',
     description: 'Open roles and hiring information for SentientWeb.',

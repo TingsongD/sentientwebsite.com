@@ -15,6 +15,7 @@ const FOOTER_PRODUCT: FooterProductItem[] = [
   { label: 'Documentation', to: '/documentation' },
   { label: 'Changelog', to: '/changelog' },
   { label: 'Pricing', to: '/pricing' },
+  { label: 'ROI Calculator', to: '/revenue-leak-calculator' },
 ]
 
 const FOOTER_COMPANY: { label: string; to: To }[] = [

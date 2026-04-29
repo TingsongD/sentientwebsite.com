@@ -6,6 +6,7 @@ import ComingSoonPage from './pages/ComingSoonPage'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
 import PricingPage from './pages/PricingPage'
+import RevenueLeakCalculatorPage from './pages/RevenueLeakCalculatorPage'
 import SolutionIndustryPage from './pages/SolutionIndustryPage'
 import TrustSecurityPage from './pages/TrustSecurityPage'
 import IntegrationPage from './pages/IntegrationPage'
@@ -32,6 +33,7 @@ export default function App({ includeMeta = true }: { includeMeta?: boolean }) {
         <Route path="/pricing/service" element={<PricingPage />} />
         <Route path="/pricing/calculator" element={<PricingPage />} />
         <Route path="/pricing/enterprise" element={<PricingPage />} />
+        <Route path="/revenue-leak-calculator" element={<RevenueLeakCalculatorPage />} />
         <Route path="/solutions/:slug" element={<SolutionIndustryPage />} />
         <Route path="/knowledge-base" element={<ComingSoonPage title="Knowledge base" />} />
         <Route path="/apis-sdks" element={<ComingSoonPage title="APIs & SDKs" />} />

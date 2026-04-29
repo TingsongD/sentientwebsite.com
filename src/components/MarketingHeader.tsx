@@ -184,6 +184,15 @@ function PrimaryNavList() {
         </Link>
       </li>
 
+      <li>
+        <Link
+          to="/revenue-leak-calculator"
+          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
+        >
+          ROI Calculator
+        </Link>
+      </li>
+
       <li className="relative">
         <button
           type="button"
@@ -362,6 +371,14 @@ function MobileNavPanel({
 
           <Link to="/pricing" className={`${MOBILE_LINK} border-b border-white/10`} onClick={onClose}>
             Pricing
+          </Link>
+
+          <Link
+            to="/revenue-leak-calculator"
+            className={`${MOBILE_LINK} border-b border-white/10`}
+            onClick={onClose}
+          >
+            ROI Calculator
           </Link>
 
           <details className="group border-b border-white/10">

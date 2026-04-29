@@ -58,6 +58,7 @@ describe('route metadata manifest', () => {
     expect(isKnownRoutePath('/pricing/service')).toBe(true)
     expect(isKnownRoutePath('/pricing/calculator')).toBe(true)
     expect(isKnownRoutePath('/pricing/enterprise')).toBe(true)
+    expect(isKnownRoutePath('/revenue-leak-calculator')).toBe(true)
     expect(isKnownRoutePath('/blog/phase-1-live-now')).toBe(true)
     expect(isKnownRoutePath('/solutions/saas')).toBe(true)
     expect(isKnownRoutePath('/unknown-path')).toBe(false)
@@ -79,6 +80,11 @@ describe('route metadata manifest', () => {
     expect(getPageMeta('/pricing/service')).toMatchObject({
       title: 'Service Track Pricing',
       canonicalPath: '/pricing/service',
+    })
+
+    expect(getPageMeta('/revenue-leak-calculator')).toMatchObject({
+      title: 'Revenue Leak Calculator',
+      canonicalPath: '/revenue-leak-calculator',
     })
 
     expect(getPageMeta('/blog/phase-1-live-now')).toMatchObject({
@@ -121,6 +127,7 @@ describe('route metadata manifest', () => {
     for (const path of PRICING_ROUTE_PATHS) {
       expect(KNOWN_ROUTE_PATHS).toContain(path)
     }
+    expect(KNOWN_ROUTE_PATHS).toContain('/revenue-leak-calculator')
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/legal-services')
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/car-dealerships')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/wordpress')

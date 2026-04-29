@@ -84,6 +84,7 @@ test('known routes return prerendered route-specific metadata', async ({ request
     ['/pricing/service', '<title>Service Track Pricing | SentientWeb</title>'],
     ['/pricing/calculator', '<title>Revenue Recovery Calculator | SentientWeb</title>'],
     ['/pricing/enterprise', '<title>Enterprise Pricing | SentientWeb</title>'],
+    ['/revenue-leak-calculator', '<title>Revenue Leak Calculator | SentientWeb</title>'],
     ['/blog/phase-1-live-now', '<title>Phase 1 live now | SentientWeb</title>'],
     ['/integrations/wordpress', '<title>WordPress Integration | SentientWeb</title>'],
     [
@@ -166,6 +167,21 @@ test('pricing deep links return 200 and appear in sitemap', async ({ request }) 
   for (const path of pricingPaths) {
     expect(sitemap).toContain(`https://sentientwebsite.com${path}`)
   }
+})
+
+test('ROI calculator route returns 200, appears in sitemap, and is in primary nav', async ({ request, page }) => {
+  const response = await request.get('/revenue-leak-calculator')
+  expect(response.status()).toBe(200)
+
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  expect(sitemap).toContain('https://sentientwebsite.com/revenue-leak-calculator')
+
+  await page.goto('/')
+  const nav = page.getByRole('navigation', { name: 'Primary' }).first()
+  await expect(nav.getByRole('link', { name: 'ROI Calculator' })).toHaveAttribute(
+    'href',
+    '/revenue-leak-calculator',
+  )
 })
 
 test('invalid dynamic slugs redirect before serving app HTML', async ({ request }) => {
