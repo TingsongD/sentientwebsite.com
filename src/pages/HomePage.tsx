@@ -327,8 +327,9 @@ export default function HomePage() {
             src={CTA_VIDEO}
             reducedMotion={prefersReducedMotion}
           />
+          <div className="absolute inset-0 z-10 bg-background/45" aria-hidden />
 
-          <div className="pointer-events-none absolute inset-0">
+          <div className="pointer-events-none absolute inset-0 z-20">
             <div className="pointer-events-auto absolute top-1/2 right-0 w-full -translate-y-1/2 px-6 text-right sm:px-10 lg:pl-[15%] lg:pr-[20%]">
               <div className="relative ml-auto inline-block max-w-4xl">
                 <p
@@ -341,8 +342,12 @@ export default function HomePage() {
                   id="cta-heading"
                   className="font-grotesk uppercase leading-tight text-cream text-[18px] sm:text-[32px] md:text-[44px] lg:text-[52px] xl:text-[60px]"
                 >
-                  <span className="mb-4 block sm:mb-6 md:mb-8 lg:mb-10">
-                    Ten leak repair paths.
+                  <span className="mb-4 block text-[14px] sm:mb-6 sm:text-[20px] md:mb-8 md:text-[26px] lg:mb-10 lg:text-[30px] xl:text-[34px]">
+                    Runs up to 20 leak repair services 24/7 for you.
+                  </span>
+                  <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
+                    Your P&amp;L should not be holding its breath. Let&apos;s get it back above
+                    the surface.
                   </span>
                   <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
                     Get instant access / start recovery
