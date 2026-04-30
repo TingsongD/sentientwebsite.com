@@ -603,7 +603,7 @@ export default function HomePage() {
               id="features-heading"
               className="font-grotesk mb-10 text-[32px] uppercase leading-none text-cream sm:mb-12 sm:text-[42px] md:text-[52px] lg:mb-16 lg:text-[60px]"
             >
-              Revenue recovery system
+              Revenue recovery system powered by Predictive Intent analysis
             </h2>
 
             <div
