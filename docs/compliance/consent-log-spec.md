@@ -6,7 +6,7 @@ Status: implementation and operations specification. The current frontend stores
 
 ## Current Frontend Consent State
 
-`src/components/ConsentManager.tsx` stores browser-local consent under:
+`src/privacyPreferences.ts` stores browser-local consent for `ConsentManager` under:
 
 ```text
 sentientweb:privacy-consent:v1
@@ -26,7 +26,7 @@ The frontend also disables analytics when `navigator.globalPrivacyControl` is pr
 
 The frontend posts sanitized consent choices to `POST /consent-events` whenever a visitor accepts all, rejects optional categories, saves custom choices, or withdraws previously granted optional consent. The production server validates the event shape, rejects sensitive payload keys such as transcripts, prompts, page content, audio, and assistant output, and returns `204` with `Cache-Control: no-store`.
 
-Server-side persistence is runtime-configured through `SENTIENT_CONSENT_LOG_PATH`. When that path is set, the server appends normalized JSONL events to that location and hashes IP/user-agent values only if `SENTIENT_CONSENT_LOG_SALT` is configured. The configured path must not be inside the publicly served `dist` directory. Store production artefacts in restricted Google Workspace/Drive or an equivalent access-controlled operations location. `scripts/consent-log-admin.mjs` provides a local, dry-run-by-default operator tool for retrieval, deletion, and retention pruning of that JSONL file.
+Server-side persistence is runtime-configured through `SENTIENT_CONSENT_LOG_PATH`. When that path is set, the server appends normalized JSONL events to that location and hashes IP/user-agent values only if `SENTIENT_CONSENT_LOG_SALT` is configured. The configured path must not be inside the publicly served `dist` directory. Render production deploys mount a persistent disk at `/var/data` and use `/var/data/sentientweb/consent-events.jsonl`; existing Blueprint services need `SENTIENT_CONSENT_LOG_SALT` set manually in the Render Dashboard. Store production artefacts in restricted Google Workspace/Drive or an equivalent access-controlled operations location. `scripts/consent-log-admin.mjs` provides a local, dry-run-by-default operator tool for retrieval, deletion, and retention pruning of that JSONL file.
 
 ## Server-Side Log Event
 
@@ -53,7 +53,7 @@ Send one event whenever a user saves, rejects, accepts all, or withdraws consent
 | `userAgentHash` | string | recommended | Salted hash only |
 | `sessionIdHash` | string | recommended | Salted hash of anonymous session identifier |
 | `userIdentifierHash` | string | optional | Only if logged-in users exist |
-| `sourcePath` | string | yes | Page path where consent action occurred |
+| `sourcePath` | string | yes | Path-only page location where consent action occurred; query strings and fragments are stripped before storage |
 | `proofText` | object | recommended | Short version labels for banner, toggles, and policy links shown |
 | `withdrawnAt` | ISO timestamp | conditional | Set when a prior consent is withdrawn |
 | `metadata` | object | no | Avoid storing sensitive page content, prompts, audio, or transcript data |
@@ -111,18 +111,18 @@ Privacy and legal operators should be able to retrieve consent evidence by:
 For JSONL logs written by `SENTIENT_CONSENT_LOG_PATH`, use the local admin utility from an access-controlled operator environment:
 
 ```sh
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --list --event-id <event-id> --pretty
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --list --from 2026-05-01 --to 2026-05-31 --source-path /pricing --pretty
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --list --category assistant --category-value true --gpc false --pretty
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --list --session-id-hash sha256:<hash> --pretty
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --list --event-id <event-id> --pretty
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --list --from 2026-05-01 --to 2026-05-31 --source-path /pricing --pretty
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --list --category assistant --category-value true --gpc false --pretty
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --list --session-id-hash sha256:<hash> --pretty
 ```
 
 Write operations are dry runs unless `--commit` is passed:
 
 ```sh
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --retention-days 548
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --retention-days 548 --commit
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --delete-event-id <event-id> --commit
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --retention-days 548
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --retention-days 548 --commit
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --delete-event-id <event-id> --commit
 ```
 
 The utility refuses paths inside the public `dist` directory, matching the production server guard.

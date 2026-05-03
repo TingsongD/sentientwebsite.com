@@ -8,7 +8,7 @@ services:
   - type: web
     name: sentientweblanding2
     runtime: docker
-    plan: free
+    plan: starter
     region: oregon
     branch: main
     repo: https://github.com/TingsongD/sentientweblanding2
@@ -26,3 +26,13 @@ services:
         sync: false
       - key: NEXT_PUBLIC_SENTIENT_INSTALL_KEY
         sync: false
+      - key: SENTIENT_ALLOWED_HOSTS
+        value: sentientwebsite.com,www.sentientwebsite.com,*.onrender.com
+      - key: SENTIENT_CONSENT_LOG_PATH
+        value: /var/data/sentientweb/consent-events.jsonl
+      - key: SENTIENT_CONSENT_LOG_SALT
+        sync: false
+    disk:
+      name: consent-evidence
+      mountPath: /var/data
+      sizeGB: 5

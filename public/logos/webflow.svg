@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 64" role="img" aria-labelledby="title">
+  <title id="title">Webflow</title>
+  <rect width="160" height="64" rx="14" fill="#edf5ff"/>
+  <path d="M16 21h12l5 22 7-22h11l-13 32H27L16 21zm38 0h13l-13 32H42l12-32z" fill="#146ef5"/>
+  <text x="78" y="39" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700">Webflow</text>
+</svg>

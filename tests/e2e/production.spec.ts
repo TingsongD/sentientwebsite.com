@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 import { spawn, type ChildProcess } from 'node:child_process'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { request as httpRequest } from 'node:http'
@@ -26,6 +26,30 @@ function normalizeSiteUrl(value: string) {
 
 function absoluteSiteUrl(path: string) {
   return new URL(path, siteUrl).toString()
+}
+
+async function seedDataLayer(page: Page, globalPrivacyControl = false) {
+  await page.addInitScript((gpcEnabled) => {
+    ;(window as Window & { dataLayer?: Array<Record<string, unknown>> }).dataLayer = []
+    if (gpcEnabled) {
+      Object.defineProperty(navigator, 'globalPrivacyControl', {
+        configurable: true,
+        value: true,
+      })
+    }
+  }, globalPrivacyControl)
+}
+
+async function readDataLayer(page: Page) {
+  return page.evaluate(
+    () => (window as Window & { dataLayer?: Array<Record<string, unknown>> }).dataLayer || [],
+  )
+}
+
+async function clearStoredConsentBeforeNavigation(page: Page) {
+  await page.addInitScript((consentVersion) => {
+    window.localStorage.removeItem(`sentientweb:privacy-consent:${consentVersion}`)
+  }, legalVersions.consentVersion)
 }
 
 function readJsonLd(html: string) {
@@ -507,20 +531,50 @@ test('runtime widget config endpoint is no-store and disabled without complete c
 test('consent event endpoint accepts sanitized choices and rejects sensitive payloads', async ({
   request,
 }) => {
+  const validPayload = {
+    eventType: 'save_choices',
+    preferences: true,
+    assistant: false,
+    analytics: false,
+    ageConfirmed: false,
+    globalPrivacyControl: true,
+    sourcePath: '/pricing',
+  }
   const validResponse = await request.post('/consent-events', {
-    data: {
-      eventType: 'save_choices',
-      preferences: true,
-      assistant: false,
-      analytics: false,
-      ageConfirmed: false,
-      globalPrivacyControl: true,
-      sourcePath: '/pricing',
-    },
+    data: validPayload,
   })
 
   expect(validResponse.status()).toBe(204)
   expect(validResponse.headers()['cache-control']).toBe('no-store')
+
+  const sameOriginResponse = await request.post('/consent-events', {
+    headers: { Origin: `http://127.0.0.1:${serverPort}` },
+    data: validPayload,
+  })
+  expect(sameOriginResponse.status()).toBe(204)
+
+  const crossOriginResponse = await request.post('/consent-events', {
+    headers: { Origin: 'https://evil.example' },
+    data: validPayload,
+  })
+  expect(crossOriginResponse.status()).toBe(403)
+
+  const fetchMetadataResponse = await request.post('/consent-events', {
+    headers: { 'Sec-Fetch-Site': 'cross-site' },
+    data: validPayload,
+  })
+  expect(fetchMetadataResponse.status()).toBe(403)
+
+  const unsupportedMediaResponse = await request.post('/consent-events', {
+    headers: { 'Content-Type': 'text/plain' },
+    data: JSON.stringify(validPayload),
+  })
+  expect(unsupportedMediaResponse.status()).toBe(415)
+
+  const formEncodedResponse = await request.post('/consent-events', {
+    form: { eventType: validPayload.eventType },
+  })
+  expect(formEncodedResponse.status()).toBe(415)
 
   const sensitiveResponse = await request.post('/consent-events', {
     data: {
@@ -596,7 +650,7 @@ test('consent events append sanitized JSONL when server-side logging is configur
         analytics: true,
         ageConfirmed: true,
         globalPrivacyControl: false,
-        sourcePath: '/pricing',
+        sourcePath: '/pricing?email=person@example.com#token',
       }),
     })
 
@@ -683,7 +737,7 @@ test('invalid or unallowed host headers return 400 without killing the server', 
       env: {
         ...process.env,
         FORCE_COLOR: '0',
-        SENTIENT_ALLOWED_HOSTS: 'sentientwebsite.com,127.0.0.1',
+        SENTIENT_ALLOWED_HOSTS: 'sentientwebsite.com,127.0.0.1,*.onrender.com',
       },
       stdio: ['ignore', 'ignore', 'pipe'],
     },
@@ -697,6 +751,10 @@ test('invalid or unallowed host headers return 400 without killing the server', 
     await waitForHealth(port, () => stderr)
     await expect(requestWithHostHeader('evil.example', port)).resolves.toBe(400)
     await expect(requestWithHostHeader('sentientwebsite.com', port)).resolves.toBe(200)
+    await expect(requestWithHostHeader('sentientweblanding2-pr-42.onrender.com', port)).resolves.toBe(
+      200,
+    )
+    await expect(requestWithHostHeader('onrender.com', port)).resolves.toBe(400)
   } finally {
     await stopServerProcess(child)
   }
@@ -1010,6 +1068,55 @@ test('privacy choices record withdrawal when optional consent is revoked', async
   })
 })
 
+test('privacy choices post path-only source paths', async ({ page }) => {
+  const consentEvents: Record<string, unknown>[] = []
+  await page.route('**/consent-events', async (route) => {
+    consentEvents.push(JSON.parse(route.request().postData() || '{}') as Record<string, unknown>)
+    await route.fulfill({
+      status: 204,
+      headers: { 'Cache-Control': 'no-store' },
+    })
+  })
+
+  await page.goto('/?utm_source=campaign#private-fragment')
+  await page.getByRole('button', { name: 'Reject optional' }).click()
+
+  await expect.poll(() => consentEvents.length).toBe(1)
+  expect(consentEvents[0]).toMatchObject({
+    eventType: 'reject_optional',
+    sourcePath: '/',
+  })
+})
+
+test('privacy choices remain usable when local storage is blocked', async ({ page }) => {
+  const pageErrors: string[] = []
+  const consentEvents: Record<string, unknown>[] = []
+
+  await page.addInitScript(() => {
+    const blockStorage = () => {
+      throw new Error('localStorage blocked for test')
+    }
+    Storage.prototype.getItem = blockStorage
+    Storage.prototype.setItem = blockStorage
+  })
+  page.on('pageerror', (error) => pageErrors.push(error.message))
+  await page.route('**/consent-events', async (route) => {
+    consentEvents.push(JSON.parse(route.request().postData() || '{}') as Record<string, unknown>)
+    await route.fulfill({
+      status: 204,
+      headers: { 'Cache-Control': 'no-store' },
+    })
+  })
+
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: 'Privacy choices' })).toBeVisible()
+  await page.getByRole('button', { name: 'Reject optional' }).click()
+
+  await expect.poll(() => consentEvents.length).toBe(1)
+  await expect(page.getByRole('heading', { name: 'Privacy choices' })).toHaveCount(0)
+  expect(pageErrors).toEqual([])
+})
+
 test('assistant widget loader is absent before consent', async ({ page }) => {
   await page.goto('/')
 
@@ -1018,15 +1125,34 @@ test('assistant widget loader is absent before consent', async ({ page }) => {
 })
 
 test('privacy choices honor Global Privacy Control for analytics', async ({ page }) => {
-  await page.addInitScript(() => {
+  const hydrationErrors: string[] = []
+  page.on('console', (message) => {
+    if (
+      message.type() === 'error' &&
+      /hydration|Hydration failed|did not match|server rendered HTML/i.test(message.text())
+    ) {
+      hydrationErrors.push(message.text())
+    }
+  })
+  await page.addInitScript((consentVersion) => {
+    window.localStorage.setItem(
+      `sentientweb:privacy-consent:${consentVersion}`,
+      JSON.stringify({
+        preferences: true,
+        assistant: false,
+        analytics: true,
+        ageConfirmed: false,
+        updatedAt: '2026-05-02T00:00:00.000Z',
+      }),
+    )
     Object.defineProperty(navigator, 'globalPrivacyControl', {
       configurable: true,
       value: true,
     })
-  })
+  }, legalVersions.consentVersion)
 
   await page.goto('/')
-  await page.getByRole('button', { name: 'Customize' }).click()
+  await page.getByRole('button', { name: 'Privacy choices' }).click()
 
   const analyticsConsent = page.getByRole('checkbox', { name: /^Analytics / })
   await expect(
@@ -1034,6 +1160,81 @@ test('privacy choices honor Global Privacy Control for analytics', async ({ page
   ).toBeVisible()
   await expect(analyticsConsent).toBeDisabled()
   await expect(analyticsConsent).not.toBeChecked()
+  expect(hydrationErrors).toEqual([])
+})
+
+test('pricing analytics events require analytics consent and honor GPC', async ({ page }) => {
+  await seedDataLayer(page)
+  await page.goto('/pricing')
+
+  await expect.poll(async () => (await readDataLayer(page)).length).toBe(0)
+  await page.getByRole('button', { name: 'Reject optional' }).click()
+  await page.getByRole('button', { name: 'I sell products online' }).click()
+  await expect.poll(async () => (await readDataLayer(page)).length).toBe(0)
+
+  const gpcPage = await page.context().newPage()
+  try {
+    await clearStoredConsentBeforeNavigation(gpcPage)
+    await seedDataLayer(gpcPage, true)
+    await gpcPage.goto('/pricing')
+    await gpcPage.getByRole('button', { name: 'Accept all' }).click()
+    await gpcPage.getByRole('button', { name: 'I sell products online' }).click()
+    await expect.poll(async () => (await readDataLayer(gpcPage)).length).toBe(0)
+  } finally {
+    await gpcPage.close()
+  }
+})
+
+test('pricing analytics events are emitted after analytics consent', async ({ page }) => {
+  await seedDataLayer(page)
+  await page.goto('/pricing')
+  await page.getByRole('button', { name: 'Accept all' }).click()
+  await page.getByRole('button', { name: 'I sell products online' }).click()
+
+  await expect
+    .poll(async () =>
+      (await readDataLayer(page)).some(
+        (event) => event.event === 'track_selected' && event.track === 'product',
+      ),
+    )
+    .toBe(true)
+})
+
+test('revenue calculator analytics events require analytics consent and honor GPC', async ({
+  page,
+}) => {
+  await seedDataLayer(page)
+  await page.goto('/revenue-leak-calculator')
+
+  await expect.poll(async () => (await readDataLayer(page)).length).toBe(0)
+  await page.getByRole('button', { name: 'Reject optional' }).click()
+  await page.locator('#monthly-social-comments').fill('120')
+  await expect.poll(async () => (await readDataLayer(page)).length).toBe(0)
+
+  const gpcPage = await page.context().newPage()
+  try {
+    await clearStoredConsentBeforeNavigation(gpcPage)
+    await seedDataLayer(gpcPage, true)
+    await gpcPage.goto('/revenue-leak-calculator')
+    await gpcPage.getByRole('button', { name: 'Accept all' }).click()
+    await gpcPage.locator('#monthly-social-comments').fill('120')
+    await expect.poll(async () => (await readDataLayer(gpcPage)).length).toBe(0)
+  } finally {
+    await gpcPage.close()
+  }
+})
+
+test('revenue calculator analytics events are emitted after analytics consent', async ({ page }) => {
+  await seedDataLayer(page)
+  await page.goto('/revenue-leak-calculator')
+  await page.getByRole('button', { name: 'Accept all' }).click()
+  await page.locator('#monthly-social-comments').fill('120')
+
+  await expect
+    .poll(async () =>
+      (await readDataLayer(page)).some((event) => event.event === 'leak_input_changed'),
+    )
+    .toBe(true)
 })
 
 test('ROI calculator route returns 200, appears in sitemap, and is in primary nav', async ({ request, page }) => {
@@ -1191,11 +1392,40 @@ test('mobile drawer traps focus and restores it on Escape', async ({ page }) => 
 })
 
 test('reduced motion omits ambient video sources', async ({ page }) => {
+  const hydrationErrors: string[] = []
+  page.on('console', (message) => {
+    if (
+      message.type() === 'error' &&
+      /hydration|Hydration failed|did not match|server rendered HTML/i.test(message.text())
+    ) {
+      hydrationErrors.push(message.text())
+    }
+  })
+
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
 
   const videos = page.locator('video[data-ambient-video]')
   await expect(videos).toHaveCount(0)
+  expect(hydrationErrors).toEqual([])
+})
+
+test('homepage visual assets are first-party before consent', async ({ page, request }) => {
+  const thirdPartyAssetRequests: string[] = []
+  page.on('request', (assetRequest) => {
+    const url = assetRequest.url()
+    if (url.includes('cdn.worldvectorlogo.com') || url.includes('cdn.shopify.com')) {
+      thirdPartyAssetRequests.push(url)
+    }
+  })
+
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: /digital plumbers/i })).toBeVisible()
+
+  const html = await (await request.get('/')).text()
+  expect(html).not.toContain('cdn.worldvectorlogo.com')
+  expect(html).not.toContain('cdn.shopify.com')
+  expect(thirdPartyAssetRequests).toEqual([])
 })
 
 test('social links do not point to generic placeholder domains', async ({ request }) => {

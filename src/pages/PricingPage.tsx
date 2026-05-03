@@ -13,6 +13,7 @@ import {
   TRACKS,
   type PricingTrack,
 } from '../data/pricingStrategy'
+import { hasOptionalAnalyticsConsent } from '../privacyPreferences'
 
 declare global {
   interface Window {
@@ -38,7 +39,13 @@ const SERVICE_VISITOR_OPTIONS = [500, 1000, 5000, 10000, 25000] as const
 const SERVICE_TICKET_OPTIONS = [150, 500, 1000, 3000, 10000] as const
 
 function trackPricingEvent(event: string, payload: Record<string, unknown> = {}) {
-  if (typeof window === 'undefined' || !Array.isArray(window.dataLayer)) return
+  if (
+    typeof window === 'undefined' ||
+    !Array.isArray(window.dataLayer) ||
+    !hasOptionalAnalyticsConsent()
+  ) {
+    return
+  }
   window.dataLayer.push({ event, ...payload })
 }
 

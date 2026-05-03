@@ -12,7 +12,7 @@ Review the codebase, fix concrete issues, and verify whether the website is prod
 
 | Area | Issue found | Fix |
 | --- | --- | --- |
-| Consent hydration | Consent state read from `localStorage` during initial client render could diverge from SSR output for returning visitors. | `src/components/ConsentManager.tsx` now uses `useSyncExternalStore` for browser consent state. |
+| Consent hydration | Consent state read from `localStorage` during initial client render could diverge from SSR output for returning visitors. | `src/privacyPreferences.ts` centralizes storage reads and `src/components/ConsentManager.tsx` uses `useSyncExternalStore` for browser consent state. |
 | Consent evidence path | Consent choices were browser-local only, leaving no implementation path for server-side consent evidence. | `src/components/ConsentManager.tsx` posts sanitized consent events to `/consent-events`; `server.mjs` validates events, rejects sensitive payload keys, rejects public `dist` log paths, and logs only when `SENTIENT_CONSENT_LOG_PATH` is configured. |
 | Consent log operations | Server-side consent logs needed a tested local path for retrieval, retention, deletion, and withdrawal evidence without exposing an admin API. | `scripts/consent-log-admin.mjs` provides dry-run-by-default JSONL listing, filtering, retention pruning, and event deletion; unit tests cover utility behavior and E2E covers configured server append plus withdrawal events. |
 | Legal version drift | Public legal-page “last updated” text and server-side consent evidence policy versions could drift because they were hard-coded separately. | `src/constants.ts` now centralizes consent/legal versions, `scripts/prerender.mjs` writes them to `dist/routes-manifest.json`, and `server.mjs` validates and uses manifest `legalVersions`; the compliance audit checks legal pages against the manifest. |
@@ -68,7 +68,7 @@ The website-side compliance audit also guards against regression for these harde
 | Lint clean | `npm run lint` | Passed |
 | Unit tests | `npm test` | Passed, 6 files and 27 tests |
 | Production build | `npm run build` as part of `npm run test:all` | Passed |
-| Production E2E | `npm run test:e2e` as part of `npm run test:all` | Passed, 47 Playwright tests |
+| Production E2E | `npm run test:e2e` as part of `npm run test:all` | Passed, 53 Playwright tests |
 | Runtime version contract | `package.json`, `package-lock.json`, `Dockerfile`, `.github/workflows/ci.yml` | Node 24 aligned |
 | CI production-readiness gate | `.github/workflows/ci.yml` | Runs `npm run test:all`, Docker build, Docker `/healthz`, and runtime widget config smoke tests with injected env vars |
 | Deployment health check | `/healthz`, `render.yaml`, E2E GET/HEAD health test | Passed |
@@ -93,7 +93,7 @@ npm run test:all
 Latest result:
 
 ```text
-Passed: lint, 27 unit tests, build, 47 E2E tests, website compliance audit, npm audit with 0 vulnerabilities.
+Passed: lint, 30 unit tests, build, 54 E2E tests, website compliance audit, npm audit with 0 vulnerabilities.
 ```
 
 Docker image build was not verified locally because Docker Desktop/daemon was not running:

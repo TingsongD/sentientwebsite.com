@@ -25,6 +25,7 @@ import {
   DEFAULT_REVENUE_LEAK_INPUTS,
   type RevenueLeakInputs,
 } from '../data/revenueLeakCalculator'
+import { hasOptionalAnalyticsConsent } from '../privacyPreferences'
 
 declare global {
   interface Window {
@@ -87,7 +88,13 @@ const FIX_ROWS = [
 ] as const
 
 function trackLeakEvent(event: string, payload: Record<string, unknown> = {}) {
-  if (typeof window === 'undefined' || !Array.isArray(window.dataLayer)) return
+  if (
+    typeof window === 'undefined' ||
+    !Array.isArray(window.dataLayer) ||
+    !hasOptionalAnalyticsConsent()
+  ) {
+    return
+  }
   window.dataLayer.push({ event, ...payload })
 }
 

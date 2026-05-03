@@ -68,23 +68,46 @@ function isLocalWidgetHost(hostname) {
 }
 
 function parseAllowedHostnames(value) {
-  const hostnames = value
+  return value
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean)
     .map((item) => normalizeAllowedHostname(item))
-
-  return new Set(hostnames)
 }
 
 function normalizeAllowedHostname(value) {
+  const wildcardValue = value.replace(/^https?:\/\//i, '')
+  if (wildcardValue.startsWith('*.')) {
+    const hostnameValue = wildcardValue.slice(2)
+    if (!hostnameValue || /[/?#*]/.test(hostnameValue)) {
+      console.error(`Invalid SENTIENT_ALLOWED_HOSTS entry "${value}". Use comma-separated hostnames.`)
+      process.exit(1)
+    }
+
+    try {
+      const url = new URL(`http://${hostnameValue}`)
+      return { type: 'wildcard', suffix: `.${url.hostname.toLowerCase()}` }
+    } catch {
+      console.error(`Invalid SENTIENT_ALLOWED_HOSTS entry "${value}". Use comma-separated hostnames.`)
+      process.exit(1)
+    }
+  }
+
   try {
     const url = new URL(value.includes('://') ? value : `http://${value}`)
-    return url.hostname.toLowerCase()
+    if (url.hostname.includes('*')) throw new Error('wildcards must use *.example.com')
+    return { type: 'exact', hostname: url.hostname.toLowerCase() }
   } catch {
     console.error(`Invalid SENTIENT_ALLOWED_HOSTS entry "${value}". Use comma-separated hostnames.`)
     process.exit(1)
   }
+}
+
+function isAllowedHostname(hostname) {
+  return allowedHostnames.some((allowedHostname) => {
+    if (allowedHostname.type === 'exact') return hostname === allowedHostname.hostname
+    return hostname.endsWith(allowedHostname.suffix) && hostname.length > allowedHostname.suffix.length
+  })
 }
 
 function toWebSocketOrigin(origin) {
@@ -422,12 +445,12 @@ function safeParseRequestUrl(reqUrl) {
 }
 
 function isValidHostHeader(host) {
-  if (!host) return allowedHostnames.size === 0
+  if (!host) return allowedHostnames.length === 0
   if (/[\s/\\]/.test(host)) return false
 
   try {
     const hostname = new URL(`http://${host}`).hostname.toLowerCase()
-    if (allowedHostnames.size > 0 && !allowedHostnames.has(hostname)) return false
+    if (allowedHostnames.length > 0 && !isAllowedHostname(hostname)) return false
     return true
   } catch {
     return false
@@ -587,6 +610,24 @@ function sendPayloadTooLarge(res) {
   res.end('Payload Too Large')
 }
 
+function sendForbidden(res) {
+  res.writeHead(403, {
+    ...defaultHeaders,
+    'Content-Type': 'text/plain; charset=utf-8',
+    'Cache-Control': 'no-cache',
+  })
+  res.end('Forbidden')
+}
+
+function sendUnsupportedMediaType(res) {
+  res.writeHead(415, {
+    ...defaultHeaders,
+    'Content-Type': 'text/plain; charset=utf-8',
+    'Cache-Control': 'no-cache',
+  })
+  res.end('Unsupported Media Type')
+}
+
 function sendInternalError(res) {
   if (res.headersSent) {
     res.end()
@@ -676,6 +717,17 @@ function normalizeConsentKey(key) {
   return key.toLowerCase().replace(/[^a-z0-9]/g, '')
 }
 
+function normalizeConsentSourcePath(sourcePath) {
+  if (typeof sourcePath !== 'string') return '/'
+
+  const [withoutHash] = sourcePath.split('#')
+  const [pathOnly] = withoutHash.split('?')
+  const path = pathOnly || '/'
+  if (!isValidRedirectDestination(path)) return null
+
+  return normalizePathname(path)
+}
+
 function normalizeConsentEvent(payload, req) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null
   if (hasSensitiveConsentKey(payload)) return null
@@ -692,8 +744,8 @@ function normalizeConsentEvent(payload, req) {
     if (typeof payload[field] !== 'boolean') return null
   }
 
-  const sourcePath = typeof payload.sourcePath === 'string' ? payload.sourcePath : '/'
-  if (!isValidRedirectDestination(sourcePath)) return null
+  const sourcePath = normalizeConsentSourcePath(payload.sourcePath)
+  if (!sourcePath) return null
 
   const occurredAt = new Date().toISOString()
 
@@ -731,9 +783,58 @@ function persistConsentEvent(event) {
   appendFileSync(consentLogPath, `${JSON.stringify(event)}\n`, 'utf8')
 }
 
+function getSingleHeader(value) {
+  if (Array.isArray(value)) return value[0] || ''
+  return typeof value === 'string' ? value : ''
+}
+
+function requestHasJsonContentType(req) {
+  const contentType = getSingleHeader(req.headers['content-type'])
+  const mediaType = contentType.split(';')[0].trim().toLowerCase()
+  return mediaType === 'application/json'
+}
+
+function normalizeRequestHost(host) {
+  try {
+    return new URL(`http://${host}`).host.toLowerCase()
+  } catch {
+    return null
+  }
+}
+
+function requestHasAllowedConsentOrigin(req) {
+  const secFetchSite = getSingleHeader(req.headers['sec-fetch-site']).toLowerCase()
+  if (secFetchSite === 'cross-site') return false
+
+  const origin = getSingleHeader(req.headers.origin)
+  if (!origin) return true
+  if (/[\r\n]/.test(origin)) return false
+
+  const requestHost = normalizeRequestHost(getSingleHeader(req.headers.host))
+  if (!requestHost) return false
+
+  try {
+    const originUrl = new URL(origin)
+    if (originUrl.protocol !== 'http:' && originUrl.protocol !== 'https:') return false
+    return originUrl.host.toLowerCase() === requestHost
+  } catch {
+    return false
+  }
+}
+
 async function sendConsentEvent(req, res) {
   if (req.method !== 'POST') {
     sendMethodNotAllowed(res, 'POST')
+    return
+  }
+
+  if (!requestHasAllowedConsentOrigin(req)) {
+    sendForbidden(res)
+    return
+  }
+
+  if (!requestHasJsonContentType(req)) {
+    sendUnsupportedMediaType(res)
     return
   }
 

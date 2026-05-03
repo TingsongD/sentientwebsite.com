@@ -55,6 +55,7 @@ Route registration:
 
 Widget activation guardrails:
 
+- `src/privacyPreferences.ts`
 - `src/components/ConsentManager.tsx`
 - `src/loadSentientWidget.ts`
 - `.env.example`
@@ -71,7 +72,7 @@ Widget activation guardrails:
 | Avoid unsupported legal/medical/financial/compliance claims | `/terms` professional advice disclaimer; acceptable-use limits; marketing copy no longer claims zero data retention, end-to-end encryption, SOC 2 pending status, exact unsourced vertical proof stats, or 48-hour results; pricing and ROI pages use modeled-estimate disclaimers | E2E unsupported-claims regression test; text search; counsel review still required |
 | Privacy Policy | `/privacy` | E2E legal route and sitemap test |
 | Cookie Policy | `/cookies`; production inventory template in `docs/compliance/cookie-tag-inventory.md` | E2E legal route and sitemap test; docs text search |
-| Cookie consent/preference center | `src/components/ConsentManager.tsx` | E2E privacy choices test |
+| Cookie consent/preference center | `src/privacyPreferences.ts` and `src/components/ConsentManager.tsx` | Unit storage tests and E2E privacy choices test |
 | Terms of Use | `/terms` | E2E legal route and sitemap test |
 | Terms of Sale / Checkout Terms | `/billing-terms` | E2E legal route and sitemap test |
 | Refund / Return / Cancellation Policy | `/billing-terms` | E2E legal route and sitemap test |
@@ -154,7 +155,7 @@ Latest full verification completed on May 3, 2026:
 
 | Check | Result |
 | --- | --- |
-| `npm run test:all` | Passed: lint, 27 unit tests, production build, 47 E2E tests, website compliance audit, and `npm audit` with 0 vulnerabilities |
+| `npm run test:all` | Passed: lint, 30 unit tests, production build, 54 E2E tests, website compliance audit, and `npm audit` with 0 vulnerabilities |
 | `npm run lint` | Passed as part of `npm run test:all` |
 | `npm test` | Passed, 6 test files and 27 tests |
 | `npm run build` | Passed as part of E2E, including client build, SSR build, prerender, route manifest, sitemap, and JSON-LD CSP hashes |
@@ -162,7 +163,7 @@ Latest full verification completed on May 3, 2026:
 | `VITE_SITE_URL=https://example.com npm run build` plus `npm run compliance:audit` | Passed; manifest, sitemap, security.txt, public hostname copy, canonical tags, Open Graph URLs, and JSON-LD used `https://example.com/` |
 | `npm run compliance:audit` | Passes website artifacts and reports all launch gates checked after May 3, 2026 owner confirmations |
 | `npm run compliance:audit:production` | Passed after all launch-gate checkboxes were checked |
-| `npm run test:e2e` | Passed, 47 Playwright tests |
+| `npm run test:e2e` | Passed, 53 Playwright tests |
 | Route manifest legal routes check | Passed, all 12 public legal routes present in `dist/routes-manifest.json`; manifest also includes `siteUrl`, `dynamicFallbackRedirects`, and inline JSON-LD CSP hashes |
 | Sitemap legal routes check | Passed, all 12 public legal routes present in `dist/sitemap.xml` |
 | `security.txt` site URL check | Passed, built `Policy` and `Canonical` fields use the configured `SITE_URL` |

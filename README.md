@@ -22,6 +22,7 @@ Production widget origins must use HTTPS; plain HTTP widget origins are accepted
 development hosts.
 Set `SENTIENT_ALLOWED_HOSTS` at runtime if the Node server should reject unexpected Host headers
 itself instead of relying only on the hosting platform or edge proxy.
+The Render Blueprint sets production domains plus `*.onrender.com` so preview deploys keep working.
 
 ## Compliance
 
@@ -40,6 +41,9 @@ owner/evidence tracking.
 Server-side consent evidence is required for production operations. Configure
 `SENTIENT_CONSENT_LOG_PATH` outside `dist/`, set `SENTIENT_CONSENT_LOG_SALT`, and use
 `npm run consent-log:admin` for restricted JSONL retrieval, retention pruning, and event deletion.
+The Render Blueprint mounts `/var/data` for this JSONL file; existing Blueprint services need the
+salt set manually in the Render Dashboard because `sync: false` values are not updated on existing
+services.
 
 The current production-readiness review is tracked in `docs/production-readiness.md`.
 

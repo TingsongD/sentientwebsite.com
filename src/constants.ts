@@ -58,5 +58,4 @@ export const DEFAULT_META_TITLE = 'SentientWeb | Digital Plumbers for Your Reven
 export const DEFAULT_META_DESCRIPTION =
   'SentientWeb fixes website revenue leaks with instant access paths, secure AI-guided next steps, human handoff, and disclosed retention controls.'
 
-export const DEFAULT_OG_IMAGE_URL =
-  'https://cdn.shopify.com/s/files/1/0792/3613/7216/files/blob_2.png?v=1775608227'
+export const DEFAULT_OG_IMAGE_URL = new URL('/favicon.svg', SITE_URL).toString()

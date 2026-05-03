@@ -57,10 +57,15 @@ const requiredDynamicFallbackRedirects = {
   '/solutions/': '/#solutions',
 }
 
+const requiredRenderConsentLogPath = '/var/data/sentientweb/consent-events.jsonl'
+const requiredRenderAllowedHosts = 'sentientwebsite.com,www.sentientwebsite.com,*.onrender.com'
+
 const readText = (relativePath) =>
   fs.readFileSync(path.join(root, relativePath), 'utf8')
 
 const exists = (relativePath) => fs.existsSync(path.join(root, relativePath))
+
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 const hashInlineScriptContent = (content) =>
   `'sha256-${createHash('sha256').update(content).digest('base64')}'`
@@ -174,6 +179,46 @@ for (const doc of requiredDocs) {
 
 if (!exists('public/.well-known/security.txt')) {
   failures.push('Missing public/.well-known/security.txt')
+}
+
+if (exists('render.yaml')) {
+  const renderYaml = readText('render.yaml')
+
+  if (!/^\s*plan:\s*starter\s*$/m.test(renderYaml)) {
+    failures.push('render.yaml must use a paid Render plan for persistent consent evidence storage')
+  }
+
+  if (
+    !new RegExp(
+      `-\\s+key:\\s*SENTIENT_CONSENT_LOG_PATH\\s*\\n\\s+value:\\s*${escapeRegex(requiredRenderConsentLogPath)}`,
+      'm',
+    ).test(renderYaml)
+  ) {
+    failures.push(`render.yaml must set SENTIENT_CONSENT_LOG_PATH to ${requiredRenderConsentLogPath}`)
+  }
+
+  if (
+    !new RegExp(
+      `-\\s+key:\\s*SENTIENT_ALLOWED_HOSTS\\s*\\n\\s+value:\\s*${escapeRegex(requiredRenderAllowedHosts)}`,
+      'm',
+    ).test(renderYaml)
+  ) {
+    failures.push(`render.yaml must set SENTIENT_ALLOWED_HOSTS to ${requiredRenderAllowedHosts}`)
+  }
+
+  if (!/-\s+key:\s*SENTIENT_CONSENT_LOG_SALT\s*\n\s+sync:\s*false/m.test(renderYaml)) {
+    failures.push('render.yaml must require SENTIENT_CONSENT_LOG_SALT as a synced secret')
+  }
+
+  if (
+    !/^\s*disk:\s*\n\s+name:\s*consent-evidence\s*\n\s+mountPath:\s*\/var\/data\s*\n\s+sizeGB:\s*5\s*$/m.test(
+      renderYaml,
+    )
+  ) {
+    failures.push('render.yaml must attach a /var/data persistent disk for consent evidence')
+  }
+} else {
+  failures.push('Missing render.yaml deployment configuration')
 }
 
 if (exists('dist/routes-manifest.json')) {

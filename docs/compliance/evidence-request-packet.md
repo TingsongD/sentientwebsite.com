@@ -25,7 +25,7 @@ Maintain fresh copies of agreements, DPIA annexes, and Google admin dashboards *
 | AI system card acknowledgement | Formal review log | Cross-functional leads | Completed Apr 2026 | Matches `ai-system-card.md` |
 | Assistant system policy proofs | Activated policy IDs + transcripts | Engineering / Robanka | Completed Apr 2026 | Restricted QA binder |
 | Cookie / tag inventory parity | Automated plus manual audits | Ops / engineering | Rolling — see Gate 2 trackers (`production-launch-gates.md`) | QA tickets |
-| Consent logs | Decide server vs local only | Counsel / engineering | Open pending counsel (`production-launch-gates.md` Gate 2) | Gate 2 |
+| Consent logs | Render persistent JSONL evidence, admin retrieval, retention pruning, and deletion procedure | Counsel / engineering | Completed May 2026 per Gate 2 owner confirmation | Render `/var/data` disk plus restricted ops retrieval |
 | Stripe Checkout architecture | Hosted fields statement + SAQ | Finance / ops | Completed Apr 2026 | Matches `stripe-pci-readiness.md` |
 | Webhook MFA controls | Procedures + ticketing proof | Engineering | Completed Apr 2026 | Incident response binder |
 | Refund / withdrawal operations | Mapped to `/billing-terms` | Ops (`songday@sentientwebsite.com`) | Completed Apr 2026 | Finance ops wiki |

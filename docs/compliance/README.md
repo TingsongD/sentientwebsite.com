@@ -53,9 +53,13 @@ Use `npm run compliance:audit:production` as the release-blocking variant; it ex
 Server-side consent evidence is owner-confirmed as required for production operations. When `SENTIENT_CONSENT_LOG_PATH` is enabled, use the local JSONL utility for restricted retrieval, retention pruning, and event deletion:
 
 ```sh
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --list --event-id <event-id> --pretty
-npm run consent-log:admin -- --file /restricted/sentientweb/consent-events.jsonl --retention-days 548 --commit
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --list --event-id <event-id> --pretty
+npm run consent-log:admin -- --file /var/data/sentientweb/consent-events.jsonl --retention-days 548 --commit
 ```
+
+The Render Blueprint mounts `/var/data` as a persistent disk for this evidence path. For existing
+Blueprint services, set `SENTIENT_CONSENT_LOG_SALT` manually in the Render Dashboard because
+`sync: false` secrets are only prompted during initial Blueprint creation.
 
 ## Non-Code Evidence to Maintain
 

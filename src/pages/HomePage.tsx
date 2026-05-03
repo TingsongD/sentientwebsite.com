@@ -8,20 +8,18 @@ import { BOOK_DEMO_URL } from '../constants'
 import { FEATURES, featureSectionId } from '../data/homeFeatures'
 import { SOLUTION_NAV_LIST, type SolutionSlug } from '../data/solutionPagesContent'
 
-const ABOUT_VIDEO =
-  'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
-const CTA_VIDEO =
-  'https://cdn.shopify.com/videos/c/o/v/9c76561bb05d4ed9941cb20637732cc0.mp4'
+const ABOUT_MEDIA = '/media/home-about.svg'
+const CTA_MEDIA = '/media/home-cta.svg'
 
 const INTEGRATION_LOGOS = [
-  { name: 'HubSpot', logoUrl: 'https://cdn.worldvectorlogo.com/logos/hubspot.svg' },
-  { name: 'OpenAI', logoUrl: 'https://cdn.worldvectorlogo.com/logos/openai.svg' },
-  { name: 'Gemini', logoUrl: 'https://cdn.worldvectorlogo.com/logos/gemini-6.svg' },
-  { name: 'Claude', logoUrl: 'https://cdn.worldvectorlogo.com/logos/claude-logo.svg' },
-  { name: 'Shopify', logoUrl: 'https://cdn.worldvectorlogo.com/logos/shopify.svg' },
-  { name: 'Webflow', logoUrl: 'https://cdn.worldvectorlogo.com/logos/webflow-logo-1.svg' },
-  { name: 'WordPress', logoUrl: 'https://cdn.worldvectorlogo.com/logos/wordpress-2.svg' },
-  { name: 'Wix', logoUrl: 'https://cdn.worldvectorlogo.com/logos/wix.svg' },
+  { name: 'HubSpot', logoUrl: '/logos/hubspot.svg' },
+  { name: 'OpenAI', logoUrl: '/logos/openai.svg' },
+  { name: 'Gemini', logoUrl: '/logos/gemini.svg' },
+  { name: 'Claude', logoUrl: '/logos/claude.svg' },
+  { name: 'Shopify', logoUrl: '/logos/shopify.svg' },
+  { name: 'Webflow', logoUrl: '/logos/webflow.svg' },
+  { name: 'WordPress', logoUrl: '/logos/wordpress.svg' },
+  { name: 'Wix', logoUrl: '/logos/wix.svg' },
 ] as const
 
 type LeakClockUnit = 'day' | 'hour'
@@ -132,10 +130,7 @@ function formatLeakRate(value: number) {
 }
 
 function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return false
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  })
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   useEffect(() => {
     if (!window.matchMedia) return
@@ -151,23 +146,21 @@ function usePrefersReducedMotion() {
 }
 
 function AmbientVideo({
-  src,
+  mediaSrc,
   className,
   videoClassName = 'h-full w-full object-cover',
-  poster,
   reducedMotion,
 }: {
-  src: string
+  mediaSrc: string
   className: string
   videoClassName?: string
-  poster?: string
   reducedMotion: boolean
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [clientReady, setClientReady] = useState(false)
   const [canPlay, setCanPlay] = useState(false)
   const [hasError, setHasError] = useState(false)
-  const shouldRenderVideo = clientReady && !reducedMotion && !hasError
+  const shouldRenderVideo = clientReady && !reducedMotion && !hasError && mediaSrc.endsWith('.mp4')
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- keep video URLs out of SSR/hydration markup
@@ -195,16 +188,24 @@ function AmbientVideo({
   return (
     <div className={className} aria-hidden>
       <div className="ambient-video-fallback absolute inset-0" />
+      <img
+        src={mediaSrc}
+        alt=""
+        className={`${videoClassName} relative z-10 transition-opacity duration-500 ${
+          showVideo ? 'opacity-0' : 'opacity-100'
+        }`}
+        loading="eager"
+        decoding="async"
+      />
       {shouldRenderVideo ? (
         <video
           ref={videoRef}
           className={`${videoClassName} relative z-10 transition-opacity duration-500 ${showVideo ? 'opacity-100' : 'opacity-0'}`}
-          src={src}
+          src={mediaSrc}
           loop
           muted
           playsInline
           preload="metadata"
-          poster={poster}
           data-ambient-video
           onCanPlay={() => setCanPlay(true)}
           onError={() => setHasError(true)}
@@ -450,7 +451,7 @@ export default function HomePage() {
         >
           <AmbientVideo
             className="absolute inset-0 h-full w-full overflow-hidden"
-            src={ABOUT_VIDEO}
+            mediaSrc={ABOUT_MEDIA}
             reducedMotion={prefersReducedMotion}
           />
 
@@ -537,7 +538,7 @@ export default function HomePage() {
         <section className="relative w-full bg-background" aria-labelledby="cta-heading">
           <AmbientVideo
             className="relative block aspect-video w-full overflow-hidden"
-            src={CTA_VIDEO}
+            mediaSrc={CTA_MEDIA}
             reducedMotion={prefersReducedMotion}
           />
           <div className="absolute inset-0 z-10 bg-background/45" aria-hidden />
