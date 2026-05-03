@@ -36,8 +36,8 @@ export const FEATURES = [
     title: 'Secure handoff',
     bullets: [
       'Human support stays available when a visitor asks for it.',
-      'End-to-end encryption protects sensitive request paths.',
-      'Zero data retention keeps the recovery flow lean.',
+      'Encryption in transit protects sensitive request paths.',
+      'Published retention controls keep the recovery flow accountable.',
     ],
   },
   {

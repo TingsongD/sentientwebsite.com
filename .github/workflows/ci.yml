@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  production-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run production-readiness checks
+        run: npm run test:all
+
+      - name: Build Docker image
+        run: docker build -t sentientweb:ci .
+
+      - name: Smoke test Docker image
+        run: |
+          cleanup() {
+            docker stop sentientweb-ci >/dev/null 2>&1 || true
+          }
+          trap cleanup EXIT
+          docker run --rm -d \
+            --name sentientweb-ci \
+            -e PORT=8080 \
+            -e VITE_SENTIENT_WIDGET_ORIGIN=https://app.sentientwebsite.com \
+            -e VITE_SENTIENT_INSTALL_KEY=ci-install-key \
+            -p 3000:8080 \
+            sentientweb:ci
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:3000/healthz; then
+              widget_config="$(curl --fail --silent http://127.0.0.1:3000/sentient-widget-config.json)"
+              node -e "const c = JSON.parse(process.argv[1]); if (c.origin !== 'https://app.sentientwebsite.com' || c.installKey !== 'ci-install-key') process.exit(1)" "$widget_config"
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs sentientweb-ci
+          exit 1

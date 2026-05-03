@@ -30,7 +30,7 @@ const number = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 })
 
-const TRUST_PILLS = ['No onboarding charge', 'Cancel anytime', 'Results in 48 hours'] as const
+const TRUST_PILLS = ['No onboarding charge', 'Cancel anytime', 'Modeled estimates only'] as const
 
 const PRODUCT_VISITOR_OPTIONS = [1000, 5000, 10000, 50000, 100000] as const
 const PRODUCT_AOV_OPTIONS = [25, 50, 100, 250, 500] as const
@@ -637,7 +637,8 @@ export default function PricingPage() {
             </h1>
             <p className="font-mono mx-auto mt-6 max-w-[760px] text-[14px] uppercase leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
               $500/month keeps us on call. After that, we only take a piece of the revenue we
-              recover for you. No recovered revenue? You barely pay anything.
+              can attribute under the agreed tracking rules. Estimates are not a guarantee of
+              revenue or business results.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {TRUST_PILLS.map((pill) => (
@@ -694,7 +695,7 @@ export default function PricingPage() {
                   },
                   {
                     title: 'We fix the leaks',
-                    body: 'AI-guided paths recover abandoning visitors, carts, bookings, and high-intent requests in 24-48 hours.',
+                    body: 'AI-guided paths help route abandoning visitors, carts, bookings, and high-intent requests after launch.',
                   },
                   {
                     title: 'You pay for results',
@@ -830,8 +831,8 @@ export default function PricingPage() {
                 Stop letting revenue leak.
               </h2>
               <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-                30-day free pilot. No credit card. No onboarding charge. Results typically visible
-                within 48 hours.
+                30-day free pilot. No credit card. No onboarding charge. Modeled estimates only;
+                actual timing and results vary.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a

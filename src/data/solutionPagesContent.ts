@@ -33,7 +33,7 @@ export const SOLUTION_PAGES = {
     accentColor: '#6366f1',
     metaTitle: 'Instant Demo Recovery for B2B SaaS',
     metaDescription:
-      'SentientWeb fixes demo pipeline leaks with instant access, calendar-ready next steps, human handoff, encryption, and zero data retention.',
+      'SentientWeb fixes demo pipeline leaks with instant access, calendar-ready next steps, human handoff, encryption, and disclosed retention controls.',
     plumberMetaphor: 'We fix the pipeline leaks between your website and your calendar.',
     hero: {
       eyebrow: 'Solutions / B2B SaaS',
@@ -43,7 +43,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'See Instant Demo',
       secondaryCta: 'Watch How It Works',
     },
-    proofStat: '55% of demo requests die from slow response.',
+    proofStat: 'Slow demo routing can turn high-intent requests into stalled pipeline.',
     features: [
       {
         title: 'Stop slow demo leaks',
@@ -103,7 +103,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Estimate',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '15-20 emergency calls lost per night can mean $1.5M+ annually.',
+    proofStat: 'After-hours service requests often leak to the first company that responds.',
     features: [
       {
         title: 'Emergency calls stay yours',
@@ -163,7 +163,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Quote',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '50% of inquiries walk to the faster responder.',
+    proofStat: 'Insurance shoppers often compare several responders before choosing who to contact.',
     features: [
       {
         title: 'Open enrollment coverage',
@@ -223,7 +223,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Product Match',
       secondaryCta: 'See Recovery Rate',
     },
-    proofStat: '72% of shoppers abandon carts before purchase.',
+    proofStat: 'Cart hesitation often starts with one unresolved product or checkout question.',
     features: [
       {
         title: 'Recover hesitation moments',
@@ -273,7 +273,7 @@ export const SOLUTION_PAGES = {
     accentColor: '#0891b2',
     metaTitle: 'Instant Booking Recovery for Healthcare',
     metaDescription:
-      'SentientWeb supports healthcare access with instant booking paths, privacy-minded intake, encryption, zero data retention, and human handoff.',
+      'SentientWeb supports healthcare access with instant booking paths, privacy-minded intake, encryption, retention controls, and human handoff.',
     plumberMetaphor: 'We fix patient access leaks before uncertainty becomes delay.',
     hero: {
       eyebrow: 'Solutions / Healthcare',
@@ -283,7 +283,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Booking',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '25% booking abandonment can mean 40+ lost patients per day per clinic.',
+    proofStat: 'Unanswered access questions can delay appointment requests and patient routing.',
     features: [
       {
         title: 'Coverage questions answered',
@@ -295,7 +295,7 @@ export const SOLUTION_PAGES = {
       },
       {
         title: 'Privacy-minded intake',
-        body: 'Zero data retention, end-to-end encryption, and secure handling are built into the patient access path.',
+        body: 'Published retention controls, encryption in transit, and secure handling are built into the patient access path.',
       },
       {
         title: 'Provider matching',
@@ -343,7 +343,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Start Instant Application',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '68% enrollment form abandonment is a major revenue leak.',
+    proofStat: 'Long application forms create avoidable friction for motivated students.',
     features: [
       {
         title: 'Recover started applications',
@@ -403,7 +403,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Availability',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '23% of abandoned bookings can come from unanswered traveler questions.',
+    proofStat: 'Traveler questions can interrupt direct booking when no useful answer is available.',
     features: [
       {
         title: 'Odd-hour travelers convert',
@@ -463,7 +463,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Property Match',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '60+ agent inquiries per day with a 4-hour response average means lost deals.',
+    proofStat: 'Property interest loses momentum when showing requests wait for manual response.',
     features: [
       {
         title: 'Speed wins relationships',
@@ -523,7 +523,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Book Instant Consultation',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '40% of after-hours legal inquiries lost can mean 100+ missed clients monthly.',
+    proofStat: 'After-hours legal inquiries need a careful path to human review before urgency fades.',
     features: [
       {
         title: 'Urgent matters stay captured',
@@ -539,7 +539,7 @@ export const SOLUTION_PAGES = {
       },
       {
         title: 'Confidential by design',
-        body: 'End-to-end encryption, zero data retention, and secure handling support a careful intake process.',
+        body: 'Encryption in transit, published retention controls, and secure handling support a careful intake process.',
       },
     ],
     steps: [
@@ -583,7 +583,7 @@ export const SOLUTION_PAGES = {
       primaryCta: 'Get Instant Rate Estimate',
       secondaryCta: 'See How It Works',
     },
-    proofStat: '70% of borrowers choose the first responder; 35% abandon partial applications.',
+    proofStat: 'Rate shoppers and applicants often need fast clarification before choosing a next step.',
     features: [
       {
         title: 'Rate shoppers move fast',

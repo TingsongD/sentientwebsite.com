@@ -1,216 +1,203 @@
 import { Link } from 'react-router-dom'
-import { MarketingPageLayout } from '../components/MarketingPageLayout'
+import { LegalLink, LegalList, LegalPage } from '../components/LegalPage'
+import { SITE_HOSTNAME } from '../constants'
 
 export default function TermsOfServicePage() {
   return (
-    <MarketingPageLayout>
-      <article className="mx-auto max-w-[800px] px-4 py-16 sm:px-6 sm:py-20 md:py-24">
-        <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-          Legal · Terms
-        </p>
-        <h1 className="font-grotesk text-[34px] uppercase leading-[1.08] text-cream sm:text-[44px] md:text-[52px]">
-          Terms of service
-        </h1>
-        <p className="font-mono mt-6 border-l-2 border-neon/50 pl-4 text-[13px] uppercase leading-relaxed text-cream/65 sm:text-[14px]">
-          Last updated: April 10, 2026. This is a general template for SentientWeb’s marketing site.
-          Replace with counsel-reviewed terms for your product agreements.
-        </p>
-
-        <div className="mt-12 space-y-10 font-mono text-[15px] normal-case leading-[1.7] text-cream/85 sm:text-[16px]">
-          <section aria-labelledby="tos-accept">
-            <h2
-              id="tos-accept"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Agreement
-            </h2>
+    <LegalPage
+      eyebrow="Legal · Terms"
+      title="Terms of service"
+      intro="These terms govern access to SentientWeb’s website, live automated assistant, and related services."
+      sections={[
+        {
+          id: 'tos-accept',
+          title: 'Agreement',
+          body: (
             <p>
-              By accessing or using SentientWeb’s website and services, you agree to these Terms of
-              Service. If you do not agree, do not use our site or services. A separate agreement may
-              govern paid or enterprise use of the product.
+              By accessing {SITE_HOSTNAME}, using the live automated assistant, scheduling a
+              demo, or using our services, you agree to these Terms. If you use SentientWeb for a
+              company, you represent that you have authority to bind that company. SentientWeb is
+              operated by Robanka Inc., 505 Burrard Street, Vancouver, BC V7X 1M5, Canada. If you do
+              not agree, do not use the site or services.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-service">
-            <h2
-              id="tos-service"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Services
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-service',
+          title: 'Services and separate agreements',
+          body: (
             <p>
-              We provide software and related services as described on our site and in applicable
-              order forms or contracts. We may modify, suspend, or discontinue features with
-              reasonable notice where practicable.
+              SentientWeb provides website revenue recovery software, implementation services, and a
+              live automated assistant experience. Paid pilots, subscriptions, managed services,
+              usage limits, service levels, data processing terms, and commercial commitments require
+              a signed order form or written agreement. If a separate agreement conflicts with these
+              Terms, that agreement controls for the covered services.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-accounts">
-            <h2
-              id="tos-accounts"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Accounts and eligibility
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-ai',
+          title: 'Automated assistant disclosure',
+          body: (
+            <>
+              <p>
+                The live assistant is automated. <strong>Google</strong> supplies the AI technology
+                (<strong>Gemini Live</strong>); Robanka Inc. operates this site and the assistant
+                experience. Its responses can be incomplete, inaccurate, or outdated. Do not rely on
+                assistant output as legal, medical, financial, tax, safety, or other professional
+                advice. Confirm important information with a qualified person.
+              </p>
+              <p className="mt-4">
+                If you choose voice mode, your microphone audio is captured and processed while the
+                feature is active so the assistant can respond. You are responsible for ensuring that
+                people near your device know before you transmit their voice or personal information.
+                <strong>Persistent retention lives only with HubSpot and Google.</strong>{' '}
+                SentientWeb and Robanka do not persist those assistant payloads on SentientWeb- or
+                Robanka-operated databases. Any persistence beyond your device follows HubSpot CRM
+                settings (when you exchange business information routed there) or Google Gemini Apps /
+                Gemini Live terms—for example Google has publicly disclosed activity durations such as{' '}
+                <strong>eighteen months</strong> depending on settings, Gemini Live recordings not being
+                used to improve Google services by default depending on controls, and similar updates in
+                their help documentation.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: 'tos-eligibility',
+          title: 'Eligibility and minors',
+          body: (
             <p>
-              You must provide accurate information and keep credentials secure. You are responsible
-              for activity under your account. You must be legally able to enter into these terms in
-              your jurisdiction.
+              You must be at least 18 years old and legally able to enter these Terms. The site and
+              assistant are not directed to children or teens under 18. You may not use the services
+              if law or platform terms prohibit your use.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-acceptable">
-            <h2
-              id="tos-acceptable"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Acceptable use
-            </h2>
-            <p>You agree not to:</p>
-            <ul className="mt-4 list-inside list-disc space-y-2 marker:text-neon">
-              <li>Violate law or others’ rights;</li>
-              <li>Attempt to gain unauthorized access to our systems or other users’ data;</li>
-              <li>Overload, disrupt, or reverse engineer the service except where permitted by law;</li>
-              <li>Use the service to send spam, malware, or deceptive content.</li>
-            </ul>
-          </section>
-
-          <section aria-labelledby="tos-ip">
-            <h2
-              id="tos-ip"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Intellectual property
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-acceptable',
+          title: 'Acceptable use',
+          body: (
+            <>
+              <p>You agree not to:</p>
+              <LegalList>
+                <li>Violate law, privacy rights, intellectual property rights, or platform rules.</li>
+                <li>Record or submit another person’s voice, image, or data without required notice or consent.</li>
+                <li>Submit sensitive personal data, payment card data, secrets, or children’s data unless requested through a secure workflow.</li>
+                <li>Use the assistant for unlawful surveillance, biometric identification, deception, deepfakes, harassment, or discriminatory decisions.</li>
+                <li>Reverse engineer, scrape, overload, bypass safeguards, or interfere with the site, assistant, or underlying models.</li>
+                <li>Use outputs to make high-impact eligibility, employment, credit, housing, insurance, legal, medical, or similar decisions without lawful human review.</li>
+              </LegalList>
+            </>
+          ),
+        },
+        {
+          id: 'tos-customer-content',
+          title: 'Your content and permissions',
+          body: (
             <p>
-              SentientWeb and its licensors own the site, branding, and software. Subject to these
-              terms and any separate agreement, we grant you a limited, non-exclusive license to use
-              the services as intended. You retain rights to your own content and data.
+              You retain rights to content you submit. You grant SentientWeb and its providers a
+              limited license to process that content to operate, secure, support, and improve the
+              services as described in our Privacy Policy and any applicable data processing terms.
+              You represent that you have all rights and notices needed to submit the content.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-disclaimer">
-            <h2
-              id="tos-disclaimer"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Disclaimers
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-ip',
+          title: 'Intellectual property',
+          body: (
             <p>
-              The site and services are provided <strong className="font-medium text-cream">“as is”</strong>{' '}
-              and <strong className="font-medium text-cream">“as available.”</strong> To the fullest extent
-              permitted by law, we disclaim warranties of merchantability, fitness for a particular
-              purpose, and non-infringement.
+              SentientWeb and its licensors own the website, software, workflows, branding, designs,
+              documentation, and related technology. Subject to these Terms, we grant you a limited,
+              revocable, non-exclusive, non-transferable right to use the public site and any services
+              we make available to you for their intended purposes.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-liability">
-            <h2
-              id="tos-liability"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Limitation of liability
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-sale',
+          title: 'Payments, cancellations, and refunds',
+          body: (
             <p>
-              To the maximum extent permitted by law, SentientWeb and its suppliers will not be liable
-              for indirect, incidental, special, consequential, or punitive damages, or loss of
-              profits, data, or goodwill. Our aggregate liability for claims relating to the services
-              is limited to the greater of amounts you paid us in the twelve months before the claim
-              or one hundred U.S. dollars, unless a separate contract states otherwise.
+              The public website does not currently process checkout payments. Any fees, taxes,
+              cancellation rights, renewal terms, refunds, service credits, consumer withdrawal
+              rights, or return policies must be stated in the applicable order form or checkout
+              terms before purchase. EU, UK, Canadian, Australian, New Zealand, and U.S. consumer
+              rights that cannot legally be waived remain unaffected.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-indemnity">
-            <h2
-              id="tos-indemnity"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Indemnity
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-dmca',
+          title: 'User content and copyright notices',
+          body: (
             <p>
-              You will defend and indemnify SentientWeb against claims arising from your misuse of
-              the services, your content, or your violation of these terms, to the extent permitted by
-              law.
+              If future services host user-posted content, we may remove allegedly infringing
+              material and terminate repeat infringers where required. Copyright concerns can be sent
+              to{' '}
+              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>
+              . Include the work, the allegedly infringing material, your contact information, and a
+              statement that your notice is accurate and authorized.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-termination">
-            <h2
-              id="tos-termination"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Termination
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-disclaimer',
+          title: 'Disclaimers',
+          body: (
             <p>
-              We may suspend or terminate access for breach or risk to the service. You may stop
-              using the site at any time. Provisions that by nature should survive will survive
-              termination.
+              The site, assistant, and services are provided “as is” and “as available.” To the
+              fullest extent permitted by law, SentientWeb disclaims warranties of merchantability,
+              fitness for a particular purpose, non-infringement, accuracy, availability, and that
+              outputs will meet your requirements. We do not guarantee revenue results.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-law">
-            <h2
-              id="tos-law"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Governing law
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-liability',
+          title: 'Limitation of liability',
+          body: (
             <p>
-              These terms are governed by the laws of the jurisdiction SentientWeb designates in your
-              order form or, if none, the State of Delaware, USA, excluding conflict-of-law rules.
-              Courts in that jurisdiction have exclusive venue, unless applicable law requires
-              otherwise.
+              To the maximum extent permitted by law, SentientWeb and its suppliers will not be
+              liable for indirect, incidental, special, consequential, exemplary, or punitive
+              damages, or lost profits, revenue, goodwill, data, or business opportunities. Our
+              aggregate liability for claims relating to the site or services is limited to the
+              greater of amounts you paid us for the relevant services in the twelve months before the
+              claim or one hundred U.S. dollars, unless a separate agreement states otherwise.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-changes">
-            <h2
-              id="tos-changes"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Changes
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-law',
+          title: 'Governing law',
+          body: (
             <p>
-              We may update these terms by posting a new version on this page. Continued use after the
-              effective date constitutes acceptance of the revised terms.
+              These Terms are governed by Delaware law, excluding conflict-of-law rules, unless a
+              separate agreement states otherwise or mandatory consumer law requires another forum or
+              governing law. Courts in Delaware have exclusive venue for permitted disputes, subject
+              to mandatory rights in your country, province, state, or territory.
             </p>
-          </section>
-
-          <section aria-labelledby="tos-contact">
-            <h2
-              id="tos-contact"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Contact
-            </h2>
+          ),
+        },
+        {
+          id: 'tos-legal-links',
+          title: 'Related policies',
+          body: (
             <p>
-              Questions:{' '}
-              <a
-                href="mailto:hello@sentientwebsite.com"
-                className="text-neon underline-offset-4 transition hover:underline"
-              >
-                hello@sentientwebsite.com
-              </a>
-              .
+              These Terms incorporate our{' '}
+              <Link to="/privacy" className="text-neon underline-offset-4 transition hover:underline">
+                Privacy Policy
+              </Link>
+              ,{' '}
+              <Link to="/cookies" className="text-neon underline-offset-4 transition hover:underline">
+                Cookie Policy
+              </Link>
+              , and any written service terms we provide for paid services.
             </p>
-          </section>
-        </div>
-
-        <div className="mt-12 flex flex-wrap gap-4">
-          <Link
-            to="/privacy"
-            className="liquid-glass rounded-full px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[13px]"
-          >
-            Privacy policy
-          </Link>
-          <Link
-            to="/"
-            className="font-mono text-[12px] uppercase tracking-wide text-cream/50 underline-offset-4 transition hover:text-neon hover:underline sm:text-[13px]"
-          >
-            Back to home
-          </Link>
-        </div>
-      </article>
-    </MarketingPageLayout>
+          ),
+        },
+      ]}
+    />
   )
 }

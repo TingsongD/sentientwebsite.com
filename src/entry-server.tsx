@@ -3,8 +3,10 @@ import { renderToString } from 'react-dom/server'
 import { HelmetProvider } from 'react-helmet-async'
 import { StaticRouter } from 'react-router-dom'
 import App from './App'
+import { LEGAL_VERSIONS, SITE_URL } from './constants'
 import {
   getPageMeta,
+  DYNAMIC_FALLBACK_REDIRECTS,
   KNOWN_ROUTE_PATHS,
   LEGACY_ROUTE_REDIRECTS,
   NOT_FOUND_PATH,
@@ -12,7 +14,14 @@ import {
   renderStructuredDataScript,
 } from './routeMetadata'
 
-export { KNOWN_ROUTE_PATHS, LEGACY_ROUTE_REDIRECTS, NOT_FOUND_PATH }
+export {
+  DYNAMIC_FALLBACK_REDIRECTS,
+  KNOWN_ROUTE_PATHS,
+  LEGACY_ROUTE_REDIRECTS,
+  NOT_FOUND_PATH,
+  LEGAL_VERSIONS,
+  SITE_URL,
+}
 
 export function render(url: string) {
   const appHtml = renderToString(

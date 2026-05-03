@@ -41,7 +41,7 @@ const LEAK_CLOCK_ESTIMATES = {
     typicalAnnualLeakUsd: 180_000,
     sourceLabel: 'Modeled from US SaaS revenue and speed-to-lead decay research.',
     methodology:
-      'Uses US SaaS revenue benchmarks and a conservative modeled share of inbound demo pipeline lost to slow routing, weak follow-up, and delayed handoff.',
+      'Uses US SaaS revenue benchmarks and a conservative modeled share of inbound demo pipeline lost to slow routing, weak response loops, and delayed handoff.',
   },
   'home-services': {
     usAnnualLeakUsd: 24_000_000_000,

@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { MarketingPageLayout } from '../components/MarketingPageLayout'
-import { GITHUB_REPO_URL } from '../constants'
+import { GITHUB_REPO_URL, SITE_HOSTNAME } from '../constants'
 
 const SYSTEMS: { name: string; detail: string; status: 'operational' }[] = [
   {
     name: 'Marketing site',
-    detail: 'sentientwebsite.com',
+    detail: SITE_HOSTNAME,
     status: 'operational',
   },
   {

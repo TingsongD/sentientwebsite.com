@@ -65,18 +65,25 @@ const FUNNEL_SEGMENTS = [
   },
 ] as const
 
+const FUNNEL_SEGMENT_SHAPE_CLASSES = [
+  'funnel-segment--0',
+  'funnel-segment--1',
+  'funnel-segment--2',
+  'funnel-segment--3',
+] as const
+
 const FIX_ROWS = [
-  ['Social comments unanswered', 'Monitor mentions, answer common questions, route edge cases', '90% response rate'],
-  ['Social re-engagement missing', 'Send timely second-touch offers after public replies', '3x follow-up rate'],
-  ['Reviews not replied', 'Draft personalized responses for approval', '100% review response rate'],
-  ['Chats not replied', 'Respond in seconds and route qualified requests', '95% response rate'],
-  ['Emails not replied', 'Draft replies and keep unanswered requests moving', '100% response within 1h'],
-  ['Contact forms ignored', 'Reply in under 60 seconds with a five-touch sequence', '5x touch frequency'],
-  ['Visitors not captured', 'Engage based on behavior and capture contact details', '3-5x lead capture rate'],
-  ['Visitors not convinced', 'Answer objections while the visitor is still active', '2x in-session conversion'],
-  ['Abandoned carts', 'Trigger recovery messages within 15 minutes', '15-20% recovery rate'],
-  ['Abandoned checkout', 'Offer immediate help before the buyer disappears', '25-30% recovery rate'],
-  ['Demo no-shows', 'Send SMS and email reminders with team alerts', '75% show-up rate'],
+  ['Social comments unanswered', 'Monitor mentions, answer common questions, route edge cases', 'Modeled response target'],
+  ['Social re-engagement missing', 'Send timely second-touch offers after public replies', 'Modeled response lift'],
+  ['Reviews not replied', 'Draft personalized responses for approval', 'Modeled response coverage'],
+  ['Chats not replied', 'Respond quickly and route qualified requests', 'Modeled response target'],
+  ['Emails not replied', 'Draft replies and keep unanswered requests moving', 'Modeled response target'],
+  ['Contact forms ignored', 'Reply quickly with a multi-touch sequence', 'Modeled touch lift'],
+  ['Visitors not captured', 'Engage based on behavior and capture contact details', 'Modeled lead capture lift'],
+  ['Visitors not convinced', 'Answer objections while the visitor is still active', 'Modeled conversion lift'],
+  ['Abandoned carts', 'Trigger recovery messages while intent is still active', 'Modeled recovery range'],
+  ['Abandoned checkout', 'Offer immediate help before the buyer disappears', 'Modeled recovery range'],
+  ['Demo no-shows', 'Send reminders with team alerts', 'Modeled show-rate target'],
 ] as const
 
 function trackLeakEvent(event: string, payload: Record<string, unknown> = {}) {
@@ -330,16 +337,7 @@ function FunnelOverview({ totalMonthlyLeak }: { totalMonthlyLeak: number }) {
           {FUNNEL_SEGMENTS.map((segment, index) => (
             <li
               key={segment.label}
-              className="mx-auto min-h-[132px] w-full border border-white/10 bg-white/[0.035] px-6 py-5"
-              style={{
-                maxWidth: `${100 - index * 6}%`,
-                clipPath:
-                  index === 0
-                    ? 'polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%)'
-                    : index === FUNNEL_SEGMENTS.length - 1
-                      ? 'polygon(8% 0, 100% 0, 100% 100%, 8% 100%, 0 50%)'
-                      : 'polygon(8% 0, 92% 0, 100% 50%, 92% 100%, 8% 100%, 0 50%)',
-              }}
+              className={`mx-auto min-h-[132px] w-full border border-white/10 bg-white/[0.035] px-6 py-5 ${FUNNEL_SEGMENT_SHAPE_CLASSES[index]}`}
             >
               <div className="flex h-full flex-col justify-between pl-2">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-neon">
@@ -555,12 +553,12 @@ export default function RevenueLeakCalculatorPage() {
         Skip to main content
       </a>
       <MarketingHeader layout="page" />
-      <div className="fixed inset-x-0 top-0 z-[90] h-1 bg-white/10" aria-hidden>
-        <div
-          className="h-full bg-neon transition-[width] duration-150"
-          style={{ width: `${scrollProgress}%` }}
-        />
-      </div>
+      <progress
+        className="roi-scroll-progress fixed inset-x-0 top-0 z-[90] h-1 w-full"
+        value={scrollProgress}
+        max={100}
+        aria-hidden
+      />
       <main id="main-content" className="bg-background pb-28 md:pb-0">
         <section
           className="mx-auto max-w-[1831px] px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10"
@@ -579,6 +577,10 @@ export default function RevenueLeakCalculatorPage() {
             <p className="font-mono mx-auto mt-6 max-w-[820px] text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
               Answer the funnel questions below. The calculator shows what is slipping away across
               awareness, engagement, conversion, and monthly revenue capture.
+            </p>
+            <p className="font-mono mx-auto mt-3 max-w-[760px] text-[11px] normal-case leading-relaxed text-cream/50 sm:text-[12px]">
+              Outputs are modeled estimates based on your inputs and assumptions. They are not a
+              guarantee of revenue, conversion lift, response rates, or business results.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {['Takes 2 minutes', '11 leak checks', 'Live monthly total'].map((pill) => (
@@ -695,7 +697,7 @@ export default function RevenueLeakCalculatorPage() {
               />
               <SliderControl
                 id="second-touch-rate"
-                label="Second-touch follow-up rate"
+                label="Second-touch response rate"
                 min={0}
                 max={100}
                 value={inputs.secondTouchRate}
@@ -957,12 +959,12 @@ export default function RevenueLeakCalculatorPage() {
             <LeakCard
               code="Leak 5.4"
               title="Visitors not captured"
-              description="98% of your visitors leave without a trace. No email. No name. Nothing."
+              description="Many visitors leave without a contact path. This model estimates what improved capture could be worth."
               icon={Users}
               monthlyLoss={calculations.engagement.visitorsNotCaptured.monthlyLoss}
               metrics={[
                 {
-                  label: 'Benchmark lead rate',
+                  label: 'Modeled lead rate',
                   value: '5%',
                 },
                 {
@@ -1000,12 +1002,12 @@ export default function RevenueLeakCalculatorPage() {
             <LeakCard
               code="Leak 5.5"
               title="Visitors not convinced"
-              description="They had questions. No one answered. They bought from your competitor instead."
+              description="When high-intent visitors still have unanswered questions, this model estimates the value of better in-session routing."
               icon={MousePointerClick}
               monthlyLoss={calculations.engagement.visitorsNotConvinced.monthlyLoss}
               metrics={[
                 {
-                  label: 'Active engagement benchmark',
+                  label: 'Modeled engagement rate',
                   value: '15%',
                 },
                 {
@@ -1150,12 +1152,12 @@ export default function RevenueLeakCalculatorPage() {
             <LeakCard
               code="Leak 6.3"
               title="Demo no-shows"
-              description="They booked a meeting. No one reminded them. You sat in an empty room."
+              description="Booked meetings still need reminders and routing. This model estimates the value of reducing avoidable no-shows."
               icon={CalendarX}
               monthlyLoss={calculations.conversion.demoNoShows.monthlyLoss}
               metrics={[
                 {
-                  label: 'Reminder show-rate benchmark',
+                  label: 'Modeled show-rate target',
                   value: '75%',
                 },
                 {

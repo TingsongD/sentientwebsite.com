@@ -14,8 +14,10 @@ services:
     repo: https://github.com/TingsongD/sentientweblanding2
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    healthCheckPath: /
+    healthCheckPath: /healthz
     envVars:
+      - key: VITE_SITE_URL
+        value: https://sentientwebsite.com/
       - key: VITE_SENTIENT_WIDGET_ORIGIN
         value: https://app.sentientwebsite.com
       - key: NEXT_PUBLIC_SENTIENT_WIDGET_ORIGIN

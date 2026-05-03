@@ -3,16 +3,23 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.12 <25",
+    "npm": ">=10"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.mjs",
-    "test": "vitest run src",
+    "consent-log:admin": "node scripts/consent-log-admin.mjs",
+    "compliance:audit": "node scripts/compliance-audit.mjs",
+    "compliance:audit:production": "node scripts/compliance-audit.mjs --production",
+    "test": "vitest run src scripts",
     "test:e2e": "npm run build && playwright test",
     "test:e2e:no-build": "playwright test",
-    "test:all": "npm run lint && npm test && npm run test:e2e && npm audit"
+    "test:all": "npm run lint && npm test && npm run test:e2e && npm run compliance:audit && npm audit"
   },
   "dependencies": {
     "lucide-react": "^0.576.0",

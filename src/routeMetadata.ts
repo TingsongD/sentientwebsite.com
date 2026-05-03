@@ -46,13 +46,63 @@ const STATIC_META = {
   },
   '/privacy': {
     title: 'Privacy Policy',
-    description: 'How SentientWeb collects, uses, protects, and shares personal information.',
+    description: 'How SentientWeb handles personal information, voice inputs, rights, and choices.',
     canonicalPath: '/privacy',
   },
   '/terms': {
     title: 'Terms of Service',
     description: 'The terms that govern access to and use of SentientWeb services.',
     canonicalPath: '/terms',
+  },
+  '/cookies': {
+    title: 'Cookie Policy',
+    description: 'How SentientWeb uses browser storage and privacy preferences.',
+    canonicalPath: '/cookies',
+  },
+  '/billing-terms': {
+    title: 'Billing, Refunds, and Withdrawal',
+    description: 'SentientWeb billing, cancellation, refund, and consumer withdrawal terms.',
+    canonicalPath: '/billing-terms',
+  },
+  '/ai-disclosure': {
+    title: 'Automation Notice',
+    description: 'Disclosure for the automated, voice-enabled website assistant.',
+    canonicalPath: '/ai-disclosure',
+  },
+  '/data-request': {
+    title: 'Data Request',
+    description: 'Submit privacy rights, access, deletion, correction, and opt-out requests.',
+    canonicalPath: '/data-request',
+  },
+  '/do-not-sell': {
+    title: 'Do Not Sell or Share',
+    description: 'Privacy opt-out choices for applicable U.S. state privacy laws.',
+    canonicalPath: '/do-not-sell',
+  },
+  '/accessibility': {
+    title: 'Accessibility Statement',
+    description: 'SentientWeb accessibility standards, known limitations, and feedback contact.',
+    canonicalPath: '/accessibility',
+  },
+  '/dmca': {
+    title: 'DMCA Policy',
+    description: 'How to send copyright notices for SentientWeb services.',
+    canonicalPath: '/dmca',
+  },
+  '/security-response': {
+    title: 'Security and Breach Response',
+    description: 'How to report vulnerabilities and how SentientWeb handles security incidents.',
+    canonicalPath: '/security-response',
+  },
+  '/unsubscribe': {
+    title: 'Unsubscribe',
+    description: 'Opt out of SentientWeb marketing emails and future SMS communications.',
+    canonicalPath: '/unsubscribe',
+  },
+  '/legal': {
+    title: 'Legal Notice',
+    description: 'SentientWeb legal contact, public notices, and compliance resources.',
+    canonicalPath: '/legal',
   },
   '/trust': {
     title: 'Trust and Security',
@@ -123,6 +173,12 @@ export const LEGACY_ROUTE_REDIRECTS = Object.fromEntries(
   ]),
 ) as Record<string, string>
 
+export const DYNAMIC_FALLBACK_REDIRECTS = {
+  '/blog/': '/blog',
+  '/integrations/': '/',
+  '/solutions/': '/#solutions',
+} as const
+
 export const KNOWN_ROUTE_PATHS = [
   ...STATIC_ROUTE_PATHS,
   ...BLOG_ROUTE_PATHS,
@@ -148,9 +204,9 @@ export function getInvalidDynamicRedirect(pathname: string) {
   const path = normalizePathname(pathname)
 
   if (Object.hasOwn(LEGACY_ROUTE_REDIRECTS, path)) return LEGACY_ROUTE_REDIRECTS[path]
-  if (path.startsWith('/blog/') && !isKnownRoutePath(path)) return '/blog'
-  if (path.startsWith('/integrations/') && !isKnownRoutePath(path)) return '/'
-  if (path.startsWith('/solutions/') && !isKnownRoutePath(path)) return '/#solutions'
+  for (const [prefix, location] of Object.entries(DYNAMIC_FALLBACK_REDIRECTS)) {
+    if (path.startsWith(prefix) && !isKnownRoutePath(path)) return location
+  }
 
   return null
 }
@@ -226,7 +282,7 @@ function organizationSchema(): StructuredData {
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE_URL,
     description:
-      'SentientWeb fixes website revenue leaks with instant access paths, secure AI-guided next steps, human handoff, and zero data retention.',
+      'SentientWeb fixes website revenue leaks with instant access paths, secure AI-guided next steps, human handoff, and disclosed retention controls.',
   }
 }
 

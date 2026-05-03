@@ -37,8 +37,8 @@ export default function AboutPage() {
 
           <p>
             Trust matters because these moments often include sensitive context. SentientWeb keeps
-            human support available, uses end-to-end encryption, and keeps zero data retention as a
-            core product principle.
+            human support available, uses encryption in transit, and publishes retention controls
+            for the AI-assisted experience.
           </p>
 
           <p>

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link, type To } from 'react-router-dom'
 import { BOOK_DEMO_URL, GITHUB_REPO_URL } from '../constants'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
+import { openPrivacyPreferences } from '../privacyPreferences'
 import { SocialIconStack } from './SocialIconStack'
 
 type FooterProductItem =
@@ -22,6 +23,7 @@ const FOOTER_COMPANY: { label: string; to: To }[] = [
   { label: 'About', to: '/about' },
   { label: 'Careers', to: '/careers' },
   { label: 'Trust & security', to: '/trust' },
+  { label: 'Legal notice', to: '/legal' },
 ]
 
 type FooterDevItem =
@@ -133,6 +135,40 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
           <Link to="/terms" className="transition hover:text-neon">
             Terms of service
           </Link>
+          <Link to="/cookies" className="transition hover:text-neon">
+            Cookie policy
+          </Link>
+          <Link to="/billing-terms" className="transition hover:text-neon">
+            Billing terms
+          </Link>
+          <Link to="/ai-disclosure" className="transition hover:text-neon">
+            Automation notice
+          </Link>
+          <Link to="/data-request" className="transition hover:text-neon">
+            Data request
+          </Link>
+          <Link to="/do-not-sell" className="transition hover:text-neon">
+            Do not sell/share
+          </Link>
+          <Link to="/accessibility" className="transition hover:text-neon">
+            Accessibility
+          </Link>
+          <Link to="/dmca" className="transition hover:text-neon">
+            DMCA
+          </Link>
+          <Link to="/security-response" className="transition hover:text-neon">
+            Security response
+          </Link>
+          <Link to="/unsubscribe" className="transition hover:text-neon">
+            Unsubscribe
+          </Link>
+          <button
+            type="button"
+            className="uppercase transition hover:text-neon"
+            onClick={openPrivacyPreferences}
+          >
+            Privacy choices
+          </button>
         </div>
       </div>
     </footer>

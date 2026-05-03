@@ -97,6 +97,48 @@
   }
 }
 
+.funnel-segment--0 {
+  clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%);
+  max-width: 100%;
+}
+
+.funnel-segment--1,
+.funnel-segment--2 {
+  clip-path: polygon(8% 0, 92% 0, 100% 50%, 92% 100%, 8% 100%, 0 50%);
+}
+
+.funnel-segment--1 {
+  max-width: 94%;
+}
+
+.funnel-segment--2 {
+  max-width: 88%;
+}
+
+.funnel-segment--3 {
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 8% 100%, 0 50%);
+  max-width: 82%;
+}
+
+.roi-scroll-progress {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 0;
+}
+
+.roi-scroll-progress::-webkit-progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.roi-scroll-progress::-webkit-progress-value {
+  background: #6fff00;
+  transition: width 150ms;
+}
+
+.roi-scroll-progress::-moz-progress-bar {
+  background: #6fff00;
+}
+
 .blackhole-drift-word {
   --blackhole-x: clamp(14rem, 46vw, 48rem);
   --blackhole-y: clamp(9rem, 36vh, 28rem);

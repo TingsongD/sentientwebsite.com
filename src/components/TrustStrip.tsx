@@ -12,14 +12,14 @@ const TRUST_ITEMS = [
     badgeClass: 'border-violet-300/40 bg-violet-400/15 text-violet-100',
   },
   {
-    label: 'End-to-end encrypted',
+    label: 'Encrypted in transit',
     detail: 'Protected response paths',
     Icon: ShieldCheck,
     badgeClass: 'border-emerald-300/40 bg-emerald-400/15 text-emerald-100',
   },
   {
-    label: 'Zero data retention',
-    detail: 'Secure handling by default',
+    label: 'Retention controls',
+    detail: '18-month limit disclosed',
     Icon: LockKeyhole,
     badgeClass: 'border-neon/40 bg-neon/15 text-neon',
   },

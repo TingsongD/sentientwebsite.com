@@ -1,207 +1,236 @@
 import { Link } from 'react-router-dom'
-import { MarketingPageLayout } from '../components/MarketingPageLayout'
+import { LegalLink, LegalList, LegalPage } from '../components/LegalPage'
+import { SITE_HOSTNAME } from '../constants'
 
 export default function PrivacyPolicyPage() {
   return (
-    <MarketingPageLayout>
-      <article className="mx-auto max-w-[800px] px-4 py-16 sm:px-6 sm:py-20 md:py-24">
-        <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-          Legal · Privacy
-        </p>
-        <h1 className="font-grotesk text-[34px] uppercase leading-[1.08] text-cream sm:text-[44px] md:text-[52px]">
-          Privacy policy
-        </h1>
-        <p className="font-mono mt-6 border-l-2 border-neon/50 pl-4 text-[13px] uppercase leading-relaxed text-cream/65 sm:text-[14px]">
-          Last updated: April 10, 2026. This is a general template for SentientWeb’s marketing site.
-          Replace with counsel-reviewed language before relying on it commercially.
-        </p>
-
-        <div className="mt-12 space-y-10 font-mono text-[15px] normal-case leading-[1.7] text-cream/85 sm:text-[16px]">
-          <section aria-labelledby="pp-intro">
-            <h2
-              id="pp-intro"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Introduction
-            </h2>
+    <LegalPage
+      eyebrow="Legal · Privacy"
+      title="Privacy policy"
+      intro="This policy is written for SentientWeb’s public website and live automated assistant experience."
+      sections={[
+        {
+          id: 'pp-controller',
+          title: 'Who we are',
+          body: (
             <p>
-              SentientWeb (“we,” “us,” or “our”) respects your privacy. This policy describes how we
-              collect, use, store, and share information when you visit our website, use our
-              services, or communicate with us.
+              SentientWeb is operated by Robanka Inc., 505 Burrard Street, Vancouver, BC V7X 1M5,
+              Canada (“SentientWeb,” “we,” “us,” or “our”). We operate {SITE_HOSTNAME} and
+              related product experiences. Contact us at{' '}
+              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>.
+              We have determined that a Data Protection Officer and EU/UK representative are not
+              required at this time. You may use the contact above for privacy rights and regulator
+              inquiries.
             </p>
-          </section>
-
-          <section aria-labelledby="pp-collect">
-            <h2
-              id="pp-collect"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Information we collect
-            </h2>
-            <p>We may collect:</p>
-            <ul className="mt-4 list-inside list-disc space-y-2 marker:text-neon">
-              <li>
-                <strong className="font-medium text-cream">Contact and account data</strong> — such
-                as name, email, company, and messages you send when you request access or contact us.
-              </li>
-              <li>
-                <strong className="font-medium text-cream">Usage and technical data</strong> — such
-                as IP address, device type, browser, pages viewed, and approximate location derived
-                from IP.
-              </li>
-              <li>
-                <strong className="font-medium text-cream">Cookies and similar technologies</strong>{' '}
-                — as described in your browser settings and any cookie banner we provide.
-              </li>
-            </ul>
-          </section>
-
-          <section aria-labelledby="pp-use">
-            <h2
-              id="pp-use"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              How we use information
-            </h2>
-            <p>We use information to:</p>
-            <ul className="mt-4 list-inside list-disc space-y-2 marker:text-neon">
-              <li>Provide, operate, and improve our website and services;</li>
-              <li>Respond to inquiries and schedule access sessions;</li>
-              <li>Analyze usage and performance in aggregate;</li>
-              <li>Comply with law and protect our rights and users’ safety.</li>
-            </ul>
-          </section>
-
-          <section aria-labelledby="pp-share">
-            <h2
-              id="pp-share"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Sharing
-            </h2>
+          ),
+        },
+        {
+          id: 'pp-collect',
+          title: 'Information we collect',
+          body: (
+            <>
+              <p>We collect only what is reasonably needed to run, protect, and improve the site:</p>
+              <LegalList>
+                <li>
+                  Contact details, company details, and messages you submit—not stored in SentientWeb
+                  or Robanka systems. They are retained in <strong>HubSpot</strong>, our CRM, under
+                  HubSpot’s policies and controls.
+                </li>
+                <li>Calendar booking details if you schedule time through Calendly.</li>
+                <li>Usage data such as pages viewed, approximate location from IP, browser, device, and logs.</li>
+                <li>
+                  Live assistant inputs, including text, page context you interact with, microphone audio
+                  while the assistant is active, transcripts, generated responses, and interaction metadata.
+                </li>
+                <li>
+                  Cookies, local storage, and similar technologies described in our{' '}
+                  <Link to="/cookies" className="text-neon underline-offset-4 transition hover:underline">
+                    Cookie Policy
+                  </Link>.
+                </li>
+              </LegalList>
+            </>
+          ),
+        },
+        {
+          id: 'pp-ai-voice',
+          title: 'Live assistant, audio, and page context',
+          body: (
+            <>
+              <p>
+                The live assistant is automated. <strong>Google</strong> is our AI technology
+                provider—it supplies <strong>Gemini Live</strong> to process requests. Robanka Inc.
+                operates this site and configures the assistant experience. The assistant is not a
+                human operator. If you enable voice interaction, your browser and the assistant process
+                your microphone audio so the system can understand and respond. The assistant may also
+                process the page you are viewing, interaction events, and conversation context to
+                provide an interactive browsing experience.
+              </p>
+              <p className="mt-4">
+                Do not provide sensitive personal data, payment card numbers, government identifiers,
+                health information, precise biometric identifiers, children’s information, or
+                confidential information unless we have specifically requested it through a secure
+                workflow. You can use the site without enabling microphone access.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: 'pp-use',
+          title: 'How we use information',
+          body: (
+            <>
+              <p>We use information to:</p>
+              <LegalList>
+                <li>Operate the website and live assistant, including voice and browsing assistance.</li>
+                <li>Respond to inquiries, provide demos, manage accounts, and deliver requested services.</li>
+                <li>Secure, debug, monitor, and improve the website and product experience.</li>
+                <li>Send service messages and marketing where permitted, with unsubscribe options.</li>
+                <li>Comply with law, enforce terms, prevent misuse, and protect rights and safety.</li>
+              </LegalList>
+            </>
+          ),
+        },
+        {
+          id: 'pp-legal-bases',
+          title: 'Legal bases for Europe and the UK',
+          body: (
             <p>
-              We may share information with service providers who assist us (e.g., hosting,
-              analytics, email) under contractual obligations. We may disclose information if
-              required by law or to protect SentientWeb and others. We do not sell your personal
-              information as a standalone product.
+              Where GDPR or UK GDPR applies, we rely on consent for microphone access, non-essential
+              cookies, and marketing; contract or pre-contract steps for demos, account setup, and
+              requested services; legitimate interests for security, fraud prevention, service
+              improvement, and business communications; and legal obligation where we must retain or
+              disclose information by law. You may withdraw consent at any time without affecting
+              prior lawful processing.
             </p>
-          </section>
-
-          <section aria-labelledby="pp-retention">
-            <h2
-              id="pp-retention"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Retention
-            </h2>
+          ),
+        },
+        {
+          id: 'pp-share',
+          title: 'Service providers and disclosures',
+          body: (
+            <>
+              <p>
+                We share information with vendors that help us provide the site and services. Persistent
+                business and marketing records—including contact and pipeline fields—are retained only
+                in <strong>HubSpot</strong> under HubSpot&apos;s agreements and settings (not on
+                SentientWeb- or Robanka-operated databases). Our live assistant relies on{' '}
+                <strong>Google</strong> (Gemini Live and related Google services) as the{' '}
+                <strong>AI technology provider</strong>, and assistant-related persistence is governed
+                by Google&apos;s terms. We also use providers for hosting, security, scheduling
+                (Calendly), email, optional analytics beyond HubSpot if enabled, Robanka Inc.
+                operational delivery, and professional advisers. Providers must protect information and
+                use it only as permitted.
+              </p>
+              <p className="mt-4">
+                We may disclose information if required by law, to protect users and systems, during
+                a corporate transaction, or with your direction. We do not sell personal information
+                for money. If any activity is considered a “sale,” “sharing,” or targeted advertising
+                under applicable U.S. state privacy law, you can opt out through our{' '}
+                <Link to="/do-not-sell" className="text-neon underline-offset-4 transition hover:underline">
+                  Do Not Sell or Share
+                </Link>{' '}
+                page.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: 'pp-retention',
+          title: 'Retention',
+          body: (
             <p>
-              We retain information only as long as needed for the purposes above, unless a longer
-              period is required or permitted by law.
+              <strong>Persistent retention lives only with HubSpot and Google.</strong> SentientWeb
+              and Robanka Inc. do <strong>not</strong> persist visitor personal information (including
+              CRM or assistant session contents) on SentientWeb- or Robanka-operated databases. CRM
+              and marketing data you provide is retained by <strong>HubSpot</strong> pursuant to its
+              product terms and your portal settings. The live assistant is powered by{' '}
+              <strong>Google</strong>; related audio where applicable, transcripts, activity logs,
+              page context forwarded for assistance, prompts, outputs, and similar metadata{' '}
+              <strong>may be retained by Google</strong> (Gemini Apps / Gemini Live and related notices)
+              as updated from time to time—for illustration, Google publicly describes Gemini Apps activity
+              that can be kept for periods such as{' '}
+              <strong>eighteen months</strong>, that Gemini Live recordings are not used to improve Google
+              services by default depending on configuration, and that transcript/activity handling depends
+              on Gemini activity controls. Locally, your browser may keep preference choices described in our{' '}
+              <Link to="/cookies" className="text-neon underline-offset-4 transition hover:underline">
+                Cookie Policy
+              </Link>
+              . Hosting and infrastructure vendors may retain transient logs needed to deliver the website;
+              retention there follows provider terms and lawful minimisation practices.
             </p>
-          </section>
-
-          <section aria-labelledby="pp-rights">
-            <h2
-              id="pp-rights"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Your choices and rights
-            </h2>
+          ),
+        },
+        {
+          id: 'pp-rights',
+          title: 'Your privacy rights',
+          body: (
+            <>
+              <p>
+                Depending on your location, you may have rights to access, correct, delete, port, or
+                restrict personal information; object to or opt out of certain processing; withdraw
+                consent; appeal a privacy decision; limit use of sensitive information; or complain
+                to a regulator. California and other U.S. state residents may also request details
+                about categories of information collected, disclosed, sold, or shared.
+              </p>
+              <p className="mt-4">
+                Submit requests through our{' '}
+                <Link to="/data-request" className="text-neon underline-offset-4 transition hover:underline">
+                  Data Request page
+                </Link>{' '}
+                or by email. We may need to verify your identity and may ask authorized agents for
+                proof of authority.
+              </p>
+            </>
+          ),
+        },
+        {
+          id: 'pp-international',
+          title: 'International transfers',
+          body: (
             <p>
-              Depending on where you live, you may have rights to access, correct, delete, or
-              restrict processing of your personal data, or to object to certain processing. Contact
-              us to make a request. You may also unsubscribe from marketing emails via the link in
-              those messages.
+              Our vendors may process information in the United States, Canada, the European Union,
+              Australia, New Zealand, and other countries where they operate. Where required, we rely on
+              transfer mechanisms such as adequacy decisions, standard contractual clauses, data
+              processing agreements, and comparable safeguards.
             </p>
-          </section>
-
-          <section aria-labelledby="pp-security">
-            <h2
-              id="pp-security"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Security
-            </h2>
+          ),
+        },
+        {
+          id: 'pp-children',
+          title: 'Children and teens',
+          body: (
             <p>
-              We use reasonable technical and organizational measures to protect information. No
-              method of transmission or storage is completely secure.
-            </p>
-          </section>
-
-          <section aria-labelledby="pp-international">
-            <h2
-              id="pp-international"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              International transfers
-            </h2>
-            <p>
-              If you access our site from outside the country where we operate, your information may
-              be processed in other countries with different data protection laws.
-            </p>
-          </section>
-
-          <section aria-labelledby="pp-children">
-            <h2
-              id="pp-children"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Children
-            </h2>
-            <p>
-              Our services are not directed to children under 16. We do not knowingly collect their
+              The website and live assistant are not directed to children under 18, and Google’s
+              Gemini API terms restrict API clients directed toward or likely to be accessed by
+              individuals under 18. Do not use the assistant if you are under 18. We do not knowingly
+              collect children’s personal information. Contact us if you believe a child provided us
               personal information.
             </p>
-          </section>
-
-          <section aria-labelledby="pp-changes">
-            <h2
-              id="pp-changes"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Changes
-            </h2>
+          ),
+        },
+        {
+          id: 'pp-security',
+          title: 'Security',
+          body: (
             <p>
-              We may update this policy from time to time. We will post the revised version on this
-              page and update the “Last updated” date.
+              We use technical and organizational safeguards designed to protect information,
+              including access controls, transport security, security headers, vendor review, and
+              incident response procedures. No online service can guarantee absolute security.
             </p>
-          </section>
-
-          <section aria-labelledby="pp-contact">
-            <h2
-              id="pp-contact"
-              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
-            >
-              Contact
-            </h2>
+          ),
+        },
+        {
+          id: 'pp-contact',
+          title: 'Contact',
+          body: (
             <p>
-              Questions about this policy:{' '}
-              <a
-                href="mailto:hello@sentientwebsite.com"
-                className="text-neon underline-offset-4 transition hover:underline"
-              >
-                hello@sentientwebsite.com
-              </a>
-              .
+              Privacy requests and questions:{' '}
+              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>.
             </p>
-          </section>
-        </div>
-
-        <div className="mt-12 flex flex-wrap gap-4">
-          <Link
-            to="/terms"
-            className="liquid-glass rounded-full px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[13px]"
-          >
-            Terms of service
-          </Link>
-          <Link
-            to="/"
-            className="font-mono text-[12px] uppercase tracking-wide text-cream/50 underline-offset-4 transition hover:text-neon hover:underline sm:text-[13px]"
-          >
-            Back to home
-          </Link>
-        </div>
-      </article>
-    </MarketingPageLayout>
+          ),
+        },
+      ]}
+    />
   )
 }

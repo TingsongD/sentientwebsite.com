@@ -5,9 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { ScrollToTop } from './components/ScrollToTop.tsx'
 import './index.css'
 import App from './App.tsx'
-import { loadSentientWidget } from './loadSentientWidget.ts'
-
-loadSentientWidget()
 
 const app = (
   <StrictMode>

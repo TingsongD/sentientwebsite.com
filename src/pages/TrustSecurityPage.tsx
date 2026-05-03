@@ -24,22 +24,19 @@ export default function TrustSecurityPage() {
               id="soc2-heading"
               className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
             >
-              SOC 2 Type II (in progress)
+              SOC 2 Type II roadmap
             </h2>
             <p>
-              We are pursuing{' '}
-              <strong className="font-medium text-cream">SOC 2 Type II</strong> attestation and are
-              currently <strong className="font-medium text-cream">SOC 2 pending</strong>—meaning we
-              are implementing the control framework, evidence collection, and operational practices
-              expected for a successful examination. Our roadmap includes independent audit by a
-              qualified firm; we will publish our report and trust materials for customers under NDA
-              and, where appropriate, on this page as they become available.
+              SentientWeb is not currently SOC 2 certified. Our roadmap includes a{' '}
+              <strong className="font-medium text-cream">SOC 2 Type II</strong> readiness program,
+              control framework, evidence collection, and independent examination by a qualified
+              firm when the program is ready. We will publish trust materials for customers under NDA
+              and, where appropriate, on this page when they become available.
             </p>
             <p className="mt-4">
-              Until our report is issued, we operate on the principle that{' '}
-              <strong className="font-medium text-cream">security is never “done”</strong>: access is
-              least-privilege, changes are reviewed, and we design for confidentiality, integrity, and
-              availability of the services we provide.
+              Until a report is issued, do not treat this page as a SOC 2 attestation. We use it to
+              describe the controls we are building toward and the security posture customers should
+              review before production deployment.
             </p>
           </section>
 
@@ -60,8 +57,8 @@ export default function TrustSecurityPage() {
             <p className="mt-4">
               We rely on reputable cloud and AI infrastructure providers (for example, for hosting,
               databases, and model inference). We evaluate subprocessors for security posture and
-              contractual commitments; a formal subprocessor list is maintained for customers and
-              updated as our stack evolves.
+              contractual commitments; the current vendor evidence register is maintained in our
+              compliance records and must be validated before production deployment.
             </p>
           </section>
 

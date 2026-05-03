@@ -15,13 +15,27 @@ function isSolutionSlug(s: string): s is SolutionSlug {
   return Object.hasOwn(SOLUTION_PAGES, s)
 }
 
+const ACCENT_BACKGROUND_CLASS_BY_COLOR: Record<string, string> = {
+  '#6366f1': 'bg-[#6366f1]',
+  '#059669': 'bg-[#059669]',
+  '#2563eb': 'bg-[#2563eb]',
+  '#7c3aed': 'bg-[#7c3aed]',
+  '#0891b2': 'bg-[#0891b2]',
+  '#ea580c': 'bg-[#ea580c]',
+  '#4f46e5': 'bg-[#4f46e5]',
+}
+
+function getAccentBackgroundClass(accentColor: string) {
+  return ACCENT_BACKGROUND_CLASS_BY_COLOR[accentColor] || 'bg-neon'
+}
+
 function CtaLink({
   children,
-  accentColor,
+  accentBackgroundClass,
   variant = 'primary',
 }: {
   children: string
-  accentColor: string
+  accentBackgroundClass: string
   variant?: 'primary' | 'secondary'
 }) {
   const base =
@@ -34,10 +48,9 @@ function CtaLink({
       rel="noopener noreferrer"
       className={
         variant === 'primary'
-          ? `${base} text-background hover:brightness-110`
+          ? `${base} ${accentBackgroundClass} text-background hover:brightness-110`
           : `${base} liquid-glass text-cream hover:bg-white/10`
       }
-      style={variant === 'primary' ? { backgroundColor: accentColor } : undefined}
     >
       {children}
     </a>
@@ -53,6 +66,7 @@ export default function SolutionIndustryPage() {
   }
 
   const page = SOLUTION_PAGES[slug]
+  const accentBackgroundClass = getAccentBackgroundClass(page.accentColor)
 
   return (
     <>
@@ -80,8 +94,10 @@ export default function SolutionIndustryPage() {
                 {page.plumberMetaphor}
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
-                <CtaLink accentColor={page.accentColor}>{page.hero.primaryCta}</CtaLink>
-                <CtaLink accentColor={page.accentColor} variant="secondary">
+                <CtaLink accentBackgroundClass={accentBackgroundClass}>
+                  {page.hero.primaryCta}
+                </CtaLink>
+                <CtaLink accentBackgroundClass={accentBackgroundClass} variant="secondary">
                   {page.hero.secondaryCta}
                 </CtaLink>
               </div>
@@ -143,8 +159,7 @@ export default function SolutionIndustryPage() {
                 {page.steps.map((step, i) => (
                   <li key={step.title} className="liquid-glass rounded-[22px] p-6 sm:p-7">
                     <span
-                      className="mb-5 flex h-10 w-10 items-center justify-center rounded-full font-grotesk text-[15px] text-background"
-                      style={{ backgroundColor: page.accentColor }}
+                      className={`mb-5 flex h-10 w-10 items-center justify-center rounded-full font-grotesk text-[15px] text-background ${accentBackgroundClass}`}
                       aria-hidden
                     >
                       {i + 1}
@@ -202,7 +217,7 @@ export default function SolutionIndustryPage() {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="liquid-glass rounded-[18px] p-4">
                     <ShieldCheck className="mb-3 h-5 w-5 text-neon" aria-hidden />
-                    <p className="uppercase text-cream">End-to-end encryption</p>
+                    <p className="uppercase text-cream">Encrypted in transit</p>
                     <p className="mt-2 text-cream/60">
                       Secure response handling protects visitor data in transit.
                     </p>
@@ -234,7 +249,9 @@ export default function SolutionIndustryPage() {
                 {page.bottomCta}
               </p>
               <div className="flex flex-wrap gap-4">
-                <CtaLink accentColor={page.accentColor}>{page.hero.primaryCta}</CtaLink>
+                <CtaLink accentBackgroundClass={accentBackgroundClass}>
+                  {page.hero.primaryCta}
+                </CtaLink>
                 <Link
                   to={{ pathname: '/', hash: 'solutions' }}
                   className="liquid-glass rounded-full px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[13px]"

@@ -1,13 +1,20 @@
 import { describe, expect, it } from 'vitest'
+import { APP_DYNAMIC_ROUTE_PATTERN_LIST, APP_STATIC_ROUTE_PATHS } from './appRoutePatterns'
+import { normalizeSiteUrl, SITE_URL } from './constants'
 import {
+  BLOG_ROUTE_PATHS,
+  DYNAMIC_FALLBACK_REDIRECTS,
   getInvalidDynamicRedirect,
   getPageMeta,
   getRouteStructuredData,
+  INTEGRATION_ROUTE_PATHS,
   isKnownRoutePath,
   KNOWN_ROUTE_PATHS,
   LEGACY_ROUTE_REDIRECTS,
   normalizePathname,
   renderStructuredDataScript,
+  SOLUTION_ROUTE_PATHS,
+  STATIC_ROUTE_PATHS,
 } from './routeMetadata'
 import { BLOG_POSTS } from './data/blogPosts'
 import { FEATURES } from './data/homeFeatures'
@@ -41,6 +48,12 @@ const FORBIDDEN_PUBLIC_TERMS = [
   /\bcheap\b/i,
 ]
 
+const EXPECTED_SITE_URL = normalizeSiteUrl(
+  import.meta.env.VITE_SITE_URL ||
+    import.meta.env.NEXT_PUBLIC_SITE_URL ||
+    'https://sentientwebsite.com/',
+)
+
 function collectStrings(value: unknown): string[] {
   if (typeof value === 'string') return [value]
   if (Array.isArray(value)) return value.flatMap(collectStrings)
@@ -51,6 +64,15 @@ function collectStrings(value: unknown): string[] {
 }
 
 describe('route metadata manifest', () => {
+  it('normalizes the canonical site URL to an origin root', () => {
+    expect(SITE_URL).toBe(EXPECTED_SITE_URL)
+    expect(normalizeSiteUrl('https://example.com')).toBe('https://example.com/')
+    expect(normalizeSiteUrl('https://example.com/some/path?ignored=true')).toBe(
+      'https://example.com/',
+    )
+    expect(() => normalizeSiteUrl('ftp://example.com')).toThrow('Invalid VITE_SITE_URL')
+  })
+
   it('normalizes trailing slashes and recognizes known routes', () => {
     expect(normalizePathname('/pricing/')).toBe('/pricing')
     expect(isKnownRoutePath('/pricing/')).toBe(true)
@@ -131,8 +153,42 @@ describe('route metadata manifest', () => {
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/legal-services')
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/car-dealerships')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/wordpress')
+    expect(KNOWN_ROUTE_PATHS).toEqual(
+      expect.arrayContaining([
+        '/privacy',
+        '/terms',
+        '/cookies',
+        '/billing-terms',
+        '/ai-disclosure',
+        '/data-request',
+        '/do-not-sell',
+        '/accessibility',
+        '/dmca',
+        '/security-response',
+        '/unsubscribe',
+        '/legal',
+      ]),
+    )
     expect(KNOWN_ROUTE_PATHS.some((path) => path.includes('x.com'))).toBe(false)
     expect(LEGACY_ROUTE_REDIRECTS['/solutions/hotel-hospitality']).toBe('/solutions/hospitality')
+  })
+
+  it('keeps app route patterns in sync with prerender metadata routes', () => {
+    expect([...APP_STATIC_ROUTE_PATHS].sort()).toEqual([...STATIC_ROUTE_PATHS].sort())
+    expect([...APP_DYNAMIC_ROUTE_PATTERN_LIST].sort()).toEqual([
+      '/blog/:slug',
+      '/integrations/:slug',
+      '/solutions/:slug',
+    ].sort())
+
+    expect(BLOG_ROUTE_PATHS.every((path) => path.startsWith('/blog/'))).toBe(true)
+    expect(INTEGRATION_ROUTE_PATHS.every((path) => path.startsWith('/integrations/'))).toBe(true)
+    expect(SOLUTION_ROUTE_PATHS.every((path) => path.startsWith('/solutions/'))).toBe(true)
+    expect(DYNAMIC_FALLBACK_REDIRECTS).toEqual({
+      '/blog/': '/blog',
+      '/integrations/': '/',
+      '/solutions/': '/#solutions',
+    })
   })
 
   it('returns route-aware structured data', () => {
@@ -145,7 +201,7 @@ describe('route metadata manifest', () => {
 
     expect(getRouteStructuredData('/pricing')).toMatchObject({
       '@type': 'WebPage',
-      url: 'https://sentientwebsite.com/pricing',
+      url: new URL('/pricing', SITE_URL).toString(),
       name: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
     })
 

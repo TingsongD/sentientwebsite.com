@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -9,10 +10,15 @@ const templatePath = resolve(distDir, 'index.html')
 const ssrEntryPath = resolve(ssrDir, 'entry-server.js')
 
 const template = await readFile(templatePath, 'utf8')
-const { render, KNOWN_ROUTE_PATHS, LEGACY_ROUTE_REDIRECTS, NOT_FOUND_PATH } = await import(
-  pathToFileURL(ssrEntryPath).href
-)
-const siteUrl = 'https://sentientwebsite.com/'
+const {
+  render,
+  DYNAMIC_FALLBACK_REDIRECTS,
+  KNOWN_ROUTE_PATHS,
+  LEGAL_VERSIONS,
+  LEGACY_ROUTE_REDIRECTS,
+  NOT_FOUND_PATH,
+  SITE_URL,
+} = await import(pathToFileURL(ssrEntryPath).href)
 
 const headPattern =
   /<!--app-head-start-->[\s\S]*?<!--app-head-end-->/
@@ -37,8 +43,19 @@ function routeToFile(route) {
   return resolve(distDir, route.replace(/^\//, ''), 'index.html')
 }
 
+function getInlineScriptHash(scriptHtml) {
+  const content = scriptHtml.match(/^<script\b[^>]*>([\s\S]*)<\/script>$/)?.[1]
+  if (typeof content !== 'string') {
+    throw new Error(`Unable to hash inline script: ${scriptHtml.slice(0, 80)}`)
+  }
+  return `'sha256-${createHash('sha256').update(content).digest('base64')}'`
+}
+
+const cspScriptHashes = new Set()
+
 async function writeRoute(route) {
   const { appHtml, head, structuredData } = render(route)
+  cspScriptHashes.add(getInlineScriptHash(structuredData))
   const html = template
     .replace(headPattern, `<!--app-head-start-->\n    ${head}\n    <!--app-head-end-->`)
     .replace(
@@ -63,7 +80,11 @@ await writeFile(
     {
       knownRoutes: KNOWN_ROUTE_PATHS,
       legacyRedirects: LEGACY_ROUTE_REDIRECTS,
+      dynamicFallbackRedirects: DYNAMIC_FALLBACK_REDIRECTS,
       notFoundPath: NOT_FOUND_PATH,
+      siteUrl: SITE_URL,
+      legalVersions: LEGAL_VERSIONS,
+      cspScriptHashes: [...cspScriptHashes].sort(),
     },
     null,
     2,
@@ -71,11 +92,25 @@ await writeFile(
 )
 
 const sitemapEntries = KNOWN_ROUTE_PATHS.map((route) => {
-  const loc = new URL(route, siteUrl).toString()
+  const loc = new URL(route, SITE_URL).toString()
   return `  <url><loc>${loc}</loc></url>`
 }).join('\n')
 
 await writeFile(
   resolve(distDir, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`,
+)
+
+const securityTxtPath = resolve(distDir, '.well-known', 'security.txt')
+await mkdir(dirname(securityTxtPath), { recursive: true })
+await writeFile(
+  securityTxtPath,
+  [
+    'Contact: mailto:hello@sentientwebsite.com',
+    `Policy: ${new URL('/security-response', SITE_URL).toString()}`,
+    'Preferred-Languages: en',
+    `Canonical: ${new URL('/.well-known/security.txt', SITE_URL).toString()}`,
+    'Expires: 2027-05-02T00:00:00Z',
+    '',
+  ].join('\n'),
 )
