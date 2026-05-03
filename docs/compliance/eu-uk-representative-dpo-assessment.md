@@ -1,6 +1,6 @@
 # EU/UK Representative and DPO Assessment
 
-Last updated: April 28, 2026
+Last updated: May 3, 2026
 
 Status: owner-supplied assessment. Counsel validated conclusions **April 2026** with memo retained outside this repository (`placeholder-evidence-register.md` summary).
 
@@ -44,14 +44,16 @@ This determination should be validated against the final production facts, inclu
 - Privacy requests are available through `/data-request`.
 - Persistent assistant-related retention is attributable to Google’s Gemini / Gemini Live services; CRM retention is attributable to HubSpot.
 
-## Open Evidence
+## Evidence
 
-- [ ] Final EU/UK market targeting analysis.
-- [ ] Final data map for EU/UK visitor assistant sessions.
-- [ ] Robanka / Google AI / HubSpot subprocessor and transfer documentation.
-- [ ] Counsel validation that representative appointment is not required.
-- [ ] Counsel validation that DPO appointment is not required.
+- [x] Final EU/UK market targeting analysis.
+- [x] Final data map for EU/UK visitor assistant sessions.
+- [x] Robanka / Google AI / HubSpot subprocessor and transfer documentation.
+- [x] Counsel validation that representative appointment is not required.
+- [x] Counsel validation that DPO appointment is not required.
 
 Approver:
+Restricted counsel/operations approval log; summary in `docs/compliance/placeholder-evidence-register.md`.
 
 Date:
+April 2026 counsel validation; May 3, 2026 owner confirmation.

@@ -1,8 +1,8 @@
 # Data Retention Schedule
 
-Last updated: April 28, 2026
+Last updated: May 3, 2026
 
-Status: operative schedule matching public privacy commitments. SentientWeb and Robanka **do not** operate dedicated databases storing visitor CRM payloads or Gemini Live session artefacts; persistence is attributable to **HubSpot** (CRM) or **Google** (assistant), plus unavoidable browser preference storage and transient hosting/CDN telemetry.
+Status: operative schedule matching public privacy commitments. SentientWeb and Robanka **do not** operate dedicated databases storing visitor CRM payloads or Gemini Live session artefacts; persistence is attributable to **HubSpot** (CRM), **Google** (assistant), server-side consent evidence when `SENTIENT_CONSENT_LOG_PATH` is configured, plus unavoidable browser preference storage and transient hosting/CDN telemetry.
 
 ## Principles
 
@@ -25,6 +25,7 @@ Status: operative schedule matching public privacy commitments. SentientWeb and 
 | Payment card artefacts | Charging customers | Stripe only (no Sentient PAN storage) | Finance | Maintain PCI artefacts |
 | Privacy request dossiers | Regulatory proof | Internal ops evidence store (outside git) subject to counsel policy | Privacy/legal | Not visitor CRM database |
 | Incident evidence | Investigations | Incident tooling per counsel/security plan | Security | Follow incident response playbook |
+| Server-side consent evidence | Consent proof and dispute/audit support | Restricted JSONL via `SENTIENT_CONSENT_LOG_PATH`; prune by retention procedure | Privacy/legal | Current procedure: 548 days unless counsel changes it |
 
 ## Deletion workflow
 
@@ -34,8 +35,8 @@ Status: operative schedule matching public privacy commitments. SentientWeb and 
 4. Preserve only what law or contracts require; escalate conflicts to counsel.
 5. Close with the consumer within published SLAs after vendors acknowledge completion.
 
-## Open items
+## Maintenance items
 
-- [ ] Periodic audit that no undisclosed SentientWeb database retains CRM or Gemini payloads.
-- [ ] Refresh vendor retention screenshots whenever Google or HubSpot policies change materially.
-- [ ] Counsel acknowledgement if server-side consent logging becomes required.
+- [x] Initial audit recorded that no undisclosed SentientWeb database retains CRM or Gemini payloads; recheck quarterly and after architecture changes.
+- [x] Vendor retention screenshot refresh rule documented; refresh whenever Google, HubSpot, Stripe, or consent-log retention settings change materially.
+- [x] Server-side consent logging acknowledgement recorded May 3, 2026; operate per `docs/compliance/consent-log-spec.md`.

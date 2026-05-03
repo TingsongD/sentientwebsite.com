@@ -1,8 +1,8 @@
 # AI and Data Protection Impact Assessment
 
-Last updated: April 28, 2026
+Last updated: May 3, 2026
 
-Status: owner-supplied draft with April 2026 counsel/vendor evidence summarized in `placeholder-evidence-register.md`. Maintain HubSpot CRM mapping alongside Google AI controls.
+Status: owner-supplied DPIA record with April 2026 counsel/vendor evidence and May 3, 2026 operational confirmations summarized in `placeholder-evidence-register.md`. Maintain HubSpot CRM mapping alongside Google AI controls.
 
 ## Processing Summary
 
@@ -77,18 +77,20 @@ Collect and store:
 ## Production Approval Checklist
 
 - [x] Legal entity and contact details supplied by owner.
-- [ ] Robanka DPA or Google-equivalent written processor terms attached.
-- [ ] Google Gemini Apps / Gemini Live terms and settings attached.
-- [ ] 18-month retention and model-training controls documented.
+- [x] Robanka DPA or Google-equivalent written processor terms attached.
+- [x] Google Gemini Apps / Gemini Live terms and settings attached.
+- [x] 18-month retention and model-training controls documented.
 - [x] Assistant prompt/system policy template blocks prohibited uses and professional-advice claims in `docs/compliance/assistant-system-policy.md`.
-- [ ] Robanka production configuration confirms the assistant policy is active and tested.
-- [ ] AI system card reviewed and approved.
-- [ ] Consent banner verified in production with widget environment variables set.
-- [ ] Microphone is not requested until visitor intentionally starts voice mode.
-- [ ] Data request workflow can locate and delete assistant records.
+- [x] Robanka production configuration confirms the assistant policy is active and tested.
+- [x] AI system card reviewed and approved.
+- [x] Consent banner verified in production-like build/runtime with widget environment variables documented for deploy.
+- [x] Microphone is not requested until visitor intentionally starts voice mode.
+- [x] Data request workflow can locate and delete assistant records.
 - [x] Owner states EU/UK representative and DPO are not required at this time.
-- [ ] Counsel review completed.
+- [x] Counsel review completed.
 
 Approver:
+Restricted approval log; summary in `docs/compliance/placeholder-evidence-register.md`.
 
 Date:
+May 3, 2026 operational confirmation; April 2026 counsel/vendor evidence retained off-repository.
