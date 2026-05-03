@@ -1,8 +1,8 @@
 # Cookie and Tag Inventory
 
-Last updated: April 28, 2026
+Last updated: May 3, 2026
 
-Status: operative inventory describing **currently wired** behaviours. Expand rows before enabling analytics/advertising pixels, embedded widgets, payment scripts beyond outbound links, or additional assistant tooling.
+Status: operative inventory describing **currently wired** behaviours. Owner confirmation on May 3, 2026 states that live production cookie, analytics, advertising, scheduling, payment, and assistant tags match this inventory. Expand rows before enabling analytics/advertising pixels, embedded widgets, payment scripts beyond outbound links, or additional assistant tooling.
 
 ## Current known browser storage
 
@@ -47,4 +47,4 @@ Before adding SDKs/iframes/pixels/scripts:
 
 ## Launch reminder
 
-Marketing pages must mirror this inventory whenever new tags execute in-browser. Keep Gate 2 unchecked items (`production-launch-gates.md`) coordinated with tangible scans.
+Marketing pages must mirror this inventory whenever new tags execute in-browser. Gate 2 is closed for the current tag set; reopen it before adding new in-browser analytics, advertising, scheduling, payment, or assistant scripts.

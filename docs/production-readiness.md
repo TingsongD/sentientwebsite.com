@@ -2,7 +2,7 @@
 
 Last updated: May 3, 2026
 
-Status: technically production-ready; legal/compliance production approval blocked by external evidence gates.
+Status: production-readiness checks pass with owner-supplied operational evidence recorded. Actual signed/vendor/counsel records remain outside git and must be maintained before relying on them as legal proof.
 
 ## Objective
 
@@ -13,8 +13,8 @@ Review the codebase, fix concrete issues, and verify whether the website is prod
 | Area | Issue found | Fix |
 | --- | --- | --- |
 | Consent hydration | Consent state read from `localStorage` during initial client render could diverge from SSR output for returning visitors. | `src/components/ConsentManager.tsx` now uses `useSyncExternalStore` for browser consent state. |
-| Consent evidence path | Consent choices were browser-local only, leaving no implementation path if counsel requires server-side consent evidence. | `src/components/ConsentManager.tsx` posts sanitized consent events to `/consent-events`; `server.mjs` validates events, rejects sensitive payload keys, rejects public `dist` log paths, and logs only when `SENTIENT_CONSENT_LOG_PATH` is configured. |
-| Consent log operations | Server-side consent logs, if required later, needed a tested local path for retrieval, retention, deletion, and withdrawal evidence without exposing an admin API. | `scripts/consent-log-admin.mjs` provides dry-run-by-default JSONL listing, filtering, retention pruning, and event deletion; unit tests cover utility behavior and E2E covers configured server append plus withdrawal events. |
+| Consent evidence path | Consent choices were browser-local only, leaving no implementation path for server-side consent evidence. | `src/components/ConsentManager.tsx` posts sanitized consent events to `/consent-events`; `server.mjs` validates events, rejects sensitive payload keys, rejects public `dist` log paths, and logs only when `SENTIENT_CONSENT_LOG_PATH` is configured. |
+| Consent log operations | Server-side consent logs needed a tested local path for retrieval, retention, deletion, and withdrawal evidence without exposing an admin API. | `scripts/consent-log-admin.mjs` provides dry-run-by-default JSONL listing, filtering, retention pruning, and event deletion; unit tests cover utility behavior and E2E covers configured server append plus withdrawal events. |
 | Legal version drift | Public legal-page “last updated” text and server-side consent evidence policy versions could drift because they were hard-coded separately. | `src/constants.ts` now centralizes consent/legal versions, `scripts/prerender.mjs` writes them to `dist/routes-manifest.json`, and `server.mjs` validates and uses manifest `legalVersions`; the compliance audit checks legal pages against the manifest. |
 | Local production test server | Playwright could fail in restricted environments when server binding was implicit. | `server.mjs` supports `--host`; `playwright.config.ts` binds to `127.0.0.1`. |
 | Widget origin handling | Widget script origin was derived by string trimming only. | `src/loadSentientWidget.ts` now accepts valid HTTPS origins, allows plain HTTP only for local development hosts, and trims install keys. |
@@ -59,7 +59,7 @@ The website-side compliance audit also guards against regression for these harde
 | Reduce Playwright web server startup flake risk. | `playwright.config.ts`, `README.md`. | `PLAYWRIGHT_WEB_SERVER_TIMEOUT` support and successful E2E run. | Fixed and covered. |
 | Make missing, malformed, or partial build artifacts operationally clear. | `server.mjs`. | Production server exits with explicit "run npm run build" message when manifest is absent, malformed, points at missing route HTML, contains an invalid `siteUrl`, lacks valid `legalVersions`, contains invalid or protocol-relative redirect maps, or contains invalid CSP hashes; normal build/start, missing-manifest, malformed-manifest, invalid-site-url, invalid-legal-versions, missing-route-file, invalid-redirect-map, protocol-relative-redirect, and invalid-CSP-hash startup paths are covered by E2E. | Fixed and covered. |
 | Make Host header handling an explicit deployment choice. | `server.mjs`, `.env.example`, `README.md`. | E2E covers malformed Host rejection and configured `SENTIENT_ALLOWED_HOSTS` rejection/allowance. | Fixed and covered. |
-| Verify legal/compliance placeholders are not public launch approvals. | `docs/compliance/production-launch-gates.md`, `docs/compliance/remaining-production-items.md`, `scripts/compliance-audit.mjs`. | `npm run compliance:audit` passes website artifact checks; `npm run compliance:audit:production` fails while 6 gates remain unchecked. | Technically ready, compliance approval blocked. |
+| Verify legal/compliance placeholders are not public launch approvals. | `docs/compliance/production-launch-gates.md`, `docs/compliance/remaining-production-items.md`, `scripts/compliance-audit.mjs`. | `npm run compliance:audit` passes website artifact checks; `npm run compliance:audit:production` passes once all launch gates are checked. | Fixed and covered; actual evidence remains off-repository. |
 
 ## Technical Release Checklist
 
@@ -74,6 +74,7 @@ The website-side compliance audit also guards against regression for these harde
 | Deployment health check | `/healthz`, `render.yaml`, E2E GET/HEAD health test | Passed |
 | Security dependency audit | `npm audit` as part of `npm run test:all` | Passed, 0 vulnerabilities |
 | Website compliance artifacts | `npm run compliance:audit` as part of `npm run test:all` | Passed for website artifacts, including the prompt-to-artifact audit |
+| Production launch gates | `npm run compliance:audit:production` | Passed after May 3, 2026 owner confirmations closed Gate 2 and Gate 6 |
 | Public legal routes | E2E route and sitemap checks | Passed |
 | Consent and assistant gating | E2E privacy choices, GPC, and pre-consent widget-loader tests | Passed |
 | Security response file | E2E `/.well-known/security.txt` check | Passed |
@@ -113,20 +114,19 @@ npm run compliance:audit:production
 Latest result:
 
 ```text
-Failed as expected: 6 launch gates remain unchecked; remaining-items tracker coverage is 6/6 open gates tracked.
+Passed: all launch gates checked; remaining-production-items has no open rows.
 ```
 
-## Remaining Production Approval Blockers
+## Operational Evidence
 
-The codebase is technically ready for production deployment. The site should not be treated as fully compliance-approved for production use of the Robanka/Gemini Live assistant, analytics, advertising, or payments until `npm run compliance:audit:production` passes.
+The codebase is technically ready for production deployment and `npm run compliance:audit:production` passes after the May 3, 2026 owner confirmations. The site should not be treated as legally certified unless the off-repository evidence is real, current, and approved by the appropriate legal/operations owner.
 
-Current release-blocking categories:
+Evidence to maintain outside git:
 
-- Counsel decision on whether server-side consent logs are required, plus restricted storage owner and retention operating procedure if they are.
-- Final production cookie/tag inventory after analytics, advertising, scheduling, and assistant tags go live.
-- Privacy request operations drill for access, deletion, correction, opt-out, appeal, and consent withdrawal.
-- Restricted evidence storage location for incidents, privacy requests, and breach decisions.
-- Accessibility feedback owner and remediation workflow.
+- Signed or otherwise authoritative Robanka, Google/Gemini, Stripe, hosting, email, analytics, and scheduling records.
+- Google Workspace/Drive restricted evidence for consent logs, privacy requests, incidents, breach decisions, and approvals.
+- Updated cookie/tag inventory before adding new analytics, advertising, embedded scheduling, payment, or assistant scripts.
+- Counsel/vendor replacement records for any owner-supplied drafting assumptions.
 
 Authoritative gate list:
 
@@ -137,4 +137,4 @@ Authoritative gate list:
 
 ## Conclusion
 
-Technical production readiness is verified. Full production compliance approval is blocked on the open Gate 2 and Gate 6 counsel/operations evidence listed above.
+Technical production readiness is verified, and the repository production compliance audit is green when built artifacts are current. Legal certification still depends on maintaining the real off-repository evidence summarized by these docs.

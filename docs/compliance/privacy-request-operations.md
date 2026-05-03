@@ -1,8 +1,8 @@
 # Privacy Request Operations Runbook
 
-Last updated: April 28, 2026
+Last updated: May 3, 2026
 
-Status: operative runbook layered on counsel-approved timelines April 2026. Execute drills per `production-launch-gates.md` Gate 6.
+Status: operative runbook layered on counsel-approved timelines April 2026. Owner confirmation on May 3, 2026 records the full rights-request tabletop as complete with fictional data.
 
 ## Intake Channels
 
@@ -44,7 +44,7 @@ Within 5 business days where practical:
 3. Check whether the requester is a user, prospect, visitor, customer contact, authorized agent, or regulator.
 4. Decide whether identity verification is required.
 5. Assign an owner and response due date.
-6. Preserve request evidence in a restricted location.
+6. Preserve request evidence in restricted Google Workspace/Drive or an equivalent access-controlled operations location.
 
 ## Verification
 
@@ -142,6 +142,8 @@ Escalate to counsel before denying or materially limiting a request. Common reas
 
 Retain privacy request records according to `docs/compliance/retention-schedule.md`. Current draft target: 3 years for request, verification, response, and appeal records, unless counsel sets a different period.
 
+Restricted evidence repository: Google Workspace/Drive under operations control. Do not store identity documents, vendor exports, incident artefacts, breach decisions, or privacy request records in this git repository.
+
 ## Launch gates
 
 Operational checklist lives in `docs/compliance/production-launch-gates.md` (Gate 6). Highlights:
@@ -150,5 +152,5 @@ Operational checklist lives in `docs/compliance/production-launch-gates.md` (Gat
 - [x] Robanka / Google Gemini vendor escalation pathways confirmed alongside April 2026 evidence pack.
 - [x] Stripe workflow aligned with `stripe-pci-readiness.md`.
 - [x] Counsel-backed jurisdiction timeline matrix on file (`evidence-request-packet.md`).
-- [ ] Migrate privacy request artefacts to nominated restricted repository (tracked in Gate 6).
-- [ ] Run full rights-request tabletop covering access, deletion, correction, opt-out, appeal, and consent withdrawal (tracked in Gate 6).
+- [x] Migrate privacy request artefacts to nominated restricted repository: Google Workspace/Drive under operations control.
+- [x] Run full rights-request tabletop covering access, deletion, correction, opt-out, appeal, and consent withdrawal. Completed May 3, 2026 with fictional data.

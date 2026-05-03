@@ -35,11 +35,11 @@ the public legal pages and operational records.
 Use `npm run compliance:audit` to verify website-side compliance artifacts and list open launch
 gates. Use `npm run compliance:audit:production` as the release-blocking check; it exits non-zero
 until the launch gates in `docs/compliance/production-launch-gates.md` are complete.
-Use `docs/compliance/remaining-production-items.md` to fill owners, placeholders, and actual
-evidence links for open gates.
-If server-side consent evidence is required later, configure `SENTIENT_CONSENT_LOG_PATH` outside
-`dist/` and use `npm run consent-log:admin` for restricted JSONL retrieval, retention pruning, and
-event deletion.
+Use `docs/compliance/remaining-production-items.md` when launch gates are reopened and need
+owner/evidence tracking.
+Server-side consent evidence is required for production operations. Configure
+`SENTIENT_CONSENT_LOG_PATH` outside `dist/`, set `SENTIENT_CONSENT_LOG_SALT`, and use
+`npm run consent-log:admin` for restricted JSONL retrieval, retention pruning, and event deletion.
 
 The current production-readiness review is tracked in `docs/production-readiness.md`.
 

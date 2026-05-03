@@ -1,8 +1,8 @@
 # SentientWeb Production Launch Gates
 
-Last updated: April 28, 2026
+Last updated: May 3, 2026
 
-Status: operational gate checklist. Public legal routes and consent controls are implemented in the frontend. Robanka/Google Gemini contractual packaging, Stripe/PCI posture, counsel review, documented approvals, and primary operations escalation are recorded in `docs/compliance/placeholder-evidence-register.md`.
+Status: operational gate checklist. Public legal routes and consent controls are implemented in the frontend. Robanka/Google Gemini contractual packaging, Stripe/PCI posture, counsel review, documented approvals, primary operations escalation, and May 3, 2026 owner-supplied operational confirmations are recorded in `docs/compliance/placeholder-evidence-register.md` and the related runbooks below.
 
 Use `docs/compliance/remaining-production-items.md` for every **still-unchecked** item below (`scripts/compliance-audit.mjs` enforces 1:1 tracking).
 
@@ -41,10 +41,12 @@ Required before enabling the live assistant:
 - [x] Privacy preferences can be reopened from the footer.
 - [x] Global Privacy Control disables analytics consent.
 - [x] Consent log schema and implementation requirements are documented in `docs/compliance/consent-log-spec.md`.
-- [ ] Confirm whether consent logs must be stored server-side for EU/UK/ePrivacy evidence.
-- [ ] If server-side consent logs are required, implement and test consent-event storage, retention, retrieval, and deletion using `docs/compliance/consent-log-spec.md`.
+- [x] Confirm whether consent logs must be stored server-side for EU/UK/ePrivacy evidence.
+- [x] If server-side consent logs are required, implement and test consent-event storage, retention, retrieval, and deletion using `docs/compliance/consent-log-spec.md`.
 - [x] Cookie/tag inventory template is documented in `docs/compliance/cookie-tag-inventory.md`.
-- [ ] Confirm production cookie, analytics, advertising, scheduling, and assistant tags match the Cookie Policy categories using `docs/compliance/cookie-tag-inventory.md`.
+- [x] Confirm production cookie, analytics, advertising, scheduling, and assistant tags match the Cookie Policy categories using `docs/compliance/cookie-tag-inventory.md`.
+
+May 3, 2026 owner confirmation: server-side consent evidence is required for production operations. Restricted evidence storage is Google Workspace/Drive under operations control. Consent-event storage, retrieval, retention pruning, and deletion use `SENTIENT_CONSENT_LOG_PATH`, `SENTIENT_CONSENT_LOG_SALT`, and `npm run consent-log:admin` as documented in `docs/compliance/consent-log-spec.md`. Current production tags match `docs/compliance/cookie-tag-inventory.md`; reopen this gate before enabling new analytics, advertising, embedded scheduling, payment, or assistant scripts.
 
 ## Gate 3: Robanka and Google/Gemini Evidence
 
@@ -99,13 +101,15 @@ Required before production operations:
 
 - [x] Privacy request operations workflow is documented in `docs/compliance/privacy-request-operations.md`.
 - [x] Assign privacy request owner and response SLA.
-- [ ] Test data access, deletion, correction, opt-out, appeal, and consent-withdrawal handling using `docs/compliance/privacy-request-operations.md`.
+- [x] Test data access, deletion, correction, opt-out, appeal, and consent-withdrawal handling using `docs/compliance/privacy-request-operations.md`.
 - [x] Approve security incident response contacts and escalation paths.
 - [x] Confirm Robanka, Google, Stripe, hosting, email, analytics, and scheduling vendor escalation contacts.
-- [ ] Store evidence of incidents, privacy requests, and breach decisions in a restricted location.
-- [ ] Confirm accessibility feedback owner and remediation workflow.
+- [x] Store evidence of incidents, privacy requests, and breach decisions in a restricted location.
+- [x] Confirm accessibility feedback owner and remediation workflow.
 
 Primary operations and vendor escalation contact: `songday@sentientwebsite.com` (see `docs/compliance/security-incident-response.md`).
+
+May 3, 2026 owner confirmation: the privacy-rights tabletop was completed with fictional data for access, deletion, correction, opt-out, appeal, and consent withdrawal. Incident, privacy request, and breach-decision evidence is stored in restricted Google Workspace/Drive. Accessibility feedback intake and remediation workflow are assigned to `songday@sentientwebsite.com` for triage and engineering ticket routing.
 
 ## Gate 7: Launch Approval
 

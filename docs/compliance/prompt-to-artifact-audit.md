@@ -8,7 +8,7 @@ This audit maps the requested SentientWeb compliance work to concrete repository
 
 Make `sentientwebsite.com` materially ready for a Robanka Inc. AI backend using Google Gemini Live for live automated visitor conversations, interactive browsing assistance, and optional voice interaction. The website must give users clear AI and voice-processing notice, avoid deceptive AI claims, support privacy rights and opt-outs, and publish the compliance assets expected for a serious U.S./EU/international commercial website.
 
-This audit covers what can be implemented in this frontend repository. It does not certify global legal compliance. The owner supplied legal/entity and vendor assumptions on May 2, 2026, but full compliance still requires attaching the actual vendor documents, production configuration evidence, and counsel review.
+This audit covers what can be implemented in this frontend repository. It does not certify global legal compliance. The owner supplied legal/entity and vendor assumptions on May 2, 2026, and operational Gate 2/Gate 6 confirmations on May 3, 2026. Full legal reliance still requires maintaining the actual vendor documents, production configuration evidence, and counsel review outside git.
 
 Temporary fictional drafting values are recorded in `docs/compliance/placeholder-evidence-register.md`. They are placeholders only and do not satisfy production evidence requirements.
 
@@ -21,6 +21,11 @@ Temporary fictional drafting values are recorded in `docs/compliance/placeholder
 - Payment processor: Stripe.
 - User content hosting: SentientWeb will not host user content at scale.
 - Counsel-approved text: owner requested assistant-generated draft text; this is not actual counsel approval.
+- Server-side consent evidence: owner confirmed it is required; retention procedure uses 548 days unless counsel sets another period.
+- Restricted evidence storage: Google Workspace/Drive under operations control.
+- Production tag inventory: owner confirmed current live tags match the Cookie Policy inventory.
+- Privacy request tabletop: owner confirmed access, deletion, correction, opt-out, appeal, and consent withdrawal were tested with fictional data.
+- Accessibility workflow: owner confirmed feedback and remediation ownership is assigned to operations and engineering routing.
 
 ## Public Route Evidence
 
@@ -80,7 +85,7 @@ Widget activation guardrails:
 | Security and breach response plan | `/security-response`, `docs/compliance/security-incident-response.md` | E2E legal route test; docs text search |
 | Machine-readable vulnerability contact | `/.well-known/security.txt` | E2E security.txt test |
 | Vendor/processor agreements | `docs/compliance/vendor-processor-register.md` records owner-supplied Robanka/Google assumptions | Docs text search; actual signed/linked terms still required |
-| PCI documentation if taking payments | Stripe selected in `/billing-terms`, `docs/compliance/retention-schedule.md`, `docs/compliance/vendor-processor-register.md`, and `docs/compliance/stripe-pci-readiness.md` | Docs text search; Stripe integration type and PCI SAQ still required before payments launch |
+| PCI documentation if taking payments | Stripe selected in `/billing-terms`, `docs/compliance/retention-schedule.md`, `docs/compliance/vendor-processor-register.md`, and `docs/compliance/stripe-pci-readiness.md` | Docs text search; Stripe integration type and PCI posture recorded; replace placeholder evidence with actual Stripe records before payment reliance |
 | DMCA policy and agent if hosting user content | `/dmca`; owner says no user content at scale | E2E legal route test; revisit if product changes |
 | AI disclosure for chatbot/agent | `/ai-disclosure`, `/terms`, `/privacy`, consent banner | E2E legal route and text search |
 | Age/parental consent flow | 18+ confirmation in `ConsentManager`; `/privacy` and `/terms` under-18 restrictions | E2E privacy choices test |
@@ -91,7 +96,7 @@ Widget activation guardrails:
 
 | Document | Purpose |
 | --- | --- |
-| `docs/compliance/README.md` | Compliance operating index and launch blockers |
+| `docs/compliance/README.md` | Compliance operating index and launch-gate status |
 | `docs/compliance/ai-dpia.md` | AI/data protection impact assessment draft |
 | `docs/compliance/ai-system-card.md` | Live assistant system card covering identity, intended use, prohibited uses, data flows, outputs, human oversight, retention, risks, and evidence gaps |
 | `docs/compliance/assistant-system-policy.md` | Assistant prompt/system policy template and required production test cases for prohibited uses, professional advice, sensitive data, high-impact decisions, voice, privacy routing, and unsupported claims |
@@ -104,9 +109,9 @@ Widget activation guardrails:
 | `docs/compliance/stripe-pci-readiness.md` | Stripe PCI readiness checklist |
 | `docs/compliance/legal-source-register.md` | Official source register for AI, privacy, Gemini, Google Cloud, Stripe, and international privacy references |
 | `docs/compliance/jurisdiction-readiness-map.md` | U.S., EU/UK, Canada, Australia, and New Zealand readiness map tied to website artifacts and launch gates |
-| `docs/compliance/evidence-request-packet.md` | Concrete vendor, admin, Stripe, and counsel evidence requests required to clear non-code blockers |
+| `docs/compliance/evidence-request-packet.md` | Concrete vendor, admin, Stripe, and counsel evidence request templates for renewals and placeholder replacement |
 | `docs/compliance/placeholder-evidence-register.md` | Clearly marked fictional placeholder values for Robanka, Google/Gemini, Stripe, DMCA, assistant policy, and counsel approval evidence |
-| `docs/compliance/consent-log-spec.md` | Server-side consent evidence schema and implementation requirements if counsel requires consent logs |
+| `docs/compliance/consent-log-spec.md` | Server-side consent evidence schema and implementation/operations requirements |
 | `docs/compliance/production-launch-gates.md` | Operational launch gates for public notices, consent, Robanka/Gemini evidence, international review, payments, security, and approvals |
 | `docs/compliance/prompt-to-artifact-audit.md` | This audit |
 
@@ -122,7 +127,7 @@ npm run compliance:audit:production
 Expected evidence:
 
 - `npm run test:all` succeeds, including lint, unit tests, production build, production E2E, website compliance artifact audit, and `npm audit`.
-- `npm run compliance:audit:production` fails until every launch gate is checked; this is expected while placeholder evidence remains.
+- `npm run compliance:audit:production` succeeds only when every launch gate is checked; the May 3, 2026 owner confirmations are recorded in the gate docs.
 - `npm run test:e2e:no-build` can be used after `npm run build` to rerun the production E2E suite without rebuilding, including:
   - legal compliance routes return `200`
   - legal compliance routes appear in sitemap
@@ -155,29 +160,29 @@ Latest full verification completed on May 3, 2026:
 | `npm run build` | Passed as part of E2E, including client build, SSR build, prerender, route manifest, sitemap, and JSON-LD CSP hashes |
 | `VITE_SITE_URL=https://example.com npm test` | Passed, proving route metadata tests do not hard-code the default production domain |
 | `VITE_SITE_URL=https://example.com npm run build` plus `npm run compliance:audit` | Passed; manifest, sitemap, security.txt, public hostname copy, canonical tags, Open Graph URLs, and JSON-LD used `https://example.com/` |
-| `npm run compliance:audit` | Passes website artifacts; Gate 2 and Gate 6 items may remain open (`production-launch-gates.md`); tracker in `remaining-production-items.md` mirrors unchecked lines |
-| `npm run compliance:audit:production` | Fails until every launch-gate checkbox is checked (expected while Gate 2/6 drills run) |
+| `npm run compliance:audit` | Passes website artifacts and reports all launch gates checked after May 3, 2026 owner confirmations |
+| `npm run compliance:audit:production` | Passed after all launch-gate checkboxes were checked |
 | `npm run test:e2e` | Passed, 47 Playwright tests |
 | Route manifest legal routes check | Passed, all 12 public legal routes present in `dist/routes-manifest.json`; manifest also includes `siteUrl`, `dynamicFallbackRedirects`, and inline JSON-LD CSP hashes |
 | Sitemap legal routes check | Passed, all 12 public legal routes present in `dist/sitemap.xml` |
 | `security.txt` site URL check | Passed, built `Policy` and `Canonical` fields use the configured `SITE_URL` |
 | Public hostname copy check | Passed, built privacy, terms, cookie, billing, and status pages use the configured `SITE_URL` hostname |
 | Public placeholder leakage search | Passed, no `TBD`, `PLACEHOLDER`, or `FICTITIOUS` labels in `src`, `dist`, `public`, `.env.example`, or `README.md`; placeholder values are confined to compliance docs |
-| Internal open-evidence placeholders | Operational rows for consent-log policy, cookie inventory parity drills, accessibility owner, restricted evidence repository selection, and full rights tabletop remain open (`remaining-production-items.md`). Robanka/Google/Stripe contractual artefacts are summarized in `placeholder-evidence-register.md` Apr 2026 with custody outside git. |
+| Internal evidence placeholders | Operational rows for consent-log policy, cookie inventory parity, accessibility owner, restricted evidence repository selection, and rights tabletop are closed by May 3, 2026 owner confirmations. Robanka/Google/Stripe contractual artefacts are summarized in `placeholder-evidence-register.md` with custody outside git. |
 | `rg -n "Zero data retention\|zero data retention\|zero retention" src tests dist` | Passed, no remaining zero-retention marketing claims in source, tests, or built public output |
 | `rg -n "End-to-end encrypted\|end-to-end encryption\|End-to-end encryption" src tests dist` | Passed, no remaining end-to-end-encryption marketing claims in source, tests, or built public output |
 | Unsupported quantified/timing claims search | Passed for source after replacing exact vertical proof stats and 48-hour results with modeled-estimate language |
 
-## Known Blockers to Full Compliance Certification
+## Repository Boundaries
 
-Repository-only limits (Apr 2026):
+Repository-only limits:
 
 - Sensitive contracts, Google console exports, PCI SAQs, DPIA originals, counsel memos live **outside** git—summaries reside in `docs/compliance/placeholder-evidence-register.md`.
-- Operational drills still enumerated in **`production-launch-gates.md` Gate 2 / Gate 6** (`remaining-production-items.md`): server-side consent log decision and restricted storage owner if logs are required, finalized tag inventory parity after future analytics/embeds ship, tabletop rights requests, nominating restricted evidence storage, assigning accessibility remediation owner after audit.
-- Automated `compliance-audit --production` remains red until **every** launch-gate checklist line is `[x]`—by design even when counsel artefacts exist off-repository.
+- Operational Gate 2 and Gate 6 items were checked after May 3, 2026 owner confirmations; refresh them whenever new tags, vendors, payments, assistant behavior, or evidence locations change.
+- Automated `compliance-audit --production` is designed to fail if any future launch-gate checklist line is reopened.
 
 Historical evidence collection templates remain in **`docs/compliance/evidence-request-packet.md`** for renewals only.
 
 ## Current Conclusion
 
-Public compliance surfaces ship in-repo. Residual obligations are enumerated in launch gates—notably consent-log policy, eventual analytics pixels, accessibility owner assignment, restricted evidence tooling, and a full privacy-rights tabletop.
+Public compliance surfaces ship in-repo. Launch gates are checked after the May 3, 2026 owner confirmations; remaining responsibility is maintaining real off-repository evidence and refreshing gates when production behavior changes.

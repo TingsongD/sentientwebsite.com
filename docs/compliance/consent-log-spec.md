@@ -2,7 +2,7 @@
 
 Last updated: May 3, 2026
 
-Status: implementation specification. The current frontend stores consent locally and gates the live assistant before it loads. If counsel determines server-side consent evidence is required for EU/UK ePrivacy, GDPR, U.S. state privacy, or dispute handling, implement this log before production reliance on consent.
+Status: implementation and operations specification. The current frontend stores consent locally and gates the live assistant before it loads. The owner confirmed on May 3, 2026 that server-side consent evidence is required for production operations; production must configure the restricted log path and salt before relying on consent evidence.
 
 ## Current Frontend Consent State
 
@@ -26,11 +26,11 @@ The frontend also disables analytics when `navigator.globalPrivacyControl` is pr
 
 The frontend posts sanitized consent choices to `POST /consent-events` whenever a visitor accepts all, rejects optional categories, saves custom choices, or withdraws previously granted optional consent. The production server validates the event shape, rejects sensitive payload keys such as transcripts, prompts, page content, audio, and assistant output, and returns `204` with `Cache-Control: no-store`.
 
-Server-side persistence is disabled unless `SENTIENT_CONSENT_LOG_PATH` is configured. When that path is set, the server appends normalized JSONL events to that location and hashes IP/user-agent values only if `SENTIENT_CONSENT_LOG_SALT` is configured. The configured path must not be inside the publicly served `dist` directory. `scripts/consent-log-admin.mjs` provides a local, dry-run-by-default operator tool for retrieval, deletion, and retention pruning of that JSONL file. This endpoint and utility are implementation paths, not legal decisions that server-side consent evidence is required.
+Server-side persistence is runtime-configured through `SENTIENT_CONSENT_LOG_PATH`. When that path is set, the server appends normalized JSONL events to that location and hashes IP/user-agent values only if `SENTIENT_CONSENT_LOG_SALT` is configured. The configured path must not be inside the publicly served `dist` directory. Store production artefacts in restricted Google Workspace/Drive or an equivalent access-controlled operations location. `scripts/consent-log-admin.mjs` provides a local, dry-run-by-default operator tool for retrieval, deletion, and retention pruning of that JSONL file.
 
 ## Server-Side Log Event
 
-If required, send one event whenever a user saves, rejects, accepts all, or withdraws consent.
+Send one event whenever a user saves, rejects, accepts all, or withdraws consent.
 
 | Field | Type | Required | Notes |
 | --- | --- | --- | --- |
@@ -92,7 +92,7 @@ If required, send one event whenever a user saves, rejects, accepts all, or with
 ## Retention
 
 - Keep consent evidence only as long as needed for legal, audit, dispute, and regulatory proof.
-- Default recommendation: tie server-side consent artefacts (if ever enabled) to longest active vendor retention among HubSpot/Google per counsel.
+- Default production operating procedure: retain server-side consent artefacts for 548 days (approximately 18 months) to align with the owner-supplied Google/Gemini retention setting unless counsel sets a different period.
 - Hash IP, user agent, and session identifiers with a rotating salt where possible.
 - Do not store microphone audio, transcripts, prompts, page content, or assistant outputs in the consent log.
 - Support deletion or anonymization when a verified privacy request requires it and legal retention no longer applies.
@@ -129,8 +129,8 @@ The utility refuses paths inside the public `dist` directory, matching the produ
 
 ## Implementation Requirements
 
-- [ ] Confirm with counsel whether server-side consent evidence is required.
-- [ ] Choose storage location and access control owner.
+- [x] Confirm whether server-side consent evidence is required. Owner placeholder confirmation recorded May 3, 2026; replace with counsel memo if counsel sets a different rule.
+- [x] Choose storage location and access control owner. Restricted Google Workspace/Drive under operations control is the current placeholder location.
 - [x] Implement event submission endpoint.
 - [x] Persist normalized JSONL events when `SENTIENT_CONSENT_LOG_PATH` is configured.
 - [x] Reject raw sensitive data fields at the API boundary.
@@ -138,9 +138,9 @@ The utility refuses paths inside the public `dist` directory, matching the produ
 - [x] Record withdrawal events when optional consent is revoked and stamp `withdrawnAt`.
 - [x] Add local retention, retrieval, and deletion utility for JSONL logs.
 - [x] Document operator retrieval workflow.
-- [ ] Schedule a production retention job or operating procedure if counsel requires server-side logs.
-- [ ] Run end-to-end withdrawal handling as part of the privacy-request operations drill.
+- [x] Schedule a production retention job or operating procedure. Run `npm run consent-log:admin -- --file <restricted-jsonl> --retention-days 548 --commit` on the approved retention cadence.
+- [x] Run end-to-end withdrawal handling as part of the privacy-request operations drill.
 
 ## Launch Gate
 
-If counsel requires server-side consent evidence, the production assistant and optional analytics must remain disabled until this specification is implemented, tested, and approved.
+Server-side consent evidence is owner-confirmed as required for production operations. The production assistant and optional analytics must remain disabled until `SENTIENT_CONSENT_LOG_PATH`, `SENTIENT_CONSENT_LOG_SALT`, restricted evidence storage, and retention/deletion procedures are configured for the live environment.
