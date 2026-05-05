@@ -184,13 +184,20 @@ export function ConsentManager() {
 
   if (!panelVisible) return null
 
+  const wrapperClass = showDetails
+    ? 'fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-6 sm:pb-6'
+    : 'fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-6 sm:pb-6 md:inset-x-auto md:right-6 md:w-[min(27rem,calc(100vw-3rem))] md:px-0'
+  const panelClass = showDetails ? 'max-w-[860px]' : 'max-w-none'
+
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[120] px-3 pb-3 sm:px-6 sm:pb-6">
+    <div className={wrapperClass}>
       <section
         aria-labelledby="privacy-choices-title"
-        className="mx-auto max-w-[860px] rounded-lg border border-white/10 bg-background/95 p-4 shadow-2xl backdrop-blur md:p-5"
+        className={`mx-auto ${panelClass} rounded-lg border border-white/10 bg-background/95 p-4 shadow-2xl backdrop-blur md:p-5`}
       >
-        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div
+          className={`flex flex-col gap-4 ${showDetails ? 'md:flex-row md:items-start md:justify-between' : ''}`}
+        >
           <div className="min-w-0">
             <h2
               id="privacy-choices-title"
@@ -199,9 +206,8 @@ export function ConsentManager() {
               {title}
             </h2>
             <p className="mt-2 font-mono text-[12px] normal-case leading-relaxed text-cream/70 sm:text-[13px]">
-              We use necessary storage for the site. The live assistant uses Google (Gemini Live) as our
-              AI technology provider, with Robanka operating the experience; it loads only after you
-              consent. You can use the site without enabling microphone access. Enabling the assistant
+              We use necessary storage for the site. Optional assistant and measurement tools load only
+              after you choose. You can use the site without microphone access; enabling the assistant
               confirms you are at least 18.
               {globalPrivacyControl
                 ? ' Your browser is sending Global Privacy Control, so analytics stays off.'
@@ -219,7 +225,7 @@ export function ConsentManager() {
               </Link>
             </div>
           </div>
-          <div className="flex shrink-0 flex-wrap gap-2 md:justify-end">
+          <div className={`flex shrink-0 flex-wrap gap-2 ${showDetails ? 'md:justify-end' : ''}`}>
             <button
               type="button"
               className="rounded-full bg-neon px-4 py-2 font-grotesk text-[12px] uppercase tracking-wide text-background"

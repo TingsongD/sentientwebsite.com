@@ -1192,10 +1192,28 @@ test('privacy choices remain usable when local storage is blocked', async ({ pag
 })
 
 test('assistant widget loader is absent before consent', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/')
 
   await expect(page.locator('script[data-sentient-widget-loader]')).toHaveCount(0)
-  await expect(page.getByText('loads only after you consent')).toBeVisible()
+  await expect(page.getByText('Optional assistant and measurement tools load only')).toBeVisible()
+
+  const consentPanel = page.locator('section[aria-labelledby="privacy-choices-title"]')
+  const heroCta = page.getByRole('link', { name: 'Book a 30-day pilot' }).first()
+  await expect(async () => {
+    const panelBox = await consentPanel.boundingBox()
+    const ctaBox = await heroCta.boundingBox()
+    expect(panelBox).not.toBeNull()
+    expect(ctaBox).not.toBeNull()
+    expect(panelBox!.width).toBeLessThanOrEqual(450)
+    expect(panelBox!.x).toBeGreaterThan(900)
+    expect(
+      panelBox!.x < ctaBox!.x + ctaBox!.width &&
+        panelBox!.x + panelBox!.width > ctaBox!.x &&
+        panelBox!.y < ctaBox!.y + ctaBox!.height &&
+        panelBox!.y + panelBox!.height > ctaBox!.y,
+    ).toBe(false)
+  }).toPass()
 })
 
 test('privacy choices honor Global Privacy Control for analytics', async ({ page }) => {
@@ -1414,6 +1432,7 @@ test('primary nav links to the single solution page', async ({ page }) => {
   const orchestrateButton = nav.getByRole('button', { name: 'Orchestrate your existing tech' })
   await expect(integrationsButton).toBeVisible()
   await expect(orchestrateButton).toBeVisible()
+  await expect(nav.getByText('Orchestrate stack')).toBeVisible()
   await expect(async () => {
     const integrationsBox = await integrationsButton.boundingBox()
     const orchestrateBox = await orchestrateButton.boundingBox()
@@ -1459,6 +1478,10 @@ test('primary nav links to the single solution page', async ({ page }) => {
   )
   await expect(nav.getByRole('link', { name: 'Not another chatbot' })).toHaveCount(0)
 
+  await page.setViewportSize({ width: 1024, height: 768 })
+  await expect(page.getByRole('button', { name: 'Open menu' })).toBeVisible()
+  await expect(page.getByRole('navigation', { name: 'Primary' })).toHaveCount(0)
+
   await page.setViewportSize({ width: 390, height: 844 })
   await page.getByRole('button', { name: 'Open menu' }).click()
 
@@ -1492,8 +1515,8 @@ test('primary nav links to the single solution page', async ({ page }) => {
     '/integrations/api-webhooks',
   )
   await dialog.getByText('Integrations').click()
-  await expect(dialog.getByText('Orchestrate your existing tech')).toBeVisible()
-  await dialog.getByText('Orchestrate your existing tech').click()
+  await expect(dialog.getByText('Orchestrate stack')).toBeVisible()
+  await dialog.getByText('Orchestrate stack').click()
   await expect(dialog.getByRole('link', { name: 'Page overview' })).toHaveAttribute(
     'href',
     '/orchestrate',
@@ -1507,6 +1530,24 @@ test('primary nav links to the single solution page', async ({ page }) => {
     '/orchestrate#manychat',
   )
   await expect(dialog.getByRole('link', { name: 'Not another chatbot' })).toHaveCount(0)
+})
+
+test('homepage preview URL feeds booking link and closing CTA keeps links outside heading', async ({ page }) => {
+  await page.goto('/')
+
+  const previewUrl = 'https://example.com/pricing?plan=pro'
+  await page.locator('#preview-url').fill(previewUrl)
+  const previewCta = page.getByRole('link', { name: `Request a preview for ${previewUrl}` })
+  await expect(previewCta).toHaveAttribute(
+    'href',
+    `https://calendly.com/tingsong-dai/30min?preview_url=${encodeURIComponent(previewUrl)}`,
+  )
+
+  await expect(
+    page.getByText('Add the URL here, then request a preview so the booking carries the page context.'),
+  ).toBeVisible()
+  await expect(page.locator('h2#cta-heading a')).toHaveCount(0)
+  await expect(page.locator('h2#cta-heading').getByText('Book a 30-day pilot')).toHaveCount(0)
 })
 
 test('orchestrate page renders the stack orchestration story', async ({ page, request }) => {

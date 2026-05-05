@@ -9,6 +9,20 @@ import { BOOK_DEMO_URL } from '../constants'
 const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
 
+function withPreviewUrl(url: string, previewUrl: string) {
+  const trimmed = previewUrl.trim()
+  if (!trimmed) return url
+
+  try {
+    const target = new URL(url)
+    target.searchParams.set('preview_url', trimmed)
+    return target.toString()
+  } catch {
+    const separator = url.includes('?') ? '&' : '?'
+    return `${url}${separator}preview_url=${encodeURIComponent(trimmed)}`
+  }
+}
+
 const INTEGRATION_LOGOS = [
   { name: 'HubSpot', logoUrl: '/logos/hubspot.svg' },
   { name: 'Calendly', logoUrl: '/logos/calendly.svg' },
@@ -493,6 +507,8 @@ export default function HomePage() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [leakClockUnit, setLeakClockUnit] = useState<LeakClockUnit>('day')
   const activeLeakClockUnit = prefersReducedMotion ? 'day' : leakClockUnit
+  const [previewUrl, setPreviewUrl] = useState('')
+  const previewBookingUrl = withPreviewUrl(BOOK_DEMO_URL, previewUrl)
 
   useLayoutEffect(() => {
     if (pathname !== '/' || !hash) return
@@ -543,7 +559,7 @@ export default function HomePage() {
                 <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
                   Visitor-to-Demo Engine for B2B SaaS
                 </p>
-                <p className="font-mono mb-6 max-w-[620px] text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
+                <p className="mb-6 max-w-[620px] font-sans text-[14px] normal-case leading-relaxed text-cream/80 sm:text-[15px]">
                   We are digital plumbers for your revenue leaks, but the first leak we fix is demo
                   intent: visitors who reach high-intent pages and leave before booking.
                 </p>
@@ -559,7 +575,7 @@ export default function HomePage() {
                 <p className="font-mono mt-8 max-w-[540px] text-[13px] uppercase leading-relaxed text-neon sm:text-[14px] md:text-[15px]">
                   Digital plumbing for your demo pipeline.
                 </p>
-                <p className="font-mono mt-5 max-w-[540px] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
+                <p className="mt-5 max-w-[540px] font-sans text-[15px] normal-case leading-relaxed text-cream sm:text-[16px] md:text-[17px]">
                   SentientWeb detects high-intent visitors on pricing, demo, comparison, and
                   integration pages, qualifies them, books the meeting, and syncs the full context
                   into the sales workflow your team actually uses.
@@ -602,7 +618,7 @@ export default function HomePage() {
             >
               One scroll from top-of-funnel intent to a booked demo.
             </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+            <p className="mt-5 max-w-3xl font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
               SentientWeb brings the visible homepage capabilities into one continuous path:
               detect intent, engage the hesitation, qualify fit, book the meeting, sync context,
               and learn from what did not convert.
@@ -622,7 +638,7 @@ export default function HomePage() {
                     >
                       {group.stage}
                     </h3>
-                    <p className="font-mono text-[12px] uppercase leading-relaxed text-cream/62 sm:text-[13px] lg:text-right">
+                    <p className="font-sans text-[13px] normal-case leading-relaxed text-cream/68 sm:text-[14px] lg:text-right">
                       {group.summary}
                     </p>
                   </div>
@@ -688,7 +704,7 @@ export default function HomePage() {
                 </h2>
               </div>
               <div className="max-w-[600px]">
-                <p className="font-mono text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+                <p className="font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
                   Demo intent is the leak SentientWeb fixes. This B2B SaaS model shows where
                   high-intent visitors disappear before sales sees the demand, qualifies the buyer,
                   or books the meeting.
@@ -747,12 +763,12 @@ export default function HomePage() {
                 </h2>
               </div>
               <div className="max-w-[620px]">
-                <p className="font-mono text-[14px] uppercase leading-relaxed text-cream/75 sm:text-[15px]">
+                <p className="font-sans text-[15px] normal-case leading-relaxed text-cream/78 sm:text-[16px]">
                   They compare pricing, check integrations, read security pages, and hesitate
                   before filling out a form. SentientWeb catches that moment and routes it to a
                   qualified booked demo.
                 </p>
-                <ul className="mt-8 grid gap-3 font-mono text-[12px] uppercase leading-relaxed text-cream/70 sm:text-[13px]">
+                <ul className="mt-8 grid gap-3 font-sans text-[13px] normal-case leading-relaxed text-cream/72 sm:text-[14px]">
                   {[
                     'Pricing-page visitors hesitate over plan fit and ROI.',
                     'Comparison-page visitors need a clear answer before they bounce.',
@@ -788,7 +804,7 @@ export default function HomePage() {
               >
                 See the recovery map for your highest-intent pages.
               </h2>
-              <p className="font-mono mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              <p className="mt-5 max-w-2xl font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
                 Submit a public pricing, comparison, integration, security, docs, or customer-story
                 URL and get a scoped preview of the recovery path SentientWeb would create for your
                 own site.
@@ -805,20 +821,27 @@ export default function HomePage() {
                   type="url"
                   inputMode="url"
                   placeholder="https://example.com/pricing"
+                  value={previewUrl}
+                  onChange={(event) => setPreviewUrl(event.target.value)}
+                  aria-describedby="preview-url-help"
                   className="min-h-12 w-full rounded-[16px] border border-white/10 bg-background px-4 py-3 font-mono text-[13px] normal-case text-cream outline-none transition placeholder:text-cream/35 focus:border-neon"
                 />
               </label>
               <div className="mt-5 flex flex-wrap items-center gap-4">
                 <a
-                  href={BOOK_DEMO_URL}
+                  href={previewBookingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={previewUrl.trim() ? `Request a preview for ${previewUrl.trim()}` : 'Request a preview'}
                   className="rounded-full bg-neon px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
                 >
                   Request a preview
                 </a>
-                <p className="font-mono max-w-[360px] text-[11px] uppercase leading-relaxed text-cream/50">
-                  URL submitted - recovery map prepared - business-email claim - fit review - pilot
+                <p
+                  id="preview-url-help"
+                  className="font-mono max-w-[360px] text-[11px] uppercase leading-relaxed text-cream/50"
+                >
+                  Add the URL here, then request a preview so the booking carries the page context.
                 </p>
               </div>
               <div className="mt-6 border-t border-white/10 pt-5">
@@ -1092,26 +1115,26 @@ export default function HomePage() {
                     Turn high-intent website behavior into qualified booked demos with CRM-ready
                     context attached.
                   </span>
-                  <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
-                    Book a 30-day pilot
-                  </span>
-                  <span className="flex flex-wrap justify-end gap-4">
-                    <a
-                      href={BOOK_DEMO_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block rounded-full bg-neon px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-background transition hover:brightness-110 sm:px-8 sm:text-[13px]"
-                    >
-                      Book a 30-day pilot
-                    </a>
-                    <Link
-                      to="/solutions/saas"
-                      className="liquid-glass inline-block rounded-full px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:px-8 sm:text-[13px]"
-                    >
-                      See qualified demo flow
-                    </Link>
-                  </span>
                 </h2>
+                <p className="mb-6 font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
+                  Book a 30-day pilot
+                </p>
+                <div className="flex flex-wrap justify-end gap-4">
+                  <a
+                    href={BOOK_DEMO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block rounded-full bg-neon px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-background transition hover:brightness-110 sm:px-8 sm:text-[13px]"
+                  >
+                    Book a 30-day pilot
+                  </a>
+                  <Link
+                    to="/solutions/saas"
+                    className="liquid-glass inline-block rounded-full px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:px-8 sm:text-[13px]"
+                  >
+                    See qualified demo flow
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

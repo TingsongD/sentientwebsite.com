@@ -79,7 +79,7 @@ function PrimaryNavList() {
   const close = () => setOpenMenu(null)
 
   return (
-    <ul ref={navRootRef} className="flex items-center gap-5 xl:gap-8">
+    <ul ref={navRootRef} className="flex items-center gap-4 2xl:gap-7">
       <li>
         <Link
           to={{ pathname: '/', hash: 'features' }}
@@ -156,8 +156,9 @@ function PrimaryNavList() {
           aria-expanded={openMenu === 'orchestrate'}
           aria-controls={orchestrateMenuId}
           onClick={() => toggle('orchestrate')}
+          aria-label="Orchestrate your existing tech"
         >
-          Orchestrate your existing tech
+          Orchestrate stack
           <ChevronDown
             className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'orchestrate' ? 'rotate-180' : ''}`}
             aria-hidden
@@ -262,7 +263,7 @@ function MobileNavPanel({
     'flex cursor-pointer list-none items-center justify-between py-3 font-grotesk text-[13px] uppercase tracking-wide text-cream [&::-webkit-details-marker]:hidden'
 
   return (
-    <div className="fixed inset-0 z-[80] lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+    <div className="fixed inset-0 z-[80] xl:hidden" role="dialog" aria-modal="true" aria-label="Menu">
       <button
         type="button"
         className="absolute inset-0 bg-background/80 backdrop-blur-sm"
@@ -335,7 +336,7 @@ function MobileNavPanel({
 
           <details className="group border-b border-white/10">
             <summary className={detailsSummary}>
-              Orchestrate your existing tech
+              Orchestrate stack
               <ChevronDown
                 className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
                 aria-hidden
@@ -393,7 +394,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
 
   const nav = (
     <nav
-      className="liquid-glass z-[55] overflow-visible rounded-[28px] px-8 py-5 xl:px-[52px] xl:py-[24px]"
+      className="liquid-glass z-[55] overflow-visible rounded-[28px] px-6 py-4 2xl:px-[44px] 2xl:py-[22px]"
       aria-label="Primary"
     >
       <PrimaryNavList key={pathname} />
@@ -401,7 +402,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
   )
 
   const actions = (
-    <div className="hidden items-center gap-3 lg:flex">
+    <div className="hidden items-center gap-3 xl:flex">
       <a
         href={OPERATOR_LOGIN_URL}
         className="font-grotesk text-[12px] uppercase tracking-wide text-cream/80 transition hover:text-neon xl:text-[13px]"
@@ -433,11 +434,11 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
   return (
     <>
       <header
-        className={`${positionClass} mx-auto grid w-full max-w-[1831px] grid-cols-[1fr_auto] items-start gap-x-4 gap-y-0 px-4 pt-[env(safe-area-inset-top)] sm:px-6 md:px-8 lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-4 lg:px-10`}
+        className={`${positionClass} mx-auto grid w-full max-w-[1831px] grid-cols-[1fr_auto] items-start gap-x-4 gap-y-0 px-4 pt-[env(safe-area-inset-top)] sm:px-6 md:px-8 lg:px-10 xl:grid-cols-[1fr_auto_1fr] xl:items-start xl:gap-4`}
       >
         <Link
           to="/"
-          className="col-start-1 row-start-1 mt-4 min-w-0 font-condiment leading-none text-[22px] text-neon normal-case sm:text-[28px] md:text-[36px] lg:justify-self-start lg:text-[44px]"
+          className="col-start-1 row-start-1 mt-4 min-w-0 font-condiment leading-none text-[22px] text-neon normal-case sm:text-[28px] md:text-[36px] lg:text-[44px] xl:justify-self-start"
         >
           SentientWeb
         </Link>
@@ -445,7 +446,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         <button
           type="button"
           ref={mobileButtonRef}
-          className="col-start-2 row-start-1 mt-4 shrink-0 rounded-xl border border-white/15 bg-white/[0.04] p-2.5 text-cream transition hover:bg-white/10 lg:hidden"
+          className="col-start-2 row-start-1 mt-4 shrink-0 rounded-xl border border-white/15 bg-white/[0.04] p-2.5 text-cream transition hover:bg-white/10 xl:hidden"
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileOpen}
           aria-controls={mobileMenuId}
@@ -458,11 +459,11 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
           )}
         </button>
 
-        <div className="col-span-2 hidden justify-self-center self-start overflow-visible lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:block">
+        <div className="col-span-2 hidden justify-self-center self-start overflow-visible xl:col-span-1 xl:col-start-2 xl:row-start-1 xl:block">
           {nav}
         </div>
 
-        <div className="col-span-2 hidden justify-self-end lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:flex">
+        <div className="col-span-2 hidden justify-self-end xl:col-span-1 xl:col-start-3 xl:row-start-1 xl:flex">
           {actions}
         </div>
       </header>
