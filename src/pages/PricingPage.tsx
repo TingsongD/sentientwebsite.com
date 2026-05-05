@@ -171,7 +171,7 @@ function PricingCard({
           {content.cta}
         </a>
         <p className="font-mono mt-3 text-center text-[11px] uppercase leading-relaxed text-cream/45">
-          Modeled pricing only. Final pilot terms are confirmed before launch.
+          Final pilot rules are confirmed before launch. Public proof rights are optional.
         </p>
       </div>
     </article>
@@ -590,7 +590,7 @@ export default function PricingPage() {
             </h1>
             <p className="font-mono mx-auto mt-6 max-w-[760px] text-[14px] uppercase leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
               Start with a 30-day pilot. Measure the work by qualified booked demos and
-              HubSpot-visible context.
+              CRM-visible context your sales team accepts.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {TRUST_PILLS.map((pill) => (
@@ -633,6 +633,10 @@ export default function PricingPage() {
               <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/75 sm:text-[14px]">
                 {QUALIFIED_BOOKED_DEMO_DEFINITION}
               </p>
+              <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/55 sm:text-[13px]">
+                Your team approves the ICP, stack-fit rules, disqualification reasons, and what
+                counts as sales-accepted before any recovered meeting is billable.
+              </p>
             </div>
           </section>
 
@@ -657,13 +661,13 @@ export default function PricingPage() {
                 id="how-pricing-works-heading"
                 className="font-grotesk text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
               >
-                Detect, qualify, book, and prove it in HubSpot.
+                Detect, qualify, book, and prove it where sales works.
               </h2>
               <ol className="mt-8 grid gap-5 md:grid-cols-3">
                 {[
                   {
                     title: 'We set the pilot rules',
-                    body: 'Agree on ICP, high-intent pages, qualification questions, Calendly path, and HubSpot fields.',
+                    body: 'Agree on ICP, high-intent pages, qualification questions, scheduler path, CRM fields, and proof criteria.',
                   },
                   {
                     title: 'We recover demo intent',
@@ -671,7 +675,7 @@ export default function PricingPage() {
                   },
                   {
                     title: 'You measure booked demos',
-                    body: 'Reporting centers on demo-ready visitors, qualified visitors, booked demos, and HubSpot-visible context.',
+                    body: 'Reporting centers on demo-ready visitors, qualified visitors, booked demos, sales acceptance, and CRM-visible context.',
                   },
                 ].map((step, index) => (
                   <li key={step.title} className="liquid-glass rounded-[22px] p-6 sm:p-7">
@@ -733,19 +737,35 @@ export default function PricingPage() {
                   },
                   {
                     q: 'Do you charge for message volume?',
-                    a: 'No. The pilot should be measured around qualified booked demos and HubSpot-visible context, not message count.',
+                    a: 'No. The pilot should be measured around qualified booked demos and CRM-visible context, not message count.',
                   },
                   {
                     q: 'What happens if traffic is too low?',
-                    a: 'We will say so during setup. The wedge works best when pricing, demo, comparison, or integration pages already get meaningful traffic.',
+                    a: 'We will say so during setup. If pricing, demo, comparison, security, or integration pages do not have enough intent yet, the right next step may be fixing traffic, offer clarity, or sales infrastructure before buying SentientWeb.',
                   },
                   {
-                    q: 'Can this work with Calendly?',
-                    a: 'Yes. The v1 booking path should use Calendly unless a customer requires deeper routing later.',
+                    q: 'Do we need HubSpot?',
+                    a: 'HubSpot is the fastest launch path, but it is not the only path we evaluate. Salesforce, Pipedrive, API, webhook, and lightweight handoff requirements are reviewed before the pilot starts. If context cannot reach the system sales uses, we should not launch.',
+                  },
+                  {
+                    q: 'Can this work with Calendly or routing tools?',
+                    a: 'Yes. Calendly is the simplest booking path. Teams using Chili Piper or another router should define the routing requirement during setup so SentientWeb qualifies before the scheduler opens.',
                   },
                   {
                     q: 'Does this replace Chili Piper, Drift, or Qualified?',
-                    a: 'No. It is a focused demo recovery layer for teams that want a lighter HubSpot-first path before buying a broader platform.',
+                    a: 'No. It is a focused demo recovery layer that can sit upstream of routing or engagement tools when the buyer moment calls for qualification before handoff.',
+                  },
+                  {
+                    q: 'Are case-study rights required?',
+                    a: 'No. Public proof rights are optional. Some customers may trade public proof rights for a discount, but the pilot can be evaluated without publishing your brand or conversion data.',
+                  },
+                  {
+                    q: 'How do you prove incrementality?',
+                    a: 'The pilot proof packet should include baseline pages, detected intent, qualification answers, booked demos, sales acceptance, and the pipeline assumptions used. If you need a holdout or page-by-page test, define it before launch.',
+                  },
+                  {
+                    q: 'How are AI answer quality and security handled?',
+                    a: 'Answers are grounded in approved source content. Security, legal, pricing, and high-risk questions can be routed to a human, and the Trust page explains provider and compliance posture before procurement review.',
                   },
                   {
                     q: 'Do you identify anonymous people?',
@@ -781,7 +801,7 @@ export default function PricingPage() {
               </h2>
               <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
                 The 30-day pilot proves whether SentientWeb can turn existing high-intent website
-                traffic into qualified booked demos with HubSpot context attached.
+                traffic into qualified booked demos with sales-accepted CRM context attached.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a

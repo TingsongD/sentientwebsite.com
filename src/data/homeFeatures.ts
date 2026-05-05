@@ -25,9 +25,9 @@ export const FEATURES = [
     ],
   },
   {
-    title: 'HubSpot context sync',
+    title: 'CRM context sync',
     bullets: [
-      'Creates or updates the contact and company record.',
+      'Maps the CRM handoff before launch.',
       'Adds pages viewed, summary, qualification answers, and booking context.',
       'Gives sales the opener before the call starts.',
     ],

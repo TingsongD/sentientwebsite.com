@@ -13,7 +13,7 @@ export default function AboutPage() {
           We recover the demo intent hiding inside B2B SaaS websites.
         </h1>
         <p className="font-mono mt-6 text-[14px] uppercase leading-relaxed text-cream/55 sm:text-[15px]">
-          Demo recovery for HubSpot and Calendly teams
+          Demo recovery for CRM-powered B2B SaaS teams
         </p>
 
         <div className="mt-12 space-y-8 font-mono text-[15px] normal-case leading-[1.75] text-cream/85 sm:text-[16px]">
@@ -25,9 +25,9 @@ export default function AboutPage() {
           </p>
 
           <p>
-            We are starting with B2B SaaS teams using HubSpot and Calendly because the problem is
-            measurable: demo-ready visitors detected, qualified conversations, booked meetings,
-            HubSpot context, and sales-accepted opportunities.
+            We are starting with B2B SaaS teams that can prove the problem clearly: demo-ready
+            visitors detected, qualified fit, booked meetings, CRM context, and sales-accepted
+            opportunities.
           </p>
 
           <p>

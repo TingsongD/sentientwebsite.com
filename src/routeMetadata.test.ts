@@ -161,6 +161,9 @@ describe('route metadata manifest', () => {
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/car-dealerships')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/wordpress')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/hubspot')
+    expect(KNOWN_ROUTE_PATHS).toContain('/integrations/salesforce')
+    expect(KNOWN_ROUTE_PATHS).toContain('/integrations/pipedrive')
+    expect(KNOWN_ROUTE_PATHS).toContain('/integrations/api-webhooks')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/calendly')
     expect(KNOWN_ROUTE_PATHS).toEqual(
       expect.arrayContaining([

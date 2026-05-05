@@ -86,8 +86,8 @@ const SAAS_JOURNEY_STAGES = [
   },
   {
     label: 'Stage 6',
-    title: 'HubSpot receives the full context',
-    body: 'HubSpot receives visitor context, pages viewed, conversation summary, qualification answers, booking details, and a suggested sales opener.',
+    title: 'Sales receives the full CRM context',
+    body: 'The agreed CRM or handoff path receives visitor context, pages viewed, conversation summary, qualification answers, booking details, and a suggested sales opener.',
   },
   {
     label: 'Stage 7',
@@ -100,15 +100,15 @@ const SAAS_QUALIFICATION_POINTS = [
   'Business email or company domain',
   'Role and buying involvement',
   'Primary use case and urgency',
-  'Current stack and HubSpot fit',
+  'Current stack and CRM fit',
   'Timeline, budget signal, and next step',
   'Questions sales should answer first',
 ] as const
 
 const SAAS_HANDOFF_ITEMS = [
   {
-    title: 'HubSpot packet',
-    body: 'Sales sees the page path, qualification answers, summary, booking details, and recommended opener in the CRM workflow they already use.',
+    title: 'CRM packet',
+    body: 'Sales sees the page path, qualification answers, summary, booking details, and recommended opener in the workflow they already use.',
   },
   {
     title: 'Reminder loop',
@@ -344,7 +344,7 @@ function SaasSolutionPage({
             <div className="mx-auto flex max-w-[1120px] flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-mono max-w-xl text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
                 Book a 30-day pilot and measure the path from detected intent to qualified booked
-                demos with HubSpot-visible context.
+                demos with sales-accepted CRM context.
               </p>
               <div className="flex flex-wrap gap-4">
                 <CtaLink accentBackgroundClass={accentBackgroundClass}>

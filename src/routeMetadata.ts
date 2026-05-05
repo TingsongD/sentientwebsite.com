@@ -288,7 +288,7 @@ function organizationSchema(): StructuredData {
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE_URL,
     description:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into HubSpot.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into the sales workflow.',
   }
 }
 
@@ -299,7 +299,7 @@ function websiteSchema(): StructuredData {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into HubSpot.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into the sales workflow.',
     publisher: { '@id': ORGANIZATION_ID },
     inLanguage: 'en-US',
   }

@@ -1379,6 +1379,18 @@ test('primary nav links to the single solution page', async ({ page }) => {
     'href',
     '/integrations/hubspot',
   )
+  await expect(nav.getByRole('link', { name: 'Salesforce' })).toHaveAttribute(
+    'href',
+    '/integrations/salesforce',
+  )
+  await expect(nav.getByRole('link', { name: 'Pipedrive' })).toHaveAttribute(
+    'href',
+    '/integrations/pipedrive',
+  )
+  await expect(nav.getByRole('link', { name: 'API & Webhooks' })).toHaveAttribute(
+    'href',
+    '/integrations/api-webhooks',
+  )
   await expect(nav.getByRole('link', { name: 'Calendly' })).toHaveAttribute(
     'href',
     '/integrations/calendly',
@@ -1418,6 +1430,18 @@ test('primary nav links to the single solution page', async ({ page }) => {
   await expect(dialog.getByRole('link', { name: 'HubSpot', exact: true })).toHaveAttribute(
     'href',
     '/integrations/hubspot',
+  )
+  await expect(dialog.getByRole('link', { name: 'Salesforce' })).toHaveAttribute(
+    'href',
+    '/integrations/salesforce',
+  )
+  await expect(dialog.getByRole('link', { name: 'Pipedrive' })).toHaveAttribute(
+    'href',
+    '/integrations/pipedrive',
+  )
+  await expect(dialog.getByRole('link', { name: 'API & Webhooks' })).toHaveAttribute(
+    'href',
+    '/integrations/api-webhooks',
   )
   await dialog.getByText('Integrations').click()
   await expect(dialog.getByText('Orchestrate your existing tech')).toBeVisible()
@@ -1501,6 +1525,48 @@ test('pricing calculator updates estimates and CTAs use Calendly', async ({ page
   await expect(cta).toHaveAttribute('href', 'https://calendly.com/tingsong-dai/30min')
 })
 
+test('ICP objections are answered on homepage, pricing, and integration pages', async ({ page, request }) => {
+  await page.goto('/')
+  await expect(
+    page.getByRole('heading', {
+      name: 'Do not buy demo recovery if the context lands in the wrong system.',
+    }),
+  ).toBeVisible()
+  await expect(page.getByText('Salesforce teams')).toBeVisible()
+  await expect(page.getByText('Pipedrive teams')).toBeVisible()
+  await expect(page.getByText('Public proof rights are optional')).toBeVisible()
+  await expect(page.getByText('pilot produces a proof packet')).toBeVisible()
+
+  await page.goto('/pricing')
+  await page.getByText('Do we need HubSpot?').click()
+  await expect(page.getByText('Salesforce, Pipedrive, API, webhook')).toBeVisible()
+  await page.getByText('Are case-study rights required?').click()
+  await expect(page.getByText('No. Public proof rights are optional')).toBeVisible()
+  await page.getByText('How do you prove incrementality?').click()
+  await expect(page.getByText('The pilot proof packet should include')).toBeVisible()
+  await page.getByText('How are AI answer quality and security handled?').click()
+  await expect(page.getByText('Answers are grounded in approved source content')).toBeVisible()
+  await expect(page.getByText('Modeled pricing only')).toHaveCount(0)
+  await expect(page.getByText('For the first 10')).toHaveCount(0)
+
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  for (const path of ['/integrations/salesforce', '/integrations/pipedrive', '/integrations/api-webhooks']) {
+    const response = await request.get(path)
+    expect(response.status(), path).toBe(200)
+    expect(sitemap).toContain(absoluteSiteUrl(path))
+  }
+
+  await page.goto('/integrations/salesforce')
+  await expect(page.getByText('Confirm Salesforce fit before the pilot starts.')).toBeVisible()
+  await expect(page.getByText('the pilot should not start')).toBeVisible()
+
+  await page.goto('/integrations/pipedrive')
+  await expect(page.getByText('Pipedrive teams should not have to migrate CRM')).toBeVisible()
+
+  await page.goto('/integrations/api-webhooks')
+  await expect(page.getByText('Custom CRM, no CRM, or early sales stack')).toBeVisible()
+})
+
 test('homepage and solution pages render new positioning and trust disclosure', async ({ page }) => {
   await page.goto('/')
   await expect(
@@ -1555,6 +1621,11 @@ test('homepage and solution pages render new positioning and trust disclosure', 
       name: 'See how SentientWeb would recover demo-ready visitors from your pricing page.',
     }),
   ).toBeVisible()
+  await expect(
+    page.getByRole('heading', {
+      name: 'The pilot is designed to answer the questions your CEO, RevOps, and sales leader will ask.',
+    }),
+  ).toBeVisible()
   await expect(page.getByRole('heading', { name: 'When buyers do not book, learn why.' })).toBeVisible()
   await expect(page.getByRole('dialog')).toHaveCount(0)
 
@@ -1568,7 +1639,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(page.getByText('AI engages with page-specific help')).toBeVisible()
   await expect(page.getByText('AI qualifies fit before booking')).toBeVisible()
   await expect(page.getByText('Qualified demo gets booked')).toBeVisible()
-  await expect(page.getByText('HubSpot receives the full context')).toBeVisible()
+  await expect(page.getByText('Sales receives the full CRM context')).toBeVisible()
   await expect(page.getByText('Text and email reminders go out')).toBeVisible()
   await expect(
     page.getByRole('heading', { name: 'The prospect shows up to the demo meeting.' }),

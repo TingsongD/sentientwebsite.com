@@ -16,6 +16,25 @@ const INTEGRATION_LOGOS = [
   { name: 'Webflow', logoUrl: '/logos/webflow.svg' },
 ] as const
 
+const STACK_FIT_CARDS = [
+  {
+    title: 'HubSpot teams',
+    body: 'Launch with the native wedge: contact, company, qualification, booking, and opener context in HubSpot.',
+  },
+  {
+    title: 'Salesforce teams',
+    body: 'Map the Salesforce outcome before launch. If sales context cannot land where reps work, the pilot should not start.',
+  },
+  {
+    title: 'Pipedrive teams',
+    body: 'Scope Pipedrive or webhook handoff so lean teams do not create manual CRM work just to test demo recovery.',
+  },
+  {
+    title: 'Custom or no CRM',
+    body: 'Use the pilot fit check to decide whether a webhook, shared inbox, CRM setup, or scheduler prerequisite comes first.',
+  },
+] as const
+
 const HIGH_INTENT_PAGE_CARDS = [
   {
     title: 'Pricing pages',
@@ -57,12 +76,31 @@ const DEMO_RECOVERY_MODULES = [
     body: 'Confirm company domain, role, use case, timeline, and stack fit before opening the booking path.',
   },
   {
-    title: 'HubSpot Context Sync',
-    body: 'Send contact, company, page behavior, qualification answers, and conversation summary into HubSpot.',
+    title: 'CRM Context Sync',
+    body: 'Send contact, company, page behavior, qualification answers, and conversation summary into the agreed sales workflow.',
   },
   {
     title: 'Recovered Demo Reporting',
     body: 'Show demo-ready visitors detected, qualified visitors, booked demos, and sales-visible context.',
+  },
+] as const
+
+const BUYER_OBJECTION_CARDS = [
+  {
+    title: 'Will this work with our CRM?',
+    body: 'CRM fit is checked before launch. HubSpot is the fastest path; Salesforce, Pipedrive, and webhook handoffs are scoped before a pilot is accepted.',
+  },
+  {
+    title: 'Can we trust the answers?',
+    body: 'Recovery answers come from approved source content, with sensitive, security, legal, or high-value questions routed to a human instead of improvised.',
+  },
+  {
+    title: 'Where is the proof?',
+    body: 'The pilot produces a proof packet: baseline pages, recovered demos, qualification answers, sales acceptance, and the exact pipeline assumption used.',
+  },
+  {
+    title: 'Are case-study rights required?',
+    body: 'No. Public proof rights are optional and can be traded for a discount; they are not a condition for evaluating the 30-day pilot.',
   },
 ] as const
 
@@ -147,8 +185,8 @@ const FUNNEL_FEATURE_GROUPS = [
         body: 'Opens the agreed booking path only after the visitor has shared enough context to qualify the meeting.',
       },
       {
-        title: 'HubSpot context sync',
-        body: 'Sends page behavior, qualification answers, summary, booking details, and a suggested opener into HubSpot.',
+        title: 'CRM context sync',
+        body: 'Sends page behavior, qualification answers, summary, booking details, and a suggested opener into the agreed sales workflow.',
       },
       {
         title: 'Text and email reminders',
@@ -501,7 +539,7 @@ export default function HomePage() {
                 <p className="font-mono mt-5 max-w-[540px] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
                   SentientWeb detects high-intent visitors on pricing, demo, comparison, and
                   integration pages, qualifies them, books the meeting, and syncs the full context
-                  into HubSpot.
+                  into the sales workflow your team actually uses.
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <a
@@ -809,8 +847,8 @@ export default function HomePage() {
                   Recover demo-ready visitors before they leave.
                 </p>
                 <p className="font-mono mt-4 max-w-2xl text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[14px]">
-                  For HubSpot and Calendly teams turning pricing, demo, comparison, and
-                  integration-page intent into qualified booked meetings.
+                  For B2B SaaS teams turning pricing, demo, comparison, security, and
+                  integration-page intent into qualified booked meetings with CRM-visible context.
                 </p>
                 <Link
                   to="/solutions/saas"
@@ -924,6 +962,71 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Stack fit */}
+        <section
+          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          aria-labelledby="stack-fit-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Stack fit
+            </p>
+            <h2
+              id="stack-fit-heading"
+              className="font-grotesk max-w-[960px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+            >
+              Do not buy demo recovery if the context lands in the wrong system.
+            </h2>
+            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              The first pilot step is a CRM and scheduler fit check. If your sales team lives in
+              Salesforce, Pipedrive, a custom CRM, or no CRM yet, the handoff path is decided before
+              installation.
+            </p>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {STACK_FIT_CARDS.map((card) => (
+                <article key={card.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
+                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                    {card.title}
+                  </h3>
+                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                    {card.body}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Objection handling */}
+        <section
+          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          aria-labelledby="buyer-objections-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Buyer objections answered
+            </p>
+            <h2
+              id="buyer-objections-heading"
+              className="font-grotesk max-w-[980px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+            >
+              The pilot is designed to answer the questions your CEO, RevOps, and sales leader will ask.
+            </h2>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {BUYER_OBJECTION_CARDS.map((card) => (
+                <article key={card.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
+                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                    {card.title}
+                  </h3>
+                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                    {card.body}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <IntegrationLogoStrip />
 
         {/* CTA video + closing */}
@@ -953,7 +1056,7 @@ export default function HomePage() {
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
                     Turn high-intent website behavior into qualified booked demos with HubSpot
-                    context attached.
+                    or CRM-ready context attached.
                   </span>
                   <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
                     Book a 30-day pilot

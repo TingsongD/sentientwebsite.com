@@ -56,7 +56,7 @@ export const SITE_HOSTNAME = new URL(SITE_URL).hostname
 export const DEFAULT_META_TITLE = 'SentientWeb | Recover Demo-Ready Visitors Before They Leave'
 
 export const DEFAULT_META_DESCRIPTION =
-  'SentientWeb detects high-intent visitors on pricing, demo, comparison, and integration pages, qualifies them, books the meeting, and syncs the full context into HubSpot.'
+  'SentientWeb detects high-intent visitors on pricing, demo, comparison, and integration pages, qualifies them, books the meeting, and syncs the context into the sales workflow.'
 
 export const FAVICON_URL =
   'https://cdn.shopify.com/s/files/1/0792/3613/7216/files/logo_blob_2.png?v=1777947912'

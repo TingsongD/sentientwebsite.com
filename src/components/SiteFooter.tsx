@@ -14,6 +14,9 @@ const FOOTER_PRODUCT: FooterProductItem[] = [
   { label: 'Book a 30-day pilot', calendly: true },
   { label: 'B2B SaaS', to: '/solutions/saas' },
   { label: 'HubSpot integration', to: '/integrations/hubspot' },
+  { label: 'Salesforce fit', to: '/integrations/salesforce' },
+  { label: 'Pipedrive fit', to: '/integrations/pipedrive' },
+  { label: 'API & webhooks', to: '/integrations/api-webhooks' },
   { label: 'Calendly integration', to: '/integrations/calendly' },
   { label: 'Knowledge base', to: '/knowledge-base' },
   { label: 'APIs & SDKs', to: '/apis-sdks' },
@@ -131,7 +134,7 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
             SentientWeb
           </Link>
           <p className="font-mono max-w-[280px] text-[11px] uppercase leading-relaxed text-cream/50">
-            Demo recovery for HubSpot-powered B2B SaaS teams.
+            Demo recovery for CRM-powered B2B SaaS teams.
           </p>
           <SocialIconStack />
         </div>

@@ -512,7 +512,7 @@ export default function RevenueLeakCalculatorPage() {
               Use the estimate to scope a 30-day pilot.
             </h2>
             <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              The first pilot should prove qualified booked demos, HubSpot-visible context, and
+              The first pilot should prove qualified booked demos, CRM-visible context, and
               sales-ready meetings from the high-intent traffic you already have.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">

@@ -30,8 +30,8 @@ export const BLOG_POSTS = {
       'SentientWeb is focusing on one measurable B2B SaaS problem: recovering demo-ready visitors from high-intent pages before they leave.',
     body: [
       'Broad revenue recovery created too many promises. Demo-ready visitor recovery gives us a sharper buyer, moment, surface, outcome, and proof metric.',
-      'The first wedge is B2B SaaS teams using HubSpot and Calendly. We focus on pricing, demo, comparison, integration, security, and customer story pages because those pages reveal buying intent before a form submission does.',
-      'The pilot metric is qualified booked demos with HubSpot-visible context. Not message volume. Not vague engagement. Not generic automation.',
+      'The first wedge is B2B SaaS teams with enough CRM and scheduler infrastructure to prove the handoff. We focus on pricing, demo, comparison, integration, security, and customer story pages because those pages reveal buying intent before a form submission does.',
+      'The pilot metric is qualified booked demos with CRM-visible context and sales acceptance. Not message volume. Not vague engagement. Not generic automation.',
     ],
   },
 } as const satisfies Record<string, BlogPost>

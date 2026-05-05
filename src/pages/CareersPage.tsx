@@ -17,8 +17,8 @@ export default function CareersPage() {
         </h1>
         <p className="font-mono mt-6 max-w-2xl text-[14px] normal-case leading-relaxed text-cream/75 sm:text-[15px]">
           SentientWeb is building a demo recovery engine for B2B SaaS teams: detect demo-ready
-          visitors, qualify them, book the meeting, and sync the full context into HubSpot. Early
-          hires shape the market motion and the culture.
+          visitors, qualify them, book the meeting, and sync the context into the sales workflow.
+          Early hires shape the market motion and the culture.
         </p>
 
         <section className="mt-14" aria-labelledby="open-roles-heading">

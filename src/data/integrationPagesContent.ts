@@ -26,6 +26,57 @@ export const INTEGRATION_PAGES = {
       'Sync booked-demo context for sales preparation.',
     ],
   },
+  salesforce: {
+    slug: 'salesforce',
+    navLabel: 'Salesforce',
+    eyebrow: 'Integrations / Salesforce',
+    title: 'Confirm Salesforce fit before the pilot starts.',
+    deck:
+      'SentientWeb treats Salesforce fit as a launch gate for Salesforce-led teams, not an afterthought discovered after a pilot call.',
+    body: [
+      'Many sales-led SaaS teams keep marketing activity in HubSpot but run the sales floor in Salesforce. The pilot should not create context that reps ignore because it lands in the wrong system.',
+      'During setup, SentientWeb maps the required Salesforce outcome first: lead or contact update, company or account context, campaign/source attribution, qualification answers, booking details, and the sales opener your RevOps team expects.',
+    ],
+    bullets: [
+      'Salesforce field mapping is reviewed before launch.',
+      'Fallback paths can use HubSpot handoff, CSV, or webhook while deeper sync is scoped.',
+      'If Salesforce context cannot be made credible, the pilot should not start.',
+    ],
+  },
+  pipedrive: {
+    slug: 'pipedrive',
+    navLabel: 'Pipedrive',
+    eyebrow: 'Integrations / Pipedrive',
+    title: 'Pipedrive teams should not have to migrate CRM to test demo recovery.',
+    deck:
+      'SentientWeb scopes Pipedrive or webhook handoff during the pilot fit check so smaller SaaS teams do not create manual sales work.',
+    body: [
+      'Pipedrive teams are often lean and do not have RevOps capacity for a heavy implementation. The pilot should prove recovered demos without forcing a CRM migration.',
+      'The setup conversation defines where a qualified booked demo should land, what fields sales needs, and what fallback is acceptable if a native sync is not the right first step.',
+    ],
+    bullets: [
+      'Confirm Pipedrive handoff requirements before installing.',
+      'Use webhook or structured export paths when a lightweight route is better.',
+      'Keep the pilot measured by sales-accepted demos, not integration theater.',
+    ],
+  },
+  'api-webhooks': {
+    slug: 'api-webhooks',
+    navLabel: 'API & Webhooks',
+    eyebrow: 'Integrations / API and webhooks',
+    title: 'Custom CRM, no CRM, or early sales stack: define the handoff first.',
+    deck:
+      'SentientWeb can scope a webhook or lightweight handoff path before launch so founder-led teams know whether the prerequisites are in place.',
+    body: [
+      'Not every promising SaaS company has HubSpot, Salesforce, or a mature scheduler. If the website has real demo intent but the sales stack is still forming, the first question is operational fit.',
+      'The pilot fit check defines whether Calendly, a CRM, a shared inbox, or a webhook should receive qualified demo context, and whether traffic volume is high enough to justify a pilot now.',
+    ],
+    bullets: [
+      'Clarify minimum traffic and scheduler prerequisites before launch.',
+      'Scope webhook payloads around use case, role, stack, page path, and booking status.',
+      'Tell lean teams when they should fix prerequisites before buying SentientWeb.',
+    ],
+  },
   calendly: {
     slug: 'calendly',
     navLabel: 'Calendly',
@@ -91,7 +142,7 @@ export const INTEGRATION_PAGES = {
     bullets: [
       'Commerce-specific recovery remains separate from the B2B SaaS pilot offer.',
       'Custom review is required before claims about carts, checkout, or product matching.',
-      'HubSpot-visible demo context remains the primary public integration story.',
+      'CRM-visible demo context remains the primary public integration story.',
     ],
   },
   wix: {
@@ -134,6 +185,9 @@ export type IntegrationSlug = keyof typeof INTEGRATION_PAGES
 
 export const INTEGRATION_NAV_LINKS: { label: string; slug: IntegrationSlug }[] = [
   { label: 'HubSpot', slug: 'hubspot' },
+  { label: 'Salesforce', slug: 'salesforce' },
+  { label: 'Pipedrive', slug: 'pipedrive' },
+  { label: 'API & Webhooks', slug: 'api-webhooks' },
   { label: 'Calendly', slug: 'calendly' },
   { label: 'WordPress', slug: 'wordpress' },
   { label: 'Webflow', slug: 'webflow' },

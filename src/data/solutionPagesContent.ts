@@ -29,17 +29,17 @@ export const SOLUTION_PAGES = {
   saas: {
     slug: 'saas',
     navLabel: 'B2B SaaS',
-    marketLabel: 'HubSpot + Calendly B2B SaaS teams',
+    marketLabel: 'CRM-powered B2B SaaS teams',
     accentColor: '#6366f1',
     metaTitle: 'Visitor-to-Demo Engine for B2B SaaS',
     metaDescription:
-      'Recover demo-ready visitors from pricing, demo, comparison, and integration pages. SentientWeb qualifies, books, and syncs the context into HubSpot.',
+      'Recover demo-ready visitors from pricing, demo, comparison, and integration pages. SentientWeb qualifies, books, and syncs the context into the sales workflow.',
     plumberMetaphor: 'Digital plumbing for your demo pipeline.',
     hero: {
       eyebrow: 'Solutions / B2B SaaS',
       title: 'Recover demo-ready visitors before they leave',
       subtitle:
-        'SentientWeb detects high-intent website visitors, guides the right page-specific conversation, qualifies the buyer, books the meeting, and syncs the full context into HubSpot.',
+        'SentientWeb detects high-intent website visitors, guides the right page-specific conversation, qualifies the buyer, books the meeting, and syncs the context into the sales workflow.',
       primaryCta: 'Book a 30-day pilot',
       secondaryCta: 'See the recovery flow',
     },
