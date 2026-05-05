@@ -58,4 +58,7 @@ export const DEFAULT_META_TITLE = 'SentientWeb | Recover Demo-Ready Visitors Bef
 export const DEFAULT_META_DESCRIPTION =
   'SentientWeb detects high-intent visitors on pricing, demo, comparison, and integration pages, qualifies them, books the meeting, and syncs the full context into HubSpot.'
 
-export const DEFAULT_OG_IMAGE_URL = new URL('/favicon.svg', SITE_URL).toString()
+export const FAVICON_URL =
+  'https://cdn.shopify.com/s/files/1/0792/3613/7216/files/logo_blob_2.png?v=1777947912'
+
+export const DEFAULT_OG_IMAGE_URL = FAVICON_URL

@@ -16,6 +16,8 @@ const manifest = loadRoutesManifest(manifestPath)
 const siteHostname = validateManifestSiteUrl(manifest.siteUrl)
 const knownRoutes = new Set(manifest.knownRoutes)
 const notFoundRoute = manifest.notFoundPath || '/404'
+const faviconUrl =
+  'https://cdn.shopify.com/s/files/1/0792/3613/7216/files/logo_blob_2.png?v=1777947912'
 validatePrerenderedRouteFiles(knownRoutes, notFoundRoute)
 const legacyRedirects = validateRedirectMap(
   'legacyRedirects',
@@ -147,7 +149,7 @@ function buildContentSecurityPolicy() {
     "style-src-attr 'none'",
     "font-src 'self' https://fonts.gstatic.com",
     `connect-src 'self'${widgetConnectSources}`,
-    `img-src 'self' data: blob:${widgetSources}`,
+    `img-src 'self' data: blob: https://cdn.shopify.com${widgetSources}`,
     `media-src 'self' blob:${widgetSources}`,
     "worker-src 'self' blob:",
     "frame-src https://calendly.com",
@@ -913,6 +915,11 @@ async function handleRequest(req, res) {
 
   if (pathname === '/sentient-widget-config.json') {
     sendWidgetConfig(req, res)
+    return
+  }
+
+  if (pathname === '/favicon.ico' || pathname === '/favicon.svg') {
+    sendRedirect(res, faviconUrl)
     return
   }
 

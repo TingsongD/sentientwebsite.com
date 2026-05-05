@@ -11,6 +11,8 @@ const serverScriptPath = resolve('server.mjs')
 const siteUrl = normalizeSiteUrl(
   process.env.VITE_SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://sentientwebsite.com/',
 )
+const faviconUrl =
+  'https://cdn.shopify.com/s/files/1/0792/3613/7216/files/logo_blob_2.png?v=1777947912'
 const legalVersions = {
   consentVersion: 'v1',
   privacyPolicyVersion: '2026-05-02',
@@ -252,6 +254,23 @@ test('known routes return prerendered route-specific metadata', async ({ request
     expect(response.status(), path).toBe(200)
     expect(html).toContain(title)
     expect(html).toContain(`href="${absoluteSiteUrl(path)}"`)
+  }
+})
+
+test('favicon and social image metadata use the Shopify logo asset', async ({ request }) => {
+  const response = await request.get('/')
+  const html = await response.text()
+
+  expect(html).toContain(`rel="icon"`)
+  expect(html).toContain(`href="${faviconUrl}"`)
+  expect(html).toContain(`property="og:image" content="${faviconUrl}"`)
+  expect(html).toContain(`name="twitter:image" content="${faviconUrl}"`)
+  expect(html).not.toContain('href="/favicon.svg"')
+
+  for (const path of ['/favicon.ico', '/favicon.svg']) {
+    const iconResponse = await request.get(path, { maxRedirects: 0 })
+    expect(iconResponse.status(), path).toBe(302)
+    expect(iconResponse.headers().location).toBe(faviconUrl)
   }
 })
 
@@ -1617,7 +1636,8 @@ test('homepage visual assets are first-party before consent', async ({ page, req
   const thirdPartyAssetRequests: string[] = []
   page.on('request', (assetRequest) => {
     const url = assetRequest.url()
-    if (url.includes('cdn.worldvectorlogo.com') || url.includes('cdn.shopify.com')) {
+    const isAllowedFavicon = url === faviconUrl
+    if (url.includes('cdn.worldvectorlogo.com') || (url.includes('cdn.shopify.com') && !isAllowedFavicon)) {
       thirdPartyAssetRequests.push(url)
     }
   })
@@ -1629,7 +1649,7 @@ test('homepage visual assets are first-party before consent', async ({ page, req
 
   const html = await (await request.get('/')).text()
   expect(html).not.toContain('cdn.worldvectorlogo.com')
-  expect(html).not.toContain('cdn.shopify.com')
+  expect(html).toContain(faviconUrl)
   expect(thirdPartyAssetRequests).toEqual([])
 })
 
