@@ -1536,6 +1536,13 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await expect(page.getByText('Pipedrive teams')).toBeVisible()
   await expect(page.getByText('Public proof rights are optional')).toBeVisible()
   await expect(page.getByText('pilot produces a proof packet')).toBeVisible()
+  await expect(page.getByText('Does this replace anything?')).toBeVisible()
+  await expect(page.getByText('What about SOC 2 or BAA review?')).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: 'Bring your hardest buyer questions into the preview.' }),
+  ).toBeVisible()
+  await expect(page.getByText('Healthcare SaaS')).toBeVisible()
+  await expect(page.getByText('Construction and vertical SaaS')).toBeVisible()
 
   await page.goto('/pricing')
   await page.getByText('Do we need HubSpot?').click()
@@ -1546,6 +1553,10 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await expect(page.getByText('The pilot proof packet should include')).toBeVisible()
   await page.getByText('How are AI answer quality and security handled?').click()
   await expect(page.getByText('Answers are grounded in approved source content')).toBeVisible()
+  await page.getByText('What does the annual tier include?').click()
+  await expect(page.getByText('Annual is not the starting offer')).toBeVisible()
+  await page.getByText('What if procurement needs SOC 2 or a BAA?').click()
+  await expect(page.getByText('SentientWeb is not currently SOC 2 certified')).toBeVisible()
   await expect(page.getByText('Modeled pricing only')).toHaveCount(0)
   await expect(page.getByText('For the first 10')).toHaveCount(0)
 
@@ -1565,6 +1576,16 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
 
   await page.goto('/integrations/api-webhooks')
   await expect(page.getByText('Custom CRM, no CRM, or early sales stack')).toBeVisible()
+
+  await page.goto('/trust')
+  await expect(page.getByRole('heading', { name: 'Procurement gates for regulated buyers' })).toBeVisible()
+  await expect(page.getByText('not currently offering a blanket BAA')).toBeVisible()
+
+  await page.goto('/solutions/healthcare')
+  await expect(
+    page.getByRole('heading', { name: 'Recover healthcare SaaS buyers who stall on trust questions' }),
+  ).toBeVisible()
+  await expect(page.getByText('non-PHI demo qualification')).toBeVisible()
 })
 
 test('homepage and solution pages render new positioning and trust disclosure', async ({ page }) => {

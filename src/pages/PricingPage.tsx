@@ -753,7 +753,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'Does this replace Chili Piper, Drift, or Qualified?',
-                    a: 'No. It is a focused demo recovery layer that can sit upstream of routing or engagement tools when the buyer moment calls for qualification before handoff.',
+                    a: 'It should replace generic pricing-page chat, unqualified form chasing, and manual follow-up on buyers who already showed demo intent. It usually orchestrates routing tools such as Chili Piper and can coexist with broader platforms such as Drift or Qualified until you decide what to sunset.',
                   },
                   {
                     q: 'Are case-study rights required?',
@@ -766,6 +766,14 @@ export default function PricingPage() {
                   {
                     q: 'How are AI answer quality and security handled?',
                     a: 'Answers are grounded in approved source content. Security, legal, pricing, and high-risk questions can be routed to a human, and the Trust page explains provider and compliance posture before procurement review.',
+                  },
+                  {
+                    q: 'What does the annual tier include?',
+                    a: 'Annual is not the starting offer. After the pilot proves economics, annual pricing locks either Starter or Growth volume for the year, applies any agreed pilot credit, and can include an optional public-proof-rights discount if your team wants that trade.',
+                  },
+                  {
+                    q: 'What if procurement needs SOC 2 or a BAA?',
+                    a: 'SentientWeb is not currently SOC 2 certified and BAA support must be reviewed before any healthcare deployment involving PHI. The pilot can be scoped around public pages, approved non-PHI content, human handoff, and a security review gate until the required contracts are in place.',
                   },
                   {
                     q: 'Do you identify anonymous people?',

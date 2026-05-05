@@ -59,8 +59,8 @@ export const SOLUTION_PAGES = {
         body: 'Collect company domain, use case, role, timeline, and stack context before showing the booking path.',
       },
       {
-        title: 'Sync the full story to HubSpot',
-        body: 'Send page path, summary, qualification answers, booking details, and suggested sales opener into HubSpot.',
+        title: 'Sync the full story to the CRM',
+        body: 'Send page path, summary, qualification answers, booking details, and suggested sales opener into the agreed sales workflow.',
       },
     ],
     steps: [
@@ -74,13 +74,13 @@ export const SOLUTION_PAGES = {
       },
       {
         title: 'Qualified demo gets booked',
-        body: 'The visitor books through Calendly and the full context lands in HubSpot for sales.',
+        body: 'The visitor books through the approved scheduler and the full context lands where sales works.',
       },
     ],
     caseStudy: {
       eyebrow: 'Demo recovery',
       title: 'Turn high-intent page visits into qualified booked demos.',
-      body: 'The first pilot should be judged on qualified booked demos, sales-accepted context, and whether HubSpot shows incremental opportunity from existing website traffic.',
+      body: 'The first pilot should be judged on qualified booked demos, sales-accepted context, and whether the CRM shows incremental opportunity from existing website traffic.',
     },
     disclosure:
       'SentientWeb uses approved customer content for answers and routes sensitive or complex questions to humans.',
@@ -270,61 +270,61 @@ export const SOLUTION_PAGES = {
   healthcare: {
     slug: 'healthcare',
     navLabel: 'Healthcare',
-    marketLabel: 'Clinics and Practices',
+    marketLabel: 'Healthcare SaaS',
     accentColor: '#0891b2',
-    metaTitle: 'Instant Booking Recovery for Healthcare',
+    metaTitle: 'Healthcare SaaS Demo Recovery',
     metaDescription:
-      'SentientWeb supports healthcare access with instant booking paths, privacy-minded intake, encryption, retention controls, and human handoff.',
-    plumberMetaphor: 'We fix patient access leaks before uncertainty becomes delay.',
+      'SentientWeb helps healthcare SaaS teams recover security, integration, and demo-page buyers with approved-source answers, human handoff, and compliance-aware scoping.',
+    plumberMetaphor: 'We fix the trust leaks between healthcare evaluation and the demo request.',
     hero: {
       eyebrow: 'Solutions / Healthcare',
-      title: 'No patient should wait because your phone was busy',
+      title: 'Recover healthcare SaaS buyers who stall on trust questions',
       subtitle:
-        'Patients abandon care paths when coverage, location, or scheduling questions go unanswered. SentientWeb gives them instant next steps and routes sensitive needs to people.',
-      primaryCta: 'Get Instant Booking',
+        'Healthcare operators, clinic groups, and IT teams often inspect security, HIPAA, EHR, and integration pages before booking. SentientWeb answers from approved sources, qualifies fit, and routes sensitive questions to humans.',
+      primaryCta: 'Book a 30-day pilot',
       secondaryCta: 'See How It Works',
     },
-    proofStat: 'Unanswered access questions can delay appointment requests and patient routing.',
+    proofStat: 'Healthcare SaaS buyers often leave when HIPAA, EHR, workflow, or procurement questions go unanswered.',
     features: [
       {
-        title: 'Coverage questions answered',
-        body: 'Patients get real-time response from approved intake and insurance content instead of waiting for the front desk.',
+        title: 'HIPAA-facing answers stay sourced',
+        body: 'Visitors get responses from approved security, privacy, and product content instead of improvised compliance claims.',
       },
       {
-        title: 'After-hours access',
-        body: 'Late-night searches can become appointment requests rather than voicemail or competitor leakage.',
+        title: 'EHR and integration fit',
+        body: 'Integration-page visitors can confirm stack fit, implementation path, and the right questions for sales before they book.',
       },
       {
-        title: 'Privacy-minded intake',
-        body: 'Published retention controls, encryption in transit, and secure handling are built into the patient access path.',
+        title: 'Compliance-aware pilot scope',
+        body: 'Pilot setup defines non-PHI demo qualification, retention expectations, human handoff, and whether BAA review is required before production use.',
       },
       {
-        title: 'Provider matching',
-        body: 'Location, visit type, and provider preference help route the patient to the appropriate next step.',
+        title: 'Human handoff for sensitive questions',
+        body: 'Security, clinical, legal, and procurement questions can be routed to a person instead of answered automatically.',
       },
     ],
     steps: [
       {
-        title: 'Patient starts booking',
-        body: 'They share visit type, coverage question, and preferred timing.',
+        title: 'Buyer evaluates trust',
+        body: 'They read security, integration, pricing, or demo pages and look for proof that the healthcare workflow is safe.',
       },
       {
-        title: 'Fit and route are checked',
-        body: 'Approved content and routing rules identify the next step.',
+        title: 'Fit and risk are checked',
+        body: 'Approved source content, stack-fit rules, and handoff thresholds decide whether the buyer should continue to booking.',
       },
       {
-        title: 'Appointment path opens',
-        body: 'The patient gets confirmation or a human handoff for sensitive needs.',
+        title: 'Demo path opens',
+        body: 'Qualified buyers book through the approved route while sensitive requirements are escalated with context.',
       },
     ],
     caseStudy: {
-      eyebrow: 'Patient access',
-      title: 'Reduce avoidable access delays without overclaiming compliance.',
-      body: 'Healthcare pages should be careful and clear. SentientWeb can support secure intake flows and BAA planning, while clinical decisions and regulated advice stay with humans.',
+      eyebrow: 'Healthcare SaaS trust',
+      title: 'Recover demo intent without overclaiming compliance.',
+      body: 'Healthcare SaaS pilots should start with public pages, approved non-PHI source content, and clear human escalation. Production use involving PHI should wait for the right BAA and security review.',
     },
     disclosure:
-      'AI supports intake and general access steps; humans handle clinical, billing, and sensitive issues.',
-    bottomCta: 'Recover patient access',
+      'AI supports demo qualification and approved-source guidance; humans handle clinical, legal, PHI, and procurement-sensitive issues.',
+    bottomCta: 'Recover healthcare demos',
   },
 
   edtech: {

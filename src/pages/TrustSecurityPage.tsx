@@ -62,6 +62,28 @@ export default function TrustSecurityPage() {
             </p>
           </section>
 
+          <section aria-labelledby="procurement-heading">
+            <h2
+              id="procurement-heading"
+              className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
+            >
+              Procurement gates for regulated buyers
+            </h2>
+            <p>
+              Security-conscious teams should treat trust review as a pilot gate, not a surprise
+              after launch. Before SentientWeb touches sensitive production pages, customers can
+              request a vendor questionnaire response, subprocessor summary, data-flow review,
+              retention review, and the exact human-handoff rules for high-risk questions.
+            </p>
+            <p className="mt-4">
+              Healthcare and regulated deployments require extra scoping. SentientWeb is not
+              currently offering a blanket BAA for every pilot. If your use case could involve PHI
+              or similarly regulated data, the pilot should be limited to approved public content,
+              non-PHI demo qualification, and human escalation until a signed BAA or equivalent
+              contractual path is in place.
+            </p>
+          </section>
+
           <section aria-labelledby="access-heading">
             <h2
               id="access-heading"

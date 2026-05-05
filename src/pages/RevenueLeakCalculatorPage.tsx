@@ -340,7 +340,7 @@ export default function RevenueLeakCalculatorPage() {
               guarantee of revenue, conversion lift, pipeline, or business results.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              {['B2B SaaS only', 'High-intent pages', 'HubSpot-ready context'].map((pill) => (
+              {['B2B SaaS only', 'High-intent pages', 'CRM-ready context'].map((pill) => (
                 <span
                   key={pill}
                   className="liquid-glass rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-wide text-cream/75"

@@ -57,7 +57,7 @@ export const PRICING_META = {
   '/pricing/enterprise': {
     title: 'Scale Demo Recovery Pricing',
     description:
-      'Scale pricing for high-volume B2B SaaS demo recovery teams that need custom volume and HubSpot reporting.',
+      'Scale pricing for high-volume B2B SaaS demo recovery teams that need custom volume and CRM reporting.',
     canonicalPath: '/pricing/enterprise',
   },
 } as const
@@ -187,10 +187,10 @@ export const TIER_TABLES: Array<{
   {
     tier: 'annual',
     monthlyBase: '$12k-$18k/year',
-    included: 'Annual demo recovery program',
-    kicker: 'Optional proof rights discount',
-    additionalRecoveries: 'Custom',
-    upgradeTrigger: 'After successful pilot',
+    included: 'Starter or Growth annual commitment',
+    kicker: 'Pilot credit and optional proof-rights discount',
+    additionalRecoveries: 'Same included volume as chosen tier',
+    upgradeTrigger: 'After pilot proves 3-month economics',
   },
 ]
 

@@ -14,7 +14,7 @@ export const BLOG_POSTS = {
     date: '2026-04-10',
     eyebrow: 'Product · Launch',
     excerpt:
-      'Demo-ready visitor recovery is live: approved-source responses, qualification, Calendly booking paths, and HubSpot-ready context for high-intent B2B SaaS pages.',
+      'Demo-ready visitor recovery is live: approved-source responses, qualification, booking paths, and CRM-ready context for high-intent B2B SaaS pages.',
     body: [
       'Today we are calling Phase 1 live: the slice of SentientWeb that turns demo-ready website behavior into qualified booked demos without another brittle form wall. If you run a serious B2B SaaS site, you already know the gap: static copy and delayed response paths do not handle timeline, budget, stack fit, or security hesitation.',
       'Under the hood, Phase 1 combines structured intake, deterministic routing, Calendly booking paths, and approved-source retrieval over your knowledge base so responses stay grounded instead of generic. Pricing revisits, repeat sessions, and high-intent page depth help the system detect when visitors are closest to action.',

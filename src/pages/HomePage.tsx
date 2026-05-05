@@ -102,6 +102,29 @@ const BUYER_OBJECTION_CARDS = [
     title: 'Are case-study rights required?',
     body: 'No. Public proof rights are optional and can be traded for a discount; they are not a condition for evaluating the 30-day pilot.',
   },
+  {
+    title: 'Does this replace anything?',
+    body: 'It can replace generic pricing-page chat, manual form chasing, and cold follow-up on visitors who already showed demo intent. Routing tools stay useful after qualification.',
+  },
+  {
+    title: 'What about SOC 2 or BAA review?',
+    body: 'Security review is a pilot gate. SentientWeb is not SOC 2 certified today, and regulated healthcare use should stay non-PHI until the right BAA or contract path is signed.',
+  },
+] as const
+
+const DOMAIN_PROOF_CARDS = [
+  {
+    title: 'Healthcare SaaS',
+    body: 'Scope security-page and integration-page recovery around non-PHI demo qualification, approved HIPAA-facing source content, and immediate human handoff.',
+  },
+  {
+    title: 'Legal and security software',
+    body: 'Use approved-source answers for compliance, security, and competitive questions while routing legal-risk or enterprise procurement questions to a person.',
+  },
+  {
+    title: 'Construction and vertical SaaS',
+    body: 'Test domain-specific workflow questions during the preview so the pilot proves whether approved content can handle the buyer language.',
+  },
 ] as const
 
 const VOICE_FEEDBACK_USE_CASES = [
@@ -680,7 +703,7 @@ export default function HomePage() {
               >
                 <SolutionLeakClock
                   navLabel="B2B SaaS"
-                  marketLabel="HubSpot + Calendly B2B SaaS teams"
+                  marketLabel="CRM-powered B2B SaaS teams"
                   estimate={LEAK_CLOCK_ESTIMATES.saas}
                   unit={activeLeakClockUnit}
                   reducedMotion={prefersReducedMotion}
@@ -902,7 +925,7 @@ export default function HomePage() {
             </h2>
             <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
               Five focused modules turn demo-ready website intent into qualified booked meetings
-              and HubSpot-ready context.
+              and CRM-ready context.
             </p>
 
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
@@ -997,6 +1020,40 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Domain proof */}
+        <section
+          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          aria-labelledby="domain-proof-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Domain proof before launch
+            </p>
+            <h2
+              id="domain-proof-heading"
+              className="font-grotesk max-w-[980px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+            >
+              Bring your hardest buyer questions into the preview.
+            </h2>
+            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              The pilot should prove that SentientWeb can speak your market from approved sources
+              before it appears on high-intent production pages.
+            </p>
+            <div className="mt-10 grid gap-5 md:grid-cols-3">
+              {DOMAIN_PROOF_CARDS.map((card) => (
+                <article key={card.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
+                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                    {card.title}
+                  </h3>
+                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                    {card.body}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Objection handling */}
         <section
           className="border-t border-white/10 bg-background py-16 sm:py-20"
@@ -1055,8 +1112,8 @@ export default function HomePage() {
                     One focused recovery loop: detect, qualify, book, sync.
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
-                    Turn high-intent website behavior into qualified booked demos with HubSpot
-                    or CRM-ready context attached.
+                    Turn high-intent website behavior into qualified booked demos with CRM-ready
+                    context attached.
                   </span>
                   <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
                     Book a 30-day pilot
