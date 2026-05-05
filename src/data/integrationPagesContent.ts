@@ -18,9 +18,10 @@ export const INTEGRATION_PAGES = {
       'SentientWeb sends contacts, companies, conversation summaries, page context, qualification answers, and booked-meeting details into HubSpot.',
     body: [
       'HubSpot is the first CRM wedge. The goal is not another dashboard; the goal is to make recovered demo intent visible where the revenue team already works.',
-      'Every qualified booked demo should arrive with the page path, use case, role, timeline, summary, and recommended sales opener.',
+      'Every qualified booked demo should arrive with the page path, use case, role, timeline, summary, and recommended sales opener. HubSpot Free and Starter can work when the needed contact, company, note, and meeting fields are available; Professional and Enterprise unlock deeper workflow options.',
     ],
     bullets: [
+      'Works with HubSpot Free, Starter, Professional, and Enterprise after a field check.',
       'Create or update contacts and companies.',
       'Attach conversation and page-intent summaries.',
       'Sync booked-demo context for sales preparation.',
@@ -83,15 +84,15 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Integrations / Calendly',
     title: 'Open the calendar only after the visitor is qualified.',
     deck:
-      'SentientWeb qualifies demo-ready visitors first, then routes them to the agreed Calendly booking path.',
+      'SentientWeb qualifies demo-ready visitors first, then routes them to the agreed Calendly, Chili Piper, or scheduler path.',
     body: [
-      'Calendly keeps the v1 scheduling surface simple. SentientWeb does not claim deep scheduling, territory routing, or Google/Outlook-native logic unless those are implemented.',
-      'The value is the qualification step before the calendar opens and the HubSpot context after the meeting is booked.',
+      'Calendly is the simplest scheduling surface, but the buying logic is the same for teams that use Chili Piper or another router: qualify first, then open the right meeting path.',
+      'For Salesforce-led teams, setup defines whether the handoff should go to a Calendly link, a Chili Piper route, a territory-specific URL, or a custom scheduler. The value is the qualification step before the calendar opens and the CRM context after the meeting is booked.',
     ],
     bullets: [
       'Show the booking path after qualification.',
       'Preserve use case, role, timeline, and page history.',
-      'Use fallback booking links until deeper routing is implemented.',
+      'Route to Calendly, Chili Piper, or a custom booking link based on the agreed launch rules.',
     ],
   },
   wordpress: {

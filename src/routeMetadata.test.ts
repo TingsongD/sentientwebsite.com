@@ -126,7 +126,7 @@ describe('route metadata manifest', () => {
     })
 
     expect(getPageMeta('/solutions/financial-services')).toMatchObject({
-      title: 'Rate Response Recovery for Lenders',
+      title: 'Fintech SaaS Demo Recovery',
       canonicalPath: '/solutions/financial-services',
     })
   })
@@ -149,9 +149,10 @@ describe('route metadata manifest', () => {
   })
 
   it('exports the new vertical routes without retired solution pages', () => {
-    expect(SOLUTION_NAV_LIST).toHaveLength(10)
+    expect(SOLUTION_NAV_LIST).toHaveLength(11)
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/legal')
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/financial-services')
+    expect(KNOWN_ROUTE_PATHS).toContain('/solutions/logistics')
     for (const path of PRICING_ROUTE_PATHS) {
       expect(KNOWN_ROUTE_PATHS).toContain(path)
     }
@@ -208,14 +209,23 @@ describe('route metadata manifest', () => {
       '@graph': Array<Record<string, unknown>>
     }
     expect(home['@graph'].map((item) => item['@type'])).toEqual(
-      expect.arrayContaining(['WebSite', 'Organization', 'SoftwareApplication']),
+      expect.arrayContaining(['WebPage', 'WebSite', 'Organization', 'SoftwareApplication', 'FAQPage']),
     )
 
-    expect(getRouteStructuredData('/pricing')).toMatchObject({
-      '@type': 'WebPage',
-      url: new URL('/pricing', SITE_URL).toString(),
-      name: 'SentientWeb Pricing | Visitor-to-Demo Engine',
-    })
+    const pricing = getRouteStructuredData('/pricing') as {
+      '@graph': Array<Record<string, unknown>>
+    }
+    expect(pricing['@graph']).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          '@type': 'WebPage',
+          url: new URL('/pricing', SITE_URL).toString(),
+          name: 'SentientWeb Pricing | Visitor-to-Demo Engine',
+        }),
+        expect.objectContaining({ '@type': 'BreadcrumbList' }),
+        expect.objectContaining({ '@type': 'FAQPage' }),
+      ]),
+    )
 
     expect(getRouteStructuredData('/blog/phase-1-live-now')).toMatchObject({
       '@type': 'Article',
@@ -227,7 +237,7 @@ describe('route metadata manifest', () => {
       '@graph': Array<Record<string, unknown>>
     }
     expect(solution['@graph'].map((item) => item['@type'])).toEqual(
-      expect.arrayContaining(['WebPage', 'Service']),
+      expect.arrayContaining(['WebPage', 'BreadcrumbList', 'Service']),
     )
     expect(solution['@graph']).toEqual(
       expect.arrayContaining([

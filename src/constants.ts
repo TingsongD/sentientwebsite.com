@@ -12,6 +12,8 @@ export const LEGAL_POLICY_VERSION = '2026-05-02'
 
 export const LEGAL_LAST_UPDATED_LABEL = 'May 2, 2026'
 
+export const SEO_LAST_MODIFIED = '2026-05-05'
+
 export const LEGAL_VERSIONS = {
   consentVersion: CONSENT_VERSION,
   privacyPolicyVersion: LEGAL_POLICY_VERSION,

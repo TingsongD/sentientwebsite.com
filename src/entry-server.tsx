@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { StaticRouter } from 'react-router-dom'
 import App from './App'
 import { LEGAL_VERSIONS, SITE_URL } from './constants'
+export { SEO_LAST_MODIFIED } from './constants'
 import {
   getPageMeta,
   DYNAMIC_FALLBACK_REDIRECTS,

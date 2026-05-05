@@ -3,6 +3,7 @@ import {
   DEFAULT_OG_IMAGE_URL,
   DEFAULT_META_TITLE,
   GITHUB_REPO_URL,
+  SEO_LAST_MODIFIED,
   SITE_NAME,
   SITE_URL,
 } from './constants'
@@ -26,10 +27,69 @@ export type PageMetaData = {
 
 type StructuredData = Record<string, unknown>
 
+type FaqItem = {
+  question: string
+  answer: string
+}
+
 export const NOT_FOUND_PATH = '/404'
 
 const ORGANIZATION_ID = new URL('#organization', SITE_URL).toString()
 const WEBSITE_ID = new URL('#website', SITE_URL).toString()
+
+const HOME_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'What does SentientWeb do?',
+    answer:
+      'SentientWeb recovers demo-ready B2B SaaS visitors from pricing, demo, comparison, integration, security, docs, and customer-story pages, qualifies fit, opens the agreed booking path, and sends sales the context.',
+  },
+  {
+    question: 'What does SentientWeb replace?',
+    answer:
+      'SentientWeb replaces generic pricing-page popups, static demo forms, and manual chasing of buyers who already showed demo intent. It can still route qualified buyers through tools such as Calendly, Chili Piper, Salesforce, HubSpot, Pipedrive, or webhooks.',
+  },
+  {
+    question: 'How does SentientWeb prevent inaccurate AI answers?',
+    answer:
+      'SentientWeb answers from approved source content and can route sensitive security, legal, procurement, pricing, or high-value questions to a human instead of improvising.',
+  },
+]
+
+const PRICING_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'What counts as a qualified booked demo?',
+    answer:
+      'A qualified booked demo is a meeting booked after the visitor shares enough role, company, use case, timeline, stack, and fit context for sales to accept the meeting.',
+  },
+  {
+    question: 'Do teams need HubSpot to use SentientWeb?',
+    answer:
+      'No. HubSpot is the fastest launch path, and HubSpot Free, Starter, Professional, and Enterprise can work after a field check. Salesforce, Pipedrive, API, webhook, and lightweight handoff requirements are reviewed before the pilot starts.',
+  },
+  {
+    question: 'Can SentientWeb work with Chili Piper or Calendly?',
+    answer:
+      'Yes. Calendly is the simplest booking path, and Chili Piper or another router can be the route when the sales motion needs territory, account ownership, or meeting-type logic.',
+  },
+  {
+    question: 'How does SentientWeb prove incrementality?',
+    answer:
+      'The pilot proof packet includes baseline pages, detected intent, qualification answers, booked demos, sales acceptance, CRM records, and the pipeline assumptions used.',
+  },
+]
+
+const TRUST_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'Is SentientWeb SOC 2 certified?',
+    answer:
+      'SentientWeb is not currently SOC 2 certified. Security-conscious customers can review control areas, data flow, subprocessors, retention expectations, and human-handoff rules before production deployment.',
+  },
+  {
+    question: 'How should regulated teams scope a SentientWeb pilot?',
+    answer:
+      'Regulated pilots can be scoped around public pages, approved non-sensitive content, human handoff, and a security review gate until required documents or legal paths are in place.',
+  },
+]
 
 const STATIC_META = {
   '/': {
@@ -289,6 +349,17 @@ function organizationSchema(): StructuredData {
     logo: DEFAULT_OG_IMAGE_URL,
     description:
       'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into the sales workflow.',
+    foundingDate: '2026',
+    sameAs: [GITHUB_REPO_URL],
+    knowsAbout: [
+      'B2B SaaS demo recovery',
+      'pricing page conversion',
+      'comparison page conversion',
+      'qualified booked demos',
+      'CRM handoff',
+      'approved-source AI answers',
+      'visitor-to-demo conversion',
+    ],
   }
 }
 
@@ -308,12 +379,27 @@ function websiteSchema(): StructuredData {
 function softwareApplicationSchema(): StructuredData {
   return {
     '@type': 'SoftwareApplication',
+    '@id': new URL('#software', SITE_URL).toString(),
     name: SITE_NAME,
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
+    description:
+      'Visitor-to-demo engine for B2B SaaS teams that detects demo intent, qualifies buyers, opens the booking path, and syncs CRM-ready context.',
+    featureList: [
+      'High-intent page detection',
+      'Approved-source objection handling',
+      'Qualification before booking',
+      'CRM context sync',
+      'Recovered demo reporting',
+    ],
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: 'B2B SaaS revenue teams',
+    },
     offers: {
       '@type': 'Offer',
       description: 'Book a 30-day pilot.',
+      url: getCanonicalUrl('/pricing'),
     },
   }
 }
@@ -330,7 +416,77 @@ function webPageSchema(meta: PageMetaData): StructuredData {
     description: meta.description,
     isPartOf: { '@id': WEBSITE_ID },
     publisher: { '@id': ORGANIZATION_ID },
+    dateModified: SEO_LAST_MODIFIED,
     inLanguage: 'en-US',
+  }
+}
+
+function breadcrumbSchema(path: string): StructuredData {
+  const normalizedPath = normalizePathname(path)
+  const segments = normalizedPath.split('/').filter(Boolean)
+  const items = [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: SITE_NAME,
+      item: SITE_URL,
+    },
+  ]
+
+  let currentPath = ''
+  segments.forEach((segment, index) => {
+    currentPath += `/${segment}`
+    const meta = getPageMeta(currentPath)
+    items.push({
+      '@type': 'ListItem',
+      position: index + 2,
+      name: meta.title,
+      item: getCanonicalUrl(currentPath),
+    })
+  })
+
+  return {
+    '@type': 'BreadcrumbList',
+    '@id': `${getCanonicalUrl(normalizedPath)}#breadcrumb`,
+    itemListElement: items,
+  }
+}
+
+function faqSchema(path: string, faqItems: FaqItem[]): StructuredData {
+  return {
+    '@type': 'FAQPage',
+    '@id': `${getCanonicalUrl(path)}#faq`,
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+}
+
+function routeFaqItems(path: string): FaqItem[] {
+  if (path === '/') return HOME_FAQ_ITEMS
+  if (path.startsWith('/pricing')) return PRICING_FAQ_ITEMS
+  if (path === '/trust') return TRUST_FAQ_ITEMS
+  return []
+}
+
+function webPageGraph(path: string, extraItems: StructuredData[] = []): StructuredData {
+  const meta = getPageMeta(path)
+  const faqItems = routeFaqItems(path)
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      webPageSchema(meta),
+      ...(path === '/' ? [websiteSchema(), organizationSchema(), softwareApplicationSchema()] : []),
+      ...(path === '/' ? [] : [breadcrumbSchema(path)]),
+      ...(faqItems.length > 0 ? [faqSchema(path, faqItems)] : []),
+      ...extraItems,
+    ],
   }
 }
 
@@ -339,14 +495,7 @@ export function getRouteStructuredData(pathname: string): StructuredData {
   const meta = getPageMeta(path)
 
   if (path === '/') {
-    return {
-      '@context': 'https://schema.org',
-      '@graph': [
-        websiteSchema(),
-        organizationSchema(),
-        softwareApplicationSchema(),
-      ],
-    }
+    return webPageGraph(path)
   }
 
   const blogSlug = path.match(/^\/blog\/([^/]+)$/)?.[1] || ''
@@ -377,24 +526,35 @@ export function getRouteStructuredData(pathname: string): StructuredData {
   if (hasOwn(SOLUTION_PAGES, solutionSlug)) {
     const page = SOLUTION_PAGES[solutionSlug]
     const url = getCanonicalUrl(path)
-    const webPage = webPageSchema(meta)
 
-    return {
-      '@context': 'https://schema.org',
-      '@graph': [
-        webPage,
-        {
+    return webPageGraph(path, [
+      {
           '@type': 'Service',
           '@id': `${url}#service`,
           name: page.metaTitle,
           description: page.metaDescription,
           provider: { '@id': ORGANIZATION_ID },
           areaServed: page.marketLabel,
-          serviceType: solutionSlug === 'saas' ? 'B2B SaaS demo recovery' : 'High-intent visitor recovery',
+          audience: {
+            '@type': 'BusinessAudience',
+            audienceType: page.marketLabel,
+          },
+          category: 'B2B SaaS revenue recovery',
+          serviceType:
+            solutionSlug === 'saas'
+              ? 'B2B SaaS demo recovery'
+              : `${page.marketLabel} demo recovery`,
+          termsOfService: getCanonicalUrl('/terms'),
           url,
-        },
-      ],
-    }
+      },
+    ])
+  }
+
+  const faqItems = routeFaqItems(path)
+  if (path !== '/' && faqItems.length > 0) return webPageGraph(path)
+
+  if (path === '/pricing' || path === '/orchestrate' || path.startsWith('/integrations/')) {
+    return webPageGraph(path)
   }
 
   return webPageSchema(meta)
@@ -410,13 +570,14 @@ export function renderPageHead(meta: PageMetaData) {
   const imageUrl = meta.imageUrl || DEFAULT_OG_IMAGE_URL
   const robots = meta.noindex
     ? '<meta name="robots" content="noindex">'
-    : ''
+    : '<meta name="robots" content="index,follow,max-image-preview:large">'
 
   return [
     `<title>${escapeHtml(fullTitle)}</title>`,
     `<meta name="description" content="${escapeHtml(meta.description)}">`,
     `<link rel="canonical" href="${escapeHtml(url)}">`,
     robots,
+    `<meta name="last-modified" content="${SEO_LAST_MODIFIED}">`,
     '<meta property="og:type" content="website">',
     `<meta property="og:site_name" content="${escapeHtml(SITE_NAME)}">`,
     `<meta property="og:title" content="${escapeHtml(fullTitle)}">`,

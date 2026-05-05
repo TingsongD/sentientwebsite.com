@@ -149,62 +149,63 @@ export const SOLUTION_PAGES = {
 
   insurance: {
     slug: 'insurance',
-    navLabel: 'Insurance',
-    marketLabel: 'Brokers and Agencies',
+    navLabel: 'Insurtech SaaS',
+    marketLabel: 'Insurance SaaS platforms',
     accentColor: '#2563eb',
-    metaTitle: 'Instant Quote Recovery for Insurance',
+    metaTitle: 'Insurtech SaaS Demo Recovery',
     metaDescription:
-      'SentientWeb helps insurance teams become the first responder with instant quote paths, pre-call context, secure handling, and human handoff.',
-    plumberMetaphor: 'We seal the response-time leaks that send buyers to faster brokers.',
+      'SentientWeb helps insurance SaaS teams recover integration, security, and demo-page buyers with approved-source answers, strict qualification, and human handoff.',
+    plumberMetaphor: 'We seal the trust leaks between insurance workflow evaluation and a qualified demo.',
     hero: {
-      eyebrow: 'Solutions / Insurance',
-      title: 'Be the first broker to respond, every time',
+      eyebrow: 'Solutions / Insurtech SaaS',
+      title: 'Recover insurance SaaS buyers who stall on risk and workflow fit',
       subtitle:
-        'When a business owner shops for coverage, the fastest useful response wins. SentientWeb makes that response instant and routes the right next step.',
-      primaryCta: 'Get Instant Quote',
-      secondaryCta: 'See How It Works',
+        'Carriers, MGAs, brokers, and commercial insurance teams inspect security, integration, underwriting, and implementation pages before booking. SentientWeb qualifies fit, answers from approved sources, and routes sensitive questions to humans.',
+      primaryCta: 'Book a 30-day pilot',
+      secondaryCta: 'See the recovery flow',
     },
-    proofStat: 'Insurance shoppers often compare several responders before choosing who to contact.',
+    proofStat:
+      'Insurtech SaaS buyers often leave when data security, underwriting workflow, implementation, or integration questions go unanswered.',
     features: [
       {
-        title: 'Open enrollment coverage',
-        body: 'During peak season, overflow demand still gets a useful first step, coverage-fit context, and a path to your team.',
+        title: 'Security questions stay controlled',
+        body: 'Approved security and privacy content handles routine trust questions while procurement-sensitive issues route to a person.',
       },
       {
-        title: 'Instant quote path',
-        body: 'Business owners get a fast coverage estimate path while they are still comparing options on your site.',
+        title: 'Underwriting workflow fit',
+        body: 'Buyers can confirm lines of business, data inputs, automation scope, and implementation fit before sales opens the calendar.',
       },
       {
-        title: 'Prepared consultations',
-        body: 'Employee count, industry, timeline, current carrier, and budget context are captured before the meeting.',
+        title: 'HubSpot-ready demo context',
+        body: 'Role, company domain, carrier or broker segment, use case, timeline, and stack context arrive with the booked demo.',
       },
       {
-        title: 'Seasonal scale',
-        body: 'Inquiry spikes are handled without temporary hiring or missed revenue opportunities.',
+        title: 'Human handoff for regulated risk',
+        body: 'Coverage, legal, procurement, and regulated-data questions can be escalated with the full page path and qualification record.',
       },
     ],
     steps: [
       {
-        title: 'Buyer requests a quote',
-        body: 'They share company basics and coverage needs.',
+        title: 'Buyer evaluates fit',
+        body: 'They compare pricing, integrations, security posture, and underwriting workflow claims.',
       },
       {
-        title: 'Fit is captured',
-        body: 'Industry, employee count, timeline, and carrier context are prepared.',
+        title: 'Risk and use case are qualified',
+        body: 'SentientWeb checks role, insurance segment, data sensitivity, integration needs, and timeline.',
       },
       {
-        title: 'Consultation is scheduled',
-        body: 'Your producer receives the brief and the buyer gets a confirmed next step.',
+        title: 'Demo path opens',
+        body: 'Qualified buyers book through the agreed route while sensitive requirements reach a human with context.',
       },
     ],
     caseStudy: {
-      eyebrow: 'Speed-to-response',
-      title: 'Win the window before a faster broker does.',
-      body: 'Insurance buyers compare several options at once. SentientWeb helps you meet them first with useful context and a clear path to a licensed human.',
+      eyebrow: 'Insurance SaaS recovery',
+      title: 'Turn risk-page hesitation into prepared sales calls.',
+      body: 'Insurance SaaS teams should measure recovery by sales-accepted demos from pricing, integration, security, and workflow pages that previously produced anonymous exits.',
     },
     disclosure:
-      'AI provides intake and general next steps; licensed humans handle coverage advice and binding.',
-    bottomCta: 'Recover quote demand',
+      'AI supports demo qualification and approved-source guidance; humans handle coverage, legal, procurement, and regulated-data issues.',
+    bottomCta: 'Recover insurtech demos',
   },
 
   ecommerce: {
@@ -329,62 +330,63 @@ export const SOLUTION_PAGES = {
 
   edtech: {
     slug: 'edtech',
-    navLabel: 'EdTech',
-    marketLabel: 'Education Technology',
+    navLabel: 'Learning SaaS',
+    marketLabel: 'Corporate training SaaS',
     accentColor: '#ea580c',
-    metaTitle: 'Enrollment Recovery for EdTech',
+    metaTitle: 'Learning SaaS Demo Recovery',
     metaDescription:
-      'SentientWeb helps education teams recover enrollment leaks with guided applications, advisor handoff, secure handling, and instant next steps.',
-    plumberMetaphor: 'We fix the enrollment leaks between interest and application completion.',
+      'SentientWeb helps learning and HR SaaS teams recover customer-story, integration, pricing, and demo-page buyers with CRM-ready context.',
+    plumberMetaphor: 'We fix the evaluation leaks between learning-program interest and a qualified demo.',
     hero: {
-      eyebrow: 'Solutions / EdTech',
-      title: 'Stop losing enrollments to form abandonment',
+      eyebrow: 'Solutions / Learning SaaS',
+      title: 'Recover corporate training buyers before they leave',
       subtitle:
-        'When prospective students hesitate, SentientWeb removes friction, guides the next step, and routes advisor calls when human help matters.',
-      primaryCta: 'Start Instant Application',
-      secondaryCta: 'See How It Works',
+        'HR, enablement, and L&D leaders inspect integrations, customer stories, implementation pages, and pricing before booking. SentientWeb qualifies the account, answers from approved sources, and sends sales the buying context.',
+      primaryCta: 'Book a 30-day pilot',
+      secondaryCta: 'See the recovery flow',
     },
-    proofStat: 'Long application forms create avoidable friction for motivated students.',
+    proofStat:
+      'Learning SaaS buyers often leave after reading customer stories or integration pages because the next question is specific to their workforce.',
     features: [
       {
-        title: 'Recover started applications',
-        body: 'A paused form often signals uncertainty, not disinterest. SentientWeb delivers the exact next step needed to continue.',
+        title: 'Customer-story recovery',
+        body: 'Match proof to company size, workforce type, rollout goal, and stakeholder concern while the buyer is still reading.',
       },
       {
-        title: 'Guided application path',
-        body: 'Students answer naturally, see progress, and receive real-time response on requirements and deadlines.',
+        title: 'Integration-fit answers',
+        body: 'Answer LMS, HRIS, SSO, analytics, and implementation questions from approved product and docs content.',
       },
       {
-        title: 'Advisor-ready context',
-        body: 'When an advisor call is needed, the student journey, program interest, and hesitation point are already captured.',
+        title: 'Qualified before calendar',
+        body: 'Capture employee count, stakeholder role, program type, timeline, current stack, and urgency before opening the meeting path.',
       },
       {
-        title: 'Peak season coverage',
-        body: 'Enrollment spikes are handled with expanded coverage for repeated cost, schedule, and program questions.',
+        title: 'CRM-ready sales packet',
+        body: 'Send page path, use case, qualification answers, buying committee clues, and a suggested opener into the agreed CRM route.',
       },
     ],
     steps: [
       {
-        title: 'Student starts application',
-        body: 'The long form becomes a guided path with visible progress.',
+        title: 'Buyer studies proof',
+        body: 'They move between customer stories, integrations, pricing, and demo pages looking for confidence.',
       },
       {
-        title: 'Questions get resolved',
-        body: 'Program details, costs, scheduling, and aid content are delivered instantly.',
+        title: 'Fit gets qualified',
+        body: 'SentientWeb checks workforce size, program need, integration requirements, timeline, and stakeholder role.',
       },
       {
-        title: 'Completion or advisor call',
-        body: 'The student finishes the step or schedules time with full context attached.',
+        title: 'Prepared demo gets booked',
+        body: 'The qualified buyer books through the approved route while sales receives the full evaluation context.',
       },
     ],
     caseStudy: {
-      eyebrow: 'Enrollment recovery',
-      title: 'Keep student intent moving when forms create friction.',
-      body: 'EdTech revenue leaks happen when motivated students hit uncertainty alone. SentientWeb keeps the path clear and brings humans in at the right moment.',
+      eyebrow: 'Learning SaaS recovery',
+      title: 'Turn customer-story interest into sales-accepted demos.',
+      body: 'Corporate training SaaS teams should judge recovery by demos from customer-story and integration pages that include the stakeholder, rollout need, and current stack before the meeting.',
     },
     disclosure:
-      'AI guides application next steps, with human advisors available for complex decisions.',
-    bottomCta: 'Recover enrollments',
+      'AI supports demo qualification and approved-source guidance; humans handle procurement, legal, and implementation-sensitive questions.',
+    bottomCta: 'Recover learning demos',
   },
 
   hospitality: {
@@ -569,62 +571,124 @@ export const SOLUTION_PAGES = {
 
   'financial-services': {
     slug: 'financial-services',
-    navLabel: 'Financial Services',
-    marketLabel: 'Lenders and RIAs',
+    navLabel: 'Fintech SaaS',
+    marketLabel: 'Fintech compliance SaaS',
     accentColor: '#059669',
-    metaTitle: 'Rate Response Recovery for Lenders',
+    metaTitle: 'Fintech SaaS Demo Recovery',
     metaDescription:
-      'SentientWeb helps financial teams recover rate-response leaks with instant estimate paths, secure handling, and human handoff.',
-    plumberMetaphor: 'We patch the response leaks between rate shopping and advisory calls.',
+      'SentientWeb helps fintech and compliance SaaS teams recover security, pricing, integration, and demo-page buyers with approved-source answers and human handoff.',
+    plumberMetaphor: 'We patch the trust leaks between fintech evaluation and a qualified demo.',
     hero: {
-      eyebrow: 'Solutions / Financial Services',
-      title: 'The first lender to respond gets the deal',
+      eyebrow: 'Solutions / Fintech SaaS',
+      title: 'Recover fintech buyers who stall on trust and integration questions',
       subtitle:
-        'Borrowers and investors compare options quickly. SentientWeb delivers an instant estimate path and schedules the pre-approval or advisory next step while they are still on your site.',
-      primaryCta: 'Get Instant Rate Estimate',
-      secondaryCta: 'See How It Works',
+        'Fintech, payroll API, billing, RevRec, and compliance buyers inspect security, docs, integrations, and pricing before booking. SentientWeb qualifies fit, answers from approved sources, and routes sensitive questions to humans.',
+      primaryCta: 'Book a 30-day pilot',
+      secondaryCta: 'See the recovery flow',
     },
-    proofStat: 'Rate shoppers and applicants often need fast clarification before choosing a next step.',
+    proofStat:
+      'Fintech SaaS buyers often leave when SOC 2, PCI, AML/KYC, API, data residency, or implementation questions are not answered clearly.',
     features: [
       {
-        title: 'Rate shoppers move fast',
-        body: 'Visitors comparing several lenders get a useful estimate path in seconds, not hours.',
+        title: 'Compliance answers stay sourced',
+        body: 'Routine trust questions are answered from approved security, privacy, and product content instead of improvised claims.',
       },
       {
-        title: 'Applications resume',
-        body: 'Missing documents and unclear requirements become guided next steps instead of abandoned applications.',
+        title: 'Docs and API fit',
+        body: 'Developers and operators can confirm API surface, implementation path, required fields, and stack fit before sales enters.',
       },
       {
-        title: 'Prepared calls only',
-        body: 'Loan amount, credit range, property type, and timeline are captured before the human call.',
+        title: 'Strict qualification',
+        body: 'Capture segment, role, regulated-data exposure, implementation timeline, current stack, and required compliance review before booking.',
       },
       {
-        title: 'Compliance-aware path',
-        body: 'Secure handling, audit-friendly records, and clear human escalation support regulated workflows.',
+        title: 'Human escalation for high risk',
+        body: 'SOC 2, PCI, AML/KYC, legal, procurement, and data residency questions can route to a person with the full page context preserved.',
       },
     ],
     steps: [
       {
-        title: 'Borrower requests estimate',
-        body: 'They share basic financial and property context.',
+        title: 'Buyer evaluates trust',
+        body: 'They read security, docs, pricing, integration, or comparison pages and look for a reason to continue or leave.',
       },
       {
-        title: 'Estimate path appears',
-        body: 'Program fit, document needs, and next steps are clarified.',
+        title: 'Fit and risk are checked',
+        body: 'Approved-source answers and qualification rules decide whether the buyer should book, continue reading, or reach a human.',
       },
       {
-        title: 'Human call is scheduled',
-        body: 'The lender or advisor receives the brief before the call.',
+        title: 'Qualified demo gets booked',
+        body: 'The buyer books through the agreed route while sales receives the security, API, and use-case context.',
       },
     ],
     caseStudy: {
-      eyebrow: 'Rate response recovery',
-      title: 'Win the decision window while intent is still high.',
-      body: 'Financial services revenue leaks when rate shoppers wait too long for a useful answer. SentientWeb keeps that window open and routes advice to humans.',
+      eyebrow: 'Fintech SaaS recovery',
+      title: 'Turn trust-page scrutiny into prepared sales calls.',
+      body: 'Fintech SaaS teams should measure recovery by sales-accepted demos from security, docs, integration, pricing, and comparison pages where buyers previously left anonymously.',
     },
     disclosure:
-      'AI supports intake and general next steps; licensed professionals handle advice and decisions.',
-    bottomCta: 'Recover rate demand',
+      'AI supports demo qualification and approved-source guidance; humans handle legal, compliance, procurement, and regulated-data issues.',
+    bottomCta: 'Recover fintech demos',
+  },
+
+  logistics: {
+    slug: 'logistics',
+    navLabel: 'Logistics SaaS',
+    marketLabel: 'Logistics and supply-chain SaaS',
+    accentColor: '#0f766e',
+    metaTitle: 'Logistics SaaS Demo Recovery',
+    metaDescription:
+      'SentientWeb helps logistics SaaS teams recover pricing, integration, TMS, and demo-page buyers with approved-source answers and Pipedrive-ready context.',
+    plumberMetaphor: 'We fix the workflow-fit leaks between TMS evaluation and a qualified demo.',
+    hero: {
+      eyebrow: 'Solutions / Logistics SaaS',
+      title: 'Recover logistics buyers who stall on workflow and integration fit',
+      subtitle:
+        'Fleet, dispatch, operations, and IT buyers inspect TMS, route optimization, hardware, and integration pages before booking. SentientWeb qualifies the account, answers from approved sources, and sends sales the route-ready context.',
+      primaryCta: 'Book a 30-day pilot',
+      secondaryCta: 'See the recovery flow',
+    },
+    proofStat:
+      'Logistics SaaS buyers often leave integration pages when they cannot confirm TMS connectivity, route rules, carrier workflows, or implementation effort.',
+    features: [
+      {
+        title: 'TMS and workflow answers',
+        body: 'Approved-source responses handle TMS connectivity, route optimization, dispatch workflows, driver hardware, and implementation fit.',
+      },
+      {
+        title: 'Operations-first qualification',
+        body: 'Capture fleet size, shipment volume, stakeholder role, current stack, timeline, and route complexity before opening the meeting path.',
+      },
+      {
+        title: 'Pipedrive-ready handoff',
+        body: 'Send page path, qualification answers, use case, stack fit, and suggested opener into Pipedrive or the agreed workflow.',
+      },
+      {
+        title: 'Human handoff for complex fit',
+        body: 'Enterprise integrations, custom route logic, data import, and procurement questions can reach a person with the full context preserved.',
+      },
+    ],
+    steps: [
+      {
+        title: 'Buyer checks integration fit',
+        body: 'They move between pricing, TMS integrations, route workflows, and demo pages.',
+      },
+      {
+        title: 'Operational need is qualified',
+        body: 'SentientWeb checks fleet profile, route complexity, stakeholder role, implementation timeline, and current tools.',
+      },
+      {
+        title: 'Prepared demo gets booked',
+        body: 'The qualified buyer books through the approved route while sales receives the workflow and stack context.',
+      },
+    ],
+    caseStudy: {
+      eyebrow: 'Logistics SaaS recovery',
+      title: 'Turn integration-page research into qualified demos.',
+      body: 'Logistics SaaS teams should judge recovery by demos from pricing and TMS integration pages where buyers arrive with workflow requirements already captured.',
+    },
+    disclosure:
+      'AI supports demo qualification and approved-source guidance; humans handle complex implementation, legal, and procurement issues.',
+    bottomCta: 'Recover logistics demos',
   },
 } as const satisfies Record<string, SolutionPageContent>
 

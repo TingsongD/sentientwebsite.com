@@ -745,15 +745,15 @@ export default function PricingPage() {
                   },
                   {
                     q: 'Do we need HubSpot?',
-                    a: 'HubSpot is the fastest launch path, but it is not the only path we evaluate. Salesforce, Pipedrive, API, webhook, and lightweight handoff requirements are reviewed before the pilot starts. If context cannot reach the system sales uses, we should not launch.',
+                    a: 'No. HubSpot is the fastest launch path, and HubSpot Free, Starter, Professional, and Enterprise can work after a field check. Salesforce, Pipedrive, API, webhook, and lightweight handoff requirements are reviewed before the pilot starts. If context cannot reach the system sales uses, we should not launch.',
                   },
                   {
                     q: 'Can this work with Calendly or routing tools?',
-                    a: 'Yes. Calendly is the simplest booking path. Teams using Chili Piper or another router should define the routing requirement during setup so SentientWeb qualifies before the scheduler opens.',
+                    a: 'Yes. Calendly is the simplest booking path, and Chili Piper or another router can be the route when your sales motion needs territory, account ownership, or meeting-type logic. Setup defines the routing rule before SentientWeb opens the scheduler.',
                   },
                   {
                     q: 'Does this replace Chili Piper, Drift, or Qualified?',
-                    a: 'It should replace generic pricing-page chat, unqualified form chasing, and manual follow-up on buyers who already showed demo intent. It usually orchestrates routing tools such as Chili Piper and can coexist with broader platforms such as Drift or Qualified until you decide what to sunset.',
+                    a: 'It replaces generic pricing-page popups, static demo forms, and manual chasing of buyers who already showed demo intent. It usually orchestrates routing tools such as Chili Piper and can coexist with broader platforms such as Drift or Qualified until you decide what to sunset.',
                   },
                   {
                     q: 'Are case-study rights required?',
@@ -761,7 +761,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'How do you prove incrementality?',
-                    a: 'The pilot proof packet should include baseline pages, detected intent, qualification answers, booked demos, sales acceptance, and the pipeline assumptions used. If you need a holdout or page-by-page test, define it before launch.',
+                    a: 'The pilot proof packet includes baseline pages, detected intent, qualification answers, booked demos, sales acceptance, CRM records, and the pipeline assumptions used. If you need a holdout or page-by-page test, define it before launch.',
                   },
                   {
                     q: 'How are AI answer quality and security handled?',
@@ -773,7 +773,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'What if procurement needs SOC 2 or a BAA?',
-                    a: 'SentientWeb is not currently SOC 2 certified and BAA support must be reviewed before any healthcare deployment involving PHI. The pilot can be scoped around public pages, approved non-PHI content, human handoff, and a security review gate until the required contracts are in place.',
+                    a: 'SentientWeb is not currently SOC 2 certified and BAA support must be reviewed before any healthcare deployment involving PHI. Regulated pilots can be scoped around public pages, approved non-sensitive content, human handoff, and a security review gate until the required documents are in place.',
                   },
                   {
                     q: 'Do you identify anonymous people?',

@@ -17,6 +17,7 @@ const {
   LEGAL_VERSIONS,
   LEGACY_ROUTE_REDIRECTS,
   NOT_FOUND_PATH,
+  SEO_LAST_MODIFIED,
   SITE_URL,
 } = await import(pathToFileURL(ssrEntryPath).href)
 
@@ -69,6 +70,28 @@ async function writeRoute(route) {
 }
 
 const routes = [...KNOWN_ROUTE_PATHS, NOT_FOUND_PATH]
+const llmsRouteAllowlist = new Set([
+  '/',
+  '/pricing',
+  '/pricing/calculator',
+  '/trust',
+  '/revenue-leak-calculator',
+  '/orchestrate',
+  '/integrations/hubspot',
+  '/integrations/salesforce',
+  '/integrations/pipedrive',
+  '/integrations/api-webhooks',
+  '/integrations/calendly',
+  '/integrations/wordpress',
+  '/integrations/webflow',
+  '/integrations/custom',
+  '/solutions/saas',
+  '/solutions/insurance',
+  '/solutions/healthcare',
+  '/solutions/edtech',
+  '/solutions/financial-services',
+  '/solutions/logistics',
+])
 
 for (const route of routes) {
   await writeRoute(route)
@@ -93,13 +116,63 @@ await writeFile(
 
 const sitemapEntries = KNOWN_ROUTE_PATHS.map((route) => {
   const loc = new URL(route, SITE_URL).toString()
-  return `  <url><loc>${loc}</loc></url>`
+  const priority = route === '/' ? '1.0' : route.startsWith('/solutions/') ? '0.8' : '0.7'
+  const changefreq = route === '/' || route === '/pricing' ? 'weekly' : 'monthly'
+  return [
+    '  <url>',
+    `    <loc>${loc}</loc>`,
+    `    <lastmod>${SEO_LAST_MODIFIED}</lastmod>`,
+    `    <changefreq>${changefreq}</changefreq>`,
+    `    <priority>${priority}</priority>`,
+    '  </url>',
+  ].join('\n')
 }).join('\n')
 
 await writeFile(
   resolve(distDir, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`,
 )
+
+await writeFile(
+  resolve(distDir, 'robots.txt'),
+  [
+    '# SentientWeb crawler policy',
+    `# AI/answer-engine guide: ${new URL('/llms.txt', SITE_URL).toString()}`,
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /routes-manifest.json',
+    `Sitemap: ${new URL('/sitemap.xml', SITE_URL).toString()}`,
+    '',
+  ].join('\n'),
+)
+
+const llmsContent = [
+  '# SentientWeb',
+  '',
+  '> SentientWeb is a visitor-to-demo engine for B2B SaaS revenue teams. It detects demo-ready visitors on high-intent pages, qualifies them, opens the agreed booking path, and syncs sales-ready context into CRM or handoff workflows.',
+  '',
+  '## Primary Audience',
+  '',
+  '- B2B SaaS CEOs, founders, RevOps leaders, sales leaders, and growth teams',
+  '- SaaS companies with pricing, demo, comparison, integration, security, docs, or customer-story pages that already attract buying intent',
+  '',
+  '## Core Pages',
+  '',
+  ...KNOWN_ROUTE_PATHS.filter((route) => llmsRouteAllowlist.has(route)).map(
+    (route) => `- ${new URL(route, SITE_URL).toString()}`,
+  ),
+  '',
+  '## Canonical Positioning',
+  '',
+  '- Category: B2B SaaS demo recovery and visitor-to-demo conversion',
+  '- Outcome: qualified booked demos with CRM-ready context',
+  '- Replaces: generic pricing-page popups, static demo forms, and manual chasing of high-intent visitors',
+  '- Orchestrates: HubSpot, Salesforce, Pipedrive, Calendly, Chili Piper, webhooks, and custom handoff paths',
+  '- Trust model: approved-source answers with human handoff for sensitive security, legal, procurement, pricing, or high-value questions',
+  '',
+].join('\n')
+
+await writeFile(resolve(distDir, 'llms.txt'), llmsContent)
 
 const securityTxtPath = resolve(distDir, '.well-known', 'security.txt')
 await mkdir(dirname(securityTxtPath), { recursive: true })

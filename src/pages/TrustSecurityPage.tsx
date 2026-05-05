@@ -24,19 +24,18 @@ export default function TrustSecurityPage() {
               id="soc2-heading"
               className="font-grotesk mb-4 text-[20px] uppercase tracking-wide text-cream sm:text-[22px]"
             >
-              SOC 2 Type II roadmap
+              SOC 2 Type II status
             </h2>
             <p>
-              SentientWeb is not currently SOC 2 certified. Our roadmap includes a{' '}
-              <strong className="font-medium text-cream">SOC 2 Type II</strong> readiness program,
-              control framework, evidence collection, and independent examination by a qualified
-              firm when the program is ready. We will publish trust materials for customers under NDA
-              and, where appropriate, on this page when they become available.
+              SentientWeb is not currently SOC 2 certified. Security-conscious customers can review
+              the control areas, data flow, subprocessors, retention expectations, and human-handoff
+              rules before a production deployment. Where appropriate, trust materials can be shared
+              under NDA during procurement review.
             </p>
             <p className="mt-4">
               Until a report is issued, do not treat this page as a SOC 2 attestation. We use it to
-              describe the controls we are building toward and the security posture customers should
-              review before production deployment.
+              describe the operating controls and security posture customers should review before
+              production deployment.
             </p>
           </section>
 
@@ -80,7 +79,7 @@ export default function TrustSecurityPage() {
               currently offering a blanket BAA for every pilot. If your use case could involve PHI
               or similarly regulated data, the pilot should be limited to approved public content,
               non-PHI demo qualification, and human escalation until a signed BAA or equivalent
-              contractual path is in place.
+              legal path is in place.
             </p>
           </section>
 
@@ -124,7 +123,7 @@ export default function TrustSecurityPage() {
               Questions &amp; questionnaires
             </h2>
             <p>
-              For security reviews, vendor questionnaires, or details on our SOC 2 timeline, contact
+              For security reviews, vendor questionnaires, or SOC 2-related questions, contact
               us at{' '}
               <a
                 href="mailto:hello@sentientwebsite.com"
@@ -132,8 +131,7 @@ export default function TrustSecurityPage() {
               >
                 hello@sentientwebsite.com
               </a>
-              . We are happy to work with procurement and InfoSec teams as we move through audit
-              readiness.
+              . We are happy to work with procurement and InfoSec teams before production launch.
             </p>
           </section>
 

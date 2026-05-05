@@ -3,6 +3,7 @@ import {
   DEFAULT_META_DESCRIPTION,
   DEFAULT_OG_IMAGE_URL,
   DEFAULT_META_TITLE,
+  SEO_LAST_MODIFIED,
   SITE_NAME,
 } from '../constants'
 import { getCanonicalUrl, getFullTitle } from '../routeMetadata'
@@ -32,7 +33,11 @@ export function PageMeta({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
-      {noindex ? <meta name="robots" content="noindex" /> : null}
+      <meta
+        name="robots"
+        content={noindex ? 'noindex' : 'index,follow,max-image-preview:large'}
+      />
+      <meta name="last-modified" content={SEO_LAST_MODIFIED} />
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={SITE_NAME} />

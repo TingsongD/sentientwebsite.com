@@ -190,16 +190,23 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
   const homeResponse = await request.get('/')
   const homeSchema = readJsonLd(await homeResponse.text())
   expect(schemaTypes(homeSchema)).toEqual(
-    expect.arrayContaining(['WebSite', 'Organization', 'SoftwareApplication']),
+    expect.arrayContaining(['WebPage', 'WebSite', 'Organization', 'SoftwareApplication', 'FAQPage']),
   )
 
   const pricingResponse = await request.get('/pricing')
   const pricingSchema = readJsonLd(await pricingResponse.text())
-  expect(pricingSchema).toMatchObject({
-    '@type': 'WebPage',
-    url: absoluteSiteUrl('/pricing'),
-    name: 'SentientWeb Pricing | Visitor-to-Demo Engine',
-  })
+  expect(schemaTypes(pricingSchema)).toEqual(
+    expect.arrayContaining(['WebPage', 'BreadcrumbList', 'FAQPage']),
+  )
+  expect((pricingSchema['@graph'] as Array<Record<string, unknown>>)).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        '@type': 'WebPage',
+        url: absoluteSiteUrl('/pricing'),
+        name: 'SentientWeb Pricing | Visitor-to-Demo Engine',
+      }),
+    ]),
+  )
 
   const blogResponse = await request.get('/blog/phase-1-live-now')
   const blogSchema = readJsonLd(await blogResponse.text())
@@ -211,15 +218,24 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
 
   const solutionResponse = await request.get('/solutions/saas')
   const solutionSchema = readJsonLd(await solutionResponse.text())
-  expect(schemaTypes(solutionSchema)).toEqual(expect.arrayContaining(['WebPage', 'Service']))
+  expect(schemaTypes(solutionSchema)).toEqual(
+    expect.arrayContaining(['WebPage', 'BreadcrumbList', 'Service']),
+  )
 
   const orchestrateResponse = await request.get('/orchestrate')
   const orchestrateSchema = readJsonLd(await orchestrateResponse.text())
-  expect(orchestrateSchema).toMatchObject({
-    '@type': 'WebPage',
-    url: absoluteSiteUrl('/orchestrate'),
-    name: 'Orchestrate Your Existing Tech | SentientWeb',
-  })
+  expect(schemaTypes(orchestrateSchema)).toEqual(
+    expect.arrayContaining(['WebPage', 'BreadcrumbList']),
+  )
+  expect((orchestrateSchema['@graph'] as Array<Record<string, unknown>>)).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        '@type': 'WebPage',
+        url: absoluteSiteUrl('/orchestrate'),
+        name: 'Orchestrate Your Existing Tech | SentientWeb',
+      }),
+    ]),
+  )
 })
 
 test('known routes return prerendered route-specific metadata', async ({ request }) => {
@@ -243,7 +259,11 @@ test('known routes return prerendered route-specific metadata', async ({ request
     ],
     [
       '/solutions/financial-services',
-      '<title>Rate Response Recovery for Lenders | SentientWeb</title>',
+      '<title>Fintech SaaS Demo Recovery | SentientWeb</title>',
+    ],
+    [
+      '/solutions/logistics',
+      '<title>Logistics SaaS Demo Recovery | SentientWeb</title>',
     ],
   ] as const
 
@@ -304,6 +324,29 @@ test('security.txt is publicly accessible for vulnerability reporting', async ({
   expect(body).toContain('Contact: mailto:hello@sentientwebsite.com')
   expect(body).toContain(`Policy: ${absoluteSiteUrl('/security-response')}`)
   expect(body).toContain(`Canonical: ${absoluteSiteUrl('/.well-known/security.txt')}`)
+})
+
+test('robots and llms files expose canonical crawl guidance for SEO and AEO', async ({ request }) => {
+  const robotsResponse = await request.get('/robots.txt')
+  const robots = await robotsResponse.text()
+
+  expect(robotsResponse.status()).toBe(200)
+  expect(robots).toContain(`# AI/answer-engine guide: ${absoluteSiteUrl('/llms.txt')}`)
+  expect(robots).toContain('User-agent: *')
+  expect(robots).toContain('Allow: /')
+  expect(robots).toContain(`Sitemap: ${absoluteSiteUrl('/sitemap.xml')}`)
+
+  const llmsResponse = await request.get('/llms.txt')
+  const llms = await llmsResponse.text()
+
+  expect(llmsResponse.status()).toBe(200)
+  expect(llms).toContain('# SentientWeb')
+  expect(llms).toContain('visitor-to-demo engine for B2B SaaS revenue teams')
+  expect(llms).toContain(absoluteSiteUrl('/solutions/saas'))
+  expect(llms).toContain(absoluteSiteUrl('/integrations/hubspot'))
+  expect(llms).toContain('approved-source answers with human handoff')
+  expect(llms).not.toContain(absoluteSiteUrl('/solutions/home-services'))
+  expect(llms).not.toContain(absoluteSiteUrl('/solutions/ecommerce'))
 })
 
 test('health endpoint returns a minimal no-cache response', async ({ request }) => {
@@ -892,6 +935,9 @@ test('legal compliance routes return 200 and appear in sitemap', async ({ reques
   ]
 
   const sitemap = await (await request.get('/sitemap.xml')).text()
+  expect(sitemap).toContain('<lastmod>2026-05-05</lastmod>')
+  expect(sitemap).toContain('<changefreq>weekly</changefreq>')
+  expect(sitemap).toContain('<priority>1.0</priority>')
 
   for (const path of legalPaths) {
     const response = await request.get(path)
@@ -1332,6 +1378,7 @@ test('new vertical pages return 200 and retired pages stay out of sitemap', asyn
     'real-estate',
     'legal',
     'financial-services',
+    'logistics',
   ]
 
   for (const slug of verticals) {
@@ -1342,6 +1389,7 @@ test('new vertical pages return 200 and retired pages stay out of sitemap', asyn
   const sitemap = await (await request.get('/sitemap.xml')).text()
   expect(sitemap).toContain(absoluteSiteUrl('/solutions/saas'))
   expect(sitemap).toContain(absoluteSiteUrl('/solutions/financial-services'))
+  expect(sitemap).toContain(absoluteSiteUrl('/solutions/logistics'))
   expect(sitemap).not.toContain('/solutions/b2b-saas')
   expect(sitemap).not.toContain('/solutions/car-dealerships')
 })
@@ -1535,22 +1583,26 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await expect(page.getByText('Salesforce teams')).toBeVisible()
   await expect(page.getByText('Pipedrive teams')).toBeVisible()
   await expect(page.getByText('Public proof rights are optional')).toBeVisible()
-  await expect(page.getByText('pilot produces a proof packet')).toBeVisible()
+  await expect(page.getByText('pilot proof packet shows baseline pages')).toBeVisible()
   await expect(page.getByText('Does this replace anything?')).toBeVisible()
   await expect(page.getByText('What about SOC 2 or BAA review?')).toBeVisible()
   await expect(
     page.getByRole('heading', { name: 'Bring your hardest buyer questions into the preview.' }),
   ).toBeVisible()
   await expect(page.getByText('Healthcare SaaS')).toBeVisible()
-  await expect(page.getByText('Construction and vertical SaaS')).toBeVisible()
+  await expect(page.getByText('Logistics and vertical SaaS')).toBeVisible()
+  await expect(page.getByText('Works with HubSpot Free, Starter')).toBeVisible()
 
   await page.goto('/pricing')
   await page.getByText('Do we need HubSpot?').click()
+  await expect(page.getByText('HubSpot Free, Starter, Professional')).toBeVisible()
   await expect(page.getByText('Salesforce, Pipedrive, API, webhook')).toBeVisible()
+  await page.getByText('Can this work with Calendly or routing tools?').click()
+  await expect(page.getByText('Chili Piper or another router')).toBeVisible()
   await page.getByText('Are case-study rights required?').click()
   await expect(page.getByText('No. Public proof rights are optional')).toBeVisible()
   await page.getByText('How do you prove incrementality?').click()
-  await expect(page.getByText('The pilot proof packet should include')).toBeVisible()
+  await expect(page.getByText('The pilot proof packet includes')).toBeVisible()
   await page.getByText('How are AI answer quality and security handled?').click()
   await expect(page.getByText('Answers are grounded in approved source content')).toBeVisible()
   await page.getByText('What does the annual tier include?').click()
@@ -1577,6 +1629,12 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await page.goto('/integrations/api-webhooks')
   await expect(page.getByText('Custom CRM, no CRM, or early sales stack')).toBeVisible()
 
+  await page.goto('/integrations/hubspot')
+  await expect(page.getByText('Works with HubSpot Free, Starter, Professional')).toBeVisible()
+
+  await page.goto('/integrations/calendly')
+  await expect(page.getByText('Calendly, Chili Piper, or scheduler path')).toBeVisible()
+
   await page.goto('/trust')
   await expect(page.getByRole('heading', { name: 'Procurement gates for regulated buyers' })).toBeVisible()
   await expect(page.getByText('not currently offering a blanket BAA')).toBeVisible()
@@ -1586,6 +1644,32 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
     page.getByRole('heading', { name: 'Recover healthcare SaaS buyers who stall on trust questions' }),
   ).toBeVisible()
   await expect(page.getByText('non-PHI demo qualification')).toBeVisible()
+
+  await page.goto('/solutions/insurance')
+  await expect(
+    page.getByRole('heading', {
+      name: 'Recover insurance SaaS buyers who stall on risk and workflow fit',
+    }),
+  ).toBeVisible()
+
+  await page.goto('/solutions/edtech')
+  await expect(
+    page.getByRole('heading', { name: 'Recover corporate training buyers before they leave' }),
+  ).toBeVisible()
+
+  await page.goto('/solutions/financial-services')
+  await expect(
+    page.getByRole('heading', {
+      name: 'Recover fintech buyers who stall on trust and integration questions',
+    }),
+  ).toBeVisible()
+
+  await page.goto('/solutions/logistics')
+  await expect(
+    page.getByRole('heading', {
+      name: 'Recover logistics buyers who stall on workflow and integration fit',
+    }),
+  ).toBeVisible()
 })
 
 test('homepage and solution pages render new positioning and trust disclosure', async ({ page }) => {
@@ -1631,15 +1715,15 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   expect(sectionOrder[0]).toBeLessThan(sectionOrder[1])
   expect(sectionOrder[1]).toBeLessThan(sectionOrder[2])
   await expect(page.getByRole('heading', { name: 'The Demo Recovery Engine inside SentientWeb.' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Start with demo-ready visitor recovery.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'One recovery path for B2B SaaS revenue teams.' })).toBeVisible()
   await expect(page.getByText('Demo-Ready Visitor Recovery for B2B SaaS').first()).toBeVisible()
   await expect(
     page.getByText('Appointment-Ready Visitor Recovery for service businesses').first(),
-  ).toBeVisible()
-  await expect(page.getByText('Emerging path / early access')).toBeVisible()
+  ).toHaveCount(0)
+  await expect(page.getByText('Emerging path / early access')).toHaveCount(0)
   await expect(
     page.getByRole('heading', {
-      name: 'See how SentientWeb would recover demo-ready visitors from your pricing page.',
+      name: 'See the recovery map for your highest-intent pages.',
     }),
   ).toBeVisible()
   await expect(

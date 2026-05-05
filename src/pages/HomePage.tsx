@@ -19,7 +19,7 @@ const INTEGRATION_LOGOS = [
 const STACK_FIT_CARDS = [
   {
     title: 'HubSpot teams',
-    body: 'Launch with the native wedge: contact, company, qualification, booking, and opener context in HubSpot.',
+    body: 'Works with HubSpot Free, Starter, Professional, and Enterprise when the required contact, company, note, and meeting fields are available.',
   },
   {
     title: 'Salesforce teams',
@@ -42,7 +42,7 @@ const HIGH_INTENT_PAGE_CARDS = [
   },
   {
     title: 'Demo pages',
-    body: 'Qualify the visitor and open the right Calendly path when fit is confirmed.',
+    body: 'Qualify the visitor and open the agreed Calendly, Chili Piper, or routed booking path when fit is confirmed.',
   },
   {
     title: 'Comparison pages',
@@ -50,7 +50,7 @@ const HIGH_INTENT_PAGE_CARDS = [
   },
   {
     title: 'Integration pages',
-    body: 'Confirm stack fit for HubSpot, Calendly, Salesforce, or customer tools.',
+    body: 'Confirm stack fit for HubSpot, Salesforce, Pipedrive, Chili Piper, Calendly, or customer tools.',
   },
   {
     title: 'Security pages',
@@ -96,7 +96,7 @@ const BUYER_OBJECTION_CARDS = [
   },
   {
     title: 'Where is the proof?',
-    body: 'The pilot produces a proof packet: baseline pages, recovered demos, qualification answers, sales acceptance, and the exact pipeline assumption used.',
+    body: 'The pilot proof packet shows baseline pages, recovered demos, qualification answers, sales acceptance, CRM records, and the exact pipeline assumption used.',
   },
   {
     title: 'Are case-study rights required?',
@@ -104,11 +104,11 @@ const BUYER_OBJECTION_CARDS = [
   },
   {
     title: 'Does this replace anything?',
-    body: 'It can replace generic pricing-page chat, manual form chasing, and cold follow-up on visitors who already showed demo intent. Routing tools stay useful after qualification.',
+    body: 'It replaces generic pricing-page popups, static demo forms, and manual chasing of buyers who already showed demo intent. Routing tools stay useful after qualification.',
   },
   {
     title: 'What about SOC 2 or BAA review?',
-    body: 'Security review is a pilot gate. SentientWeb is not SOC 2 certified today, and regulated healthcare use should stay non-PHI until the right BAA or contract path is signed.',
+    body: 'Security review is a launch gate. Regulated teams can scope recovery to public pages, approved non-sensitive answers, and human handoff while procurement reviews the trust package.',
   },
 ] as const
 
@@ -118,12 +118,12 @@ const DOMAIN_PROOF_CARDS = [
     body: 'Scope security-page and integration-page recovery around non-PHI demo qualification, approved HIPAA-facing source content, and immediate human handoff.',
   },
   {
-    title: 'Legal and security software',
+    title: 'Fintech, legal, and security software',
     body: 'Use approved-source answers for compliance, security, and competitive questions while routing legal-risk or enterprise procurement questions to a person.',
   },
   {
-    title: 'Construction and vertical SaaS',
-    body: 'Test domain-specific workflow questions during the preview so the pilot proves whether approved content can handle the buyer language.',
+    title: 'Logistics and vertical SaaS',
+    body: 'Test TMS, ERP, workflow, and implementation questions during the preview so the pilot proves whether approved content can handle the buyer language.',
   },
 ] as const
 
@@ -160,16 +160,16 @@ const FUNNEL_FEATURE_GROUPS = [
         body: 'Scores visits to pricing, demo, comparison, integration, security, docs, and customer story pages.',
       },
       {
-        title: 'Instant Demo Preview',
-        body: 'Lets prospects request a SentientWeb recovery preview from a public pricing or website URL.',
+        title: 'Recovery Preview',
+        body: 'Lets prospects request a SentientWeb recovery map from a public pricing or website URL.',
       },
       {
         title: 'Page recovery surfaces',
         body: 'Handles pricing, demo, comparison, integration, security, and customer-story hesitation moments.',
       },
       {
-        title: 'Service-business early path',
-        body: 'Keeps appointment-ready visitor recovery visible as an emerging path without making it the primary product.',
+        title: 'B2B SaaS-only scope',
+        body: 'Keeps the public offer focused on demo recovery for SaaS pricing, comparison, integration, security, docs, and customer-story pages.',
       },
     ],
   },
@@ -195,7 +195,7 @@ const FUNNEL_FEATURE_GROUPS = [
       },
       {
         title: 'Integration context',
-        body: 'Keeps HubSpot, Calendly, WordPress, Webflow, and custom install paths visible in the buying journey.',
+        body: 'Keeps HubSpot, Salesforce, Pipedrive, Chili Piper, Calendly, WordPress, Webflow, and custom install paths visible in the buying journey.',
       },
     ],
   },
@@ -205,7 +205,7 @@ const FUNNEL_FEATURE_GROUPS = [
     features: [
       {
         title: 'Calendly demo booking',
-        body: 'Opens the agreed booking path only after the visitor has shared enough context to qualify the meeting.',
+        body: 'Opens the agreed Calendly, Chili Piper, or routed booking path only after the visitor has shared enough context to qualify the meeting.',
       },
       {
         title: 'CRM context sync',
@@ -771,7 +771,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Instant demo preview */}
+        {/* Recovery preview */}
         <section
           id="instant-demo-preview"
           className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20"
@@ -780,17 +780,18 @@ export default function HomePage() {
           <div className="mx-auto grid max-w-[1831px] gap-8 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
             <div>
               <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                Instant Demo Preview
+                Recovery Preview
               </p>
               <h2
                 id="instant-demo-preview-heading"
                 className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
               >
-                See how SentientWeb would recover demo-ready visitors from your pricing page.
+                See the recovery map for your highest-intent pages.
               </h2>
               <p className="font-mono mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-                Enter a public URL and get a preview of the recovery path SentientWeb would create
-                for high-intent visitors on your own site.
+                Submit a public pricing, comparison, integration, security, docs, or customer-story
+                URL and get a scoped preview of the recovery path SentientWeb would create for your
+                own site.
               </p>
             </div>
 
@@ -817,7 +818,7 @@ export default function HomePage() {
                   Request a preview
                 </a>
                 <p className="font-mono max-w-[360px] text-[11px] uppercase leading-relaxed text-cream/50">
-                  URL submitted - preview generated - business-email claim - booked call - pilot
+                  URL submitted - recovery map prepared - business-email claim - fit review - pilot
                 </p>
               </div>
               <div className="mt-6 border-t border-white/10 pt-5">
@@ -825,8 +826,8 @@ export default function HomePage() {
                   Claim your recovery preview.
                 </h3>
                 <p className="font-mono mt-2 text-[12px] normal-case leading-relaxed text-cream/65">
-                  Use a business email so we can send the hosted preview, show the detected
-                  demo-intent moments, and walk through the setup path.
+                  Use a business email so we can send the preview, show the detected demo-intent
+                  moments, and walk through the CRM, scheduler, and security setup path.
                 </p>
                 <p className="font-mono mt-4 text-[11px] uppercase leading-relaxed text-cream/45">
                   SentientWeb only analyzes public pages for the preview. Private pages, internal
@@ -837,7 +838,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Two recovery paths */}
+        {/* Recovery path */}
         <section
           className="border-t border-white/10 bg-background py-16 sm:py-20"
           aria-labelledby="recovery-paths-heading"
@@ -850,18 +851,18 @@ export default function HomePage() {
               id="recovery-paths-heading"
               className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
             >
-              Start with demo-ready visitor recovery.
+              One recovery path for B2B SaaS revenue teams.
             </h2>
             <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              SentientWeb&apos;s primary product is Demo-Ready Visitor Recovery for B2B SaaS.
-              Appointment-Ready Visitor Recovery for service businesses is an emerging path using
-              the same high-intent recovery logic.
+              SentientWeb is focused on Demo-Ready Visitor Recovery for B2B SaaS: pricing,
+              comparison, integration, security, docs, customer-story, and demo-page visitors who
+              are close enough to buy but not yet qualified for sales.
             </p>
 
-            <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="mt-10 grid gap-6">
               <article className="rounded-[28px] border border-neon/45 bg-neon/[0.06] p-6 shadow-[0_28px_90px_rgba(111,255,0,0.12)] sm:p-8">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-neon">
-                  Primary path / B2B SaaS
+                  B2B SaaS
                 </p>
                 <h3 className="font-grotesk mt-4 text-[26px] uppercase leading-tight text-cream sm:text-[34px]">
                   Demo-Ready Visitor Recovery for B2B SaaS
@@ -879,30 +880,6 @@ export default function HomePage() {
                 >
                   Explore B2B SaaS recovery
                 </Link>
-              </article>
-
-              <article className="liquid-glass rounded-[28px] p-6 opacity-90 sm:p-8">
-                <p className="font-mono text-[11px] uppercase tracking-widest text-cream/50">
-                  Emerging path / early access
-                </p>
-                <h3 className="font-grotesk mt-4 text-[22px] uppercase leading-tight text-cream sm:text-[28px]">
-                  Appointment-Ready Visitor Recovery for service businesses
-                </h3>
-                <p className="font-mono mt-4 text-[13px] uppercase leading-relaxed text-cream/70">
-                  Recover appointment-ready visitors before they leave.
-                </p>
-                <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/60">
-                  For service businesses turning service, pricing, booking, and location-page intent
-                  into qualified appointments.
-                </p>
-                <a
-                  href={BOOK_DEMO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-7 inline-flex rounded-full border border-white/15 px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:border-neon hover:text-neon sm:text-[13px]"
-                >
-                  Preview service recovery
-                </a>
               </article>
             </div>
           </div>
