@@ -10,41 +10,42 @@ export default function AboutPage() {
           Company / About
         </p>
         <h1 className="font-grotesk text-[34px] uppercase leading-[1.08] text-cream sm:text-[44px] md:text-[52px]">
-          We fix the revenue leaks hiding inside websites
+          We recover the demo intent hiding inside B2B SaaS websites.
         </h1>
         <p className="font-mono mt-6 text-[14px] uppercase leading-relaxed text-cream/55 sm:text-[15px]">
-          Digital plumbers for modern revenue teams
+          Demo recovery for HubSpot and Calendly teams
         </p>
 
         <div className="mt-12 space-y-8 font-mono text-[15px] normal-case leading-[1.75] text-cream/85 sm:text-[16px]">
           <p className="text-[17px] font-medium leading-snug text-cream sm:text-[18px]">
-            SentientWeb exists because most websites leak revenue at the exact moment visitors are
-            ready to move. Forms wait. Teams sleep. Buyers hesitate. A competitor responds first.
+            SentientWeb exists because high-intent buyers often reach pricing, demo, comparison,
+            integration, and security pages before sales ever sees them. Forms wait. Buyers
+            hesitate. Context disappears. SentientWeb keeps that moment alive and turns it into a
+            qualified booked demo.
           </p>
 
           <p>
-            We build AI-guided recovery paths that meet visitors with instant access, approved-source
-            next steps, and a clear route to human support. The goal is not to replace judgment. The
-            goal is to keep valuable intent alive until the right person can take over.
+            We are starting with B2B SaaS teams using HubSpot and Calendly because the problem is
+            measurable: demo-ready visitors detected, qualified conversations, booked meetings,
+            HubSpot context, and sales-accepted opportunities.
           </p>
 
           <p>
-            The same system adapts across verticals: SaaS demo requests, home service estimates,
-            insurance quotes, carts, patient access, enrollments, direct bookings, property matches,
-            legal intake, and rate estimates. Each path is built around the revenue leak that market
-            actually feels.
+            We build AI-guided recovery paths that meet visitors with approved-source next steps and
+            a clear route to human support. The goal is not to replace judgment. The goal is to keep
+            valuable demo intent alive until the right person can take over.
           </p>
 
           <p>
-            Trust matters because these moments often include sensitive context. SentientWeb keeps
-            human support available, uses encryption in transit, and publishes retention controls
-            for the AI-assisted experience.
+            Trust matters because these moments include business context, buying intent, and
+            sometimes sensitive requirements. SentientWeb uses approved source content, keeps human
+            handoff available, and publishes clear AI and retention notices.
           </p>
 
           <p>
-            We are building for teams that want practical revenue recovery, not another dashboard to
-            manage. If your site already attracts demand, our job is to help more of that demand
-            reach the next step.
+            We are digital plumbers for your revenue leaks, but the first leak we fix is demo
+            intent. If your site already attracts demand, our job is to help more of that demand
+            reach a qualified booked meeting.
           </p>
         </div>
 
@@ -55,7 +56,7 @@ export default function AboutPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Get instant access
+            Book a 30-day pilot
           </a>
           <Link
             to="/pricing"

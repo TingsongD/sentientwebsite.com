@@ -16,9 +16,9 @@ export default function CareersPage() {
           Careers
         </h1>
         <p className="font-mono mt-6 max-w-2xl text-[14px] normal-case leading-relaxed text-cream/75 sm:text-[15px]">
-          SentientWeb is building digital plumbing for website revenue leaks: instant access paths,
-          approved-source next steps, and human handoff for teams that cannot afford missed demand.
-          Early hires shape the market motion and the culture.
+          SentientWeb is building a demo recovery engine for B2B SaaS teams: detect demo-ready
+          visitors, qualify them, book the meeting, and sync the full context into HubSpot. Early
+          hires shape the market motion and the culture.
         </p>
 
         <section className="mt-14" aria-labelledby="open-roles-heading">
@@ -59,9 +59,9 @@ export default function CareersPage() {
                   About the role
                 </h4>
                 <p>
-                  You will own outbound and inbound pipeline for SentientWeb’s revenue recovery
+                  You will own outbound and inbound pipeline for SentientWeb&apos;s demo recovery
                   offer. Our buyers are founders, revenue leaders, and operators who feel the gap
-                  between website demand and team response capacity.
+                  between high-intent website behavior and booked sales meetings.
                 </p>
               </div>
 
@@ -70,11 +70,14 @@ export default function CareersPage() {
                   What you will do
                 </h4>
                 <ul className="list-inside list-disc space-y-2 marker:text-neon">
-                  <li>Run disciplined outbound into defined ICPs and verticals.</li>
-                  <li>Capture inbound revenue opportunities from the site, events, and partners.</li>
-                  <li>Own discovery that maps revenue leaks to instant access paths.</li>
+                  <li>Run disciplined outbound into a defined B2B SaaS ICP.</li>
+                  <li>Capture inbound demo recovery opportunities from the site, events, and partners.</li>
+                  <li>
+                    Own discovery that maps demo-page, pricing-page, and comparison-page intent to
+                    qualified booked demos.
+                  </li>
                   <li>Manage pipeline in HubSpot or similar tools with clean stage hygiene.</li>
-                  <li>Feed the team market signals, objections, and vertical copy needs.</li>
+                  <li>Feed the team market signals, objections, and SaaS copy needs.</li>
                   <li>Contribute to messaging, one-pagers, and sales narratives as we scale.</li>
                 </ul>
               </div>
@@ -117,7 +120,7 @@ export default function CareersPage() {
                   How to apply
                 </h4>
                 <p>
-                  Send your resume and a short note on why this revenue recovery wedge interests you
+                  Send your resume and a short note on why this demo recovery wedge interests you
                   to{' '}
                   <a
                     href={APPLY_EMAIL}
@@ -141,7 +144,7 @@ export default function CareersPage() {
                 rel="noopener noreferrer"
                 className="liquid-glass rounded-full px-5 py-2.5 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[12px]"
               >
-                See instant access
+                See demo recovery
               </a>
               <Link
                 to="/about"

@@ -20,6 +20,7 @@ export const APP_ROUTE_PATHS = {
   pricingCalculator: '/pricing/calculator',
   pricingEnterprise: '/pricing/enterprise',
   revenueLeakCalculator: '/revenue-leak-calculator',
+  orchestrate: '/orchestrate',
   knowledgeBase: '/knowledge-base',
   apisSdks: '/apis-sdks',
   documentation: '/documentation',

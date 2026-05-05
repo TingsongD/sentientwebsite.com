@@ -1,36 +1,25 @@
-export type PricingTrack = 'product' | 'service'
-export type PricingTier = 'starter' | 'growth' | 'scale' | 'enterprise'
+export type PricingPlan = 'pilot' | 'starter' | 'growth' | 'scale'
+export type PricingTrack = PricingPlan
+export type PricingTier = PricingPlan | 'annual'
 
-export type ProductCalculatorInput = {
-  visitors: number
-  averageOrderValue: number
-  abandonmentRate: number
+export type DemoRecoveryCalculatorInput = {
+  highIntentVisitors: number
+  currentDemoConversionRate: number
+  recoveredDemoLiftRate: number
+  averageContractValue: number
+  demoToOpportunityRate: number
 }
 
-export type ServiceCalculatorInput = {
-  visitors: number
-  averageTicket: number
-  bookingRate: number
+export type DemoRecoveryEstimate = {
+  currentDemos: number
+  recoveredDemos: number
+  qualifiedBookedDemos: number
+  pipelineInfluenced: number
+  estimatedFee: number
 }
 
-export type ProductEstimate = {
-  recoveries: number
-  recoveredRevenue: number
-  fee: number
-  clientKeeps: number
-}
-
-export type ServiceEstimate = {
-  bookings: number
-  recoveredRevenue: number
-  fee: number
-  clientKeeps: number
-}
-
-export const PRICING_BASE_FEE = 500
-export const PRODUCT_PERFORMANCE_RATE = 0.2
-export const SERVICE_INCLUDED_BOOKINGS = 100
-export const SERVICE_PERFORMANCE_FEE = 100
+export const QUALIFIED_BOOKED_DEMO_DEFINITION =
+  'A qualified booked demo means the visitor matched the agreed ICP, shared a relevant use case, provided business email or company domain, indicated role or buying involvement, and booked through the approved calendar path.'
 
 export const PRICING_ROUTE_PATHS = [
   '/pricing/product',
@@ -41,200 +30,212 @@ export const PRICING_ROUTE_PATHS = [
 
 export const PRICING_META = {
   '/pricing': {
-    title: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
+    title: 'SentientWeb Pricing | Visitor-to-Demo Engine',
     description:
-      '$500/month base plus 20% of recovered revenue for products, or $100 per recovered booking for services. Start a 30-day free pilot.',
+      'Start with a 30-day pilot, then choose monthly demo recovery pricing measured by qualified booked demos and HubSpot-visible context.',
     canonicalPath: '/pricing',
     absoluteTitle: true,
   },
   '/pricing/product': {
-    title: 'Product Track Pricing',
+    title: 'Demo Recovery Pilot Pricing',
     description:
-      'Product Track pricing starts at a $500/month base retainer plus 20% of recovered cart, checkout, upsell, and self-serve revenue.',
+      'Legacy pricing path for the 30-day B2B SaaS demo recovery pilot measured by qualified booked demos.',
     canonicalPath: '/pricing/product',
   },
   '/pricing/service': {
-    title: 'Service Track Pricing',
+    title: 'Demo Recovery Monthly Pricing',
     description:
-      'Service Track pricing starts at a $500/month base retainer plus $100 per recovered booking after the included monthly booking volume.',
+      'Monthly B2B SaaS demo recovery pricing for teams turning high-intent pages into qualified booked demos.',
     canonicalPath: '/pricing/service',
   },
   '/pricing/calculator': {
-    title: 'Revenue Recovery Calculator',
+    title: 'Demo Recovery Calculator',
     description:
-      'Estimate recovered revenue, monthly fee, and retained upside for product and service businesses using SentientWeb.',
+      'Estimate recovered demos, qualified booked demos, pipeline influenced, and modeled SentientWeb fees.',
     canonicalPath: '/pricing/calculator',
   },
   '/pricing/enterprise': {
-    title: 'Enterprise Pricing',
+    title: 'Scale Demo Recovery Pricing',
     description:
-      'Custom pricing for high-volume revenue recovery teams that need unlimited volume, negotiated performance fees, and sales-led review.',
+      'Scale pricing for high-volume B2B SaaS demo recovery teams that need custom volume and HubSpot reporting.',
     canonicalPath: '/pricing/enterprise',
   },
 } as const
 
+export const PRICING_PLAN_ORDER = ['pilot', 'starter', 'growth', 'scale'] as const
+
 export const TRACKS: Record<
-  PricingTrack,
+  PricingPlan,
   {
     label: string
     selectorLabel: string
     audience: string
-    kicker: string
-    kickerDetail: string
+    price: string
+    priceDetail: string
     included: string
+    kicker: string
     features: string[]
     cta: string
   }
 > = {
-  product: {
-    label: 'Product Track',
-    selectorLabel: 'I sell products online',
-    audience: 'For ecommerce, SaaS, digital products, and courses',
-    kicker: '20% of recovered revenue',
-    kickerDetail: 'Performance fee',
-    included: '500 recovery instances/mo',
+  pilot: {
+    label: '30-Day Pilot',
+    selectorLabel: 'Pilot',
+    audience: 'For the first 10 B2B SaaS customers with case-study rights',
+    price: '$0',
+    priceDetail: 'initial platform minimum until the first qualified booking',
+    included: 'Pilot setup around pricing, demo, comparison, and integration pages',
+    kicker: '$100-$150 per qualified booked demo',
     features: [
-      'Cart abandonment recovery',
-      'Exit-intent recovery prompts',
-      'AI-powered upsell prompts',
-      'Real-time revenue dashboard',
+      'HubSpot and Calendly recovery flow',
+      'Approved-source answers and human handoff',
+      'Qualified booked demo definition agreed before launch',
+      'HubSpot-visible pilot reporting',
     ],
-    cta: 'Start Free Pilot',
+    cta: 'Book a 30-day pilot',
   },
-  service: {
-    label: 'Service Track',
-    selectorLabel: 'I book appointments',
-    audience: 'For clinics, agencies, trades, lawyers, and service teams',
-    kicker: '$100 per recovered booking',
-    kickerDetail: 'Performance fee',
-    included: '100 recovered bookings/mo',
+  starter: {
+    label: 'Starter',
+    selectorLabel: 'Starter',
+    audience: 'For SaaS teams validating demo recovery on a focused set of high-intent pages',
+    price: '$999',
+    priceDetail: '/month includes 5 qualified booked demos',
+    included: '5 qualified booked demos',
+    kicker: '$100 per additional qualified booked demo',
     features: [
-      'Phone and SMS booking path',
-      'Rescheduling support',
-      'Google and Outlook calendar integration',
-      'Real-time booking dashboard',
+      'Demo-ready detection',
+      'Page-specific recovery playbooks',
+      'Calendly booking path after qualification',
+      'HubSpot context sync',
     ],
-    cta: 'Start Free Pilot',
+    cta: 'Book a 30-day pilot',
+  },
+  growth: {
+    label: 'Growth',
+    selectorLabel: 'Growth',
+    audience: 'For sales-led teams with meaningful traffic on pricing, demo, and comparison pages',
+    price: '$1,500',
+    priceDetail: '/month includes 15 qualified booked demos',
+    included: '15 qualified booked demos',
+    kicker: '$75 per additional qualified booked demo',
+    features: [
+      'Everything in Starter',
+      'Expanded high-intent page coverage',
+      'Sales-accepted demo reporting',
+      'Monthly recovery review',
+    ],
+    cta: 'Book a 30-day pilot',
+  },
+  scale: {
+    label: 'Scale',
+    selectorLabel: 'Scale',
+    audience: 'For high-volume teams that need custom reporting and sales operations review',
+    price: '$3,000',
+    priceDetail: '/month includes 40 qualified booked demos',
+    included: '40 qualified booked demos',
+    kicker: 'Custom success fee after included volume',
+    features: [
+      'Everything in Growth',
+      'Custom qualification thresholds',
+      'RevOps-ready HubSpot field mapping',
+      'Annual pricing review after a successful pilot',
+    ],
+    cta: 'Talk to Sales',
   },
 }
 
-export const TIER_TABLES: Record<
-  PricingTrack,
-  Array<{
-    tier: PricingTier
-    monthlyBase: string
-    included: string
-    kicker: string
-    additionalRecoveries: string
-    upgradeTrigger: string
-  }>
-> = {
-  product: [
-    {
-      tier: 'starter',
-      monthlyBase: '$500',
-      included: '500 recoveries',
-      kicker: '20% of all recovered revenue',
-      additionalRecoveries: 'Soft prompt above 500',
-      upgradeTrigger: '3-month average above 500',
-    },
-    {
-      tier: 'growth',
-      monthlyBase: '$1,500',
-      included: '2,000 recoveries',
-      kicker: '20% of all recovered revenue',
-      additionalRecoveries: 'Mandatory upgrade above 2,000',
-      upgradeTrigger: '3-month average above 2,000',
-    },
-    {
-      tier: 'scale',
-      monthlyBase: '$4,000',
-      included: '6,000 recoveries',
-      kicker: '20% of all recovered revenue',
-      additionalRecoveries: 'Mandatory upgrade above 6,000',
-      upgradeTrigger: '3-month average above 6,000',
-    },
-    {
-      tier: 'enterprise',
-      monthlyBase: 'Custom',
-      included: 'Unlimited',
-      kicker: 'Negotiated performance fee',
-      additionalRecoveries: 'Manual review',
-      upgradeTrigger: 'Sales-led only',
-    },
-  ],
-  service: [
-    {
-      tier: 'starter',
-      monthlyBase: '$500',
-      included: '100 bookings',
-      kicker: '$100 after 100 bookings/mo',
-      additionalRecoveries: 'Soft prompt above 110',
-      upgradeTrigger: '3-month average above 110',
-    },
-    {
-      tier: 'growth',
-      monthlyBase: '$1,500',
-      included: '300 bookings',
-      kicker: '$100 after 300 bookings/mo',
-      additionalRecoveries: 'Mandatory upgrade above 330',
-      upgradeTrigger: '3-month average above 330',
-    },
-    {
-      tier: 'scale',
-      monthlyBase: '$4,000',
-      included: '1,000 bookings',
-      kicker: '$100 after 1,000 bookings/mo',
-      additionalRecoveries: 'Mandatory upgrade above 1,100',
-      upgradeTrigger: '3-month average above 1,100',
-    },
-    {
-      tier: 'enterprise',
-      monthlyBase: 'Custom',
-      included: 'Unlimited',
-      kicker: 'Negotiated booking fee',
-      additionalRecoveries: 'Manual review',
-      upgradeTrigger: 'Sales-led only',
-    },
-  ],
+export const TIER_TABLES: Array<{
+  tier: PricingTier
+  monthlyBase: string
+  included: string
+  kicker: string
+  additionalRecoveries: string
+  upgradeTrigger: string
+}> = [
+  {
+    tier: 'pilot',
+    monthlyBase: '30-day pilot',
+    included: 'Pilot pages and first qualified booking minimum',
+    kicker: '$100-$150 per qualified booked demo',
+    additionalRecoveries: 'Measured during pilot',
+    upgradeTrigger: 'Move to monthly plan after pilot proof',
+  },
+  {
+    tier: 'starter',
+    monthlyBase: '$999',
+    included: '5 qualified booked demos',
+    kicker: '$100 per additional qualified booked demo',
+    additionalRecoveries: 'Soft review above 7',
+    upgradeTrigger: '3-month average above 7',
+  },
+  {
+    tier: 'growth',
+    monthlyBase: '$1,500',
+    included: '15 qualified booked demos',
+    kicker: '$75 per additional qualified booked demo',
+    additionalRecoveries: 'Soft review above 20',
+    upgradeTrigger: '3-month average above 20',
+  },
+  {
+    tier: 'scale',
+    monthlyBase: '$3,000',
+    included: '40 qualified booked demos',
+    kicker: 'Custom success fee',
+    additionalRecoveries: 'Manual review',
+    upgradeTrigger: 'Sales-led only',
+  },
+  {
+    tier: 'annual',
+    monthlyBase: '$12k-$18k/year',
+    included: 'Annual demo recovery program',
+    kicker: 'Pilot credit applied',
+    additionalRecoveries: 'Custom',
+    upgradeTrigger: 'After successful pilot',
+  },
+]
+
+function nonNegativeFinite(value: number) {
+  return Number.isFinite(value) ? Math.max(0, value) : 0
 }
 
-export function calculateProductEstimate({
-  visitors,
-  averageOrderValue,
-  abandonmentRate,
-}: ProductCalculatorInput): ProductEstimate {
-  const recoveries = visitors * (abandonmentRate / 100) * 0.15
-  const recoveredRevenue = recoveries * averageOrderValue * 0.5
-  const fee = PRICING_BASE_FEE + recoveredRevenue * PRODUCT_PERFORMANCE_RATE
+function percentageRate(value: number) {
+  return Math.min(nonNegativeFinite(value), 100)
+}
+
+export function calculateDemoRecoveryEstimate({
+  highIntentVisitors,
+  currentDemoConversionRate,
+  recoveredDemoLiftRate,
+  averageContractValue,
+  demoToOpportunityRate,
+}: DemoRecoveryCalculatorInput): DemoRecoveryEstimate {
+  const safeHighIntentVisitors = nonNegativeFinite(highIntentVisitors)
+  const safeCurrentDemoConversionRate = percentageRate(currentDemoConversionRate)
+  const safeRecoveredDemoLiftRate = percentageRate(recoveredDemoLiftRate)
+  const safeAverageContractValue = nonNegativeFinite(averageContractValue)
+  const safeDemoToOpportunityRate = percentageRate(demoToOpportunityRate)
+
+  const currentDemos = safeHighIntentVisitors * (safeCurrentDemoConversionRate / 100)
+  const recoveredDemos = safeHighIntentVisitors * (safeRecoveredDemoLiftRate / 100)
+  const qualifiedBookedDemos = recoveredDemos
+  const pipelineInfluenced =
+    qualifiedBookedDemos * safeAverageContractValue * (safeDemoToOpportunityRate / 100)
+  const estimatedFee = Math.max(500, qualifiedBookedDemos * 100)
 
   return {
-    recoveries,
-    recoveredRevenue,
-    fee,
-    clientKeeps: recoveredRevenue - fee,
+    currentDemos,
+    recoveredDemos,
+    qualifiedBookedDemos,
+    pipelineInfluenced,
+    estimatedFee,
   }
 }
 
-export function calculateServiceEstimate({
-  visitors,
-  averageTicket,
-  bookingRate,
-}: ServiceCalculatorInput): ServiceEstimate {
-  const bookings = visitors * (bookingRate / 100)
-  const recoveredRevenue = bookings * averageTicket
-  const fee = PRICING_BASE_FEE + Math.max(0, bookings - SERVICE_INCLUDED_BOOKINGS) * SERVICE_PERFORMANCE_FEE
-
-  return {
-    bookings,
-    recoveredRevenue,
-    fee,
-    clientKeeps: recoveredRevenue - fee,
-  }
-}
-
-export function pricingTrackFromPath(pathname: string): PricingTrack | null {
-  if (pathname === '/pricing/product') return 'product'
-  if (pathname === '/pricing/service') return 'service'
+export function pricingPlanFromPath(pathname: string): PricingPlan | null {
+  if (pathname === '/pricing/product') return 'pilot'
+  if (pathname === '/pricing/service') return 'starter'
+  if (pathname === '/pricing/enterprise') return 'scale'
   return null
 }
+
+export const pricingTrackFromPath = pricingPlanFromPath

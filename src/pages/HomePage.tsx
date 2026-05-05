@@ -5,21 +5,169 @@ import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
-import { FEATURES, featureSectionId } from '../data/homeFeatures'
-import { SOLUTION_NAV_LIST, type SolutionSlug } from '../data/solutionPagesContent'
 
 const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
 
 const INTEGRATION_LOGOS = [
   { name: 'HubSpot', logoUrl: '/logos/hubspot.svg' },
-  { name: 'OpenAI', logoUrl: '/logos/openai.svg' },
-  { name: 'Gemini', logoUrl: '/logos/gemini.svg' },
-  { name: 'Claude', logoUrl: '/logos/claude.svg' },
-  { name: 'Shopify', logoUrl: '/logos/shopify.svg' },
-  { name: 'Webflow', logoUrl: '/logos/webflow.svg' },
+  { name: 'Calendly', logoUrl: '/logos/calendly.svg' },
   { name: 'WordPress', logoUrl: '/logos/wordpress.svg' },
-  { name: 'Wix', logoUrl: '/logos/wix.svg' },
+  { name: 'Webflow', logoUrl: '/logos/webflow.svg' },
+] as const
+
+const HIGH_INTENT_PAGE_CARDS = [
+  {
+    title: 'Pricing pages',
+    body: 'Handle plan-fit, ROI, budget, and timing hesitation before the visitor leaves.',
+  },
+  {
+    title: 'Demo pages',
+    body: 'Qualify the visitor and open the right Calendly path when fit is confirmed.',
+  },
+  {
+    title: 'Comparison pages',
+    body: 'Answer competitive objections from approved content.',
+  },
+  {
+    title: 'Integration pages',
+    body: 'Confirm stack fit for HubSpot, Calendly, Salesforce, or customer tools.',
+  },
+  {
+    title: 'Security pages',
+    body: 'Route trust questions and sync requirements to sales.',
+  },
+  {
+    title: 'Customer story pages',
+    body: "Match proof to the visitor's use case and buying context.",
+  },
+] as const
+
+const DEMO_RECOVERY_MODULES = [
+  {
+    title: 'Demo-Ready Detection',
+    body: 'Detect high-intent behavior on pricing, demo, comparison, integration, security, docs, and customer story pages.',
+  },
+  {
+    title: 'Page-Specific Recovery Playbooks',
+    body: 'Handle pricing hesitation, integration questions, security concerns, and comparison-page objections with approved source content.',
+  },
+  {
+    title: 'Qualified Demo Booking',
+    body: 'Confirm company domain, role, use case, timeline, and stack fit before opening the booking path.',
+  },
+  {
+    title: 'HubSpot Context Sync',
+    body: 'Send contact, company, page behavior, qualification answers, and conversation summary into HubSpot.',
+  },
+  {
+    title: 'Recovered Demo Reporting',
+    body: 'Show demo-ready visitors detected, qualified visitors, booked demos, and sales-visible context.',
+  },
+] as const
+
+const VOICE_FEEDBACK_USE_CASES = [
+  {
+    title: 'Lost-demo feedback',
+    body: 'Find why a prospect did not book or did not show.',
+  },
+  {
+    title: 'Post-demo objection capture',
+    body: 'Capture what blocked the deal after the call.',
+  },
+  {
+    title: 'Churn-risk interview',
+    body: 'Ask why usage dropped or renewal is at risk.',
+  },
+  {
+    title: 'NPS follow-up by voice',
+    body: 'Turn a shallow score into conversational product feedback.',
+  },
+  {
+    title: 'Website exit interview',
+    body: 'Ask what stopped visitors leaving pricing or demo pages.',
+  },
+] as const
+
+const FUNNEL_FEATURE_GROUPS = [
+  {
+    stage: 'Top of the funnel',
+    summary: 'Detect and recover buying intent before a visitor becomes another anonymous bounce.',
+    features: [
+      {
+        title: 'High-intent page detection',
+        body: 'Scores visits to pricing, demo, comparison, integration, security, docs, and customer story pages.',
+      },
+      {
+        title: 'Instant Demo Preview',
+        body: 'Lets prospects request a SentientWeb recovery preview from a public pricing or website URL.',
+      },
+      {
+        title: 'Page recovery surfaces',
+        body: 'Handles pricing, demo, comparison, integration, security, and customer-story hesitation moments.',
+      },
+      {
+        title: 'Service-business early path',
+        body: 'Keeps appointment-ready visitor recovery visible as an emerging path without making it the primary product.',
+      },
+    ],
+  },
+  {
+    stage: 'Mid-funnel',
+    summary: 'Turn active hesitation into a guided conversation that confirms whether the visitor is worth sales time.',
+    features: [
+      {
+        title: 'Page-specific AI engagement',
+        body: 'Responds with the right plan-fit, ROI, stack-fit, security, or competitive context for the page they are on.',
+      },
+      {
+        title: 'Approved-source answers',
+        body: 'Uses approved content instead of generic responses when visitors ask buying or trust questions.',
+      },
+      {
+        title: 'Qualification questions',
+        body: 'Collects role, company domain, use case, stack, timeline, urgency, and fit before the calendar opens.',
+      },
+      {
+        title: 'Human handoff',
+        body: 'Routes complex, sensitive, or high-value conversations to a person with the full context preserved.',
+      },
+      {
+        title: 'Integration context',
+        body: 'Keeps HubSpot, Calendly, WordPress, Webflow, and custom install paths visible in the buying journey.',
+      },
+    ],
+  },
+  {
+    stage: 'Bottom of the funnel',
+    summary: 'Convert qualified website intent into a booked meeting sales can actually prepare for.',
+    features: [
+      {
+        title: 'Calendly demo booking',
+        body: 'Opens the agreed booking path only after the visitor has shared enough context to qualify the meeting.',
+      },
+      {
+        title: 'HubSpot context sync',
+        body: 'Sends page behavior, qualification answers, summary, booking details, and a suggested opener into HubSpot.',
+      },
+      {
+        title: 'Text and email reminders',
+        body: 'Sends reminders before the meeting so the prospect has the link, timing, and reason they booked.',
+      },
+      {
+        title: 'Recovered demo reporting',
+        body: 'Tracks detected demo-ready visitors, qualified visitors, booked demos, and sales-visible context.',
+      },
+      {
+        title: 'ROI calculator',
+        body: 'Models recovered demos and pipeline influence from existing high-intent website traffic.',
+      },
+      {
+        title: 'Voice feedback add-on',
+        body: 'Captures why buyers did not book, did not show, stalled after demo, or signaled churn risk.',
+      },
+    ],
+  },
 ] as const
 
 type LeakClockUnit = 'day' | 'hour'
@@ -41,70 +189,7 @@ const LEAK_CLOCK_ESTIMATES = {
     methodology:
       'Uses US SaaS revenue benchmarks and a conservative modeled share of inbound demo pipeline lost to slow routing, weak response loops, and delayed handoff.',
   },
-  'home-services': {
-    usAnnualLeakUsd: 24_000_000_000,
-    typicalAnnualLeakUsd: 144_000,
-    sourceLabel: 'Modeled from US home-services market size and missed-call economics.',
-    methodology:
-      'Uses US home-services market estimates with a conservative missed-call and after-hours booking leakage model for HVAC, plumbing, and electrical demand.',
-  },
-  insurance: {
-    usAnnualLeakUsd: 18_000_000_000,
-    typicalAnnualLeakUsd: 120_000,
-    sourceLabel: 'Modeled from insurance lead response benchmarks.',
-    methodology:
-      'Uses insurance speed-to-lead and uncontacted-lead benchmarks, then applies a conservative lost-premium and broker-fee recovery model.',
-  },
-  ecommerce: {
-    usAnnualLeakUsd: 260_000_000_000,
-    typicalAnnualLeakUsd: 240_000,
-    sourceLabel: 'Baymard cart and checkout abandonment recovery estimates.',
-    methodology:
-      'Uses Baymard research on recoverable cart and checkout revenue, applied as the ecommerce benchmark for abandoned buying sessions.',
-  },
-  healthcare: {
-    usAnnualLeakUsd: 150_000_000_000,
-    typicalAnnualLeakUsd: 200_000,
-    sourceLabel: 'US healthcare no-show cost estimates.',
-    methodology:
-      'Uses published US healthcare no-show cost estimates and treats missed appointments, delayed reminders, and incomplete intake as the leak category.',
-  },
-  edtech: {
-    usAnnualLeakUsd: 12_000_000_000,
-    typicalAnnualLeakUsd: 90_000,
-    sourceLabel: 'Modeled from admissions and EdTech speed-to-lead benchmarks.',
-    methodology:
-      'Uses admissions response-time research and conservative program-value assumptions for inquiries that go cold before enrollment.',
-  },
-  hospitality: {
-    usAnnualLeakUsd: 10_000_000_000,
-    typicalAnnualLeakUsd: 175_000,
-    sourceLabel: 'Hotel booking abandonment and lost direct-booking estimates.',
-    methodology:
-      'Uses hospitality booking-abandonment research and published lost direct-booking estimates as the US-wide leakage baseline.',
-  },
-  'real-estate': {
-    usAnnualLeakUsd: 22_000_000_000,
-    typicalAnnualLeakUsd: 235_000,
-    sourceLabel: 'Modeled from real-estate speed-to-lead conversion gaps.',
-    methodology:
-      'Uses real-estate lead-response benchmarks and a conservative commission gap model for internet leads that go cold before contact.',
-  },
-  legal: {
-    usAnnualLeakUsd: 109_000_000_000,
-    typicalAnnualLeakUsd: 332_000,
-    sourceLabel: 'Clio/legal intake research plus vendor-cited missed-call estimates.',
-    methodology:
-      'Uses legal intake responsiveness research, missed-call benchmarks, and vendor-cited industry leakage estimates; values should be read as directional.',
-  },
-  'financial-services': {
-    usAnnualLeakUsd: 16_000_000_000,
-    typicalAnnualLeakUsd: 150_000,
-    sourceLabel: 'Modeled from financial-services lead response and application leakage.',
-    methodology:
-      'Uses financial-services response-time benchmarks and conservative assumptions for rate shoppers, application starts, and advisory inquiries that go stale.',
-  },
-} as const satisfies Record<SolutionSlug, LeakClockEstimate>
+} as const satisfies Record<'saas', LeakClockEstimate>
 
 const currency = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -226,19 +311,16 @@ function IntegrationLogoItem({
 }) {
   return (
     <li
-      className="flex min-w-[176px] items-center gap-3 rounded-[18px] border border-white/10 bg-cream px-5 py-4 shadow-sm sm:min-w-[204px]"
+      className="flex min-w-[96px] items-center justify-center px-6 py-3 sm:min-w-[128px] sm:px-8"
       aria-hidden={hidden || undefined}
     >
       <img
         src={logoUrl}
         alt={hidden ? '' : `${name} logo`}
-        className="h-9 max-w-[92px] shrink-0 object-contain"
+        className="h-10 w-auto max-w-[90px] shrink-0 object-contain sm:h-12 sm:max-w-[112px]"
         loading="eager"
         decoding="async"
       />
-      <span className="font-grotesk text-[13px] uppercase tracking-wide text-background sm:text-[14px]">
-        {name}
-      </span>
     </li>
   )
 }
@@ -291,10 +373,10 @@ function SolutionLeakClock({
 
   return (
     <span className="grid min-w-0 gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-      <span className="flex min-w-0 flex-col gap-4">
-        <span className="font-mono text-[10px] uppercase leading-tight tracking-widest text-cream/55 sm:text-[11px]">
-          Industry-wide revenue leakage in the US
-        </span>
+        <span className="flex min-w-0 flex-col gap-4">
+          <span className="font-mono text-[10px] uppercase leading-tight tracking-widest text-cream/55 sm:text-[11px]">
+          B2B SaaS demo recovery context in the US
+          </span>
         <span className="flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-end sm:gap-x-4">
           <span className="font-grotesk block text-[24px] uppercase leading-none tracking-normal text-cream sm:text-[32px] lg:text-[42px]">
             {navLabel}
@@ -312,38 +394,34 @@ function SolutionLeakClock({
         </span>
       </span>
       <span className="font-mono text-[11px] uppercase leading-relaxed text-cream/55 sm:text-[12px] md:max-w-[190px] md:text-right">
-        Typical operator: <span className="text-[#FF8A8A]">{typicalRate}/{unit}</span>
+        Modeled operator gap: <span className="text-[#FF8A8A]">{typicalRate}/{unit}</span>
       </span>
     </span>
   )
 }
 
 function LeakClockMethodology() {
+  const estimate = LEAK_CLOCK_ESTIMATES.saas
+
   return (
     <details className="liquid-glass mt-8 rounded-[20px] p-5 sm:p-6">
       <summary className="cursor-pointer list-none font-grotesk text-[15px] uppercase tracking-wide text-cream [&::-webkit-details-marker]:hidden">
-        How these leak rates are estimated
+        How this B2B SaaS estimate is modeled
       </summary>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        {SOLUTION_NAV_LIST.map(({ slug, navLabel }) => {
-          const estimate = LEAK_CLOCK_ESTIMATES[slug]
-          return (
-            <article key={slug} className="border-t border-white/10 pt-4">
-              <h3 className="font-grotesk text-[13px] uppercase tracking-wide text-neon">
-                {navLabel}
-              </h3>
-              <p className="font-mono mt-2 text-[11px] uppercase leading-relaxed text-cream/55">
-                {estimate.sourceLabel}
-              </p>
-              <p className="font-mono mt-2 text-[12px] normal-case leading-relaxed text-cream/70">
-                {estimate.methodology}
-              </p>
-            </article>
-          )
-        })}
-      </div>
+      <article className="mt-5 border-t border-white/10 pt-4">
+        <h3 className="font-grotesk text-[13px] uppercase tracking-wide text-neon">
+          B2B SaaS
+        </h3>
+        <p className="font-mono mt-2 text-[11px] uppercase leading-relaxed text-cream/55">
+          {estimate.sourceLabel}
+        </p>
+        <p className="font-mono mt-2 text-[12px] normal-case leading-relaxed text-cream/70">
+          {estimate.methodology}
+        </p>
+      </article>
       <p className="font-mono mt-5 border-t border-white/10 pt-4 text-[11px] uppercase leading-relaxed text-cream/45">
-        These are directional estimates for comparison, not audited financial claims.
+        This is a directional estimate for B2B SaaS demo recovery, not an audited financial claim
+        or product commitment.
       </p>
     </details>
   )
@@ -402,45 +480,176 @@ export default function HomePage() {
             <div className="mx-auto flex w-full max-w-[1831px] flex-1 flex-col justify-center px-4 pb-16 pt-10 sm:px-6 md:px-8 lg:px-10 lg:pb-24">
               <div className="relative max-w-[880px] lg:ml-16 xl:ml-32">
                 <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                  SentientWeb revenue recovery
+                  Visitor-to-Demo Engine for B2B SaaS
                 </p>
-                <p className="font-mono mb-6 max-w-xl text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
-                  24/7 auto revenue recovery. One click starts chasing past lost leads.
+                <p className="font-mono mb-6 max-w-[620px] text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
+                  We are digital plumbers for your revenue leaks, but the first leak we fix is demo
+                  intent: visitors who reach high-intent pages and leave before booking.
                 </p>
                 <h1
                   id="hero-heading"
                   className="font-grotesk uppercase leading-[1.05] text-cream sm:leading-none text-[40px] sm:text-[56px] md:text-[72px] lg:text-[84px]"
                 >
-                  We are digital plumbers for your revenue leaks.
+                  Recover demo-ready visitors before they leave.
                 </h1>
                 <p className="font-condiment pointer-events-none absolute -right-1 top-[42%] z-10 -translate-y-1/2 -rotate-1 text-[22px] text-neon opacity-90 mix-blend-exclusion sm:text-[28px] md:top-[48%] md:text-[36px] lg:right-[-8%] lg:text-[44px] normal-case">
-                  Leak sealed
+                  Demo booked
                 </p>
-                <p className="font-mono mt-8 max-w-[540px] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
-                  AI-guided next steps that capture revenue opportunities, deliver instant
-                  response paths, and hand off to humans when it matters.
+                <p className="font-mono mt-8 max-w-[540px] text-[13px] uppercase leading-relaxed text-neon sm:text-[14px] md:text-[15px]">
+                  Digital plumbing for your demo pipeline.
+                </p>
+                <p className="font-mono mt-5 max-w-[540px] text-[14px] uppercase leading-relaxed text-cream sm:text-[15px] md:text-[16px]">
+                  SentientWeb detects high-intent visitors on pricing, demo, comparison, and
+                  integration pages, qualifies them, books the meeting, and syncs the full context
+                  into HubSpot.
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <a
                     href={BOOK_DEMO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="liquid-glass rounded-full px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[14px]"
-                  >
-                    Start recovery
-                  </a>
-                  <a
-                    href={BOOK_DEMO_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                   >
-                    Get instant access
+                    Book a 30-day pilot
+                  </a>
+                  <a
+                    href="#features"
+                    className="liquid-glass rounded-full px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[14px]"
+                  >
+                    See how demo recovery works
                   </a>
                 </div>
                 <TrustStrip className="mt-8 max-w-[880px]" />
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Funnel feature overview */}
+        <section
+          id="features"
+          className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20 md:py-24 lg:py-28"
+          aria-labelledby="features-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Product
+            </p>
+            <h2
+              id="features-heading"
+              className="font-grotesk max-w-[1040px] text-[32px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px] lg:text-[60px]"
+            >
+              One scroll from top-of-funnel intent to a booked demo.
+            </h2>
+            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              SentientWeb brings the visible homepage capabilities into one continuous path:
+              detect intent, engage the hesitation, qualify fit, book the meeting, sync context,
+              and learn from what did not convert.
+            </p>
+
+            <div className="mt-12 grid gap-7">
+              {FUNNEL_FEATURE_GROUPS.map((group) => (
+                <section
+                  key={group.stage}
+                  className="rounded-[28px] border border-white/10 bg-white/[0.03] p-5 sm:p-7 lg:p-8"
+                  aria-labelledby={`funnel-${group.stage.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                >
+                  <div className="mb-6 grid gap-3 lg:grid-cols-[0.7fr_1fr] lg:items-end">
+                    <h3
+                      id={`funnel-${group.stage.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                      className="font-grotesk text-[26px] uppercase leading-tight text-cream sm:text-[34px]"
+                    >
+                      {group.stage}
+                    </h3>
+                    <p className="font-mono text-[12px] uppercase leading-relaxed text-cream/62 sm:text-[13px] lg:text-right">
+                      {group.summary}
+                    </p>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    {group.features.map((feature) => (
+                      <article
+                        key={feature.title}
+                        className="liquid-glass rounded-[20px] p-5 transition hover:bg-white/10 sm:p-6"
+                      >
+                        <h4 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                          {feature.title}
+                        </h4>
+                        <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                          {feature.body}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Revenue leaks */}
+        <section
+          id="revenue-leaks"
+          className="relative overflow-hidden bg-background"
+          aria-labelledby="revenue-leaks-heading"
+        >
+          <AmbientVideo
+            className="absolute inset-0 h-full w-full overflow-hidden"
+            mediaSrc={ABOUT_MEDIA}
+            reducedMotion={prefersReducedMotion}
+          />
+
+          <div className="relative z-10 mx-auto max-w-[1831px] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-10 lg:py-24 xl:py-32">
+            <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+              <div className="shrink-0">
+                <h2
+                  id="revenue-leaks-heading"
+                  className="font-grotesk uppercase leading-none text-cream text-[32px] sm:text-[42px] md:text-[52px] lg:text-[60px]"
+                >
+                  <span className="flex flex-wrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
+                    <span className="blackhole-drift-word blackhole-drift-word--revenue block shrink-0">
+                      Revenue
+                    </span>
+                    <span
+                      className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1"
+                    >
+                      Leaks
+                    </span>
+                    <span className="block">:</span>
+                  </span>
+                  <span className="mt-1 block sm:mt-0">The Black Hole</span>
+                  <span className="mt-1 block sm:mt-0">
+                    Sucking Your{' '}
+                    <span className="blackhole-drift-word blackhole-drift-word--profits inline-block text-neon">
+                      Profits
+                    </span>{' '}
+                    Dry
+                  </span>
+                </h2>
+              </div>
+              <div className="max-w-[600px]">
+                <p className="font-mono text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+                  Demo intent is the leak SentientWeb fixes. This B2B SaaS model shows where
+                  high-intent visitors disappear before sales sees the demand, qualifies the buyer,
+                  or books the meeting.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-12">
+              <Link
+                to="/solutions/saas"
+                className="group block min-h-[176px] rounded-[20px] border border-cream/25 bg-black p-5 text-cream shadow-[0_18px_60px_rgba(0,0,0,0.34)] transition hover:-translate-y-1 hover:border-[#FF8A8A]/70 hover:shadow-[0_24px_80px_rgba(255,138,138,0.14)] sm:p-6 lg:min-h-[154px]"
+              >
+                <SolutionLeakClock
+                  navLabel="B2B SaaS"
+                  marketLabel="HubSpot + Calendly B2B SaaS teams"
+                  estimate={LEAK_CLOCK_ESTIMATES.saas}
+                  unit={activeLeakClockUnit}
+                  reducedMotion={prefersReducedMotion}
+                />
+              </Link>
+            </div>
+            <LeakClockMethodology />
           </div>
         </section>
 
@@ -463,29 +672,216 @@ export default function HomePage() {
                   className="font-grotesk uppercase leading-none text-cream text-[32px] sm:text-[42px] md:text-[52px] lg:text-[60px]"
                 >
                   <span className="flex flex-wrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
-                    <span className="blackhole-drift-word blackhole-drift-word--revenue block shrink-0">
-                      Revenue
-                    </span>
+                    <span className="block shrink-0">Your</span>
                     <span
                       className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1"
                       aria-hidden
                     >
-                      Leaks
+                      demo-ready
                     </span>
-                    <span className="block">:</span>
+                    <span className="block">buyers</span>
                   </span>
-                  <span className="mt-1 block sm:mt-0">The Black Hole</span>
-                  <span className="mt-1 block sm:mt-0">
-                    Sucking Your{' '}
-                    <span className="blackhole-drift-word blackhole-drift-word--profits inline-block text-neon">
-                      Profits
-                    </span>{' '}
-                    Dry
-                  </span>
+                  <span className="mt-1 block sm:mt-0">are already on</span>
+                  <span className="mt-1 block sm:mt-0">the site.</span>
                 </h2>
+              </div>
+              <div className="max-w-[620px]">
+                <p className="font-mono text-[14px] uppercase leading-relaxed text-cream/75 sm:text-[15px]">
+                  They compare pricing, check integrations, read security pages, and hesitate
+                  before filling out a form. SentientWeb catches that moment and routes it to a
+                  qualified booked demo.
+                </p>
+                <ul className="mt-8 grid gap-3 font-mono text-[12px] uppercase leading-relaxed text-cream/70 sm:text-[13px]">
+                  {[
+                    'Pricing-page visitors hesitate over plan fit and ROI.',
+                    'Comparison-page visitors need a clear answer before they bounce.',
+                    'Integration-page visitors want to know whether the stack works.',
+                    'Security-page visitors need trust context before they book.',
+                    'Demo-page visitors need fast qualification, not a long form.',
+                  ].map((item) => (
+                    <li key={item} className="liquid-glass rounded-[18px] px-4 py-3">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
+          </div>
+        </section>
+
+        {/* Instant demo preview */}
+        <section
+          id="instant-demo-preview"
+          className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20"
+          aria-labelledby="instant-demo-preview-heading"
+        >
+          <div className="mx-auto grid max-w-[1831px] gap-8 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+            <div>
+              <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+                Instant Demo Preview
+              </p>
+              <h2
+                id="instant-demo-preview-heading"
+                className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+              >
+                See how SentientWeb would recover demo-ready visitors from your pricing page.
+              </h2>
+              <p className="font-mono mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+                Enter a public URL and get a preview of the recovery path SentientWeb would create
+                for high-intent visitors on your own site.
+              </p>
+            </div>
+
+            <div className="liquid-glass rounded-[28px] p-6 sm:p-8">
+              <label className="block" htmlFor="preview-url">
+                <span className="font-grotesk mb-2 block text-[12px] uppercase tracking-wide text-cream/80">
+                  Company website or pricing page URL
+                </span>
+                <input
+                  id="preview-url"
+                  type="url"
+                  inputMode="url"
+                  placeholder="https://example.com/pricing"
+                  className="min-h-12 w-full rounded-[16px] border border-white/10 bg-background px-4 py-3 font-mono text-[13px] normal-case text-cream outline-none transition placeholder:text-cream/35 focus:border-neon"
+                />
+              </label>
+              <div className="mt-5 flex flex-wrap items-center gap-4">
+                <a
+                  href={BOOK_DEMO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-neon px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
+                >
+                  Request a preview
+                </a>
+                <p className="font-mono max-w-[360px] text-[11px] uppercase leading-relaxed text-cream/50">
+                  URL submitted - preview generated - business-email claim - booked call - pilot
+                </p>
+              </div>
+              <div className="mt-6 border-t border-white/10 pt-5">
+                <h3 className="font-grotesk text-[15px] uppercase tracking-wide text-cream">
+                  Claim your recovery preview.
+                </h3>
+                <p className="font-mono mt-2 text-[12px] normal-case leading-relaxed text-cream/65">
+                  Use a business email so we can send the hosted preview, show the detected
+                  demo-intent moments, and walk through the setup path.
+                </p>
+                <p className="font-mono mt-4 text-[11px] uppercase leading-relaxed text-cream/45">
+                  SentientWeb only analyzes public pages for the preview. Private pages, internal
+                  hosts, and large crawls are blocked by backend controls.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Two recovery paths */}
+        <section
+          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          aria-labelledby="recovery-paths-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Two recovery paths
+            </p>
+            <h2
+              id="recovery-paths-heading"
+              className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+            >
+              Start with demo-ready visitor recovery.
+            </h2>
+            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              SentientWeb&apos;s primary product is Demo-Ready Visitor Recovery for B2B SaaS.
+              Appointment-Ready Visitor Recovery for service businesses is an emerging path using
+              the same high-intent recovery logic.
+            </p>
+
+            <div className="mt-10 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+              <article className="rounded-[28px] border border-neon/45 bg-neon/[0.06] p-6 shadow-[0_28px_90px_rgba(111,255,0,0.12)] sm:p-8">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-neon">
+                  Primary path / B2B SaaS
+                </p>
+                <h3 className="font-grotesk mt-4 text-[26px] uppercase leading-tight text-cream sm:text-[34px]">
+                  Demo-Ready Visitor Recovery for B2B SaaS
+                </h3>
+                <p className="font-mono mt-4 text-[13px] uppercase leading-relaxed text-cream/75 sm:text-[14px]">
+                  Recover demo-ready visitors before they leave.
+                </p>
+                <p className="font-mono mt-4 max-w-2xl text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[14px]">
+                  For HubSpot and Calendly teams turning pricing, demo, comparison, and
+                  integration-page intent into qualified booked meetings.
+                </p>
+                <Link
+                  to="/solutions/saas"
+                  className="mt-7 inline-flex rounded-full bg-neon px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
+                >
+                  Explore B2B SaaS recovery
+                </Link>
+              </article>
+
+              <article className="liquid-glass rounded-[28px] p-6 opacity-90 sm:p-8">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-cream/50">
+                  Emerging path / early access
+                </p>
+                <h3 className="font-grotesk mt-4 text-[22px] uppercase leading-tight text-cream sm:text-[28px]">
+                  Appointment-Ready Visitor Recovery for service businesses
+                </h3>
+                <p className="font-mono mt-4 text-[13px] uppercase leading-relaxed text-cream/70">
+                  Recover appointment-ready visitors before they leave.
+                </p>
+                <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/60">
+                  For service businesses turning service, pricing, booking, and location-page intent
+                  into qualified appointments.
+                </p>
+                <a
+                  href={BOOK_DEMO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-7 inline-flex rounded-full border border-white/15 px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:border-neon hover:text-neon sm:text-[13px]"
+                >
+                  Preview service recovery
+                </a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* Demo recovery modules */}
+        <section
+          className="border-t border-white/10 bg-background py-16 sm:py-20 md:py-24"
+          aria-labelledby="demo-engine-heading"
+        >
+          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Inside the Visitor-to-Demo Engine
+            </p>
+            <h2
+              id="demo-engine-heading"
+              className="font-grotesk max-w-[960px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+            >
+              The Demo Recovery Engine inside SentientWeb.
+            </h2>
+            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              Five focused modules turn demo-ready website intent into qualified booked meetings
+              and HubSpot-ready context.
+            </p>
+
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+              {DEMO_RECOVERY_MODULES.map((module) => (
+                <article
+                  key={module.title}
+                  className="liquid-glass rounded-[24px] p-5 transition hover:bg-white/10 sm:p-6"
+                >
+                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                    {module.title}
+                  </h3>
+                  <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                    {module.body}
+                  </p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -500,35 +896,31 @@ export default function HomePage() {
               id="solutions-heading"
               className="font-grotesk mb-4 text-[28px] uppercase leading-tight text-cream sm:text-[36px] md:text-[44px]"
             >
-              Solutions
+              B2B SaaS demo recovery
             </h2>
             <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
-              Ten vertical playbooks for the highest-value revenue leaks: demo requests,
-              emergency estimates, quotes, carts, bookings, applications, showings, intake,
-              and rate response.
+              Recover high-intent visitors from pricing, demo, comparison, integration, security,
+              and customer story pages.
             </p>
             <p className="font-condiment mb-10 max-w-3xl text-[22px] normal-case leading-tight text-neon sm:text-[28px] md:text-[34px]">
-              Stalled demand becomes instant next steps, detects intent, opens the right path,
-              and hands off to humans with full context.
+              We are digital plumbers for your revenue leaks, but the first leak we fix is demo
+              intent.
             </p>
-            <div className="grid gap-5 md:grid-cols-2 lg:gap-7">
-              {SOLUTION_NAV_LIST.map(({ slug, navLabel, marketLabel }) => (
-                <Link
-                  key={slug}
-                  to={`/solutions/${slug}`}
-                  className="group block min-h-[176px] rounded-[20px] border border-cream/25 bg-black p-5 text-cream shadow-[0_18px_60px_rgba(0,0,0,0.34)] transition hover:-translate-y-1 hover:border-[#FF8A8A]/70 hover:shadow-[0_24px_80px_rgba(255,138,138,0.14)] sm:p-6 lg:min-h-[154px]"
+            <div className="mb-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {HIGH_INTENT_PAGE_CARDS.map((card) => (
+                <article
+                  key={card.title}
+                  className="liquid-glass rounded-[22px] p-5 transition hover:bg-white/10 sm:p-6"
                 >
-                  <SolutionLeakClock
-                    navLabel={navLabel}
-                    marketLabel={marketLabel}
-                    estimate={LEAK_CLOCK_ESTIMATES[slug]}
-                    unit={activeLeakClockUnit}
-                    reducedMotion={prefersReducedMotion}
-                  />
-                </Link>
+                  <h3 className="font-grotesk text-[18px] uppercase leading-tight text-cream sm:text-[20px]">
+                    {card.title}
+                  </h3>
+                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/70 sm:text-[13px]">
+                    {card.body}
+                  </p>
+                </article>
               ))}
             </div>
-            <LeakClockMethodology />
           </div>
         </section>
 
@@ -557,13 +949,14 @@ export default function HomePage() {
                   className="font-grotesk uppercase leading-tight text-cream text-[18px] sm:text-[32px] md:text-[44px] lg:text-[52px] xl:text-[60px]"
                 >
                   <span className="mb-4 block text-[14px] sm:mb-6 sm:text-[20px] md:mb-8 md:text-[26px] lg:mb-10 lg:text-[30px] xl:text-[34px]">
-                    Runs up to 20 revenue recovery channels 24/7.
+                    One focused recovery loop: detect, qualify, book, sync.
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
-                    our P&amp;L should not be holding its breath. Let&apos;s bring it back above water.
+                    Turn high-intent website behavior into qualified booked demos with HubSpot
+                    context attached.
                   </span>
                   <span className="mb-6 block font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
-                    Get instant access / start recovery
+                    Book a 30-day pilot
                   </span>
                   <span className="flex flex-wrap justify-end gap-4">
                     <a
@@ -572,16 +965,14 @@ export default function HomePage() {
                       rel="noopener noreferrer"
                       className="inline-block rounded-full bg-neon px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-background transition hover:brightness-110 sm:px-8 sm:text-[13px]"
                     >
-                      Get instant access
+                      Book a 30-day pilot
                     </a>
-                    <a
-                      href={BOOK_DEMO_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to="/solutions/saas"
                       className="liquid-glass inline-block rounded-full px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:px-8 sm:text-[13px]"
                     >
-                      Start recovery
-                    </a>
+                      See qualified demo flow
+                    </Link>
                   </span>
                 </h2>
               </div>
@@ -589,62 +980,42 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features */}
+        {/* AI voice feedback add-on */}
         <section
-          id="features"
-          className="scroll-mt-28 bg-background py-16 sm:py-20 md:py-24 lg:py-28"
-          aria-labelledby="features-heading"
+          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          aria-labelledby="voice-feedback-heading"
         >
           <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
-              Patch leaks today. Let SentientWeb chase back past lost revenue from the leads your
-              funnel already let slip.
+            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              Voice feedback add-on
             </p>
             <h2
-              id="features-heading"
-              className="font-grotesk mb-10 text-[32px] uppercase leading-none text-cream sm:mb-12 sm:text-[42px] md:text-[52px] lg:mb-16 lg:text-[60px]"
+              id="voice-feedback-heading"
+              className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
             >
-              Revenue recovery system powered by Predictive Intent analysis
+              When buyers do not book, learn why.
             </h2>
-
-            <div
-              className="liquid-glass mb-12 rounded-[24px] p-6 font-mono text-[12px] uppercase leading-relaxed text-cream sm:p-8 sm:text-[13px] lg:mb-16"
-              role="region"
-              aria-label="Example revenue recovery event"
-            >
-              <p className="text-neon">Leak signal: high intent</p>
-              <p className="mt-2 text-neon">Intent: high</p>
-              <p className="mt-4 text-cream/70">
-                &gt; Visitor hesitated on pricing...
-              </p>
-              <p className="text-cream/70">
-                &gt; Approved-source next step delivered
-              </p>
-              <p className="text-cream/70">
-                &gt; Human support path prepared
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {FEATURES.map((f) => (
-                <article
-                  key={f.title}
-                  id={featureSectionId(f.title)}
-                  className="liquid-glass scroll-mt-28 rounded-[32px] p-6 transition hover:bg-white/10 sm:p-8"
-                >
-                  <h3 className="font-grotesk mb-4 text-[20px] uppercase leading-tight text-cream sm:text-[22px]">
-                    {f.title}
+            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+              AI voice interviews capture lost-demo, buying-objection, churn-risk, and NPS
+              follow-up feedback so sales, growth, and customer-success teams can fix the real
+              blocker.
+            </p>
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+              {VOICE_FEEDBACK_USE_CASES.map((useCase) => (
+                <article key={useCase.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
+                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                    {useCase.title}
                   </h3>
-                  <ul className="list-inside list-disc space-y-2 font-mono text-[13px] uppercase leading-relaxed text-cream/75 sm:text-[14px]">
-                    {f.bullets.map((b) => (
-                      <li key={b} className="marker:text-neon">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                    {useCase.body}
+                  </p>
                 </article>
               ))}
             </div>
+            <p className="font-mono mt-8 max-w-3xl border-t border-white/10 pt-5 text-[11px] uppercase leading-relaxed text-cream/45 sm:text-[12px]">
+              Voice workflows require confirmed consent, retention, and backend configuration
+              before launch.
+            </p>
           </div>
         </section>
 

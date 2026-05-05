@@ -2,9 +2,8 @@ import { useCallback, useEffect, useId, useRef, useState, type RefObject } from 
 import { ChevronDown, Menu, X } from 'lucide-react'
 import { Link, type To, useLocation } from 'react-router-dom'
 import { BOOK_DEMO_URL, OPERATOR_LOGIN_URL } from '../constants'
-import { FEATURES, featureSectionId } from '../data/homeFeatures'
 import { INTEGRATION_NAV_LINKS } from '../data/integrationPagesContent'
-import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
+import { ORCHESTRATE_NAV_LINKS } from '../data/orchestratePageContent'
 
 const DROPDOWN_PANEL =
   'liquid-glass absolute left-1/2 top-full z-[60] mt-2 min-w-[12rem] max-h-[min(24rem,70vh)] -translate-x-1/2 overflow-y-auto rounded-[20px] border border-white/[0.08] py-2 shadow-lg'
@@ -18,7 +17,7 @@ const MOBILE_LINK =
 const MOBILE_SUBLINK =
   'block w-full py-2.5 pl-4 text-left font-mono text-[12px] uppercase tracking-wide text-cream/75 transition hover:text-neon'
 
-type NavMenuId = 'product' | 'solutions' | 'integrations'
+type NavMenuId = 'integrations' | 'orchestrate'
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -37,32 +36,6 @@ function getFocusableElements(root: HTMLElement) {
   })
 }
 
-function buildProductLinks(): { id: string; label: string; to: To }[] {
-  return [
-    { id: 'product-overview', label: 'Overview', to: { pathname: '/', hash: 'features' } },
-    ...FEATURES.map((f) => ({
-      id: featureSectionId(f.title),
-      label: f.title,
-      to: { pathname: '/', hash: featureSectionId(f.title) },
-    })),
-  ]
-}
-
-function buildSolutionLinks(): { id: string; label: string; to: To }[] {
-  return [
-    {
-      id: 'solutions-overview',
-      label: 'Overview',
-      to: { pathname: '/', hash: 'solutions' },
-    },
-    ...SOLUTION_NAV_LIST.map(({ slug, navLabel }) => ({
-      id: slug,
-      label: navLabel,
-      to: `/solutions/${slug}`,
-    })),
-  ]
-}
-
 function buildIntegrationLinks(): { id: string; label: string; to: To }[] {
   return INTEGRATION_NAV_LINKS.map(({ label, slug }) => ({
     id: slug,
@@ -75,15 +48,11 @@ function PrimaryNavList() {
   const [openMenu, setOpenMenu] = useState<NavMenuId | null>(null)
   const navRootRef = useRef<HTMLUListElement>(null)
 
-  const productBtnId = useId()
-  const productMenuId = useId()
-  const solutionsBtnId = useId()
-  const solutionsMenuId = useId()
   const integrationsBtnId = useId()
   const integrationsMenuId = useId()
+  const orchestrateBtnId = useId()
+  const orchestrateMenuId = useId()
 
-  const productLinks = buildProductLinks()
-  const solutionLinks = buildSolutionLinks()
   const integrationLinks = buildIntegrationLinks()
 
   useEffect(() => {
@@ -111,68 +80,22 @@ function PrimaryNavList() {
 
   return (
     <ul ref={navRootRef} className="flex items-center gap-5 xl:gap-8">
-      <li className="relative">
-        <button
-          type="button"
-          id={productBtnId}
-          className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
-          aria-expanded={openMenu === 'product'}
-          aria-controls={productMenuId}
-          onClick={() => toggle('product')}
+      <li>
+        <Link
+          to={{ pathname: '/', hash: 'features' }}
+          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
         >
           Product
-          <ChevronDown
-            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'product' ? 'rotate-180' : ''}`}
-            aria-hidden
-          />
-        </button>
-        {openMenu === 'product' ? (
-          <ul
-            id={productMenuId}
-            aria-labelledby={productBtnId}
-            className={DROPDOWN_PANEL}
-          >
-            {productLinks.map(({ id, label, to }) => (
-              <li key={id}>
-                <Link to={to} className={DROPDOWN_LINK} onClick={close}>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+        </Link>
       </li>
 
-      <li className="relative">
-        <button
-          type="button"
-          id={solutionsBtnId}
-          className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
-          aria-expanded={openMenu === 'solutions'}
-          aria-controls={solutionsMenuId}
-          onClick={() => toggle('solutions')}
+      <li>
+        <Link
+          to="/solutions/saas"
+          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
         >
-          Solutions
-          <ChevronDown
-            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'solutions' ? 'rotate-180' : ''}`}
-            aria-hidden
-          />
-        </button>
-        {openMenu === 'solutions' ? (
-          <ul
-            id={solutionsMenuId}
-            aria-labelledby={solutionsBtnId}
-            className={DROPDOWN_PANEL}
-          >
-            {solutionLinks.map(({ id, label, to }) => (
-              <li key={id}>
-                <Link to={to} className={DROPDOWN_LINK} onClick={close}>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+          SOLUTION
+        </Link>
       </li>
 
       <li>
@@ -189,7 +112,7 @@ function PrimaryNavList() {
           to="/revenue-leak-calculator"
           className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
         >
-          ROI Calculator
+          Demo ROI
         </Link>
       </li>
 
@@ -224,6 +147,38 @@ function PrimaryNavList() {
           </ul>
         ) : null}
       </li>
+
+      <li className="relative">
+        <button
+          type="button"
+          id={orchestrateBtnId}
+          className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
+          aria-expanded={openMenu === 'orchestrate'}
+          aria-controls={orchestrateMenuId}
+          onClick={() => toggle('orchestrate')}
+        >
+          Orchestrate your existing tech
+          <ChevronDown
+            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'orchestrate' ? 'rotate-180' : ''}`}
+            aria-hidden
+          />
+        </button>
+        {openMenu === 'orchestrate' ? (
+          <ul
+            id={orchestrateMenuId}
+            aria-labelledby={orchestrateBtnId}
+            className={DROPDOWN_PANEL}
+          >
+            {ORCHESTRATE_NAV_LINKS.map(({ id, label, to }) => (
+              <li key={id}>
+                <Link to={to} className={DROPDOWN_LINK} onClick={close}>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </li>
     </ul>
   )
 }
@@ -239,8 +194,6 @@ function MobileNavPanel({
   menuId: string
   returnFocusRef: RefObject<HTMLButtonElement | null>
 }) {
-  const productLinks = buildProductLinks()
-  const solutionLinks = buildSolutionLinks()
   const integrationLinks = buildIntegrationLinks()
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -335,39 +288,21 @@ function MobileNavPanel({
           </button>
         </div>
         <nav className="flex-1 overflow-y-auto px-4 py-4" aria-label="Primary">
-          <details className="group border-b border-white/10">
-            <summary className={detailsSummary}>
-              Product
-              <ChevronDown
-                className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
-                aria-hidden
-              />
-            </summary>
-            <div className="border-t border-white/[0.06] pb-2 pt-1">
-              {productLinks.map(({ id, label, to }) => (
-                <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </details>
+          <Link
+            to={{ pathname: '/', hash: 'features' }}
+            className={`${MOBILE_LINK} border-b border-white/10`}
+            onClick={onClose}
+          >
+            Product
+          </Link>
 
-          <details className="group border-b border-white/10">
-            <summary className={detailsSummary}>
-              Solutions
-              <ChevronDown
-                className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
-                aria-hidden
-              />
-            </summary>
-            <div className="max-h-[40vh] overflow-y-auto border-t border-white/[0.06] pb-2 pt-1">
-              {solutionLinks.map(({ id, label, to }) => (
-                <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </details>
+          <Link
+            to="/solutions/saas"
+            className={`${MOBILE_LINK} border-b border-white/10`}
+            onClick={onClose}
+          >
+            SOLUTION
+          </Link>
 
           <Link to="/pricing" className={`${MOBILE_LINK} border-b border-white/10`} onClick={onClose}>
             Pricing
@@ -378,7 +313,7 @@ function MobileNavPanel({
             className={`${MOBILE_LINK} border-b border-white/10`}
             onClick={onClose}
           >
-            ROI Calculator
+            Demo ROI
           </Link>
 
           <details className="group border-b border-white/10">
@@ -398,6 +333,23 @@ function MobileNavPanel({
             </div>
           </details>
 
+          <details className="group border-b border-white/10">
+            <summary className={detailsSummary}>
+              Orchestrate your existing tech
+              <ChevronDown
+                className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
+                aria-hidden
+              />
+            </summary>
+            <div className="border-t border-white/[0.06] pb-2 pt-1">
+              {ORCHESTRATE_NAV_LINKS.map(({ id, label, to }) => (
+                <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </details>
+
           <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
             <a href={OPERATOR_LOGIN_URL} className={MOBILE_LINK}>
               Log in
@@ -408,7 +360,7 @@ function MobileNavPanel({
               rel="noopener noreferrer"
               className="liquid-glass rounded-full px-4 py-3 text-center font-grotesk text-[12px] uppercase tracking-wide text-cream"
             >
-              Start now
+              See preview
             </a>
             <a
               href={BOOK_DEMO_URL}
@@ -416,7 +368,7 @@ function MobileNavPanel({
               rel="noopener noreferrer"
               className="rounded-full bg-neon px-4 py-3 text-center font-grotesk text-[12px] uppercase tracking-wide text-background"
             >
-              Get instant access
+              Book pilot
             </a>
           </div>
         </nav>
@@ -462,7 +414,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         rel="noopener noreferrer"
         className="liquid-glass rounded-full px-4 py-2 font-grotesk text-[12px] uppercase tracking-wide text-cream transition hover:bg-white/10 xl:px-5 xl:text-[13px]"
       >
-        Start now
+        See preview
       </a>
       <a
         href={BOOK_DEMO_URL}
@@ -470,7 +422,7 @@ export function MarketingHeader({ layout }: { layout: 'hero' | 'page' }) {
         rel="noopener noreferrer"
         className="rounded-full bg-neon px-4 py-2 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 xl:px-5 xl:text-[13px]"
       >
-        Get instant access
+        Book pilot
       </a>
     </div>
   )

@@ -53,9 +53,9 @@ export const SITE_URL = normalizeSiteUrl(
 
 export const SITE_HOSTNAME = new URL(SITE_URL).hostname
 
-export const DEFAULT_META_TITLE = 'SentientWeb | Digital Plumbers for Your Revenue Leaks'
+export const DEFAULT_META_TITLE = 'SentientWeb | Recover Demo-Ready Visitors Before They Leave'
 
 export const DEFAULT_META_DESCRIPTION =
-  'SentientWeb fixes website revenue leaks with instant access paths, secure AI-guided next steps, human handoff, and disclosed retention controls.'
+  'SentientWeb detects high-intent visitors on pricing, demo, comparison, and integration pages, qualifies them, books the meeting, and syncs the full context into HubSpot.'
 
 export const DEFAULT_OG_IMAGE_URL = new URL('/favicon.svg', SITE_URL).toString()

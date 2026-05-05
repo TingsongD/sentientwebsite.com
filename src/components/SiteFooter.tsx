@@ -10,13 +10,17 @@ type FooterProductItem =
   | { label: string; to: To }
 
 const FOOTER_PRODUCT: FooterProductItem[] = [
-  { label: 'Instant access', calendly: true },
+  { label: 'Visitor-to-Demo Engine', to: { pathname: '/', hash: 'features' } },
+  { label: 'Book a 30-day pilot', calendly: true },
+  { label: 'B2B SaaS', to: '/solutions/saas' },
+  { label: 'HubSpot integration', to: '/integrations/hubspot' },
+  { label: 'Calendly integration', to: '/integrations/calendly' },
   { label: 'Knowledge base', to: '/knowledge-base' },
   { label: 'APIs & SDKs', to: '/apis-sdks' },
   { label: 'Documentation', to: '/documentation' },
   { label: 'Changelog', to: '/changelog' },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'ROI Calculator', to: '/revenue-leak-calculator' },
+  { label: 'Demo ROI calculator', to: '/revenue-leak-calculator' },
 ]
 
 const FOOTER_COMPANY: { label: string; to: To }[] = [
@@ -126,6 +130,9 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
           <Link to="/" className="font-grotesk text-[18px] uppercase tracking-wide text-cream">
             SentientWeb
           </Link>
+          <p className="font-mono max-w-[280px] text-[11px] uppercase leading-relaxed text-cream/50">
+            Demo recovery for HubSpot-powered B2B SaaS teams.
+          </p>
           <SocialIconStack />
         </div>
         <div className="flex flex-wrap gap-6 font-mono text-[12px] uppercase text-cream/50">

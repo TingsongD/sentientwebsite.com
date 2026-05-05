@@ -41,7 +41,7 @@ const STATIC_META = {
   ...PRICING_META,
   '/blog': {
     title: 'Blog',
-    description: 'Product updates and revenue recovery thinking from the SentientWeb team.',
+    description: 'Product updates and B2B SaaS demo recovery thinking from the SentientWeb team.',
     canonicalPath: '/blog',
   },
   '/privacy': {
@@ -106,19 +106,25 @@ const STATIC_META = {
   },
   '/trust': {
     title: 'Trust and Security',
-    description: 'SentientWeb security, privacy, access, and compliance practices for sensitive revenue recovery paths.',
+    description: 'SentientWeb security, privacy, access, and compliance practices for demo recovery paths.',
     canonicalPath: '/trust',
   },
   '/about': {
     title: 'About',
-    description: 'How SentientWeb fixes website revenue leaks with instant access paths and human handoff.',
+    description: 'How SentientWeb recovers demo intent hiding inside B2B SaaS websites.',
     canonicalPath: '/about',
   },
   '/revenue-leak-calculator': {
-    title: 'Revenue Leak Calculator',
+    title: 'Demo Recovery Calculator',
     description:
-      'Calculate how much revenue may be slipping through your funnel every month across social, site, checkout, and meeting paths.',
+      'Estimate recovered demos, qualified booked demos, pipeline influenced, and modeled ROI for B2B SaaS demo recovery.',
     canonicalPath: '/revenue-leak-calculator',
+  },
+  '/orchestrate': {
+    title: 'Orchestrate Your Existing Tech',
+    description:
+      'How SentientWeb coordinates existing tools to turn demo-ready website intent into qualified meetings and sales-ready context.',
+    canonicalPath: '/orchestrate',
   },
   '/careers': {
     title: 'Careers',
@@ -282,7 +288,7 @@ function organizationSchema(): StructuredData {
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE_URL,
     description:
-      'SentientWeb fixes website revenue leaks with instant access paths, secure AI-guided next steps, human handoff, and disclosed retention controls.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into HubSpot.',
   }
 }
 
@@ -293,7 +299,7 @@ function websiteSchema(): StructuredData {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'Digital plumbers for your revenue leaks: instant access paths for high-intent website visitors.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into HubSpot.',
     publisher: { '@id': ORGANIZATION_ID },
     inLanguage: 'en-US',
   }
@@ -307,7 +313,7 @@ function softwareApplicationSchema(): StructuredData {
     operatingSystem: 'Web',
     offers: {
       '@type': 'Offer',
-      description: 'Get instant access.',
+      description: 'Book a 30-day pilot.',
     },
   }
 }
@@ -384,7 +390,7 @@ export function getRouteStructuredData(pathname: string): StructuredData {
           description: page.metaDescription,
           provider: { '@id': ORGANIZATION_ID },
           areaServed: page.marketLabel,
-          serviceType: 'Website revenue recovery',
+          serviceType: solutionSlug === 'saas' ? 'B2B SaaS demo recovery' : 'High-intent visitor recovery',
           url,
         },
       ],

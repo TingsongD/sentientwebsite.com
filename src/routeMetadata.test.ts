@@ -81,6 +81,7 @@ describe('route metadata manifest', () => {
     expect(isKnownRoutePath('/pricing/calculator')).toBe(true)
     expect(isKnownRoutePath('/pricing/enterprise')).toBe(true)
     expect(isKnownRoutePath('/revenue-leak-calculator')).toBe(true)
+    expect(isKnownRoutePath('/orchestrate')).toBe(true)
     expect(isKnownRoutePath('/blog/phase-1-live-now')).toBe(true)
     expect(isKnownRoutePath('/solutions/saas')).toBe(true)
     expect(isKnownRoutePath('/unknown-path')).toBe(false)
@@ -88,25 +89,30 @@ describe('route metadata manifest', () => {
 
   it('returns route-specific metadata for known pages', () => {
     expect(getPageMeta('/pricing')).toMatchObject({
-      title: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
+      title: 'SentientWeb Pricing | Visitor-to-Demo Engine',
       canonicalPath: '/pricing',
       absoluteTitle: true,
     })
     expect(getPageMeta('/pricing').noindex).toBeUndefined()
 
     expect(getPageMeta('/pricing/product')).toMatchObject({
-      title: 'Product Track Pricing',
+      title: 'Demo Recovery Pilot Pricing',
       canonicalPath: '/pricing/product',
     })
 
     expect(getPageMeta('/pricing/service')).toMatchObject({
-      title: 'Service Track Pricing',
+      title: 'Demo Recovery Monthly Pricing',
       canonicalPath: '/pricing/service',
     })
 
     expect(getPageMeta('/revenue-leak-calculator')).toMatchObject({
-      title: 'Revenue Leak Calculator',
+      title: 'Demo Recovery Calculator',
       canonicalPath: '/revenue-leak-calculator',
+    })
+
+    expect(getPageMeta('/orchestrate')).toMatchObject({
+      title: 'Orchestrate Your Existing Tech',
+      canonicalPath: '/orchestrate',
     })
 
     expect(getPageMeta('/blog/phase-1-live-now')).toMatchObject({
@@ -150,9 +156,12 @@ describe('route metadata manifest', () => {
       expect(KNOWN_ROUTE_PATHS).toContain(path)
     }
     expect(KNOWN_ROUTE_PATHS).toContain('/revenue-leak-calculator')
+    expect(KNOWN_ROUTE_PATHS).toContain('/orchestrate')
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/legal-services')
     expect(KNOWN_ROUTE_PATHS).not.toContain('/solutions/car-dealerships')
     expect(KNOWN_ROUTE_PATHS).toContain('/integrations/wordpress')
+    expect(KNOWN_ROUTE_PATHS).toContain('/integrations/hubspot')
+    expect(KNOWN_ROUTE_PATHS).toContain('/integrations/calendly')
     expect(KNOWN_ROUTE_PATHS).toEqual(
       expect.arrayContaining([
         '/privacy',
@@ -202,7 +211,7 @@ describe('route metadata manifest', () => {
     expect(getRouteStructuredData('/pricing')).toMatchObject({
       '@type': 'WebPage',
       url: new URL('/pricing', SITE_URL).toString(),
-      name: 'SentientWeb Pricing | Pay Only for Recovered Revenue',
+      name: 'SentientWeb Pricing | Visitor-to-Demo Engine',
     })
 
     expect(getRouteStructuredData('/blog/phase-1-live-now')).toMatchObject({
@@ -216,6 +225,11 @@ describe('route metadata manifest', () => {
     }
     expect(solution['@graph'].map((item) => item['@type'])).toEqual(
       expect.arrayContaining(['WebPage', 'Service']),
+    )
+    expect(solution['@graph']).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ serviceType: 'B2B SaaS demo recovery' }),
+      ]),
     )
   })
 

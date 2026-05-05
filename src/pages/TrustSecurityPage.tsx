@@ -129,7 +129,7 @@ export default function TrustSecurityPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Get instant access
+            Book a 30-day pilot
           </a>
           <Link
             to="/"

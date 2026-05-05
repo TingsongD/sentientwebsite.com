@@ -1,6 +1,6 @@
 # SentientWeb Production Readiness Review
 
-Last updated: May 3, 2026
+Last updated: May 5, 2026
 
 Status: production-readiness checks pass with owner-supplied operational evidence recorded. Actual signed/vendor/counsel records remain outside git and must be maintained before relying on them as legal proof.
 
@@ -41,6 +41,8 @@ Review the codebase, fix concrete issues, and verify whether the website is prod
 | Runtime compatibility | Node engine range was unnecessarily narrow. | `package.json` and lockfile now allow Node `>=22.12 <25` and npm `>=10` while CI/Docker continue to use Node 24. |
 | Widget install key expectations | Runtime widget config exposes the install key to same-origin callers when configured. | `.env.example` now documents that the install key is a public client identifier that must be scoped and rotated, not treated as a server secret. |
 | Missing, malformed, or partial build artifacts | Starting the production server before build failed with a raw manifest read/parse error, and partial route HTML output, malformed redirect maps, invalid site URLs, missing legal versions, protocol-relative redirects, or invalid CSP hashes could surface later as route-level/security failures. | `server.mjs` now exits with an explicit "run npm run build" message when `dist/routes-manifest.json` is missing, malformed, missing required route data, points at absent prerendered HTML files, contains invalid site URLs, lacks legal version metadata, contains invalid redirect maps, includes protocol-relative route/redirect values, or contains invalid JSON-LD CSP hashes. |
+| Calculator input trust | The shared demo recovery estimate helper trusted raw numeric inputs, so direct input edits could produce negative demos, negative pipeline, or non-finite outcomes. | `src/data/pricingStrategy.ts` now sanitizes non-finite and negative numeric inputs, caps percentage rates at 100%, and keeps both calculator pages on the same hardened formula; unit tests cover the edge cases. |
+| Third-party visual assets before consent | Prerendered HTML still referenced a Shopify CDN image for favicons, social preview metadata, and JSON-LD logo before consent. | `index.html` and `src/constants.ts` now use the first-party `/favicon.svg` asset, and `server.mjs` removes unused third-party image/media CSP allowances; E2E verifies no Shopify/worldvectorlogo asset requests or HTML references before consent. |
 
 The website-side compliance audit also guards against regression for these hardening items: built manifests must include `siteUrl`, `dynamicFallbackRedirects`, and inline JSON-LD CSP hashes, and public-facing source/build artifacts must not reintroduce CSP `'unsafe-inline'` or inline style attributes.
 
@@ -60,15 +62,17 @@ The website-side compliance audit also guards against regression for these harde
 | Make missing, malformed, or partial build artifacts operationally clear. | `server.mjs`. | Production server exits with explicit "run npm run build" message when manifest is absent, malformed, points at missing route HTML, contains an invalid `siteUrl`, lacks valid `legalVersions`, contains invalid or protocol-relative redirect maps, or contains invalid CSP hashes; normal build/start, missing-manifest, malformed-manifest, invalid-site-url, invalid-legal-versions, missing-route-file, invalid-redirect-map, protocol-relative-redirect, and invalid-CSP-hash startup paths are covered by E2E. | Fixed and covered. |
 | Make Host header handling an explicit deployment choice. | `server.mjs`, `.env.example`, `README.md`. | E2E covers malformed Host rejection and configured `SENTIENT_ALLOWED_HOSTS` rejection/allowance. | Fixed and covered. |
 | Verify legal/compliance placeholders are not public launch approvals. | `docs/compliance/production-launch-gates.md`, `docs/compliance/remaining-production-items.md`, `scripts/compliance-audit.mjs`. | `npm run compliance:audit` passes website artifact checks; `npm run compliance:audit:production` passes once all launch gates are checked. | Fixed and covered; actual evidence remains off-repository. |
+| Keep demo recovery calculator outputs production-safe under malformed direct input. | `src/data/pricingStrategy.ts`, `src/pricingStrategy.test.ts`, `src/data/revenueLeakCalculator.ts`. | Unit tests cover negative, `NaN`, infinite, and over-100% rate inputs through the shared calculator helper. | Fixed and covered. |
+| Keep homepage visual assets first-party before consent. | `index.html`, `src/constants.ts`, `server.mjs`, `public/favicon.svg`. | E2E first-party visual asset test passes and source search has no Shopify/CDN visual asset references outside the regression test. | Fixed and covered. |
 
 ## Technical Release Checklist
 
 | Requirement | Evidence | Status |
 | --- | --- | --- |
 | Lint clean | `npm run lint` | Passed |
-| Unit tests | `npm test` | Passed, 6 files and 27 tests |
+| Unit tests | `npm test` | Passed, 7 files and 31 tests |
 | Production build | `npm run build` as part of `npm run test:all` | Passed |
-| Production E2E | `npm run test:e2e` as part of `npm run test:all` | Passed, 53 Playwright tests |
+| Production E2E | `npm run test:e2e:no-build` after `npm run build` | Passed, 55 Playwright tests |
 | Runtime version contract | `package.json`, `package-lock.json`, `Dockerfile`, `.github/workflows/ci.yml` | Node 24 aligned |
 | CI production-readiness gate | `.github/workflows/ci.yml` | Runs `npm run test:all`, Docker build, Docker `/healthz`, and runtime widget config smoke tests with injected env vars |
 | Deployment health check | `/healthz`, `render.yaml`, E2E GET/HEAD health test | Passed |
@@ -93,7 +97,7 @@ npm run test:all
 Latest result:
 
 ```text
-Passed: lint, 30 unit tests, build, 54 E2E tests, website compliance audit, npm audit with 0 vulnerabilities.
+Passed: lint, 31 unit tests, build, 55 E2E tests, website compliance audit, npm audit with 0 vulnerabilities.
 ```
 
 Docker image build was not verified locally because Docker Desktop/daemon was not running:

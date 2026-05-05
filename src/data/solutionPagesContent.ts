@@ -29,61 +29,62 @@ export const SOLUTION_PAGES = {
   saas: {
     slug: 'saas',
     navLabel: 'B2B SaaS',
-    marketLabel: 'B2B SaaS',
+    marketLabel: 'HubSpot + Calendly B2B SaaS teams',
     accentColor: '#6366f1',
-    metaTitle: 'Instant Demo Recovery for B2B SaaS',
+    metaTitle: 'Visitor-to-Demo Engine for B2B SaaS',
     metaDescription:
-      'SentientWeb fixes demo pipeline leaks with instant access, calendar-ready next steps, human handoff, encryption, and disclosed retention controls.',
-    plumberMetaphor: 'We fix the pipeline leaks between your website and your calendar.',
+      'Recover demo-ready visitors from pricing, demo, comparison, and integration pages. SentientWeb qualifies, books, and syncs the context into HubSpot.',
+    plumberMetaphor: 'Digital plumbing for your demo pipeline.',
     hero: {
       eyebrow: 'Solutions / B2B SaaS',
-      title: 'We fix the leaks in your demo pipeline',
+      title: 'Recover demo-ready visitors before they leave',
       subtitle:
-        'Replace your request form with an instant demo path that captures revenue opportunities and schedules the next step in 60 seconds.',
-      primaryCta: 'See Instant Demo',
-      secondaryCta: 'Watch How It Works',
+        'SentientWeb detects high-intent website visitors, guides the right page-specific conversation, qualifies the buyer, books the meeting, and syncs the full context into HubSpot.',
+      primaryCta: 'Book a 30-day pilot',
+      secondaryCta: 'See the recovery flow',
     },
-    proofStat: 'Slow demo routing can turn high-intent requests into stalled pipeline.',
+    proofStat:
+      'The highest-intent visitors are often already on pricing, demo, comparison, integration, and security pages.',
     features: [
       {
-        title: 'Stop slow demo leaks',
-        body: 'Hot prospects research after business hours. SentientWeb meets them while they are still evaluating and moves them to the next step before a competitor responds.',
+        title: 'Detect demo-ready behavior',
+        body: 'Score visits to pricing, demo, comparison, integration, security, docs, and customer story pages so the team can focus on real buying intent.',
       },
       {
-        title: 'Instant demo path',
-        body: 'Visitors choose an instant demo and get a guided walkthrough immediately, instead of waiting for a form reply.',
+        title: 'Handle page-specific hesitation',
+        body: 'Answer plan-fit, stack-fit, security, ROI, and competitive questions from approved source content before the visitor leaves.',
       },
       {
-        title: 'Capture buyer context',
-        body: 'The system reads site signals, feature interest, and intent so your team enters each call with useful context.',
+        title: 'Qualify before booking',
+        body: 'Collect company domain, use case, role, timeline, and stack context before showing the booking path.',
       },
       {
-        title: 'Calendar-ready pipeline',
-        body: 'Meetings are scheduled automatically with the account brief your revenue team needs to prepare.',
+        title: 'Sync the full story to HubSpot',
+        body: 'Send page path, summary, qualification answers, booking details, and suggested sales opener into HubSpot.',
       },
     ],
     steps: [
       {
-        title: 'Visitor chooses instant demo',
-        body: 'They share basic context and the walkthrough begins immediately.',
+        title: 'Visitor shows demo intent',
+        body: 'They revisit pricing, compare alternatives, inspect integrations, or start the demo path.',
       },
       {
-        title: 'AI delivers next steps',
-        body: 'Approved proof, objection handling, and product guidance are served from your source material.',
+        title: 'Concierge qualifies the buyer',
+        body: 'SentientWeb asks the minimum questions needed to confirm fit, use case, role, timing, and stack.',
       },
       {
-        title: 'Meeting lands on calendar',
-        body: 'Your team receives a warm opportunity with context, timeline, and requested next step.',
+        title: 'Qualified demo gets booked',
+        body: 'The visitor books through Calendly and the full context lands in HubSpot for sales.',
       },
     ],
     caseStudy: {
-      eyebrow: 'Pipeline recovery',
-      title: 'Turn request-form leakage into booked revenue moments.',
-      body: 'For SaaS teams, the biggest leak is the gap between buyer intent and seller response. SentientWeb keeps that moment alive and routes the visitor to a human when needed.',
+      eyebrow: 'Demo recovery',
+      title: 'Turn high-intent page visits into qualified booked demos.',
+      body: 'The first pilot should be judged on qualified booked demos, sales-accepted context, and whether HubSpot shows incremental opportunity from existing website traffic.',
     },
     disclosure:
-      'Visitors interact with AI for instant next steps, with human support available whenever they ask.',
-    bottomCta: 'Start demo recovery',
+      'SentientWeb uses approved customer content for answers and routes sensitive or complex questions to humans.',
+    bottomCta: 'Book a 30-day pilot',
   },
 
   'home-services': {
@@ -93,7 +94,7 @@ export const SOLUTION_PAGES = {
     accentColor: '#059669',
     metaTitle: 'Instant Estimate Recovery for Home Services',
     metaDescription:
-      'SentientWeb helps home service teams recover emergency calls with instant estimates, zero-miss coverage, and dispatch-ready context.',
+      'SentientWeb helps home service teams recover emergency calls with instant estimates, expanded coverage, and dispatch-ready context.',
     plumberMetaphor: 'We are the emergency dispatcher that never sleeps.',
     hero: {
       eyebrow: 'Solutions / Home Services',
@@ -235,7 +236,7 @@ export const SOLUTION_PAGES = {
       },
       {
         title: 'Peak traffic coverage',
-        body: 'Product drops and holiday surges get zero-miss coverage while humans handle the complex cases.',
+        body: 'Product drops and holiday surges get expanded coverage while humans handle the complex cases.',
       },
       {
         title: 'Friction is visible',
@@ -359,7 +360,7 @@ export const SOLUTION_PAGES = {
       },
       {
         title: 'Peak season coverage',
-        body: 'Enrollment spikes are handled with zero-miss coverage for repeated cost, schedule, and program questions.',
+        body: 'Enrollment spikes are handled with expanded coverage for repeated cost, schedule, and program questions.',
       },
     ],
     steps: [

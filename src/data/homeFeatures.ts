@@ -1,51 +1,51 @@
 /** Home page feature grid, shared with the Product dropdown anchor ids. */
 export const FEATURES = [
   {
-    title: 'Revenue leak detection',
+    title: 'Demo-ready detection',
     bullets: [
-      'Reads high-intent site signals before visitors disappear.',
-      'Surfaces the exact next step for each buyer path.',
-      'Turns stalled sessions into recoverable revenue moments.',
+      'Scores visitors on pricing, demo, comparison, integration, security, and docs pages.',
+      'Separates casual traffic from buyers showing real sales intent.',
+      'Triggers the recovery path only when page behavior warrants it.',
     ],
   },
   {
-    title: 'Instant access paths',
+    title: 'Page-specific concierge',
     bullets: [
-      'Guides visitors to estimates, demos, quotes, or bookings.',
-      'Keeps momentum without long forms or delayed replies.',
-      'Routes complex needs to a human with context attached.',
+      'Pricing pages get ROI and plan-fit guidance.',
+      'Comparison pages get approved differentiation.',
+      'Integration pages get stack-fit questions and next steps.',
     ],
   },
   {
-    title: 'Approved-source responses',
+    title: 'Qualified demo booking',
     bullets: [
-      'Uses your docs, policies, and product material as source content.',
-      'Delivers personalized next steps without unsupported claims.',
-      'Keeps teams aligned on what visitors see before handoff.',
+      'Collects company domain, use case, role, and timeline before opening the calendar.',
+      'Books only visitors who meet the agreed qualification rules.',
+      'Keeps sales calendars clear of low-fit meetings.',
     ],
   },
   {
-    title: 'Zero-miss coverage',
+    title: 'HubSpot context sync',
     bullets: [
-      'Covers after-hours demand, seasonal spikes, and return visits.',
-      'Protects peak traffic without adding another intake shift.',
-      'Keeps humans focused on the highest-value moments.',
+      'Creates or updates the contact and company record.',
+      'Adds pages viewed, summary, qualification answers, and booking context.',
+      'Gives sales the opener before the call starts.',
     ],
   },
   {
-    title: 'Secure handoff',
+    title: 'Recovered demo reporting',
     bullets: [
-      'Human support stays available when a visitor asks for it.',
-      'Encryption in transit protects sensitive request paths.',
-      'Published retention controls keep the recovery flow accountable.',
+      'Tracks demo-ready visitors detected, qualified, booked, and sales-accepted.',
+      'Shows which pages create the most recovered demo opportunities.',
+      'Keeps the pilot measured around qualified booked demos, not message volume.',
     ],
   },
   {
-    title: 'Vertical playbooks',
+    title: 'Human handoff',
     bullets: [
-      'Tailored paths for SaaS, services, insurance, commerce, and more.',
-      'Market-specific CTAs match how each buyer wants to move.',
-      'One revenue recovery system adapts across your site.',
+      'Lets a human join or take over when the buyer needs a person.',
+      'Routes complex or sensitive questions out of automation.',
+      'Preserves the full context for the handoff.',
     ],
   },
 ] as const

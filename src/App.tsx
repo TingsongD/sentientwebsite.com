@@ -15,6 +15,7 @@ import DmcaPolicyPage from './pages/DmcaPolicyPage'
 import HomePage from './pages/HomePage'
 import LegalNoticePage from './pages/LegalNoticePage'
 import NotFoundPage from './pages/NotFoundPage'
+import OrchestratePage from './pages/OrchestratePage'
 import PricingPage from './pages/PricingPage'
 import RevenueLeakCalculatorPage from './pages/RevenueLeakCalculatorPage'
 import SolutionIndustryPage from './pages/SolutionIndustryPage'
@@ -56,6 +57,7 @@ export default function App({ includeMeta = true }: { includeMeta?: boolean }) {
         <Route path={APP_ROUTE_PATHS.pricingCalculator} element={<PricingPage />} />
         <Route path={APP_ROUTE_PATHS.pricingEnterprise} element={<PricingPage />} />
         <Route path={APP_ROUTE_PATHS.revenueLeakCalculator} element={<RevenueLeakCalculatorPage />} />
+        <Route path={APP_ROUTE_PATHS.orchestrate} element={<OrchestratePage />} />
         <Route path={APP_DYNAMIC_ROUTE_PATTERNS.solution} element={<SolutionIndustryPage />} />
         <Route path={APP_ROUTE_PATHS.knowledgeBase} element={<ComingSoonPage title="Knowledge base" />} />
         <Route path={APP_ROUTE_PATHS.apisSdks} element={<ComingSoonPage title="APIs & SDKs" />} />

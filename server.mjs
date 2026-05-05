@@ -147,8 +147,8 @@ function buildContentSecurityPolicy() {
     "style-src-attr 'none'",
     "font-src 'self' https://fonts.gstatic.com",
     `connect-src 'self'${widgetConnectSources}`,
-    `img-src 'self' data: blob: https://cdn.shopify.com https://cdnjs.cloudflare.com https://cdn.worldvectorlogo.com${widgetSources}`,
-    `media-src 'self' blob: https://cdn.shopify.com${widgetSources}`,
+    `img-src 'self' data: blob:${widgetSources}`,
+    `media-src 'self' blob:${widgetSources}`,
     "worker-src 'self' blob:",
     "frame-src https://calendly.com",
   ].join('; ')

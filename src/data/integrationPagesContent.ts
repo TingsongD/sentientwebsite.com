@@ -9,21 +9,55 @@ export type IntegrationPageContent = {
 }
 
 export const INTEGRATION_PAGES = {
+  hubspot: {
+    slug: 'hubspot',
+    navLabel: 'HubSpot',
+    eyebrow: 'Integrations / HubSpot',
+    title: 'Sync every recovered demo with the context sales needs.',
+    deck:
+      'SentientWeb sends contacts, companies, conversation summaries, page context, qualification answers, and booked-meeting details into HubSpot.',
+    body: [
+      'HubSpot is the first CRM wedge. The goal is not another dashboard; the goal is to make recovered demo intent visible where the revenue team already works.',
+      'Every qualified booked demo should arrive with the page path, use case, role, timeline, summary, and recommended sales opener.',
+    ],
+    bullets: [
+      'Create or update contacts and companies.',
+      'Attach conversation and page-intent summaries.',
+      'Sync booked-demo context for sales preparation.',
+    ],
+  },
+  calendly: {
+    slug: 'calendly',
+    navLabel: 'Calendly',
+    eyebrow: 'Integrations / Calendly',
+    title: 'Open the calendar only after the visitor is qualified.',
+    deck:
+      'SentientWeb qualifies demo-ready visitors first, then routes them to the agreed Calendly booking path.',
+    body: [
+      'Calendly keeps the v1 scheduling surface simple. SentientWeb does not claim deep scheduling, territory routing, or Google/Outlook-native logic unless those are implemented.',
+      'The value is the qualification step before the calendar opens and the HubSpot context after the meeting is booked.',
+    ],
+    bullets: [
+      'Show the booking path after qualification.',
+      'Preserve use case, role, timeline, and page history.',
+      'Use fallback booking links until deeper routing is implemented.',
+    ],
+  },
   wordpress: {
     slug: 'wordpress',
     navLabel: 'WordPress',
     eyebrow: 'Integrations / WordPress',
-    title: 'Run SentientWeb on WordPress without rebuilding your site.',
+    title: 'Run demo recovery on WordPress without rebuilding your site.',
     deck:
-      'Add the install script to your theme or header plugin so instant access paths can recover demand on the URLs you already rank for.',
+      'Add the install script to pricing, demo, comparison, and integration pages so SentientWeb can recover demo-ready intent on the URLs you already rank for.',
     body: [
-      'WordPress powers a huge share of marketing sites and landing pages. SentientWeb fits that reality: add one script tag or a small mu-plugin, then guide visitors from high-intent pages toward the right next step.',
-      'Keep editorial workflows in the CMS. SentientWeb reads from the approved sources you connect, pairs with existing forms and CRM plugins, and helps replace static contact dead ends with revenue recovery paths.',
+      'WordPress powers many B2B SaaS marketing sites and landing pages. SentientWeb fits that reality: add one script tag or a small mu-plugin, then guide demo-ready visitors from high-intent pages toward the right next step.',
+      'Keep editorial workflows in the CMS. SentientWeb reads from the approved sources you connect, pairs with existing forms and CRM plugins, and moves qualified demo context into the sales workflow.',
     ],
     bullets: [
       'Install via theme footer, hooks, or a reputable header/footer script plugin.',
       'Works with caching and CDNs when loaded deferred like analytics.',
-      'Use page-level rules to exclude wp-admin and checkout if needed.',
+      'Use page-level rules to focus on pricing, demo, comparison, integration, and security pages.',
     ],
   },
   webflow: {
@@ -32,32 +66,32 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Integrations / Webflow',
     title: 'Ship SentientWeb on Webflow sites in minutes.',
     deck:
-      'Paste the embed in Project Settings custom code, or add it to specific high-intent pages without a rebuild.',
+      'Paste the embed in Project Settings custom code, or add it to specific high-intent demo recovery pages without a rebuild.',
     body: [
-      'Webflow teams move fast on layout and content; SentientWeb matches that pace. Add the install script site-wide before the closing body tag, or scope it to pricing, services, and request pages.',
-      'Styling stays on brand because your Webflow classes and interactions remain untouched while SentientWeb handles instant access paths from approved knowledge sources.',
+      'Webflow teams move fast on layout and content; SentientWeb matches that pace. Add the install script site-wide before the closing body tag, or scope it to pricing, demo, comparison, and integration pages.',
+      'Styling stays on brand because your Webflow classes and interactions remain untouched while SentientWeb handles qualification, approved answers, and the path to a booked demo.',
     ],
     bullets: [
       'Global or per-page embeds from custom code settings.',
       'Compatible with Webflow hosting and exported static stacks.',
-      'Intent prompts can still fire on published URLs as visitors return.',
+      'Intent prompts can still fire on published URLs as demo-ready visitors return.',
     ],
   },
   shopify: {
     slug: 'shopify',
     navLabel: 'Shopify',
     eyebrow: 'Integrations / Shopify',
-    title: 'Recover hesitant shoppers on Shopify storefronts.',
+    title: 'Shopify recovery is a later expansion path.',
     deck:
-      'Add the install script to your theme layout or product education pages so cart and product-match leaks can be addressed in real time.',
+      'The current public wedge is B2B SaaS demo recovery. Shopify remains reachable for review while commerce recovery is evaluated separately.',
     body: [
-      'Whether you run a DTC brand with editorial depth or a B2B catalog that routes larger requests to sales, the same SentientWeb recovery system applies: guided next steps, calendar-ready handoff, and answers grounded in approved content.',
-      'Theme app extensions and Online Store 2.0 sections can host the script cleanly; your theme developer keeps control over load order and exclusion rules such as cart and account pages.',
+      'Commerce recovery requires different proof, pricing, and implementation details than HubSpot and Calendly demo recovery. SentientWeb is not positioning Shopify as the first wedge on the marketing site.',
+      'If a B2B catalog uses Shopify as a content surface for sales-led requests, the same high-intent recovery logic can be reviewed as a custom implementation.',
     ],
     bullets: [
-      'Theme-level injection for store-wide coverage.',
-      'Tune prompts on product, sizing, shipping, and pricing templates.',
-      'CRM handoff complements Shopify customer records where you connect it.',
+      'Commerce-specific recovery remains separate from the B2B SaaS pilot offer.',
+      'Custom review is required before claims about carts, checkout, or product matching.',
+      'HubSpot-visible demo context remains the primary public integration story.',
     ],
   },
   wix: {
@@ -66,15 +100,15 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Integrations / Wix',
     title: 'Add SentientWeb to Wix sites via custom embed.',
     deck:
-      'Use Wix custom code or Velo when you need finer control, with no need to leave the ecosystem you already publish in.',
+      'Use Wix custom code or Velo for SaaS marketing pages where the goal is qualified demo recovery.',
     body: [
-      'Marketing teams on Wix can still offer credible instant access paths. SentientWeb captures visitor intent, routes next steps, and cites approved content instead of improvising policy.',
-      'Place the script site-wide for parity with other platforms, or limit it to key pages such as Services, Pricing, and Contact.',
+      'Marketing teams on Wix can still recover demo-ready visitors from high-intent pages. SentientWeb captures visitor intent, routes next steps, and uses approved content instead of improvising policy.',
+      'Place the script site-wide for parity with other platforms, or limit it to key pages such as pricing, demo, integrations, and contact.',
     ],
     bullets: [
       'Custom code in Tracking & Analytics or page-level embeds.',
       'Velo-friendly if you gate load by consent or locale.',
-      'Same calendar and CRM story as the rest of the product.',
+      'Same Calendly and HubSpot story as the rest of the B2B SaaS product.',
     ],
   },
   custom: {
@@ -83,9 +117,9 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Integrations / Custom stack',
     title: 'Any stack: Next.js, Rails, static HTML, or internal portals.',
     deck:
-      'If it serves HTML or SPA shells, you can install SentientWeb with one origin, one install key, and deterministic rules.',
+      'If it serves HTML or SPA shells, you can install SentientWeb on high-intent pages with one origin, one install key, and deterministic rules.',
     body: [
-      'Custom stacks are the default for many teams. Drop the loader on the document shell, behind your feature flag or consent banner, and route production versus staging with separate keys.',
+      'Custom stacks are the default for many B2B SaaS teams. Drop the loader on the document shell, behind your feature flag or consent banner, and route production versus staging with separate keys.',
       'For SPAs, mount after hydration or lazy-load on intent so Core Web Vitals stay healthy. Server components and edge workers can inject the tag once per layout while your deployment pipeline stays in control.',
     ],
     bullets: [
@@ -99,6 +133,8 @@ export const INTEGRATION_PAGES = {
 export type IntegrationSlug = keyof typeof INTEGRATION_PAGES
 
 export const INTEGRATION_NAV_LINKS: { label: string; slug: IntegrationSlug }[] = [
+  { label: 'HubSpot', slug: 'hubspot' },
+  { label: 'Calendly', slug: 'calendly' },
   { label: 'WordPress', slug: 'wordpress' },
   { label: 'Webflow', slug: 'webflow' },
   { label: 'Shopify', slug: 'shopify' },
