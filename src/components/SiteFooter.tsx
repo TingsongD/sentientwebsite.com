@@ -1,30 +1,25 @@
 import type { ReactNode } from 'react'
 import { Link, type To } from 'react-router-dom'
-import { BOOK_DEMO_URL, GITHUB_REPO_URL } from '../constants'
+import { GITHUB_REPO_URL } from '../constants'
+import { FUNNEL_FEATURE_GROUPS, funnelFeatureId, funnelGroupId } from '../data/homeFeatures'
 import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
 import { openPrivacyPreferences } from '../privacyPreferences'
 import { SocialIconStack } from './SocialIconStack'
 
-type FooterProductItem =
-  | { label: string; calendly: true }
-  | { label: string; to: To }
+type FooterProductItem = { label: string; to: To; kind: 'stage' | 'feature' }
 
-const FOOTER_PRODUCT: FooterProductItem[] = [
-  { label: 'Visitor-to-Demo Engine', to: { pathname: '/', hash: 'features' } },
-  { label: 'Book a 30-day pilot', calendly: true },
-  { label: 'B2B SaaS', to: '/solutions/saas' },
-  { label: 'HubSpot integration', to: '/integrations/hubspot' },
-  { label: 'Salesforce fit', to: '/integrations/salesforce' },
-  { label: 'Pipedrive fit', to: '/integrations/pipedrive' },
-  { label: 'API & webhooks', to: '/integrations/api-webhooks' },
-  { label: 'Calendly integration', to: '/integrations/calendly' },
-  { label: 'Knowledge base', to: '/knowledge-base' },
-  { label: 'APIs & SDKs', to: '/apis-sdks' },
-  { label: 'Documentation', to: '/documentation' },
-  { label: 'Changelog', to: '/changelog' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'Demo ROI calculator', to: '/revenue-leak-calculator' },
-]
+const FOOTER_PRODUCT: FooterProductItem[] = FUNNEL_FEATURE_GROUPS.flatMap((group) => [
+  {
+    label: group.stage,
+    to: { pathname: '/', hash: funnelGroupId(group.stage) },
+    kind: 'stage' as const,
+  },
+  ...group.features.map((feature) => ({
+    label: feature.title,
+    to: { pathname: '/', hash: funnelFeatureId(feature.title) },
+    kind: 'feature' as const,
+  })),
+])
 
 const FOOTER_COMPANY: { label: string; to: To }[] = [
   { label: 'About', to: '/about' },
@@ -70,21 +65,17 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
       <div className="mx-auto grid max-w-[1831px] gap-12 sm:grid-cols-2 lg:grid-cols-4">
         <LinkColumn title="Product">
           {FOOTER_PRODUCT.map((item) => (
-            <li key={item.label}>
-              {'calendly' in item ? (
-                <a
-                  href={BOOK_DEMO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition hover:text-neon"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link to={item.to} className="transition hover:text-neon">
-                  {item.label}
-                </Link>
-              )}
+            <li key={item.label} className={item.kind === 'stage' ? 'pt-3 first:pt-0' : ''}>
+              <Link
+                to={item.to}
+                className={
+                  item.kind === 'stage'
+                    ? 'text-cream/80 transition hover:text-neon'
+                    : 'transition hover:text-neon'
+                }
+              >
+                {item.label}
+              </Link>
             </li>
           ))}
         </LinkColumn>

@@ -1,62 +1,116 @@
-/** Home page feature grid, shared with the Product dropdown anchor ids. */
-export const FEATURES = [
+/** Home page Product feature section, shared by the page and footer anchors. */
+export type FunnelFeature = {
+  title: string
+  body: string
+}
+
+export type FunnelFeatureGroup = {
+  stage: string
+  summary: string
+  features: readonly FunnelFeature[]
+}
+
+export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
   {
-    title: 'Demo-ready detection',
-    bullets: [
-      'Scores visitors on pricing, demo, comparison, integration, security, and docs pages.',
-      'Separates casual traffic from buyers showing real sales intent.',
-      'Triggers the recovery path only when page behavior warrants it.',
+    stage: 'Top of the funnel',
+    summary: 'Detect and recover buying intent before a visitor becomes another anonymous bounce.',
+    features: [
+      {
+        title: 'High-intent page detection',
+        body: 'Scores visits to pricing, demo, comparison, integration, security, docs, and customer story pages.',
+      },
+      {
+        title: 'Recovery Preview',
+        body: 'Lets prospects request a SentientWeb recovery map from a public pricing or website URL.',
+      },
+      {
+        title: 'Page recovery surfaces',
+        body: 'Handles pricing, demo, comparison, integration, security, and customer-story hesitation moments.',
+      },
+      {
+        title: 'B2B SaaS-only scope',
+        body: 'Keeps the public offer focused on demo recovery for SaaS pricing, comparison, integration, security, docs, and customer-story pages.',
+      },
     ],
   },
   {
-    title: 'Page-specific concierge',
-    bullets: [
-      'Pricing pages get ROI and plan-fit guidance.',
-      'Comparison pages get approved differentiation.',
-      'Integration pages get stack-fit questions and next steps.',
+    stage: 'Mid-funnel',
+    summary: 'Turn active hesitation into a guided buying path that confirms whether the visitor is worth sales time.',
+    features: [
+      {
+        title: 'Page-specific AI engagement',
+        body: 'Responds with the right plan-fit, ROI, stack-fit, security, or competitive context for the page they are on.',
+      },
+      {
+        title: 'Approved-source answers',
+        body: 'Uses approved content instead of generic responses when visitors ask buying or trust questions.',
+      },
+      {
+        title: 'Qualification questions',
+        body: 'Collects role, company domain, use case, stack, timeline, urgency, and fit before the calendar opens.',
+      },
+      {
+        title: 'Human handoff',
+        body: 'Routes complex, sensitive, or high-value sessions to a person with the full context preserved.',
+      },
+      {
+        title: 'Integration context',
+        body: 'Keeps HubSpot, Salesforce, Pipedrive, Chili Piper, Calendly, WordPress, Webflow, and custom install paths visible in the buying journey.',
+      },
     ],
   },
   {
-    title: 'Qualified demo booking',
-    bullets: [
-      'Collects company domain, use case, role, and timeline before opening the calendar.',
-      'Books only visitors who meet the agreed qualification rules.',
-      'Keeps sales calendars clear of low-fit meetings.',
-    ],
-  },
-  {
-    title: 'CRM context sync',
-    bullets: [
-      'Maps the CRM handoff before launch.',
-      'Adds pages viewed, summary, qualification answers, and booking context.',
-      'Gives sales the opener before the call starts.',
-    ],
-  },
-  {
-    title: 'Recovered demo reporting',
-    bullets: [
-      'Tracks demo-ready visitors detected, qualified, booked, and sales-accepted.',
-      'Shows which pages create the most recovered demo opportunities.',
-      'Keeps the pilot measured around qualified booked demos, not message volume.',
-    ],
-  },
-  {
-    title: 'Human handoff',
-    bullets: [
-      'Lets a human join or take over when the buyer needs a person.',
-      'Routes complex or sensitive questions out of automation.',
-      'Preserves the full context for the handoff.',
+    stage: 'Bottom of the funnel',
+    summary: 'Convert qualified website intent into a booked meeting sales can actually prepare for.',
+    features: [
+      {
+        title: 'Calendly demo booking',
+        body: 'Opens the agreed Calendly, Chili Piper, or routed booking path only after the visitor has shared enough context to qualify the meeting.',
+      },
+      {
+        title: 'CRM context sync',
+        body: 'Sends page behavior, qualification answers, summary, booking details, and a suggested opener into the agreed sales workflow.',
+      },
+      {
+        title: 'Text and email reminders',
+        body: 'Sends reminders before the meeting so the prospect has the link, timing, and reason they booked.',
+      },
+      {
+        title: 'Recovered demo reporting',
+        body: 'Tracks detected demo-ready visitors, qualified visitors, booked demos, and sales-visible context.',
+      },
+      {
+        title: 'ROI calculator',
+        body: 'Models recovered demos and pipeline influence from existing high-intent website traffic.',
+      },
+      {
+        title: 'Voice feedback add-on',
+        body: 'Captures why buyers did not book, did not show, stalled after demo, or signaled churn risk.',
+      },
     ],
   },
 ] as const
 
+export const FEATURES: readonly FunnelFeature[] = FUNNEL_FEATURE_GROUPS.flatMap(
+  (group) => group.features,
+)
+
+function anchorSlug(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+}
+
+export function funnelGroupId(stage: string): string {
+  return `funnel-${anchorSlug(stage)}`
+}
+
+export function funnelFeatureId(title: string): string {
+  return `feature-${anchorSlug(title)}`
+}
+
 export function featureSectionId(title: string): string {
-  return (
-    'feature-' +
-    title
-      .toLowerCase()
-      .replace(/&/g, 'and')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
-  )
+  return funnelFeatureId(title)
 }

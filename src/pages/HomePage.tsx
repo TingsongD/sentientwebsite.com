@@ -5,6 +5,7 @@ import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
+import { FUNNEL_FEATURE_GROUPS, funnelFeatureId, funnelGroupId } from '../data/homeFeatures'
 
 const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
@@ -161,87 +162,6 @@ const VOICE_FEEDBACK_USE_CASES = [
   {
     title: 'Website exit interview',
     body: 'Ask what stopped visitors leaving pricing or demo pages.',
-  },
-] as const
-
-const FUNNEL_FEATURE_GROUPS = [
-  {
-    stage: 'Top of the funnel',
-    summary: 'Detect and recover buying intent before a visitor becomes another anonymous bounce.',
-    features: [
-      {
-        title: 'High-intent page detection',
-        body: 'Scores visits to pricing, demo, comparison, integration, security, docs, and customer story pages.',
-      },
-      {
-        title: 'Recovery Preview',
-        body: 'Lets prospects request a SentientWeb recovery map from a public pricing or website URL.',
-      },
-      {
-        title: 'Page recovery surfaces',
-        body: 'Handles pricing, demo, comparison, integration, security, and customer-story hesitation moments.',
-      },
-      {
-        title: 'B2B SaaS-only scope',
-        body: 'Keeps the public offer focused on demo recovery for SaaS pricing, comparison, integration, security, docs, and customer-story pages.',
-      },
-    ],
-  },
-  {
-    stage: 'Mid-funnel',
-    summary: 'Turn active hesitation into a guided conversation that confirms whether the visitor is worth sales time.',
-    features: [
-      {
-        title: 'Page-specific AI engagement',
-        body: 'Responds with the right plan-fit, ROI, stack-fit, security, or competitive context for the page they are on.',
-      },
-      {
-        title: 'Approved-source answers',
-        body: 'Uses approved content instead of generic responses when visitors ask buying or trust questions.',
-      },
-      {
-        title: 'Qualification questions',
-        body: 'Collects role, company domain, use case, stack, timeline, urgency, and fit before the calendar opens.',
-      },
-      {
-        title: 'Human handoff',
-        body: 'Routes complex, sensitive, or high-value conversations to a person with the full context preserved.',
-      },
-      {
-        title: 'Integration context',
-        body: 'Keeps HubSpot, Salesforce, Pipedrive, Chili Piper, Calendly, WordPress, Webflow, and custom install paths visible in the buying journey.',
-      },
-    ],
-  },
-  {
-    stage: 'Bottom of the funnel',
-    summary: 'Convert qualified website intent into a booked meeting sales can actually prepare for.',
-    features: [
-      {
-        title: 'Calendly demo booking',
-        body: 'Opens the agreed Calendly, Chili Piper, or routed booking path only after the visitor has shared enough context to qualify the meeting.',
-      },
-      {
-        title: 'CRM context sync',
-        body: 'Sends page behavior, qualification answers, summary, booking details, and a suggested opener into the agreed sales workflow.',
-      },
-      {
-        title: 'Text and email reminders',
-        body: 'Sends reminders before the meeting so the prospect has the link, timing, and reason they booked.',
-      },
-      {
-        title: 'Recovered demo reporting',
-        body: 'Tracks detected demo-ready visitors, qualified visitors, booked demos, and sales-visible context.',
-      },
-      {
-        title: 'ROI calculator',
-        body: 'Models recovered demos and pipeline influence from existing high-intent website traffic.',
-      },
-      {
-        title: 'Voice feedback add-on',
-        body: 'Captures why buyers did not book, did not show, stalled after demo, or signaled churn risk.',
-      },
-    ],
   },
 ] as const
 
@@ -629,12 +549,12 @@ export default function HomePage() {
                 <section
                   key={group.stage}
                   className="rounded-[28px] border border-white/10 bg-white/[0.03] p-5 sm:p-7 lg:p-8"
-                  aria-labelledby={`funnel-${group.stage.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                  aria-labelledby={funnelGroupId(group.stage)}
                 >
                   <div className="mb-6 grid gap-3 lg:grid-cols-[0.7fr_1fr] lg:items-end">
                     <h3
-                      id={`funnel-${group.stage.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
-                      className="font-grotesk text-[26px] uppercase leading-tight text-cream sm:text-[34px]"
+                      id={funnelGroupId(group.stage)}
+                      className="font-grotesk scroll-mt-28 text-[26px] uppercase leading-tight text-cream sm:text-[34px]"
                     >
                       {group.stage}
                     </h3>
@@ -646,7 +566,8 @@ export default function HomePage() {
                     {group.features.map((feature) => (
                       <article
                         key={feature.title}
-                        className="liquid-glass rounded-[20px] p-5 transition hover:bg-white/10 sm:p-6"
+                        id={funnelFeatureId(feature.title)}
+                        className="liquid-glass scroll-mt-28 rounded-[20px] p-5 transition hover:bg-white/10 sm:p-6"
                       >
                         <h4 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
                           {feature.title}
