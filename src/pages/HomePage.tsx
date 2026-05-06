@@ -27,10 +27,24 @@ function withPreviewUrl(url: string, previewUrl: string) {
 }
 
 const INTEGRATION_LOGOS = [
-  { name: 'HubSpot', logoUrl: '/logos/hubspot.svg' },
-  { name: 'Calendly', logoUrl: '/logos/calendly.svg' },
-  { name: 'WordPress', logoUrl: '/logos/wordpress.svg' },
-  { name: 'Webflow', logoUrl: '/logos/webflow.svg' },
+  { name: 'HubSpot', logoUrl: '/logos/hubspot.svg', logoClassName: 'is-wide' },
+  { name: 'Salesforce', logoUrl: '/logos/salesforce.svg', logoClassName: 'is-wide' },
+  { name: 'Pipedrive', logoUrl: '/logos/pipedrive.svg', logoClassName: 'is-wide' },
+  { name: 'API and Webhooks', logoUrl: '/logos/api-webhooks.svg', logoClassName: 'is-wide' },
+  { name: 'Calendly', logoUrl: '/logos/calendly.svg', logoClassName: 'is-wide' },
+  { name: 'WordPress', logoUrl: '/logos/wordpress.svg', logoClassName: 'is-tall' },
+  { name: 'Webflow', logoUrl: '/logos/webflow.svg', logoClassName: 'is-wide' },
+  { name: 'Shopify', logoUrl: '/logos/shopify.svg', logoClassName: 'is-wide' },
+  { name: 'Wix', logoUrl: '/logos/wix.svg', logoClassName: 'is-wide' },
+  { name: 'OpenAI', logoUrl: '/logos/openai.svg', logoClassName: 'is-wide' },
+  { name: 'Claude', logoUrl: '/logos/claude.svg', logoClassName: 'is-wide' },
+  { name: 'Gemini', logoUrl: '/logos/gemini.svg', logoClassName: 'is-wide' },
+  { name: 'Warmly', logoUrl: '/logos/warmly.svg', logoClassName: 'is-wide' },
+  { name: 'Podium', logoUrl: '/logos/podium.svg', logoClassName: 'is-wide' },
+  { name: 'HighLevel', logoUrl: '/logos/highlevel.png', logoClassName: 'is-wide' },
+  { name: 'Drift', logoUrl: '/logos/drift.svg', logoClassName: 'is-wide' },
+  { name: 'Chili Piper', logoUrl: '/logos/chili-piper.svg', logoClassName: 'is-wide' },
+  { name: 'Custom integrations', logoUrl: '/logos/custom.svg', logoClassName: 'is-wide' },
 ] as const
 
 const DEMO_RECOVERY_MODULES = [
@@ -256,21 +270,23 @@ function AmbientVideo({
 function IntegrationLogoItem({
   name,
   logoUrl,
+  logoClassName,
   hidden = false,
 }: {
   name: string
   logoUrl: string
+  logoClassName: string
   hidden?: boolean
 }) {
   return (
     <li
-      className="flex min-w-[96px] items-center justify-center px-6 py-3 sm:min-w-[128px] sm:px-8"
+      className="grid h-[66px] min-w-[126px] place-items-center px-2 py-3 sm:h-[68px] sm:min-w-[154px] sm:px-[18px]"
       aria-hidden={hidden || undefined}
     >
       <img
         src={logoUrl}
         alt={hidden ? '' : `${name} logo`}
-        className="h-10 w-auto max-w-[90px] shrink-0 object-contain sm:h-12 sm:max-w-[112px]"
+        className={`integration-logo-image ${logoClassName}`}
         loading="eager"
         decoding="async"
       />
@@ -281,19 +297,19 @@ function IntegrationLogoItem({
 function IntegrationLogoStrip() {
   return (
     <section
-      className="overflow-hidden border-y border-white/10 bg-background py-8 sm:py-10"
+      className="integration-logo-strip overflow-hidden py-8 sm:py-10"
       aria-labelledby="integrations-strip-heading"
     >
       <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
         <h2
           id="integrations-strip-heading"
-          className="font-mono mb-5 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]"
+          className="font-mono mb-5 text-[11px] uppercase tracking-widest text-[#0B6A31] sm:text-[12px]"
         >
-          Integrates with
+          SentientWeb uses your existing stack
         </h2>
       </div>
-      <div className="integration-logo-marquee" role="list" aria-label="Integration logos">
-        <ul className="integration-logo-track">
+      <div className="integration-logo-marquee">
+        <ul className="integration-logo-track" aria-label="Integration logos">
           {INTEGRATION_LOGOS.map((logo) => (
             <IntegrationLogoItem key={logo.name} {...logo} />
           ))}
@@ -656,7 +672,7 @@ export default function HomePage() {
         {/* CTA video + closing */}
         <section className="relative w-full bg-background" aria-labelledby="cta-heading">
           <AmbientVideo
-            className="relative block aspect-video w-full overflow-hidden"
+            className="relative block min-h-[520px] w-full overflow-hidden sm:aspect-video sm:min-h-0"
             mediaSrc={CTA_MEDIA}
             reducedMotion={prefersReducedMotion}
           />
@@ -666,7 +682,7 @@ export default function HomePage() {
             <div className="pointer-events-auto absolute top-1/2 right-0 w-full -translate-y-1/2 px-6 text-right sm:px-10 lg:pl-[15%] lg:pr-[20%]">
               <div className="relative ml-auto inline-block max-w-4xl">
                 <p
-                  className="font-condiment pointer-events-none absolute -left-2 -top-8 z-10 text-[17px] text-neon mix-blend-exclusion sm:-top-10 sm:text-[28px] md:-top-14 md:text-[44px] lg:-left-4 lg:-top-16 lg:text-[56px] xl:text-[68px] normal-case"
+                  className="font-condiment pointer-events-none absolute -left-2 -top-8 z-10 text-[17px] text-neon mix-blend-exclusion sm:-top-10 sm:text-[28px] md:-top-14 md:text-[44px] lg:-left-[216px] lg:-top-16 lg:text-[56px] xl:text-[68px] normal-case"
                   aria-hidden
                 >
                   One engine
@@ -675,7 +691,7 @@ export default function HomePage() {
                   id="cta-heading"
                   className="font-grotesk uppercase leading-tight text-cream text-[18px] sm:text-[32px] md:text-[44px] lg:text-[52px] xl:text-[60px]"
                 >
-                  <span className="mb-4 block text-[14px] sm:mb-6 sm:text-[20px] md:mb-8 md:text-[26px] lg:mb-10 lg:text-[30px] xl:text-[34px]">
+                  <span className="mb-4 block text-[14px] sm:mb-6 sm:text-[20px] md:mb-8 md:text-[26px] lg:mb-10 lg:ml-20 lg:text-[30px] xl:ml-28 xl:text-[34px]">
                     One focused recovery loop: detect, qualify, book, sync.
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">

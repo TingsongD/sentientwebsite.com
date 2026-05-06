@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" role="img" aria-labelledby="title">
+  <title id="title">API and Webhooks</title>
+  <rect width="240" height="72" rx="18" fill="#071431"/>
+  <path fill="none" stroke="#6FFF00" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M35 23 22 36l13 13M70 23l13 13-13 13M47 52l13-32"/>
+  <circle cx="112" cy="27" r="7" fill="#55D6FF"/>
+  <circle cx="112" cy="45" r="7" fill="#FF8A8A"/>
+  <path fill="none" stroke="#55D6FF" stroke-linecap="round" stroke-width="4" d="M119 27h30c13 0 13 18 0 18h-30"/>
+  <text x="168" y="32" fill="#F1F6FF" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">API</text>
+  <text x="168" y="52" fill="#F1F6FF" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">WEBHOOKS</text>
+</svg>

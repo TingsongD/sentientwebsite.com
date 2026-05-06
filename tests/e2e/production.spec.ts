@@ -1818,6 +1818,45 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   expect(sectionOrder[0]).toBeLessThan(sectionOrder[1])
   expect(sectionOrder[1]).toBeLessThan(sectionOrder[2])
   await expect(page.getByRole('heading', { name: 'The Demo Recovery Engine inside SentientWeb.' })).toBeVisible()
+  const integrationsStrip = page.locator('section[aria-labelledby="integrations-strip-heading"]')
+  await expect(integrationsStrip).toHaveClass(/integration-logo-strip/)
+  await expect(
+    integrationsStrip.getByRole('heading', { name: 'SentientWeb uses your existing stack' }),
+  ).toBeVisible()
+  const integrationLogoList = integrationsStrip.getByRole('list', { name: 'Integration logos' })
+  await expect(integrationLogoList.locator('img')).toHaveCount(18)
+  for (const logoName of [
+    'HubSpot',
+    'Salesforce',
+    'Pipedrive',
+    'API and Webhooks',
+    'Calendly',
+    'WordPress',
+    'Webflow',
+    'Shopify',
+    'Wix',
+    'OpenAI',
+    'Claude',
+    'Gemini',
+    'Warmly',
+    'Podium',
+    'HighLevel',
+    'Drift',
+    'Chili Piper',
+    'Custom integrations',
+  ]) {
+    await expect(integrationLogoList.getByRole('img', { name: `${logoName} logo` })).toBeVisible()
+  }
+  await expect(integrationsStrip.locator('.integration-logo-track[aria-hidden="true"] img')).toHaveCount(18)
+  await expect(integrationsStrip.locator('.integration-logo-track[aria-hidden="true"] img').first()).toHaveAttribute(
+    'alt',
+    '',
+  )
+  expect(
+    await integrationsStrip.evaluate((el) =>
+      getComputedStyle(el).backgroundImage.includes('linear-gradient'),
+    ),
+  ).toBe(true)
   await expect(page.getByRole('heading', { name: 'B2B SaaS demo recovery' })).toHaveCount(0)
   await expect(
     page.getByText(
@@ -1848,10 +1887,27 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(page.getByRole('heading', { name: 'When buyers do not book, learn why.' })).toBeVisible()
   const roiCalculatorSection = page.locator('section[aria-label="ROI calculator"]').first()
   await expect(roiCalculatorSection.locator('video')).toHaveAttribute('src', roiCtaVideoUrl)
-  await expect(roiCalculatorSection.getByRole('link', { name: 'Estimate recovered demos' })).toHaveAttribute(
-    'href',
-    '/revenue-leak-calculator',
+  const roiCalculatorLink = roiCalculatorSection.getByRole('link', {
+    name: 'Estimate recoverable demos in the last 30 days.',
+  })
+  await expect(roiCalculatorLink).toHaveAttribute('href', '/revenue-leak-calculator')
+  await expect(roiCalculatorLink).toHaveClass(/ai-rainbow-cta/)
+  await expect(roiCalculatorLink.locator('.ai-rainbow-cta__label')).toHaveText(
+    'Estimate recoverable demos in the last 30 days.',
   )
+  await expect(roiCalculatorLink.locator('.ai-rainbow-cta__sparkles')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  )
+  await expect(roiCalculatorLink.locator('.ai-rainbow-cta__sparkles > span')).toHaveCount(6)
+  await expect(roiCalculatorLink.locator('.ai-rainbow-cta__sparkles > span[style]')).toHaveCount(
+    0,
+  )
+  expect(
+    await roiCalculatorLink.evaluate((el) =>
+      getComputedStyle(el).backgroundImage.includes('conic-gradient'),
+    ),
+  ).toBe(true)
   await expect(page.getByRole('dialog')).toHaveCount(0)
 
   await page.goto('/solutions/saas')

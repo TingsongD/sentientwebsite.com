@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 72" role="img" aria-labelledby="title">
+  <title id="title">Custom integrations</title>
+  <rect width="240" height="72" rx="18" fill="#071431"/>
+  <circle cx="32" cy="36" r="13" fill="#6FFF00"/>
+  <circle cx="70" cy="24" r="10" fill="#55D6FF"/>
+  <circle cx="70" cy="48" r="10" fill="#FF8A8A"/>
+  <path fill="none" stroke="#F1F6FF" stroke-linecap="round" stroke-width="4" d="M45 36h35M70 24v24"/>
+  <text x="101" y="43" fill="#F1F6FF" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800">Custom</text>
+</svg>

@@ -53,15 +53,28 @@
     linear-gradient(135deg, #010828 0%, #061134 52%, #101014 100%);
 }
 
+.integration-logo-strip {
+  border-block: 1px solid rgba(15, 31, 58, 0.12);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(111, 255, 0, 0.16),
+      transparent 18%,
+      transparent 82%,
+      rgba(85, 214, 255, 0.12)
+    ),
+    linear-gradient(180deg, #fffdf8, #f7faf4);
+}
+
 .integration-logo-marquee {
   display: flex;
   gap: 1rem;
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
   overflow: hidden;
 }
 
 .integration-logo-track {
-  animation: logo-marquee 30s linear infinite;
+  animation: logo-marquee 68s linear infinite;
   display: flex;
   flex: 0 0 auto;
   gap: 1rem;
@@ -79,9 +92,190 @@
   }
 }
 
+.integration-logo-image {
+  display: block;
+  width: auto;
+  max-width: 142px;
+  max-height: 46px;
+  object-fit: contain;
+  filter: drop-shadow(0 7px 14px rgba(16, 33, 60, 0.12));
+}
+
+.integration-logo-image.is-wide {
+  max-width: 156px;
+}
+
+.integration-logo-image.is-tall {
+  max-height: 46px;
+}
+
+@media (max-width: 640px) {
+  .integration-logo-image,
+  .integration-logo-image.is-wide {
+    max-width: 112px;
+    max-height: 36px;
+  }
+}
+
 .leak-rate-flash {
   animation: leak-rate-flash 2.4s ease-in-out infinite;
   text-shadow: 0 0 18px rgba(255, 138, 138, 0.42);
+}
+
+.ai-rainbow-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid transparent;
+  color: #f1f6ff;
+  text-decoration: none;
+  background:
+    linear-gradient(#02030d, #02030d) padding-box,
+    conic-gradient(
+      from var(--ai-rainbow-spin, 0deg),
+      #ff8a8a,
+      #ffce5c,
+      #6fff00,
+      #55d6ff,
+      #9f7cff,
+      #ff8a8a
+    )
+    border-box;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 18px 64px rgba(111, 255, 0, 0.18),
+    0 14px 52px rgba(255, 138, 138, 0.16),
+    inset 0 1px rgba(255, 255, 255, 0.18);
+  transform: translateZ(0);
+  animation: ai-rainbow-border-spin 4.8s linear infinite;
+}
+
+.ai-rainbow-cta::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -2;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 138, 138, 0.32), transparent 28%),
+    radial-gradient(circle at 76% 28%, rgba(85, 214, 255, 0.28), transparent 30%),
+    radial-gradient(circle at 54% 92%, rgba(111, 255, 0, 0.26), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+  filter: saturate(1.22);
+}
+
+.ai-rainbow-cta::after {
+  content: '';
+  position: absolute;
+  inset: -40% -22%;
+  z-index: -1;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255, 255, 255, 0.64) 47%,
+    rgba(111, 255, 0, 0.45) 52%,
+    transparent 66%,
+    transparent 100%
+  );
+  opacity: 0.58;
+  transform: translateX(-58%) rotate(6deg);
+  animation: ai-rainbow-sheen 2.8s cubic-bezier(0.72, 0, 0.18, 1) infinite;
+}
+
+.ai-rainbow-cta__label {
+  position: relative;
+  z-index: 2;
+  color: #f1f6ff;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.32),
+    0 0 30px rgba(111, 255, 0, 0.24);
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.ai-rainbow-cta:hover .ai-rainbow-cta__label {
+  color: #6fff00;
+  text-shadow:
+    0 0 18px rgba(111, 255, 0, 0.72),
+    0 0 38px rgba(85, 214, 255, 0.32);
+}
+
+.ai-rainbow-cta__sparkles {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.ai-rainbow-cta__sparkles span {
+  position: absolute;
+  left: var(--spark-x);
+  top: var(--spark-y);
+  width: var(--spark-size);
+  height: var(--spark-size);
+  border-radius: 999px;
+  background: var(--spark-color);
+  box-shadow:
+    0 0 10px var(--spark-color),
+    0 0 22px rgba(255, 255, 255, 0.22);
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(0.4);
+  animation: ai-rainbow-spark 1.9s ease-in-out infinite;
+  animation-delay: var(--spark-delay);
+}
+
+.ai-rainbow-cta__sparkles span:nth-child(1) {
+  --spark-x: 12%;
+  --spark-y: 26%;
+  --spark-size: 4px;
+  --spark-color: #ff8a8a;
+  --spark-delay: -0.1s;
+}
+
+.ai-rainbow-cta__sparkles span:nth-child(2) {
+  --spark-x: 28%;
+  --spark-y: 70%;
+  --spark-size: 3px;
+  --spark-color: #ffce5c;
+  --spark-delay: -0.55s;
+}
+
+.ai-rainbow-cta__sparkles span:nth-child(3) {
+  --spark-x: 48%;
+  --spark-y: 18%;
+  --spark-size: 4px;
+  --spark-color: #6fff00;
+  --spark-delay: -0.95s;
+}
+
+.ai-rainbow-cta__sparkles span:nth-child(4) {
+  --spark-x: 66%;
+  --spark-y: 74%;
+  --spark-size: 3px;
+  --spark-color: #55d6ff;
+  --spark-delay: -1.25s;
+}
+
+.ai-rainbow-cta__sparkles span:nth-child(5) {
+  --spark-x: 80%;
+  --spark-y: 30%;
+  --spark-size: 4px;
+  --spark-color: #9f7cff;
+  --spark-delay: -1.55s;
+}
+
+.ai-rainbow-cta__sparkles span:nth-child(6) {
+  --spark-x: 92%;
+  --spark-y: 62%;
+  --spark-size: 3px;
+  --spark-color: #f1f6ff;
+  --spark-delay: -1.8s;
 }
 
 @keyframes leak-rate-flash {
@@ -94,6 +288,43 @@
   50% {
     opacity: 0.62;
     text-shadow: 0 0 30px rgba(255, 138, 138, 0.86);
+  }
+}
+
+@property --ai-rainbow-spin {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ai-rainbow-border-spin {
+  to {
+    --ai-rainbow-spin: 360deg;
+  }
+}
+
+@keyframes ai-rainbow-sheen {
+  0%,
+  42% {
+    transform: translateX(-58%) rotate(6deg);
+  }
+
+  70%,
+  100% {
+    transform: translateX(58%) rotate(6deg);
+  }
+}
+
+@keyframes ai-rainbow-spark {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0) scale(0.42);
+  }
+
+  45% {
+    opacity: 0.95;
+    transform: translate3d(0, -4px, 0) scale(1);
   }
 }
 
@@ -315,6 +546,14 @@
 }
 
 @media (max-width: 640px) {
+  .ai-rainbow-cta {
+    max-width: calc(100vw - 40px);
+  }
+
+  .ai-rainbow-cta__label {
+    white-space: normal;
+  }
+
   .blackhole-profit-suck span {
     font-size: calc(var(--profit-size) * 0.78);
   }
@@ -373,6 +612,12 @@
   }
 
   .leak-rate-flash {
+    animation: none;
+  }
+
+  .ai-rainbow-cta,
+  .ai-rainbow-cta::after,
+  .ai-rainbow-cta__sparkles span {
     animation: none;
   }
 
