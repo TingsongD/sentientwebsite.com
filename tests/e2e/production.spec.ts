@@ -13,6 +13,10 @@ const siteUrl = normalizeSiteUrl(
 )
 const faviconUrl =
   'https://cdn.shopify.com/s/files/1/0792/3613/7216/files/logo_blob_2.png?v=1777947912'
+const blackholeLeakVideoUrl =
+  'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
+const roiCtaVideoUrl =
+  'https://cdn.shopify.com/videos/c/o/v/9fe664570f2b4284a76f522f11fcf58a.mp4'
 const legalVersions = {
   consentVersion: 'v1',
   privacyPolicyVersion: '2026-05-02',
@@ -853,6 +857,7 @@ test('pricing responses include hardened security headers', async ({ request }) 
   expect(csp).toContain("object-src 'none'")
   expect(csp).toContain("script-src-attr 'none'")
   expect(csp).toContain("style-src-attr 'none'")
+  expect(csp).toContain("media-src 'self' blob: https://cdn.shopify.com")
   expect(scriptDirective).toContain("'self'")
   expect(scriptDirective).toContain("'sha256-")
   expect(scriptDirective).not.toContain("'unsafe-inline'")
@@ -1729,6 +1734,24 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(features).toContainText('High-intent page detection')
   await expect(features).toContainText('B2B SaaS-only scope')
   await expect(features).toContainText('Text and email reminders')
+  await expect(
+    features.getByRole('heading', { name: 'What better demo recovery can move.' }),
+  ).toBeVisible()
+  await expect(features.getByText('Increase demo booking rates by up to 80% from high-intent pages.')).toBeVisible()
+  await expect(features.getByText('Reduce high-intent visitor drop-off by up to 50%.')).toBeVisible()
+  await expect(
+    features.getByText(
+      'Recover up to 35% more qualified booked demos from the traffic you already have.',
+    ),
+  ).toBeVisible()
+  await expect(
+    features.getByText('Cut demo no-shows by up to 30% with text and email reminders.'),
+  ).toBeVisible()
+  await expect(
+    features.getByText(
+      'Every recovered demo arrives with page history, qualification answers, and a suggested sales opener.',
+    ),
+  ).toBeVisible()
   await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span')).toHaveCount(54)
   await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span[style]')).toHaveCount(0)
   await expect(features.locator('.cinematic-funnel-anchor[style]')).toHaveCount(0)
@@ -1739,6 +1762,39 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   ).toBeVisible()
   const revenueLeaks = page.locator('#revenue-leaks')
   await expect(revenueLeaks.getByText('B2B SaaS').first()).toBeVisible()
+  await expect(revenueLeaks.getByText('US B2B SaaS profit leaked since you arrived')).toBeVisible()
+  await expect(revenueLeaks.getByText('Modeled US leak rate:')).toBeVisible()
+  await expect(revenueLeaks.getByText('Operator gap:')).toHaveCount(0)
+  const leakCounter = revenueLeaks.getByTestId('b2b-saas-leak-counter')
+  const readCounterValue = async () => {
+    const text = (await leakCounter.textContent()) || ''
+    return Number(text.replace(/[^0-9]/g, ''))
+  }
+  const firstLeakValue = await readCounterValue()
+  await page.waitForTimeout(700)
+  expect(await readCounterValue()).toBeGreaterThan(firstLeakValue)
+  const leakCard = revenueLeaks.locator('a[href="/solutions/saas"]')
+  await expect(leakCard).toHaveClass(/blackhole-leak-card/)
+  await expect(leakCard).toHaveAttribute('href', '/solutions/saas')
+  await expect(leakCard.locator('.blackhole-video-bg')).toHaveAttribute('aria-hidden', 'true')
+  await expect(leakCard.locator('.blackhole-profit-suck')).toHaveAttribute('aria-hidden', 'true')
+  await expect(leakCard.locator('.blackhole-video-bg video')).toHaveAttribute('src', blackholeLeakVideoUrl)
+  await expect(leakCard.locator('.blackhole-accretion-bars')).toHaveCount(0)
+  await expect(leakCard.locator('.blackhole-profit-suck > span')).toHaveCount(18)
+  await expect(leakCard.locator('.blackhole-profit-suck > span[style]')).toHaveCount(0)
+  expect(
+    await leakCard.locator('.blackhole-video-bg').evaluate((el) => {
+      const afterBackground = getComputedStyle(el, '::after').backgroundImage
+      return afterBackground.includes('radial-gradient') && afterBackground.includes('linear-gradient')
+    }),
+  ).toBe(true)
+  const leakCardBox = await leakCard.boundingBox()
+  expect(leakCardBox?.width).toBeLessThanOrEqual(530)
+  expect(leakCardBox?.height).toBeGreaterThanOrEqual(340)
+  expect((leakCardBox?.width || 1) / (leakCardBox?.height || 1)).toBeLessThan(1.6)
+  const viewportWidth = page.viewportSize()?.width || 1280
+  const leakCardCenter = (leakCardBox?.x || 0) + (leakCardBox?.width || 0) / 2
+  expect(Math.abs(leakCardCenter - viewportWidth / 2)).toBeLessThanOrEqual(8)
   for (const removedVertical of [
     'Home Services',
     'Insurance',
@@ -1790,10 +1846,35 @@ test('homepage and solution pages render new positioning and trust disclosure', 
     }),
   ).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'When buyers do not book, learn why.' })).toBeVisible()
+  const roiCalculatorSection = page.locator('section[aria-label="ROI calculator"]').first()
+  await expect(roiCalculatorSection.locator('video')).toHaveAttribute('src', roiCtaVideoUrl)
+  await expect(roiCalculatorSection.getByRole('link', { name: 'Estimate recovered demos' })).toHaveAttribute(
+    'href',
+    '/revenue-leak-calculator',
+  )
   await expect(page.getByRole('dialog')).toHaveCount(0)
 
   await page.goto('/solutions/saas')
   await expect(page.getByRole('heading', { name: 'Recover demo-ready visitors before they leave.' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: 'What better demo recovery can move.' }),
+  ).toBeVisible()
+  await expect(page.getByText('Increase demo booking rates by up to 80% from high-intent pages.')).toBeVisible()
+  await expect(page.getByText('Reduce high-intent visitor drop-off by up to 50%.')).toBeVisible()
+  await expect(
+    page.getByText(
+      'Recover up to 35% more qualified booked demos from the traffic you already have.',
+    ),
+  ).toBeVisible()
+  await expect(
+    page.getByText('Cut demo no-shows by up to 30% with text and email reminders.'),
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      'Every recovered demo arrives with page history, qualification answers, and a suggested sales opener.',
+    ),
+  ).toBeVisible()
+  await expect(page.getByText('Modeled targets. Actual results depend on traffic quality')).toBeVisible()
   await expect(
     page.getByRole('heading', { name: 'The visitor-to-demo journey, start to finish.' }),
   ).toBeVisible()
@@ -1811,6 +1892,46 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(page.getByText('Encrypted in transit').first()).toBeVisible()
   await expect(page.getByText('Retention controls').first()).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Transparent by design' })).toBeVisible()
+})
+
+test('blackhole leak card renders on mobile without overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+
+  const acceptButton = page.getByRole('button', { name: 'Accept all' })
+  if (await acceptButton.isVisible()) {
+    await acceptButton.click()
+  }
+
+  const revenueLeaks = page.locator('#revenue-leaks')
+  const leakCard = revenueLeaks.locator('a[href="/solutions/saas"]')
+  await leakCard.scrollIntoViewIfNeeded()
+
+  await expect(leakCard).toBeVisible()
+  await expect(leakCard.getByTestId('b2b-saas-leak-counter')).toBeVisible()
+  await expect(leakCard.getByText('US B2B SaaS profit leaked since you arrived')).toBeVisible()
+  await expect(leakCard.getByText('Modeled US leak rate:')).toBeVisible()
+  await expect(leakCard.locator('.blackhole-video-bg')).toHaveAttribute('aria-hidden', 'true')
+  await expect(leakCard.locator('.blackhole-video-bg video')).toHaveAttribute('src', blackholeLeakVideoUrl)
+  await expect(leakCard.locator('.blackhole-profit-suck > span')).toHaveCount(18)
+
+  const metrics = await leakCard.evaluate((el) => {
+    const rect = el.getBoundingClientRect()
+    return {
+      height: rect.height,
+      width: rect.width,
+      x: rect.x,
+    }
+  })
+
+  expect(metrics.height).toBeGreaterThanOrEqual(300)
+  expect(metrics.width).toBeLessThanOrEqual(390)
+  expect(metrics.x).toBeGreaterThanOrEqual(0)
+
+  const hasHorizontalOverflow = await page.evaluate(() => {
+    return document.documentElement.scrollWidth > window.innerWidth + 1
+  })
+  expect(hasHorizontalOverflow).toBe(false)
 })
 
 test('home hash navigation respects section scroll margins', async ({ page }) => {
@@ -1933,12 +2054,20 @@ test('reduced motion omits ambient video sources', async ({ page }) => {
   expect(hydrationErrors).toEqual([])
 })
 
-test('homepage visual assets are first-party before consent', async ({ page, request }) => {
+test('homepage visual assets use approved sources before consent', async ({ page, request }) => {
   const thirdPartyAssetRequests: string[] = []
   page.on('request', (assetRequest) => {
     const url = assetRequest.url()
     const isAllowedFavicon = url === faviconUrl
-    if (url.includes('cdn.worldvectorlogo.com') || (url.includes('cdn.shopify.com') && !isAllowedFavicon)) {
+    const isAllowedBlackholeVideo = url === blackholeLeakVideoUrl
+    const isAllowedRoiCtaVideo = url === roiCtaVideoUrl
+    if (
+      url.includes('cdn.worldvectorlogo.com') ||
+      (url.includes('cdn.shopify.com') &&
+        !isAllowedFavicon &&
+        !isAllowedBlackholeVideo &&
+        !isAllowedRoiCtaVideo)
+    ) {
       thirdPartyAssetRequests.push(url)
     }
   })
@@ -1951,6 +2080,8 @@ test('homepage visual assets are first-party before consent', async ({ page, req
   const html = await (await request.get('/')).text()
   expect(html).not.toContain('cdn.worldvectorlogo.com')
   expect(html).toContain(faviconUrl)
+  expect(html).toContain(blackholeLeakVideoUrl)
+  expect(html).toContain(roiCtaVideoUrl)
   expect(thirdPartyAssetRequests).toEqual([])
 })
 

@@ -1,0 +1,270 @@
+diff --git a/src/index.css b/src/index.css
+index 66e62f5..811d00e 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -225,28 +225,7 @@
+   min-height: clamp(300px, 78vw, 340px);
+   overflow: hidden;
+   border-color: rgba(255, 138, 138, 0.34);
+-  background:
+-    radial-gradient(
+-      circle at 50% 54%,
+-      #000 0 3.4rem,
+-      rgba(0, 0, 0, 0.98) 3.55rem 5rem,
+-      transparent 5.15rem
+-    ),
+-    radial-gradient(
+-      ellipse at 50% 54%,
+-      rgba(255, 138, 138, 0.38) 0 9%,
+-      rgba(111, 255, 0, 0.26) 15%,
+-      rgba(85, 214, 255, 0.1) 27%,
+-      transparent 55%
+-    ),
+-    radial-gradient(
+-      circle at 50% 54%,
+-      transparent 0 7rem,
+-      rgba(255, 138, 138, 0.12) 7.1rem 7.4rem,
+-      transparent 7.55rem
+-    ),
+-    radial-gradient(circle at 50% 50%, rgba(111, 255, 0, 0.1), transparent 54%),
+-    #01030d;
++  background: #01030d;
+   box-shadow:
+     0 0 0 1px rgba(255, 255, 255, 0.04),
+     0 34px 120px rgba(0, 0, 0, 0.62),
+@@ -254,60 +233,7 @@
+     inset 0 0 46px rgba(255, 138, 138, 0.1);
+ }
+ 
+-.blackhole-leak-card::before,
+-.blackhole-leak-card::after {
+-  content: '';
+-  pointer-events: none;
+-  position: absolute;
+-  left: 50%;
+-  top: 52%;
+-  border-radius: 999px;
+-}
+-
+-.blackhole-leak-card::before {
+-  z-index: 0;
+-  width: 136%;
+-  height: 52%;
+-  background:
+-    conic-gradient(
+-      from 108deg,
+-      transparent 0deg,
+-      rgba(255, 138, 138, 0.42) 32deg,
+-      rgba(111, 255, 0, 0.54) 78deg,
+-      rgba(255, 255, 255, 0.34) 103deg,
+-      rgba(255, 138, 138, 0.36) 128deg,
+-      transparent 188deg,
+-      rgba(85, 214, 255, 0.2) 255deg,
+-      transparent 360deg
+-    );
+-  filter: blur(0.4px);
+-  opacity: 0.86;
+-  transform: translate(-50%, -50%) rotate(-10deg) skewX(-10deg);
+-  animation: blackhole-accretion-spin 1.3s linear infinite;
+-}
+-
+-.blackhole-leak-card::after {
+-  z-index: 0;
+-  width: 12.25rem;
+-  height: 12.25rem;
+-  background:
+-    radial-gradient(
+-      circle,
+-      #000 0 33%,
+-      rgba(0, 0, 0, 0.98) 43%,
+-      rgba(0, 0, 0, 0.68) 54%,
+-      transparent 66%
+-    ),
+-    radial-gradient(circle, rgba(255, 138, 138, 0.4), rgba(111, 255, 0, 0.18) 42%, transparent 72%);
+-  box-shadow:
+-    0 0 0 1px rgba(255, 255, 255, 0.04),
+-    0 0 22px rgba(0, 0, 0, 0.96),
+-    0 0 70px rgba(255, 138, 138, 0.26),
+-    0 0 112px rgba(111, 255, 0, 0.14);
+-  transform: translate(-50%, -50%);
+-}
+-
+-.blackhole-accretion-bars,
++.blackhole-video-bg,
+ .blackhole-profit-suck {
+   pointer-events: none;
+   position: absolute;
+@@ -317,58 +243,28 @@
+   border-radius: inherit;
+ }
+ 
+-.blackhole-accretion-bars span {
++.blackhole-video-bg {
++  background: #01030d;
++}
++
++.blackhole-video-bg video {
++  width: 100%;
++  height: 100%;
++  object-fit: cover;
++  object-position: center;
++  opacity: 0.82;
++  filter: saturate(1.08) contrast(1.08);
++}
++
++.blackhole-video-bg::after {
++  content: '';
+   position: absolute;
+-  left: 50%;
+-  top: 52%;
+-  width: var(--bar-w);
+-  height: var(--bar-h);
+-  border-radius: 999px;
++  inset: 0;
+   background:
+-    linear-gradient(
+-      90deg,
+-      transparent 0%,
+-      rgba(255, 138, 138, 0.04) 10%,
+-      rgba(255, 138, 138, 0.62) 31%,
+-      rgba(111, 255, 0, 0.9) 50%,
+-      rgba(241, 246, 255, 0.52) 61%,
+-      rgba(85, 214, 255, 0.18) 76%,
+-      transparent 100%
+-    );
+-  box-shadow:
+-    0 0 24px rgba(255, 138, 138, 0.24),
+-    0 0 42px rgba(111, 255, 0, 0.14);
+-  filter: blur(var(--bar-blur));
+-  opacity: var(--bar-opacity);
+-  transform: translate(-50%, -50%) rotate(var(--bar-angle)) skewX(var(--bar-skew));
+-  animation: blackhole-bar-spin var(--bar-speed) linear infinite;
+-  animation-delay: var(--bar-delay);
+-}
+-
+-.blackhole-accretion-bars span:nth-child(1) { --bar-angle: 0deg; --bar-w: 146%; --bar-h: 17%; --bar-skew: -14deg; --bar-speed: 0.92s; --bar-delay: -0.02s; --bar-opacity: 0.5; --bar-blur: 0.65px; }
+-.blackhole-accretion-bars span:nth-child(2) { --bar-angle: 15deg; --bar-w: 122%; --bar-h: 10%; --bar-skew: 12deg; --bar-speed: 0.84s; --bar-delay: -0.09s; --bar-opacity: 0.38; --bar-blur: 1px; }
+-.blackhole-accretion-bars span:nth-child(3) { --bar-angle: 30deg; --bar-w: 156%; --bar-h: 8%; --bar-skew: -20deg; --bar-speed: 0.76s; --bar-delay: -0.16s; --bar-opacity: 0.34; --bar-blur: 1.2px; }
+-.blackhole-accretion-bars span:nth-child(4) { --bar-angle: 45deg; --bar-w: 110%; --bar-h: 6%; --bar-skew: 18deg; --bar-speed: 0.98s; --bar-delay: -0.23s; --bar-opacity: 0.28; --bar-blur: 1.55px; }
+-.blackhole-accretion-bars span:nth-child(5) { --bar-angle: 60deg; --bar-w: 138%; --bar-h: 9%; --bar-skew: -10deg; --bar-speed: 0.88s; --bar-delay: -0.3s; --bar-opacity: 0.32; --bar-blur: 1.05px; }
+-.blackhole-accretion-bars span:nth-child(6) { --bar-angle: 75deg; --bar-w: 94%; --bar-h: 5%; --bar-skew: 24deg; --bar-speed: 0.72s; --bar-delay: -0.37s; --bar-opacity: 0.22; --bar-blur: 1.95px; }
+-.blackhole-accretion-bars span:nth-child(7) { --bar-angle: 90deg; --bar-w: 132%; --bar-h: 7%; --bar-skew: -18deg; --bar-speed: 1.04s; --bar-delay: -0.44s; --bar-opacity: 0.3; --bar-blur: 1.35px; }
+-.blackhole-accretion-bars span:nth-child(8) { --bar-angle: 105deg; --bar-w: 104%; --bar-h: 4.8%; --bar-skew: 14deg; --bar-speed: 0.8s; --bar-delay: -0.51s; --bar-opacity: 0.2; --bar-blur: 2.1px; }
+-.blackhole-accretion-bars span:nth-child(9) { --bar-angle: 120deg; --bar-w: 150%; --bar-h: 7.5%; --bar-skew: -22deg; --bar-speed: 0.7s; --bar-delay: -0.08s; --bar-opacity: 0.3; --bar-blur: 1.45px; }
+-.blackhole-accretion-bars span:nth-child(10) { --bar-angle: 135deg; --bar-w: 116%; --bar-h: 5.5%; --bar-skew: 20deg; --bar-speed: 0.94s; --bar-delay: -0.15s; --bar-opacity: 0.24; --bar-blur: 1.85px; }
+-.blackhole-accretion-bars span:nth-child(11) { --bar-angle: 150deg; --bar-w: 142%; --bar-h: 6.5%; --bar-skew: -12deg; --bar-speed: 0.82s; --bar-delay: -0.22s; --bar-opacity: 0.28; --bar-blur: 1.55px; }
+-.blackhole-accretion-bars span:nth-child(12) { --bar-angle: 165deg; --bar-w: 98%; --bar-h: 4.4%; --bar-skew: 26deg; --bar-speed: 0.68s; --bar-delay: -0.29s; --bar-opacity: 0.18; --bar-blur: 2.35px; }
+-.blackhole-accretion-bars span:nth-child(13) { --bar-angle: 180deg; --bar-w: 154%; --bar-h: 8.5%; --bar-skew: -16deg; --bar-speed: 0.9s; --bar-delay: -0.36s; --bar-opacity: 0.32; --bar-blur: 1.2px; }
+-.blackhole-accretion-bars span:nth-child(14) { --bar-angle: 195deg; --bar-w: 120%; --bar-h: 5.2%; --bar-skew: 16deg; --bar-speed: 0.78s; --bar-delay: -0.43s; --bar-opacity: 0.23; --bar-blur: 1.95px; }
+-.blackhole-accretion-bars span:nth-child(15) { --bar-angle: 210deg; --bar-w: 136%; --bar-h: 6.8%; --bar-skew: -24deg; --bar-speed: 1.02s; --bar-delay: -0.5s; --bar-opacity: 0.26; --bar-blur: 1.65px; }
+-.blackhole-accretion-bars span:nth-child(16) { --bar-angle: 225deg; --bar-w: 106%; --bar-h: 4.6%; --bar-skew: 10deg; --bar-speed: 0.74s; --bar-delay: -0.07s; --bar-opacity: 0.19; --bar-blur: 2.4px; }
+-.blackhole-accretion-bars span:nth-child(17) { --bar-angle: 240deg; --bar-w: 148%; --bar-h: 7.8%; --bar-skew: -20deg; --bar-speed: 0.86s; --bar-delay: -0.14s; --bar-opacity: 0.3; --bar-blur: 1.4px; }
+-.blackhole-accretion-bars span:nth-child(18) { --bar-angle: 255deg; --bar-w: 112%; --bar-h: 5%; --bar-skew: 22deg; --bar-speed: 0.66s; --bar-delay: -0.21s; --bar-opacity: 0.21; --bar-blur: 2.2px; }
+-.blackhole-accretion-bars span:nth-child(19) { --bar-angle: 270deg; --bar-w: 160%; --bar-h: 9.2%; --bar-skew: -14deg; --bar-speed: 0.96s; --bar-delay: -0.28s; --bar-opacity: 0.34; --bar-blur: 1.1px; }
+-.blackhole-accretion-bars span:nth-child(20) { --bar-angle: 285deg; --bar-w: 126%; --bar-h: 5.8%; --bar-skew: 18deg; --bar-speed: 0.8s; --bar-delay: -0.35s; --bar-opacity: 0.24; --bar-blur: 1.85px; }
+-.blackhole-accretion-bars span:nth-child(21) { --bar-angle: 300deg; --bar-w: 140%; --bar-h: 6.2%; --bar-skew: -26deg; --bar-speed: 0.72s; --bar-delay: -0.42s; --bar-opacity: 0.27; --bar-blur: 1.7px; }
+-.blackhole-accretion-bars span:nth-child(22) { --bar-angle: 315deg; --bar-w: 100%; --bar-h: 4.2%; --bar-skew: 12deg; --bar-speed: 0.9s; --bar-delay: -0.49s; --bar-opacity: 0.18; --bar-blur: 2.55px; }
+-.blackhole-accretion-bars span:nth-child(23) { --bar-angle: 330deg; --bar-w: 152%; --bar-h: 8%; --bar-skew: -18deg; --bar-speed: 0.78s; --bar-delay: -0.12s; --bar-opacity: 0.31; --bar-blur: 1.35px; }
+-.blackhole-accretion-bars span:nth-child(24) { --bar-angle: 345deg; --bar-w: 118%; --bar-h: 5.4%; --bar-skew: 24deg; --bar-speed: 0.7s; --bar-delay: -0.31s; --bar-opacity: 0.22; --bar-blur: 2.05px; }
++    radial-gradient(circle at 50% 52%, transparent 0 34%, rgba(0, 0, 0, 0.1) 48%, rgba(1, 3, 13, 0.74) 100%),
++    linear-gradient(180deg, rgba(1, 3, 13, 0.2), rgba(1, 3, 13, 0.72));
++  box-shadow: inset 0 0 86px rgba(0, 0, 0, 0.7);
++}
+ 
+ .blackhole-profit-suck span {
+   position: absolute;
+@@ -405,17 +301,13 @@
+ .blackhole-profit-suck span:nth-child(17) { --profit-x: 44%; --profit-y: 8%; --profit-size: 0.7rem; --profit-delay: -0.41s; }
+ .blackhole-profit-suck span:nth-child(18) { --profit-x: 52%; --profit-y: 91%; --profit-size: 0.84rem; --profit-delay: -0.46s; }
+ 
+-.blackhole-leak-card > span:not(.blackhole-accretion-bars):not(.blackhole-profit-suck) {
++.blackhole-leak-card > span:not(.blackhole-video-bg):not(.blackhole-profit-suck) {
+   position: relative;
+-  z-index: 1;
++  z-index: 2;
+   min-height: inherit;
+   align-content: space-between;
+ }
+ 
+-.blackhole-leak-card:hover::before {
+-  opacity: 0.9;
+-}
+-
+ @media (min-width: 1024px) {
+   .blackhole-leak-card {
+     min-height: 380px;
+@@ -423,38 +315,11 @@
+ }
+ 
+ @media (max-width: 640px) {
+-  .blackhole-leak-card::before,
+-  .blackhole-leak-card::after {
+-    top: 55%;
+-  }
+-
+-  .blackhole-leak-card::before {
+-    width: 142%;
+-    height: 48%;
+-  }
+-
+-  .blackhole-leak-card::after {
+-    width: 10.4rem;
+-    height: 10.4rem;
+-  }
+-
+   .blackhole-profit-suck span {
+     font-size: calc(var(--profit-size) * 0.78);
+   }
+ }
+ 
+-@keyframes blackhole-accretion-spin {
+-  to {
+-    transform: translate(-50%, -50%) rotate(350deg) skewX(-10deg);
+-  }
+-}
+-
+-@keyframes blackhole-bar-spin {
+-  to {
+-    transform: translate(-50%, -50%) rotate(calc(var(--bar-angle) + 360deg)) skewX(var(--bar-skew));
+-  }
+-}
+-
+ @keyframes blackhole-profit-suck {
+   0%,
+   14% {
+@@ -511,11 +376,6 @@
+     animation: none;
+   }
+ 
+-  .blackhole-leak-card::before {
+-    animation: none;
+-  }
+-
+-  .blackhole-accretion-bars span,
+   .blackhole-profit-suck span {
+     animation: none;
+   }
+diff --git a/src/pages/HomePage.tsx b/src/pages/HomePage.tsx
+index b711c4a..9c654eb 100644
+--- a/src/pages/HomePage.tsx
++++ b/src/pages/HomePage.tsx
+@@ -515,10 +515,15 @@ export default function HomePage() {
+                 to="/solutions/saas"
+                 className="blackhole-leak-card group block min-h-[176px] rounded-[20px] border border-cream/25 bg-black p-5 text-cream shadow-[0_18px_60px_rgba(0,0,0,0.34)] transition hover:-translate-y-1 hover:border-[#FF8A8A]/70 hover:shadow-[0_24px_80px_rgba(255,138,138,0.14)] sm:p-6 lg:mx-auto lg:min-h-[360px] lg:max-w-[480px] lg:p-8 xl:min-h-[380px] xl:max-w-[520px]"
+               >
+-                <span className="blackhole-accretion-bars" aria-hidden="true">
+-                  {Array.from({ length: 24 }).map((_, index) => (
+-                    <span key={`blackhole-accretion-${index}`} />
+-                  ))}
++                <span className="blackhole-video-bg" aria-hidden="true">
++                  <video
++                    src="https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4"
++                    autoPlay
++                    muted
++                    loop
++                    playsInline
++                    preload="auto"
++                  />
+                 </span>
+                 <span className="blackhole-profit-suck" aria-hidden="true">
+                   {Array.from({ length: 18 }).map((_, index) => (

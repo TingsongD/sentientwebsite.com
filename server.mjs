@@ -150,7 +150,7 @@ function buildContentSecurityPolicy() {
     "font-src 'self' https://fonts.gstatic.com",
     `connect-src 'self'${widgetConnectSources}`,
     `img-src 'self' data: blob: https://cdn.shopify.com${widgetSources}`,
-    `media-src 'self' blob:${widgetSources}`,
+    `media-src 'self' blob: https://cdn.shopify.com${widgetSources}`,
     "worker-src 'self' blob:",
     "frame-src https://calendly.com",
   ].join('; ')

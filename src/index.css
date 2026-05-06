@@ -219,6 +219,134 @@
   }
 }
 
+.blackhole-leak-card {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(300px, 78vw, 340px);
+  overflow: hidden;
+  border-color: rgba(255, 138, 138, 0.34);
+  background: #01030d;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 34px 120px rgba(0, 0, 0, 0.62),
+    inset 0 0 132px rgba(0, 0, 0, 0.86),
+    inset 0 0 46px rgba(255, 138, 138, 0.1);
+}
+
+.blackhole-video-bg,
+.blackhole-profit-suck {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.blackhole-video-bg {
+  background: #01030d;
+}
+
+.blackhole-video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.82;
+  filter: saturate(1.08) contrast(1.08);
+}
+
+.blackhole-video-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 52%, transparent 0 34%, rgba(0, 0, 0, 0.1) 48%, rgba(1, 3, 13, 0.74) 100%),
+    linear-gradient(180deg, rgba(1, 3, 13, 0.2), rgba(1, 3, 13, 0.72));
+  box-shadow: inset 0 0 86px rgba(0, 0, 0, 0.7);
+}
+
+.blackhole-profit-suck span {
+  position: absolute;
+  left: var(--profit-x);
+  top: var(--profit-y);
+  color: rgba(255, 138, 138, 0.88);
+  font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: var(--profit-size);
+  line-height: 1;
+  text-shadow:
+    0 0 14px rgba(255, 138, 138, 0.56),
+    0 0 24px rgba(111, 255, 0, 0.16);
+  transform-origin: 50% 50%;
+  animation: blackhole-profit-suck 0.48s cubic-bezier(0.74, 0, 0.18, 1) infinite;
+  animation-delay: var(--profit-delay);
+}
+
+.blackhole-profit-suck span:nth-child(1) { --profit-x: 12%; --profit-y: 18%; --profit-size: 1.2rem; --profit-delay: -0.02s; }
+.blackhole-profit-suck span:nth-child(2) { --profit-x: 82%; --profit-y: 20%; --profit-size: 1rem; --profit-delay: -0.09s; }
+.blackhole-profit-suck span:nth-child(3) { --profit-x: 18%; --profit-y: 76%; --profit-size: 0.95rem; --profit-delay: -0.17s; }
+.blackhole-profit-suck span:nth-child(4) { --profit-x: 76%; --profit-y: 70%; --profit-size: 1.15rem; --profit-delay: -0.24s; }
+.blackhole-profit-suck span:nth-child(5) { --profit-x: 9%; --profit-y: 48%; --profit-size: 0.85rem; --profit-delay: -0.31s; }
+.blackhole-profit-suck span:nth-child(6) { --profit-x: 88%; --profit-y: 52%; --profit-size: 0.9rem; --profit-delay: -0.38s; }
+.blackhole-profit-suck span:nth-child(7) { --profit-x: 28%; --profit-y: 10%; --profit-size: 0.82rem; --profit-delay: -0.05s; }
+.blackhole-profit-suck span:nth-child(8) { --profit-x: 64%; --profit-y: 13%; --profit-size: 1.05rem; --profit-delay: -0.14s; }
+.blackhole-profit-suck span:nth-child(9) { --profit-x: 36%; --profit-y: 86%; --profit-size: 0.78rem; --profit-delay: -0.21s; }
+.blackhole-profit-suck span:nth-child(10) { --profit-x: 58%; --profit-y: 82%; --profit-size: 0.9rem; --profit-delay: -0.29s; }
+.blackhole-profit-suck span:nth-child(11) { --profit-x: 4%; --profit-y: 30%; --profit-size: 0.74rem; --profit-delay: -0.34s; }
+.blackhole-profit-suck span:nth-child(12) { --profit-x: 94%; --profit-y: 32%; --profit-size: 0.8rem; --profit-delay: -0.43s; }
+.blackhole-profit-suck span:nth-child(13) { --profit-x: 20%; --profit-y: 34%; --profit-size: 0.68rem; --profit-delay: -0.08s; }
+.blackhole-profit-suck span:nth-child(14) { --profit-x: 80%; --profit-y: 38%; --profit-size: 0.72rem; --profit-delay: -0.19s; }
+.blackhole-profit-suck span:nth-child(15) { --profit-x: 26%; --profit-y: 62%; --profit-size: 0.86rem; --profit-delay: -0.27s; }
+.blackhole-profit-suck span:nth-child(16) { --profit-x: 72%; --profit-y: 60%; --profit-size: 0.76rem; --profit-delay: -0.35s; }
+.blackhole-profit-suck span:nth-child(17) { --profit-x: 44%; --profit-y: 8%; --profit-size: 0.7rem; --profit-delay: -0.41s; }
+.blackhole-profit-suck span:nth-child(18) { --profit-x: 52%; --profit-y: 91%; --profit-size: 0.84rem; --profit-delay: -0.46s; }
+
+.blackhole-leak-card > span:not(.blackhole-video-bg):not(.blackhole-profit-suck) {
+  position: relative;
+  z-index: 2;
+  min-height: inherit;
+  align-content: space-between;
+}
+
+@media (min-width: 1024px) {
+  .blackhole-leak-card {
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .blackhole-profit-suck span {
+    font-size: calc(var(--profit-size) * 0.78);
+  }
+}
+
+@keyframes blackhole-profit-suck {
+  0%,
+  14% {
+    opacity: 0;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+
+  28% {
+    opacity: 0.9;
+  }
+
+  74% {
+    opacity: 0.58;
+    filter: blur(0.2px);
+    transform: translate3d(calc(50% - var(--profit-x)), calc(54% - var(--profit-y)), 0)
+      scale(0.56) rotate(260deg);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translate3d(calc(50% - var(--profit-x)), calc(54% - var(--profit-y)), 0)
+      scale(0.08) rotate(520deg);
+  }
+}
+
 @media (max-width: 767px) {
   .blackhole-drift-word--revenue {
     --blackhole-x: clamp(8.5rem, 43vw, 11.5rem);
@@ -245,6 +373,10 @@
   }
 
   .leak-rate-flash {
+    animation: none;
+  }
+
+  .blackhole-profit-suck span {
     animation: none;
   }
 }
@@ -318,6 +450,12 @@
   width: 1px;
   height: 1px;
   scroll-margin-top: 7rem;
+}
+
+.cinematic-funnel-intro {
+  position: relative;
+  z-index: 3;
+  padding: clamp(64px, 9vw, 128px) 1rem 0;
 }
 
 .cinematic-funnel-pin {

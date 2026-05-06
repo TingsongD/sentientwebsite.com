@@ -5,6 +5,7 @@ import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
+import { SAAS_RECOVERY_TARGETS } from '../data/saasRecoveryTargets'
 import {
   getLegacySolutionRedirect,
   SOLUTION_PAGES,
@@ -166,6 +167,49 @@ function SaasSolutionPage({
               <TrustStrip className="mt-8 max-w-[940px]" />
             </div>
           </header>
+
+          <section
+            className="border-b border-white/10 bg-[#020a2e]/70 px-4 py-10 sm:px-6 md:px-8 md:py-12 lg:px-10"
+            aria-labelledby="recovery-targets-heading"
+          >
+            <div className="mx-auto max-w-[1120px]">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+                    Modeled recovery targets
+                  </p>
+                  <h2
+                    id="recovery-targets-heading"
+                    className="font-grotesk max-w-[760px] text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
+                  >
+                    What better demo recovery can move.
+                  </h2>
+                </div>
+                <p className="font-mono max-w-[440px] text-[11px] uppercase leading-relaxed text-cream/52 sm:text-[12px] md:text-right">
+                  Modeled targets. Actual results depend on traffic quality, current conversion
+                  rate, sales process, and implementation scope.
+                </p>
+              </div>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+                {SAAS_RECOVERY_TARGETS.map((target) => (
+                  <article
+                    key={target.label}
+                    className="liquid-glass rounded-[22px] border border-neon/10 p-5"
+                  >
+                    <p className="font-grotesk text-[32px] uppercase leading-none text-neon sm:text-[38px]">
+                      {target.stat}
+                    </p>
+                    <h3 className="font-grotesk mt-5 text-[15px] uppercase leading-tight text-cream">
+                      {target.label}
+                    </h3>
+                    <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/70">
+                      {target.body}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
 
           <section
             className="border-b border-white/10 bg-[#020a2e]/45 px-4 py-10 sm:px-6 md:px-8 lg:px-10"

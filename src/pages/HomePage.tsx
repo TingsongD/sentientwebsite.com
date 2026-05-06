@@ -9,6 +9,8 @@ import { BOOK_DEMO_URL } from '../constants'
 
 const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
+const BLACKHOLE_LEAK_VIDEO_URL =
+  'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
 
 function withPreviewUrl(url: string, previewUrl: string) {
   const trimmed = previewUrl.trim()
@@ -86,7 +88,9 @@ type LeakClockEstimate = {
   methodology: string
 }
 
-const LEAK_CLOCK_UNITS: LeakClockUnit[] = ['day', 'hour']
+const LEAK_COUNTER_SESSION_KEY = 'sentientweb:b2b-saas-leak-started-at'
+const LEAK_COUNTER_INTERVAL_MS = 250
+const SECONDS_PER_YEAR = 365 * 24 * 60 * 60
 
 const LEAK_CLOCK_ESTIMATES = {
   saas: {
@@ -119,6 +123,48 @@ function annualLeakToRate(value: number, unit: LeakClockUnit) {
 function formatLeakRate(value: number) {
   if (value >= 1_000_000) return compactCurrency.format(value)
   return currency.format(value)
+}
+
+function formatRunningLeak(value: number) {
+  return currency.format(Math.max(0, Math.floor(value)))
+}
+
+function useRunningLeakCounter(annualLeakUsd: number, reducedMotion: boolean) {
+  const [leakedUsd, setLeakedUsd] = useState(0)
+
+  useEffect(() => {
+    const now = Date.now()
+    let startedAt = now
+
+    try {
+      const stored = window.sessionStorage.getItem(LEAK_COUNTER_SESSION_KEY)
+      const storedAt = stored ? Number(stored) : Number.NaN
+
+      if (Number.isFinite(storedAt) && storedAt > 0 && storedAt <= now) {
+        startedAt = storedAt
+      } else {
+        window.sessionStorage.setItem(LEAK_COUNTER_SESSION_KEY, String(startedAt))
+      }
+    } catch {
+      startedAt = now
+    }
+
+    const leakPerSecond = annualLeakUsd / SECONDS_PER_YEAR
+    const updateCounter = () => {
+      const elapsedSeconds = Math.max(0, (Date.now() - startedAt) / 1000)
+      setLeakedUsd(leakPerSecond * elapsedSeconds)
+    }
+
+    updateCounter()
+    const interval = window.setInterval(
+      updateCounter,
+      reducedMotion ? 1000 : LEAK_COUNTER_INTERVAL_MS,
+    )
+
+    return () => window.clearInterval(interval)
+  }, [annualLeakUsd, reducedMotion])
+
+  return leakedUsd
 }
 
 function usePrefersReducedMotion() {
@@ -264,22 +310,18 @@ function IntegrationLogoStrip() {
 
 function SolutionLeakClock({
   navLabel,
-  marketLabel,
   estimate,
-  unit,
   reducedMotion,
 }: {
   navLabel: string
-  marketLabel: string
   estimate: LeakClockEstimate
-  unit: LeakClockUnit
   reducedMotion: boolean
 }) {
-  const usRate = formatLeakRate(annualLeakToRate(estimate.usAnnualLeakUsd, unit))
-  const typicalRate = formatLeakRate(annualLeakToRate(estimate.typicalAnnualLeakUsd, unit))
+  const leakedUsd = useRunningLeakCounter(estimate.usAnnualLeakUsd, reducedMotion)
+  const usHourlyRate = formatLeakRate(annualLeakToRate(estimate.usAnnualLeakUsd, 'hour'))
 
   return (
-    <span className="grid min-w-0 gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+    <span className="grid min-w-0 gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-end lg:grid-cols-1 lg:items-start lg:gap-8">
         <span className="flex min-w-0 flex-col gap-4">
           <span className="font-mono text-[10px] uppercase leading-tight tracking-widest text-cream/55 sm:text-[11px]">
           B2B SaaS demo recovery context in the US
@@ -292,16 +334,18 @@ function SolutionLeakClock({
             className={`font-grotesk text-[28px] uppercase leading-none text-[#FF8A8A] sm:text-[34px] lg:text-[40px] ${
               reducedMotion ? '' : 'leak-rate-flash'
             }`}
+            data-testid="b2b-saas-leak-counter"
+            aria-label={`${formatRunningLeak(leakedUsd)} in modeled US B2B SaaS profit leaked since you arrived`}
           >
-            {usRate}/{unit}
+            {formatRunningLeak(leakedUsd)}
           </span>
         </span>
         <span className="font-mono block text-[14px] uppercase leading-relaxed tracking-wide text-cream/60 transition group-hover:text-cream/75 sm:text-[16px]">
-          {marketLabel}
+          US B2B SaaS profit leaked since you arrived
         </span>
       </span>
-      <span className="font-mono text-[11px] uppercase leading-relaxed text-cream/55 sm:text-[12px] md:max-w-[190px] md:text-right">
-        Modeled operator gap: <span className="text-[#FF8A8A]">{typicalRate}/{unit}</span>
+      <span className="font-mono text-[11px] uppercase leading-relaxed text-cream/55 sm:text-[12px] md:max-w-[190px] md:text-right lg:max-w-none lg:text-left">
+        Modeled US leak rate: <span className="text-[#FF8A8A]">{usHourlyRate}/hour</span>
       </span>
     </span>
   )
@@ -337,8 +381,6 @@ function LeakClockMethodology() {
 export default function HomePage() {
   const { pathname, hash } = useLocation()
   const prefersReducedMotion = usePrefersReducedMotion()
-  const [leakClockUnit, setLeakClockUnit] = useState<LeakClockUnit>('day')
-  const activeLeakClockUnit = prefersReducedMotion ? 'day' : leakClockUnit
   const [previewUrl, setPreviewUrl] = useState('')
   const previewBookingUrl = withPreviewUrl(BOOK_DEMO_URL, previewUrl)
 
@@ -352,19 +394,6 @@ export default function HomePage() {
       behavior: prefersReducedMotion ? 'auto' : 'smooth',
     })
   }, [pathname, hash, prefersReducedMotion])
-
-  useEffect(() => {
-    if (prefersReducedMotion) return
-
-    const interval = window.setInterval(() => {
-      setLeakClockUnit((current) => {
-        const index = LEAK_CLOCK_UNITS.indexOf(current)
-        return LEAK_CLOCK_UNITS[(index + 1) % LEAK_CLOCK_UNITS.length]
-      })
-    }, 2400)
-
-    return () => window.clearInterval(interval)
-  }, [prefersReducedMotion])
 
   return (
     <>
@@ -391,18 +420,19 @@ export default function HomePage() {
                 <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
                   Visitor-to-Demo Engine for B2B SaaS
                 </p>
-                <p className="mb-6 max-w-[620px] font-sans text-[14px] normal-case leading-relaxed text-cream/80 sm:text-[15px]">
-                  We are digital plumbers for your revenue leaks, but the first leak we fix is demo
-                  intent: visitors who reach high-intent pages and leave before booking.
-                </p>
                 <h1
                   id="hero-heading"
                   className="font-grotesk uppercase leading-[1.05] text-cream sm:leading-none text-[40px] sm:text-[56px] md:text-[72px] lg:text-[84px]"
                 >
                   Recover demo-ready visitors before they leave.
                 </h1>
-                <p className="font-condiment pointer-events-none absolute -right-1 top-[42%] z-10 -translate-y-1/2 -rotate-1 text-[22px] text-neon opacity-90 mix-blend-exclusion sm:text-[28px] md:top-[48%] md:text-[36px] lg:right-[-8%] lg:text-[44px] normal-case">
-                  Demo booked
+                <p className="mt-4 flex flex-wrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
+                  <span className="font-grotesk block shrink-0 text-[26px] uppercase leading-none text-cream sm:text-[34px] md:text-[42px] lg:text-[50px]">
+                    Stop your revenue leak
+                  </span>
+                  <span className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1">
+                    Today!
+                  </span>
                 </p>
                 <p className="font-mono mt-8 max-w-[540px] text-[13px] uppercase leading-relaxed text-neon sm:text-[14px] md:text-[15px]">
                   Digital plumbing for your demo pipeline.
@@ -474,25 +504,31 @@ export default function HomePage() {
                   </span>
                 </h2>
               </div>
-              <div className="max-w-[600px]">
-                <p className="font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
-                  Demo intent is the leak SentientWeb fixes. This B2B SaaS model shows where
-                  high-intent visitors disappear before sales sees the demand, qualifies the buyer,
-                  or books the meeting.
-                </p>
-              </div>
             </div>
 
             <div className="mt-12">
               <Link
                 to="/solutions/saas"
-                className="group block min-h-[176px] rounded-[20px] border border-cream/25 bg-black p-5 text-cream shadow-[0_18px_60px_rgba(0,0,0,0.34)] transition hover:-translate-y-1 hover:border-[#FF8A8A]/70 hover:shadow-[0_24px_80px_rgba(255,138,138,0.14)] sm:p-6 lg:min-h-[154px]"
+                className="blackhole-leak-card group block min-h-[176px] rounded-[20px] border border-cream/25 bg-black p-5 text-cream shadow-[0_18px_60px_rgba(0,0,0,0.34)] transition hover:-translate-y-1 hover:border-[#FF8A8A]/70 hover:shadow-[0_24px_80px_rgba(255,138,138,0.14)] sm:p-6 lg:mx-auto lg:min-h-[360px] lg:max-w-[480px] lg:p-8 xl:min-h-[380px] xl:max-w-[520px]"
               >
+                <span className="blackhole-video-bg" aria-hidden="true">
+                  <video
+                    src={BLACKHOLE_LEAK_VIDEO_URL}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                  />
+                </span>
+                <span className="blackhole-profit-suck" aria-hidden="true">
+                  {Array.from({ length: 18 }).map((_, index) => (
+                    <span key={`blackhole-profit-${index}`}>$</span>
+                  ))}
+                </span>
                 <SolutionLeakClock
                   navLabel="B2B SaaS"
-                  marketLabel="CRM-powered B2B SaaS teams"
                   estimate={LEAK_CLOCK_ESTIMATES.saas}
-                  unit={activeLeakClockUnit}
                   reducedMotion={prefersReducedMotion}
                 />
               </Link>
