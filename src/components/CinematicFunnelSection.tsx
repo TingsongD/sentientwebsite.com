@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   FUNNEL_FEATURE_GROUPS,
   funnelFeatureId,
@@ -29,17 +29,9 @@ type CinematicStep = {
 }
 
 type Particle = {
-  color?: string
-  duration: string
-  glow?: string
   id: string
-  isGreen?: boolean
-  size: string
-  x: string
-  y: string
+  isGreen: boolean
 }
-
-type CssVariableProperties = CSSProperties & Record<`--${string}`, string | number | undefined>
 
 const FEATURE_META: Record<string, CinematicMeta> = {
   'High-intent page detection': {
@@ -119,42 +111,9 @@ const FEATURE_META: Record<string, CinematicMeta> = {
   },
 }
 
-const TOP_PARTICLE_COLORS = [
-  ['#55d6ff', 'rgba(85, 214, 255, 0.72)'],
-  ['#4f8cff', 'rgba(79, 140, 255, 0.68)'],
-  ['#a67cff', 'rgba(166, 124, 255, 0.7)'],
-  ['#c06cff', 'rgba(192, 108, 255, 0.66)'],
-  ['#ff4fd8', 'rgba(255, 79, 216, 0.62)'],
-  ['#ff63c8', 'rgba(255, 99, 200, 0.62)'],
-  ['#ff8a8a', 'rgba(255, 138, 138, 0.64)'],
-  ['#ff5964', 'rgba(255, 89, 100, 0.6)'],
-  ['#ff9a3d', 'rgba(255, 154, 61, 0.62)'],
-  ['#ffce5c', 'rgba(255, 206, 92, 0.66)'],
-  ['#fff06a', 'rgba(255, 240, 106, 0.62)'],
-  ['#37f5d0', 'rgba(55, 245, 208, 0.66)'],
-] as const
-
 const PARTICLES: readonly Particle[] = [
-  ...Array.from({ length: 30 }, (_, index): Particle => {
-    const [color, glow] = TOP_PARTICLE_COLORS[index % TOP_PARTICLE_COLORS.length]
-    return {
-      color,
-      duration: `${3.1 + (index % 5) * 0.28}s`,
-      glow,
-      id: `top-${index}`,
-      size: `clamp(${4 + (index % 3)}px, ${0.48 + (index % 4) * 0.05}vw, ${8 + (index % 4)}px)`,
-      x: `${7 + ((index * 12) % 82)}%`,
-      y: `${2 + Math.floor(index / 6) * 8 + (index % 3)}%`,
-    }
-  }),
-  ...Array.from({ length: 24 }, (_, index): Particle => ({
-    duration: `${3.4 + (index % 4) * 0.34}s`,
-    id: `green-${index}`,
-    isGreen: true,
-    size: `clamp(${4 + (index % 3)}px, ${0.46 + (index % 4) * 0.04}vw, ${8 + (index % 3)}px)`,
-    x: `${28 + ((index * 9) % 44)}%`,
-    y: `${43 + Math.floor(index / 4) * 8 + (index % 3)}%`,
-  })),
+  ...Array.from({ length: 30 }, (_, index): Particle => ({ id: `top-${index}`, isGreen: false })),
+  ...Array.from({ length: 24 }, (_, index): Particle => ({ id: `green-${index}`, isGreen: true })),
 ]
 
 function sectionKeyForGroup(group: FunnelFeatureGroup, index: number): FunnelSectionKey {
@@ -211,40 +170,6 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
 }
 
-function smoothstep(value: number) {
-  const x = clamp(value, 0, 1)
-  return x * x * (3 - 2 * x)
-}
-
-function proximity(value: number, center: number, radius: number) {
-  return clamp(1 - Math.abs(value - center) / radius, 0, 1)
-}
-
-function particleStyle(particle: Particle, index: number): CSSProperties {
-  const style: CssVariableProperties = {
-    '--delay': `-${(0.16 + index * 0.26).toFixed(2)}s`,
-    '--duration': particle.duration,
-    '--s': particle.size,
-    '--x': particle.x,
-    '--y': particle.y,
-  }
-
-  if (particle.color) {
-    style['--dot-color'] = particle.color
-  }
-
-  if (particle.glow) {
-    style['--dot-glow'] = particle.glow
-  }
-
-  return style
-}
-
-function anchorStyle(index: number, total: number): CSSProperties {
-  const top = total <= 1 ? 0 : (index / (total - 1)) * 100
-  return { '--anchor-top': `${top}%` } as CssVariableProperties
-}
-
 export function CinematicFunnelSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const steps = useMemo(() => buildSteps(), [])
@@ -264,19 +189,6 @@ export function CinematicFunnelSection() {
       const scrollable = Math.max(1, section.offsetHeight - window.innerHeight)
       const progress = clamp(-rect.top / scrollable, 0, 1)
       const nextIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length))
-      const topWeight = 0.16 + smoothstep(proximity(progress, 0.12, 0.34)) * 0.84
-      const midWeight = 0.18 + smoothstep(proximity(progress, 0.48, 0.34)) * 0.82
-      const bottomWeight = 0.2 + smoothstep(proximity(progress, 0.84, 0.34)) * 0.8
-
-      section.style.setProperty('--progress', progress.toFixed(4))
-      section.style.setProperty('--depth', progress.toFixed(4))
-      section.style.setProperty('--topWeight', topWeight.toFixed(4))
-      section.style.setProperty('--midWeight', midWeight.toFixed(4))
-      section.style.setProperty('--bottomWeight', bottomWeight.toFixed(4))
-      section.style.setProperty('--topFill', clamp(progress / 0.22, 0.12, 1).toFixed(4))
-      section.style.setProperty('--midFill', clamp((progress - 0.26) / 0.34, 0.05, 1).toFixed(4))
-      section.style.setProperty('--bottomFill', clamp((progress - 0.58) / 0.34, 0.04, 1).toFixed(4))
-
       setActiveIndex((current) => (current === nextIndex ? current : nextIndex))
     }
 
@@ -303,6 +215,7 @@ export function CinematicFunnelSection() {
       ref={sectionRef}
       className="cinematic-funnel scroll-mt-28"
       aria-labelledby="features-heading"
+      data-active-step={activeIndex}
       data-active-section={activeStep.section}
     >
       <div className="cinematic-funnel-anchors" aria-hidden>
@@ -310,16 +223,14 @@ export function CinematicFunnelSection() {
           <span
             key={group.stage}
             id={funnelGroupId(group.stage)}
-            className="cinematic-funnel-anchor"
-            style={anchorStyle(groupIndex, FUNNEL_FEATURE_GROUPS.length)}
+            className={`cinematic-funnel-anchor cinematic-funnel-anchor-group-${groupIndex}`}
           />
         ))}
         {steps.map((step) => (
           <span
             key={step.featureId}
             id={step.featureId}
-            className="cinematic-funnel-anchor"
-            style={anchorStyle(step.globalIndex, steps.length)}
+            className={`cinematic-funnel-anchor cinematic-funnel-anchor-step-${step.globalIndex}`}
           />
         ))}
       </div>
@@ -391,11 +302,10 @@ export function CinematicFunnelSection() {
               })}
 
               <div className="cinematic-funnel-stream" data-testid="cinematic-funnel-particles">
-                {PARTICLES.map((particle, index) => (
+                {PARTICLES.map((particle) => (
                   <span
                     key={particle.id}
                     className={`cinematic-funnel-dot${particle.isGreen ? ' is-green' : ''}`}
-                    style={particleStyle(particle, index)}
                   />
                 ))}
               </div>

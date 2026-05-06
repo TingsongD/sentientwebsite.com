@@ -268,6 +268,42 @@
     #020a26;
 }
 
+/* Keep visual state and particle placement in static CSS so production CSP can keep style-src-attr 'none'. */
+.cinematic-funnel[data-active-step='0'] { --progress: 0; --depth: 0; --topWeight: 0.76; --midWeight: 0.18; --bottomWeight: 0.2; --topFill: 0.12; --midFill: 0.05; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='1'] { --progress: 0.0714; --depth: 0.0714; --topWeight: 0.9535; --midWeight: 0.18; --bottomWeight: 0.2; --topFill: 0.3247; --midFill: 0.05; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='2'] { --progress: 0.1429; --depth: 0.1429; --topWeight: 0.9891; --midWeight: 0.1802; --bottomWeight: 0.2; --topFill: 0.6494; --midFill: 0.05; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='3'] { --progress: 0.2143; --depth: 0.2143; --topWeight: 0.842; --midWeight: 0.2803; --bottomWeight: 0.2; --topFill: 0.974; --midFill: 0.05; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='4'] { --progress: 0.2857; --depth: 0.2857; --topWeight: 0.5959; --midWeight: 0.5027; --bottomWeight: 0.2; --topFill: 1; --midFill: 0.0756; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='5'] { --progress: 0.3571; --depth: 0.3571; --topWeight: 0.3441; --midWeight: 0.7562; --bottomWeight: 0.2; --topFill: 1; --midFill: 0.2857; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='6'] { --progress: 0.4286; --depth: 0.4286; --topWeight: 0.1802; --midWeight: 0.9494; --bottomWeight: 0.2; --topFill: 1; --midFill: 0.4958; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='7'] { --progress: 0.5; --depth: 0.5; --topWeight: 0.16; --midWeight: 0.9918; --bottomWeight: 0.2; --topFill: 1; --midFill: 0.7059; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='8'] { --progress: 0.5714; --depth: 0.5714; --topWeight: 0.16; --midWeight: 0.854; --bottomWeight: 0.2911; --topFill: 1; --midFill: 0.916; --bottomFill: 0.04; }
+.cinematic-funnel[data-active-step='9'] { --progress: 0.6429; --depth: 0.6429; --topWeight: 0.16; --midWeight: 0.6158; --bottomWeight: 0.505; --topFill: 1; --midFill: 1; --bottomFill: 0.1849; }
+.cinematic-funnel[data-active-step='10'] { --progress: 0.7143; --depth: 0.7143; --topWeight: 0.16; --midWeight: 0.3685; --bottomWeight: 0.7528; --topFill: 1; --midFill: 1; --bottomFill: 0.395; }
+.cinematic-funnel[data-active-step='11'] { --progress: 0.7857; --depth: 0.7857; --topWeight: 0.16; --midWeight: 0.2033; --bottomWeight: 0.9453; --topFill: 1; --midFill: 1; --bottomFill: 0.605; }
+.cinematic-funnel[data-active-step='12'] { --progress: 0.8571; --depth: 0.8571; --topWeight: 0.16; --midWeight: 0.18; --bottomWeight: 0.9941; --topFill: 1; --midFill: 1; --bottomFill: 0.8151; }
+.cinematic-funnel[data-active-step='13'] { --progress: 0.9286; --depth: 0.9286; --topWeight: 0.16; --midWeight: 0.18; --bottomWeight: 0.8654; --topFill: 1; --midFill: 1; --bottomFill: 1; }
+.cinematic-funnel[data-active-step='14'] { --progress: 1; --depth: 1; --topWeight: 0.16; --midWeight: 0.18; --bottomWeight: 0.6353; --topFill: 1; --midFill: 1; --bottomFill: 1; }
+
+.cinematic-funnel-anchor-group-0 { --anchor-top: 0%; }
+.cinematic-funnel-anchor-group-1 { --anchor-top: 50%; }
+.cinematic-funnel-anchor-group-2 { --anchor-top: 100%; }
+.cinematic-funnel-anchor-step-0 { --anchor-top: 0%; }
+.cinematic-funnel-anchor-step-1 { --anchor-top: 7.1429%; }
+.cinematic-funnel-anchor-step-2 { --anchor-top: 14.2857%; }
+.cinematic-funnel-anchor-step-3 { --anchor-top: 21.4286%; }
+.cinematic-funnel-anchor-step-4 { --anchor-top: 28.5714%; }
+.cinematic-funnel-anchor-step-5 { --anchor-top: 35.7143%; }
+.cinematic-funnel-anchor-step-6 { --anchor-top: 42.8571%; }
+.cinematic-funnel-anchor-step-7 { --anchor-top: 50%; }
+.cinematic-funnel-anchor-step-8 { --anchor-top: 57.1429%; }
+.cinematic-funnel-anchor-step-9 { --anchor-top: 64.2857%; }
+.cinematic-funnel-anchor-step-10 { --anchor-top: 71.4286%; }
+.cinematic-funnel-anchor-step-11 { --anchor-top: 78.5714%; }
+.cinematic-funnel-anchor-step-12 { --anchor-top: 85.7143%; }
+.cinematic-funnel-anchor-step-13 { --anchor-top: 92.8571%; }
+.cinematic-funnel-anchor-step-14 { --anchor-top: 100%; }
+
 .cinematic-funnel-anchors {
   pointer-events: none;
   position: absolute;
@@ -690,6 +726,61 @@
   --dot-color: #6fff00;
   --dot-glow: rgba(111, 255, 0, 0.82);
 }
+
+.cinematic-funnel-dot:nth-child(1) { --delay: -0.16s; --dot-color: #55d6ff; --dot-glow: rgba(85, 214, 255, 0.72); --duration: 3.1s; --s: clamp(4px, 0.48vw, 8px); --x: 7%; --y: 2%; }
+.cinematic-funnel-dot:nth-child(2) { --delay: -0.42s; --dot-color: #4f8cff; --dot-glow: rgba(79, 140, 255, 0.68); --duration: 3.38s; --s: clamp(5px, 0.53vw, 9px); --x: 19%; --y: 3%; }
+.cinematic-funnel-dot:nth-child(3) { --delay: -0.68s; --dot-color: #a67cff; --dot-glow: rgba(166, 124, 255, 0.7); --duration: 3.66s; --s: clamp(6px, 0.58vw, 10px); --x: 31%; --y: 4%; }
+.cinematic-funnel-dot:nth-child(4) { --delay: -0.94s; --dot-color: #c06cff; --dot-glow: rgba(192, 108, 255, 0.66); --duration: 3.94s; --s: clamp(4px, 0.63vw, 11px); --x: 43%; --y: 2%; }
+.cinematic-funnel-dot:nth-child(5) { --delay: -1.2s; --dot-color: #ff4fd8; --dot-glow: rgba(255, 79, 216, 0.62); --duration: 4.22s; --s: clamp(5px, 0.48vw, 8px); --x: 55%; --y: 3%; }
+.cinematic-funnel-dot:nth-child(6) { --delay: -1.46s; --dot-color: #ff63c8; --dot-glow: rgba(255, 99, 200, 0.62); --duration: 3.1s; --s: clamp(6px, 0.53vw, 9px); --x: 67%; --y: 4%; }
+.cinematic-funnel-dot:nth-child(7) { --delay: -1.72s; --dot-color: #ff8a8a; --dot-glow: rgba(255, 138, 138, 0.64); --duration: 3.38s; --s: clamp(4px, 0.58vw, 10px); --x: 79%; --y: 10%; }
+.cinematic-funnel-dot:nth-child(8) { --delay: -1.98s; --dot-color: #ff5964; --dot-glow: rgba(255, 89, 100, 0.6); --duration: 3.66s; --s: clamp(5px, 0.63vw, 11px); --x: 9%; --y: 11%; }
+.cinematic-funnel-dot:nth-child(9) { --delay: -2.24s; --dot-color: #ff9a3d; --dot-glow: rgba(255, 154, 61, 0.62); --duration: 3.94s; --s: clamp(6px, 0.48vw, 8px); --x: 21%; --y: 12%; }
+.cinematic-funnel-dot:nth-child(10) { --delay: -2.5s; --dot-color: #ffce5c; --dot-glow: rgba(255, 206, 92, 0.66); --duration: 4.22s; --s: clamp(4px, 0.53vw, 9px); --x: 33%; --y: 10%; }
+.cinematic-funnel-dot:nth-child(11) { --delay: -2.76s; --dot-color: #fff06a; --dot-glow: rgba(255, 240, 106, 0.62); --duration: 3.1s; --s: clamp(5px, 0.58vw, 10px); --x: 45%; --y: 11%; }
+.cinematic-funnel-dot:nth-child(12) { --delay: -3.02s; --dot-color: #37f5d0; --dot-glow: rgba(55, 245, 208, 0.66); --duration: 3.38s; --s: clamp(6px, 0.63vw, 11px); --x: 57%; --y: 12%; }
+.cinematic-funnel-dot:nth-child(13) { --delay: -3.28s; --dot-color: #55d6ff; --dot-glow: rgba(85, 214, 255, 0.72); --duration: 3.66s; --s: clamp(4px, 0.48vw, 8px); --x: 69%; --y: 18%; }
+.cinematic-funnel-dot:nth-child(14) { --delay: -3.54s; --dot-color: #4f8cff; --dot-glow: rgba(79, 140, 255, 0.68); --duration: 3.94s; --s: clamp(5px, 0.53vw, 9px); --x: 81%; --y: 19%; }
+.cinematic-funnel-dot:nth-child(15) { --delay: -3.8s; --dot-color: #a67cff; --dot-glow: rgba(166, 124, 255, 0.7); --duration: 4.22s; --s: clamp(6px, 0.58vw, 10px); --x: 11%; --y: 20%; }
+.cinematic-funnel-dot:nth-child(16) { --delay: -4.06s; --dot-color: #c06cff; --dot-glow: rgba(192, 108, 255, 0.66); --duration: 3.1s; --s: clamp(4px, 0.63vw, 11px); --x: 23%; --y: 18%; }
+.cinematic-funnel-dot:nth-child(17) { --delay: -4.32s; --dot-color: #ff4fd8; --dot-glow: rgba(255, 79, 216, 0.62); --duration: 3.38s; --s: clamp(5px, 0.48vw, 8px); --x: 35%; --y: 19%; }
+.cinematic-funnel-dot:nth-child(18) { --delay: -4.58s; --dot-color: #ff63c8; --dot-glow: rgba(255, 99, 200, 0.62); --duration: 3.66s; --s: clamp(6px, 0.53vw, 9px); --x: 47%; --y: 20%; }
+.cinematic-funnel-dot:nth-child(19) { --delay: -4.84s; --dot-color: #ff8a8a; --dot-glow: rgba(255, 138, 138, 0.64); --duration: 3.94s; --s: clamp(4px, 0.58vw, 10px); --x: 59%; --y: 26%; }
+.cinematic-funnel-dot:nth-child(20) { --delay: -5.1s; --dot-color: #ff5964; --dot-glow: rgba(255, 89, 100, 0.6); --duration: 4.22s; --s: clamp(5px, 0.63vw, 11px); --x: 71%; --y: 27%; }
+.cinematic-funnel-dot:nth-child(21) { --delay: -5.36s; --dot-color: #ff9a3d; --dot-glow: rgba(255, 154, 61, 0.62); --duration: 3.1s; --s: clamp(6px, 0.48vw, 8px); --x: 83%; --y: 28%; }
+.cinematic-funnel-dot:nth-child(22) { --delay: -5.62s; --dot-color: #ffce5c; --dot-glow: rgba(255, 206, 92, 0.66); --duration: 3.38s; --s: clamp(4px, 0.53vw, 9px); --x: 13%; --y: 26%; }
+.cinematic-funnel-dot:nth-child(23) { --delay: -5.88s; --dot-color: #fff06a; --dot-glow: rgba(255, 240, 106, 0.62); --duration: 3.66s; --s: clamp(5px, 0.58vw, 10px); --x: 25%; --y: 27%; }
+.cinematic-funnel-dot:nth-child(24) { --delay: -6.14s; --dot-color: #37f5d0; --dot-glow: rgba(55, 245, 208, 0.66); --duration: 3.94s; --s: clamp(6px, 0.63vw, 11px); --x: 37%; --y: 28%; }
+.cinematic-funnel-dot:nth-child(25) { --delay: -6.4s; --dot-color: #55d6ff; --dot-glow: rgba(85, 214, 255, 0.72); --duration: 4.22s; --s: clamp(4px, 0.48vw, 8px); --x: 49%; --y: 34%; }
+.cinematic-funnel-dot:nth-child(26) { --delay: -6.66s; --dot-color: #4f8cff; --dot-glow: rgba(79, 140, 255, 0.68); --duration: 3.1s; --s: clamp(5px, 0.53vw, 9px); --x: 61%; --y: 35%; }
+.cinematic-funnel-dot:nth-child(27) { --delay: -6.92s; --dot-color: #a67cff; --dot-glow: rgba(166, 124, 255, 0.7); --duration: 3.38s; --s: clamp(6px, 0.58vw, 10px); --x: 73%; --y: 36%; }
+.cinematic-funnel-dot:nth-child(28) { --delay: -7.18s; --dot-color: #c06cff; --dot-glow: rgba(192, 108, 255, 0.66); --duration: 3.66s; --s: clamp(4px, 0.63vw, 11px); --x: 85%; --y: 34%; }
+.cinematic-funnel-dot:nth-child(29) { --delay: -7.44s; --dot-color: #ff4fd8; --dot-glow: rgba(255, 79, 216, 0.62); --duration: 3.94s; --s: clamp(5px, 0.48vw, 8px); --x: 15%; --y: 35%; }
+.cinematic-funnel-dot:nth-child(30) { --delay: -7.7s; --dot-color: #ff63c8; --dot-glow: rgba(255, 99, 200, 0.62); --duration: 4.22s; --s: clamp(6px, 0.53vw, 9px); --x: 27%; --y: 36%; }
+.cinematic-funnel-dot:nth-child(31) { --delay: -7.96s; --duration: 3.4s; --s: clamp(4px, 0.46vw, 8px); --x: 28%; --y: 43%; }
+.cinematic-funnel-dot:nth-child(32) { --delay: -8.22s; --duration: 3.74s; --s: clamp(5px, 0.5vw, 9px); --x: 37%; --y: 44%; }
+.cinematic-funnel-dot:nth-child(33) { --delay: -8.48s; --duration: 4.08s; --s: clamp(6px, 0.54vw, 10px); --x: 46%; --y: 45%; }
+.cinematic-funnel-dot:nth-child(34) { --delay: -8.74s; --duration: 4.42s; --s: clamp(4px, 0.58vw, 8px); --x: 55%; --y: 43%; }
+.cinematic-funnel-dot:nth-child(35) { --delay: -9s; --duration: 3.4s; --s: clamp(5px, 0.46vw, 9px); --x: 64%; --y: 52%; }
+.cinematic-funnel-dot:nth-child(36) { --delay: -9.26s; --duration: 3.74s; --s: clamp(6px, 0.5vw, 10px); --x: 29%; --y: 53%; }
+.cinematic-funnel-dot:nth-child(37) { --delay: -9.52s; --duration: 4.08s; --s: clamp(4px, 0.54vw, 8px); --x: 38%; --y: 51%; }
+.cinematic-funnel-dot:nth-child(38) { --delay: -9.78s; --duration: 4.42s; --s: clamp(5px, 0.58vw, 9px); --x: 47%; --y: 52%; }
+.cinematic-funnel-dot:nth-child(39) { --delay: -10.04s; --duration: 3.4s; --s: clamp(6px, 0.46vw, 10px); --x: 56%; --y: 61%; }
+.cinematic-funnel-dot:nth-child(40) { --delay: -10.3s; --duration: 3.74s; --s: clamp(4px, 0.5vw, 8px); --x: 65%; --y: 59%; }
+.cinematic-funnel-dot:nth-child(41) { --delay: -10.56s; --duration: 4.08s; --s: clamp(5px, 0.54vw, 9px); --x: 30%; --y: 60%; }
+.cinematic-funnel-dot:nth-child(42) { --delay: -10.82s; --duration: 4.42s; --s: clamp(6px, 0.58vw, 10px); --x: 39%; --y: 61%; }
+.cinematic-funnel-dot:nth-child(43) { --delay: -11.08s; --duration: 3.4s; --s: clamp(4px, 0.46vw, 8px); --x: 48%; --y: 67%; }
+.cinematic-funnel-dot:nth-child(44) { --delay: -11.34s; --duration: 3.74s; --s: clamp(5px, 0.5vw, 9px); --x: 57%; --y: 68%; }
+.cinematic-funnel-dot:nth-child(45) { --delay: -11.6s; --duration: 4.08s; --s: clamp(6px, 0.54vw, 10px); --x: 66%; --y: 69%; }
+.cinematic-funnel-dot:nth-child(46) { --delay: -11.86s; --duration: 4.42s; --s: clamp(4px, 0.58vw, 8px); --x: 31%; --y: 67%; }
+.cinematic-funnel-dot:nth-child(47) { --delay: -12.12s; --duration: 3.4s; --s: clamp(5px, 0.46vw, 9px); --x: 40%; --y: 76%; }
+.cinematic-funnel-dot:nth-child(48) { --delay: -12.38s; --duration: 3.74s; --s: clamp(6px, 0.5vw, 10px); --x: 49%; --y: 77%; }
+.cinematic-funnel-dot:nth-child(49) { --delay: -12.64s; --duration: 4.08s; --s: clamp(4px, 0.54vw, 8px); --x: 58%; --y: 75%; }
+.cinematic-funnel-dot:nth-child(50) { --delay: -12.9s; --duration: 4.42s; --s: clamp(5px, 0.58vw, 9px); --x: 67%; --y: 76%; }
+.cinematic-funnel-dot:nth-child(51) { --delay: -13.16s; --duration: 3.4s; --s: clamp(6px, 0.46vw, 10px); --x: 32%; --y: 85%; }
+.cinematic-funnel-dot:nth-child(52) { --delay: -13.42s; --duration: 3.74s; --s: clamp(4px, 0.5vw, 8px); --x: 41%; --y: 83%; }
+.cinematic-funnel-dot:nth-child(53) { --delay: -13.68s; --duration: 4.08s; --s: clamp(5px, 0.54vw, 9px); --x: 50%; --y: 84%; }
+.cinematic-funnel-dot:nth-child(54) { --delay: -13.94s; --duration: 4.42s; --s: clamp(6px, 0.58vw, 10px); --x: 59%; --y: 85%; }
 
 @keyframes cinematic-funnel-fall {
   0% {

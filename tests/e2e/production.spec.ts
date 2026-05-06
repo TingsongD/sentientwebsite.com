@@ -1730,6 +1730,8 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(features).toContainText('B2B SaaS-only scope')
   await expect(features).toContainText('Text and email reminders')
   await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span')).toHaveCount(54)
+  await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span[style]')).toHaveCount(0)
+  await expect(features.locator('.cinematic-funnel-anchor[style]')).toHaveCount(0)
   await expect(
     page.getByRole('heading', {
       name: 'Revenue Leaks : The Black Hole Sucking Your Profits Dry',
