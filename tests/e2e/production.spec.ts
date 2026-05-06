@@ -1823,17 +1823,66 @@ test('home hash navigation respects section scroll margins', async ({ page }) =>
   expect(targetTop).toBeGreaterThanOrEqual(80)
 })
 
-test('cinematic funnel mobile layout stays readable without horizontal overflow', async ({ page }) => {
+test('cinematic funnel mobile layout stays scroll-driven without horizontal overflow', async ({
+  page,
+}) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/#features')
 
   const features = page.locator('#features')
   await expect(features).toHaveClass(/cinematic-funnel/)
   await expect(page.locator('.funnel-scroll-feature')).toHaveCount(0)
-  await expect(features.getByRole('heading', { name: 'Top of the funnel' })).toBeVisible()
-  await expect(features.getByRole('heading', { name: 'Mid-funnel' })).toBeVisible()
-  await expect(features.getByRole('heading', { name: 'Bottom of the funnel' })).toBeVisible()
-  await expect(features.getByRole('heading', { name: 'B2B SaaS-only scope' })).toBeVisible()
+  await expect(features.locator('.cinematic-funnel-pin')).toBeVisible()
+  await expect(features.locator('.cinematic-funnel-copy')).toBeVisible()
+  await expect(features.locator('.cinematic-funnel-stage')).toBeVisible()
+  await expect(features.locator('.cinematic-funnel-side')).toBeVisible()
+  await expect(features.locator('.cinematic-funnel-mobile-list')).toBeHidden()
+  await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span')).toHaveCount(54)
+  await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span[style]')).toHaveCount(0)
+  await expect(features.locator('.cinematic-funnel-anchor[style]')).toHaveCount(0)
+
+  await features.evaluate((el) => {
+    window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY)
+  })
+
+  const mobileLayout = await page.evaluate(() => {
+    const readRect = (selector: string) => {
+      const element = document.querySelector(selector)
+      if (!element) return null
+      const rect = element.getBoundingClientRect()
+      return {
+        bottom: rect.bottom,
+        height: rect.height,
+        top: rect.top,
+        width: rect.width,
+      }
+    }
+
+    return {
+      copy: readRect('.cinematic-funnel-copy'),
+      pinPosition: getComputedStyle(document.querySelector('.cinematic-funnel-pin')!).position,
+      side: readRect('.cinematic-funnel-side'),
+      stage: readRect('.cinematic-funnel-stage'),
+      viewportHeight: window.innerHeight,
+    }
+  })
+
+  expect(mobileLayout.pinPosition).toBe('sticky')
+  for (const zone of [mobileLayout.copy, mobileLayout.stage, mobileLayout.side]) {
+    expect(zone?.width).toBeGreaterThan(0)
+    expect(zone?.height).toBeGreaterThan(0)
+    expect(zone?.top).toBeGreaterThanOrEqual(-1)
+    expect(zone?.bottom).toBeLessThanOrEqual(mobileLayout.viewportHeight + 1)
+  }
+
+  const initialStep = await features.getAttribute('data-active-step')
+  await features.evaluate((el) => {
+    const top = el.getBoundingClientRect().top + window.scrollY
+    window.scrollTo(0, top + (el as HTMLElement).offsetHeight * 0.52)
+  })
+  await expect
+    .poll(async () => features.getAttribute('data-active-step'))
+    .not.toBe(initialStep)
 
   const hasHorizontalOverflow = await page.evaluate(() => {
     return document.documentElement.scrollWidth > window.innerWidth + 1
