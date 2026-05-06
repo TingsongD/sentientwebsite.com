@@ -1620,19 +1620,16 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
     page.getByRole('heading', {
       name: 'Do not buy demo recovery if the context lands in the wrong system.',
     }),
-  ).toBeVisible()
-  await expect(page.getByText('Salesforce teams')).toBeVisible()
-  await expect(page.getByText('Pipedrive teams')).toBeVisible()
-  await expect(page.getByText('Public proof rights are optional')).toBeVisible()
-  await expect(page.getByText('pilot proof packet shows baseline pages')).toBeVisible()
-  await expect(page.getByText('Does this replace anything?')).toBeVisible()
-  await expect(page.getByText('What about SOC 2 or BAA review?')).toBeVisible()
+  ).toHaveCount(0)
+  await expect(page.getByText('Public proof rights are optional')).toHaveCount(0)
+  await expect(page.getByText('pilot proof packet shows baseline pages')).toHaveCount(0)
+  await expect(page.getByText('Does this replace anything?')).toHaveCount(0)
+  await expect(page.getByText('What about SOC 2 or BAA review?')).toHaveCount(0)
   await expect(
     page.getByRole('heading', { name: 'Bring your hardest buyer questions into the preview.' }),
-  ).toBeVisible()
-  await expect(page.getByText('Healthcare SaaS')).toBeVisible()
-  await expect(page.getByText('Logistics and vertical SaaS')).toBeVisible()
-  await expect(page.getByText('Works with HubSpot Free, Starter')).toBeVisible()
+  ).toHaveCount(0)
+  await expect(page.getByText('Healthcare SaaS')).toHaveCount(0)
+  await expect(page.getByText('Logistics and vertical SaaS')).toHaveCount(0)
 
   await page.goto('/pricing')
   await page.getByText('Do we need HubSpot?').click()
@@ -1723,9 +1720,16 @@ test('homepage and solution pages render new positioning and trust disclosure', 
       name: 'One scroll from top-of-funnel intent to a booked demo.',
     }),
   ).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Top of the funnel' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Mid-funnel' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Bottom of the funnel' })).toBeVisible()
+  const features = page.locator('#features')
+  await expect(features).toHaveClass(/cinematic-funnel/)
+  await expect(page.locator('.funnel-scroll-feature')).toHaveCount(0)
+  await expect(features).toContainText('Top of the funnel')
+  await expect(features).toContainText('Mid-funnel')
+  await expect(features).toContainText('Bottom of the funnel')
+  await expect(features).toContainText('High-intent page detection')
+  await expect(features).toContainText('B2B SaaS-only scope')
+  await expect(features).toContainText('Text and email reminders')
+  await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span')).toHaveCount(54)
   await expect(
     page.getByRole('heading', {
       name: 'Revenue Leaks : The Black Hole Sucking Your Profits Dry',
@@ -1748,16 +1752,27 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   }
   await expect(
     page.getByRole('heading', { name: /Your.*buyers.*are already on.*the site/i }),
-  ).toBeVisible()
+  ).toHaveCount(0)
   const sectionOrder = await page.evaluate(() => {
-    const ids = ['features', 'revenue-leaks', 'phase-heading']
+    const ids = ['revenue-leaks', 'instant-demo-preview', 'features']
     return ids.map((id) => document.getElementById(id)?.getBoundingClientRect().top ?? 0)
   })
   expect(sectionOrder[0]).toBeLessThan(sectionOrder[1])
   expect(sectionOrder[1]).toBeLessThan(sectionOrder[2])
   await expect(page.getByRole('heading', { name: 'The Demo Recovery Engine inside SentientWeb.' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'One recovery path for B2B SaaS revenue teams.' })).toBeVisible()
-  await expect(page.getByText('Demo-Ready Visitor Recovery for B2B SaaS').first()).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'B2B SaaS demo recovery' })).toHaveCount(0)
+  await expect(
+    page.getByText(
+      'Recover high-intent visitors from pricing, demo, comparison, integration, security, and customer story pages.',
+    ),
+  ).toHaveCount(0)
+  await expect(
+    page.getByText(
+      'We are digital plumbers for your revenue leaks, but the first leak we fix is demo intent.',
+    ),
+  ).toHaveCount(0)
+  await expect(page.getByRole('heading', { name: 'One recovery path for B2B SaaS revenue teams.' })).toHaveCount(0)
+  await expect(page.getByText('Demo-Ready Visitor Recovery for B2B SaaS').first()).toHaveCount(0)
   await expect(
     page.getByText('Appointment-Ready Visitor Recovery for service businesses').first(),
   ).toHaveCount(0)
@@ -1771,7 +1786,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
     page.getByRole('heading', {
       name: 'The pilot is designed to answer the questions your CEO, RevOps, and sales leader will ask.',
     }),
-  ).toBeVisible()
+  ).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'When buyers do not book, learn why.' })).toBeVisible()
   await expect(page.getByRole('dialog')).toHaveCount(0)
 
@@ -1804,6 +1819,24 @@ test('home hash navigation respects section scroll margins', async ({ page }) =>
   })
 
   expect(targetTop).toBeGreaterThanOrEqual(80)
+})
+
+test('cinematic funnel mobile layout stays readable without horizontal overflow', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/#features')
+
+  const features = page.locator('#features')
+  await expect(features).toHaveClass(/cinematic-funnel/)
+  await expect(page.locator('.funnel-scroll-feature')).toHaveCount(0)
+  await expect(features.getByRole('heading', { name: 'Top of the funnel' })).toBeVisible()
+  await expect(features.getByRole('heading', { name: 'Mid-funnel' })).toBeVisible()
+  await expect(features.getByRole('heading', { name: 'Bottom of the funnel' })).toBeVisible()
+  await expect(features.getByRole('heading', { name: 'B2B SaaS-only scope' })).toBeVisible()
+
+  const hasHorizontalOverflow = await page.evaluate(() => {
+    return document.documentElement.scrollWidth > window.innerWidth + 1
+  })
+  expect(hasHorizontalOverflow).toBe(false)
 })
 
 test('mobile drawer traps focus and restores it on Escape', async ({ page }) => {

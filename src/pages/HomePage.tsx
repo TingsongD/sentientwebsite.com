@@ -1,11 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { CinematicFunnelSection } from '../components/CinematicFunnelSection'
 import { MarketingHeader } from '../components/MarketingHeader'
 import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
-import { FUNNEL_FEATURE_GROUPS, funnelFeatureId, funnelGroupId } from '../data/homeFeatures'
 
 const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
@@ -31,52 +31,6 @@ const INTEGRATION_LOGOS = [
   { name: 'Webflow', logoUrl: '/logos/webflow.svg' },
 ] as const
 
-const STACK_FIT_CARDS = [
-  {
-    title: 'HubSpot teams',
-    body: 'Works with HubSpot Free, Starter, Professional, and Enterprise when the required contact, company, note, and meeting fields are available.',
-  },
-  {
-    title: 'Salesforce teams',
-    body: 'Map the Salesforce outcome before launch. If sales context cannot land where reps work, the pilot should not start.',
-  },
-  {
-    title: 'Pipedrive teams',
-    body: 'Scope Pipedrive or webhook handoff so lean teams do not create manual CRM work just to test demo recovery.',
-  },
-  {
-    title: 'Custom or no CRM',
-    body: 'Use the pilot fit check to decide whether a webhook, shared inbox, CRM setup, or scheduler prerequisite comes first.',
-  },
-] as const
-
-const HIGH_INTENT_PAGE_CARDS = [
-  {
-    title: 'Pricing pages',
-    body: 'Handle plan-fit, ROI, budget, and timing hesitation before the visitor leaves.',
-  },
-  {
-    title: 'Demo pages',
-    body: 'Qualify the visitor and open the agreed Calendly, Chili Piper, or routed booking path when fit is confirmed.',
-  },
-  {
-    title: 'Comparison pages',
-    body: 'Answer competitive objections from approved content.',
-  },
-  {
-    title: 'Integration pages',
-    body: 'Confirm stack fit for HubSpot, Salesforce, Pipedrive, Chili Piper, Calendly, or customer tools.',
-  },
-  {
-    title: 'Security pages',
-    body: 'Route trust questions and sync requirements to sales.',
-  },
-  {
-    title: 'Customer story pages',
-    body: "Match proof to the visitor's use case and buying context.",
-  },
-] as const
-
 const DEMO_RECOVERY_MODULES = [
   {
     title: 'Demo-Ready Detection',
@@ -97,48 +51,6 @@ const DEMO_RECOVERY_MODULES = [
   {
     title: 'Recovered Demo Reporting',
     body: 'Show demo-ready visitors detected, qualified visitors, booked demos, and sales-visible context.',
-  },
-] as const
-
-const BUYER_OBJECTION_CARDS = [
-  {
-    title: 'Will this work with our CRM?',
-    body: 'CRM fit is checked before launch. HubSpot is the fastest path; Salesforce, Pipedrive, and webhook handoffs are scoped before a pilot is accepted.',
-  },
-  {
-    title: 'Can we trust the answers?',
-    body: 'Recovery answers come from approved source content, with sensitive, security, legal, or high-value questions routed to a human instead of improvised.',
-  },
-  {
-    title: 'Where is the proof?',
-    body: 'The pilot proof packet shows baseline pages, recovered demos, qualification answers, sales acceptance, CRM records, and the exact pipeline assumption used.',
-  },
-  {
-    title: 'Are case-study rights required?',
-    body: 'No. Public proof rights are optional and can be traded for a discount; they are not a condition for evaluating the 30-day pilot.',
-  },
-  {
-    title: 'Does this replace anything?',
-    body: 'It replaces generic pricing-page popups, static demo forms, and manual chasing of buyers who already showed demo intent. Routing tools stay useful after qualification.',
-  },
-  {
-    title: 'What about SOC 2 or BAA review?',
-    body: 'Security review is a launch gate. Regulated teams can scope recovery to public pages, approved non-sensitive answers, and human handoff while procurement reviews the trust package.',
-  },
-] as const
-
-const DOMAIN_PROOF_CARDS = [
-  {
-    title: 'Healthcare SaaS',
-    body: 'Scope security-page and integration-page recovery around non-PHI demo qualification, approved HIPAA-facing source content, and immediate human handoff.',
-  },
-  {
-    title: 'Fintech, legal, and security software',
-    body: 'Use approved-source answers for compliance, security, and competitive questions while routing legal-risk or enterprise procurement questions to a person.',
-  },
-  {
-    title: 'Logistics and vertical SaaS',
-    body: 'Test TMS, ERP, workflow, and implementation questions during the preview so the pilot proves whether approved content can handle the buyer language.',
   },
 ] as const
 
@@ -522,68 +434,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Funnel feature overview */}
-        <section
-          id="features"
-          className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20 md:py-24 lg:py-28"
-          aria-labelledby="features-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Product
-            </p>
-            <h2
-              id="features-heading"
-              className="font-grotesk max-w-[1040px] text-[32px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px] lg:text-[60px]"
-            >
-              One scroll from top-of-funnel intent to a booked demo.
-            </h2>
-            <p className="mt-5 max-w-3xl font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
-              SentientWeb brings the visible homepage capabilities into one continuous path:
-              detect intent, engage the hesitation, qualify fit, book the meeting, sync context,
-              and learn from what did not convert.
-            </p>
-
-            <div className="mt-12 grid gap-7">
-              {FUNNEL_FEATURE_GROUPS.map((group) => (
-                <section
-                  key={group.stage}
-                  className="rounded-[28px] border border-white/10 bg-white/[0.03] p-5 sm:p-7 lg:p-8"
-                  aria-labelledby={funnelGroupId(group.stage)}
-                >
-                  <div className="mb-6 grid gap-3 lg:grid-cols-[0.7fr_1fr] lg:items-end">
-                    <h3
-                      id={funnelGroupId(group.stage)}
-                      className="font-grotesk scroll-mt-28 text-[26px] uppercase leading-tight text-cream sm:text-[34px]"
-                    >
-                      {group.stage}
-                    </h3>
-                    <p className="font-sans text-[13px] normal-case leading-relaxed text-cream/68 sm:text-[14px] lg:text-right">
-                      {group.summary}
-                    </p>
-                  </div>
-                  <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                    {group.features.map((feature) => (
-                      <article
-                        key={feature.title}
-                        id={funnelFeatureId(feature.title)}
-                        className="liquid-glass scroll-mt-28 rounded-[20px] p-5 transition hover:bg-white/10 sm:p-6"
-                      >
-                        <h4 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
-                          {feature.title}
-                        </h4>
-                        <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
-                          {feature.body}
-                        </p>
-                      </article>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Revenue leaks */}
         <section
           id="revenue-leaks"
@@ -648,63 +498,6 @@ export default function HomePage() {
               </Link>
             </div>
             <LeakClockMethodology />
-          </div>
-        </section>
-
-        {/* Phase 1 / product intro */}
-        <section
-          className="relative min-h-screen overflow-hidden bg-background"
-          aria-labelledby="phase-heading"
-        >
-          <AmbientVideo
-            className="absolute inset-0 h-full w-full overflow-hidden"
-            mediaSrc={ABOUT_MEDIA}
-            reducedMotion={prefersReducedMotion}
-          />
-
-          <div className="relative z-10 mx-auto max-w-[1831px] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-10 lg:py-24 xl:py-32">
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-              <div className="shrink-0">
-                <h2
-                  id="phase-heading"
-                  className="font-grotesk uppercase leading-none text-cream text-[32px] sm:text-[42px] md:text-[52px] lg:text-[60px]"
-                >
-                  <span className="flex flex-wrap items-end gap-x-2 sm:gap-x-3 md:gap-x-4">
-                    <span className="block shrink-0">Your</span>
-                    <span
-                      className="font-condiment pointer-events-none -translate-y-0.5 -rotate-1 text-[26px] text-neon mix-blend-exclusion sm:text-[34px] md:text-[42px] lg:text-[50px] normal-case sm:-translate-y-1"
-                      aria-hidden
-                    >
-                      demo-ready
-                    </span>
-                    <span className="block">buyers</span>
-                  </span>
-                  <span className="mt-1 block sm:mt-0">are already on</span>
-                  <span className="mt-1 block sm:mt-0">the site.</span>
-                </h2>
-              </div>
-              <div className="max-w-[620px]">
-                <p className="font-sans text-[15px] normal-case leading-relaxed text-cream/78 sm:text-[16px]">
-                  They compare pricing, check integrations, read security pages, and hesitate
-                  before filling out a form. SentientWeb catches that moment and routes it to a
-                  qualified booked demo.
-                </p>
-                <ul className="mt-8 grid gap-3 font-sans text-[13px] normal-case leading-relaxed text-cream/72 sm:text-[14px]">
-                  {[
-                    'Pricing-page visitors hesitate over plan fit and ROI.',
-                    'Comparison-page visitors need a clear answer before they bounce.',
-                    'Integration-page visitors want to know whether the stack works.',
-                    'Security-page visitors need trust context before they book.',
-                    'Demo-page visitors need fast qualification, not a long form.',
-                  ].map((item) => (
-                    <li key={item} className="liquid-glass rounded-[18px] px-4 py-3">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
           </div>
         </section>
 
@@ -782,52 +575,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Recovery path */}
-        <section
-          className="border-t border-white/10 bg-background py-16 sm:py-20"
-          aria-labelledby="recovery-paths-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Two recovery paths
-            </p>
-            <h2
-              id="recovery-paths-heading"
-              className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
-            >
-              One recovery path for B2B SaaS revenue teams.
-            </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              SentientWeb is focused on Demo-Ready Visitor Recovery for B2B SaaS: pricing,
-              comparison, integration, security, docs, customer-story, and demo-page visitors who
-              are close enough to buy but not yet qualified for sales.
-            </p>
-
-            <div className="mt-10 grid gap-6">
-              <article className="rounded-[28px] border border-neon/45 bg-neon/[0.06] p-6 shadow-[0_28px_90px_rgba(111,255,0,0.12)] sm:p-8">
-                <p className="font-mono text-[11px] uppercase tracking-widest text-neon">
-                  B2B SaaS
-                </p>
-                <h3 className="font-grotesk mt-4 text-[26px] uppercase leading-tight text-cream sm:text-[34px]">
-                  Demo-Ready Visitor Recovery for B2B SaaS
-                </h3>
-                <p className="font-mono mt-4 text-[13px] uppercase leading-relaxed text-cream/75 sm:text-[14px]">
-                  Recover demo-ready visitors before they leave.
-                </p>
-                <p className="font-mono mt-4 max-w-2xl text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[14px]">
-                  For B2B SaaS teams turning pricing, demo, comparison, security, and
-                  integration-page intent into qualified booked meetings with CRM-visible context.
-                </p>
-                <Link
-                  to="/solutions/saas"
-                  className="mt-7 inline-flex rounded-full bg-neon px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
-                >
-                  Explore B2B SaaS recovery
-                </Link>
-              </article>
-            </div>
-          </div>
-        </section>
+        <CinematicFunnelSection />
 
         {/* Demo recovery modules */}
         <section
@@ -860,144 +608,6 @@ export default function HomePage() {
                   </h3>
                   <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
                     {module.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Solutions */}
-        <section
-          id="solutions"
-          className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20"
-          aria-labelledby="solutions-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <h2
-              id="solutions-heading"
-              className="font-grotesk mb-4 text-[28px] uppercase leading-tight text-cream sm:text-[36px] md:text-[44px]"
-            >
-              B2B SaaS demo recovery
-            </h2>
-            <p className="font-mono mb-10 max-w-2xl text-[14px] uppercase leading-relaxed text-cream/70">
-              Recover high-intent visitors from pricing, demo, comparison, integration, security,
-              and customer story pages.
-            </p>
-            <p className="font-condiment mb-10 max-w-3xl text-[22px] normal-case leading-tight text-neon sm:text-[28px] md:text-[34px]">
-              We are digital plumbers for your revenue leaks, but the first leak we fix is demo
-              intent.
-            </p>
-            <div className="mb-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {HIGH_INTENT_PAGE_CARDS.map((card) => (
-                <article
-                  key={card.title}
-                  className="liquid-glass rounded-[22px] p-5 transition hover:bg-white/10 sm:p-6"
-                >
-                  <h3 className="font-grotesk text-[18px] uppercase leading-tight text-cream sm:text-[20px]">
-                    {card.title}
-                  </h3>
-                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/70 sm:text-[13px]">
-                    {card.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Stack fit */}
-        <section
-          className="border-t border-white/10 bg-background py-16 sm:py-20"
-          aria-labelledby="stack-fit-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Stack fit
-            </p>
-            <h2
-              id="stack-fit-heading"
-              className="font-grotesk max-w-[960px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
-            >
-              Do not buy demo recovery if the context lands in the wrong system.
-            </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              The first pilot step is a CRM and scheduler fit check. If your sales team lives in
-              Salesforce, Pipedrive, a custom CRM, or no CRM yet, the handoff path is decided before
-              installation.
-            </p>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {STACK_FIT_CARDS.map((card) => (
-                <article key={card.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
-                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
-                    {card.title}
-                  </h3>
-                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
-                    {card.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Domain proof */}
-        <section
-          className="border-t border-white/10 bg-background py-16 sm:py-20"
-          aria-labelledby="domain-proof-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Domain proof before launch
-            </p>
-            <h2
-              id="domain-proof-heading"
-              className="font-grotesk max-w-[980px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
-            >
-              Bring your hardest buyer questions into the preview.
-            </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              The pilot should prove that SentientWeb can speak your market from approved sources
-              before it appears on high-intent production pages.
-            </p>
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {DOMAIN_PROOF_CARDS.map((card) => (
-                <article key={card.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
-                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
-                    {card.title}
-                  </h3>
-                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
-                    {card.body}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Objection handling */}
-        <section
-          className="border-t border-white/10 bg-background py-16 sm:py-20"
-          aria-labelledby="buyer-objections-heading"
-        >
-          <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Buyer objections answered
-            </p>
-            <h2
-              id="buyer-objections-heading"
-              className="font-grotesk max-w-[980px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
-            >
-              The pilot is designed to answer the questions your CEO, RevOps, and sales leader will ask.
-            </h2>
-            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {BUYER_OBJECTION_CARDS.map((card) => (
-                <article key={card.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
-                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
-                    {card.title}
-                  </h3>
-                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
-                    {card.body}
                   </p>
                 </article>
               ))}
