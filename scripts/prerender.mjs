@@ -179,7 +179,7 @@ await mkdir(dirname(securityTxtPath), { recursive: true })
 await writeFile(
   securityTxtPath,
   [
-    'Contact: mailto:hello@sentientwebsite.com',
+    'Contact: mailto:songday@sentientwebsite.com',
     `Policy: ${new URL('/security-response', SITE_URL).toString()}`,
     'Preferred-Languages: en',
     `Canonical: ${new URL('/.well-known/security.txt', SITE_URL).toString()}`,

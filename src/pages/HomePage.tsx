@@ -369,7 +369,7 @@ function IntegrationLogoStrip() {
           id="integrations-strip-heading"
           className="font-mono mb-5 text-[11px] uppercase tracking-widest text-[#0B6A31] sm:text-[12px]"
         >
-          SentientWeb works above your existing tech stack
+          SentientWeb sits above your stack and calls the right tools at the right time
         </h2>
       </div>
       <div className="integration-logo-marquee">

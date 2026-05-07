@@ -234,7 +234,7 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
       expect.objectContaining({
         '@type': 'WebPage',
         url: absoluteSiteUrl('/orchestrate'),
-        name: 'Orchestrate Your Existing Tech | SentientWeb',
+        name: 'Orchestration Layer Above Your Stack | SentientWeb',
       }),
     ]),
   )
@@ -248,9 +248,9 @@ test('known routes return prerendered route-specific metadata', async ({ request
     ['/pricing/calculator', '<title>Recovery ROI Calculator | SentientWeb</title>'],
     ['/pricing/enterprise', '<title>Scale Demo Recovery Pricing | SentientWeb</title>'],
     ['/revenue-leak-calculator', '<title>Recovery ROI Calculator | SentientWeb</title>'],
-    ['/orchestrate', '<title>Orchestrate Your Existing Tech | SentientWeb</title>'],
+    ['/orchestrate', '<title>Orchestration Layer Above Your Stack | SentientWeb</title>'],
     ['/blog/phase-1-live-now', '<title>Phase 1 live now | SentientWeb</title>'],
-    ['/integrations/wordpress', '<title>WordPress Stack Orchestration | SentientWeb</title>'],
+    ['/integrations/wordpress', '<title>WordPress Orchestration Layer | SentientWeb</title>'],
     [
       '/solutions/saas',
       '<title>Demo Recovery for B2B SaaS | SentientWeb</title>',
@@ -319,7 +319,7 @@ test('security.txt is publicly accessible for vulnerability reporting', async ({
   const body = await response.text()
 
   expect(response.status()).toBe(200)
-  expect(body).toContain('Contact: mailto:hello@sentientwebsite.com')
+  expect(body).toContain('Contact: mailto:songday@sentientwebsite.com')
   expect(body).toContain(`Policy: ${absoluteSiteUrl('/security-response')}`)
   expect(body).toContain(`Canonical: ${absoluteSiteUrl('/.well-known/security.txt')}`)
 })
@@ -1425,7 +1425,7 @@ test('primary nav links to focused use cases and existing stack orchestration', 
   await expect(nav.getByRole('button', { name: 'Solutions' })).toHaveCount(0)
   await expect(nav.getByRole('link', { name: 'Financial Services' })).toHaveCount(0)
 
-  const stackButton = nav.getByRole('button', { name: 'Existing stack' })
+  const stackButton = nav.getByRole('button', { name: 'Stack orchestration' })
   const useCasesButton = nav.getByRole('button', { name: 'Use cases' })
   await expect(stackButton).toBeVisible()
   await expect(useCasesButton).toBeVisible()
@@ -1456,6 +1456,9 @@ test('primary nav links to focused use cases and existing stack orchestration', 
   )
 
   await stackButton.click()
+  await expect(
+    nav.getByText('SentientWeb sits above your stack and calls the right tool'),
+  ).toBeVisible()
   await expect(nav.getByRole('link', { name: 'HubSpot', exact: true })).toHaveAttribute(
     'href',
     '/integrations/hubspot',
@@ -1519,8 +1522,11 @@ test('primary nav links to focused use cases and existing stack orchestration', 
     '/revenue-leak-calculator',
   )
   await expect(dialog.getByText('Financial Services')).toHaveCount(0)
-  await expect(dialog.getByText('Existing stack')).toBeVisible()
-  await dialog.getByText('Existing stack').click()
+  await expect(dialog.getByText('Stack orchestration')).toBeVisible()
+  await dialog.getByText('Stack orchestration').click()
+  await expect(
+    dialog.getByText('SentientWeb sits above your stack and calls the right tool'),
+  ).toBeVisible()
   await expect(dialog.getByRole('link', { name: 'HubSpot', exact: true })).toHaveAttribute(
     'href',
     '/integrations/hubspot',
@@ -1567,7 +1573,7 @@ test('orchestrate page renders the stack orchestration story', async ({ page, re
 
   await page.goto('/orchestrate')
   await expect(
-    page.getByRole('heading', { name: 'Orchestrate your existing tech.' }),
+    page.getByRole('heading', { name: 'The orchestration layer above your existing stack.' }),
   ).toBeVisible()
   await expect(page.getByRole('heading', { name: 'HubSpot example' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Not another chatbot' })).toHaveCount(0)
@@ -1576,7 +1582,7 @@ test('orchestrate page renders the stack orchestration story', async ({ page, re
   ).toHaveCount(0)
   await expect(page.getByRole('heading', { name: /ManyChat story/i })).toBeVisible()
   await expect(page.getByText('what HubSpot should do')).toBeVisible()
-  await expect(page.getByText('what to do, when to do it, and whom to do it to')).toBeVisible()
+  await expect(page.getByText('what business action should happen next')).toBeVisible()
   await expect(page.getByTestId('tool-story-section')).toHaveCount(9)
   await expect(page.getByText('SentientWeb decision').first()).toBeVisible()
   await expect(page.getByText('Tool action').first()).toBeVisible()
@@ -1666,20 +1672,20 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   }
 
   await page.goto('/integrations/salesforce')
-  await expect(page.getByText('Orchestrate Salesforce only after the handoff is clear.')).toBeVisible()
+  await expect(page.getByText('Call Salesforce only after the sales handoff is clear.')).toBeVisible()
   await expect(page.getByText('the pilot should not start')).toBeVisible()
 
   await page.goto('/integrations/pipedrive')
-  await expect(page.getByText('Use Pipedrive without forcing a CRM migration.')).toBeVisible()
+  await expect(page.getByText('Call Pipedrive without forcing a CRM migration.')).toBeVisible()
 
   await page.goto('/integrations/api-webhooks')
-  await expect(page.getByText('Define the handoff before adding another tool.')).toBeVisible()
+  await expect(page.getByText('Call a webhook when the workflow needs a custom handoff.')).toBeVisible()
 
   await page.goto('/integrations/hubspot')
   await expect(page.getByText('Works with HubSpot Free, Starter, Professional')).toBeVisible()
 
   await page.goto('/integrations/calendly')
-  await expect(page.getByText('Calendly, Chili Piper, or scheduler path')).toBeVisible()
+  await expect(page.getByText('Call your scheduler only after the visitor is qualified.')).toBeVisible()
 
   await page.goto('/trust')
   await expect(page.getByRole('heading', { name: 'Procurement gates for regulated buyers' })).toBeVisible()
@@ -1828,7 +1834,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(integrationsStrip).toHaveClass(/integration-logo-strip/)
   await expect(
     integrationsStrip.getByRole('heading', {
-      name: 'SentientWeb works above your existing tech stack',
+      name: 'SentientWeb sits above your stack and calls the right tools at the right time',
     }),
   ).toBeVisible()
   const integrationLogoList = integrationsStrip.getByRole('list', {

@@ -3,7 +3,7 @@ import { MarketingPageLayout } from '../components/MarketingPageLayout'
 import { BOOK_DEMO_URL } from '../constants'
 
 const APPLY_EMAIL =
-  'mailto:hello@sentientwebsite.com?subject=Application%20%E2%80%93%20B2B%20Sales%20%28Account%20Executive%29'
+  'mailto:songday@sentientwebsite.com?subject=Application%20%E2%80%93%20B2B%20Sales%20%28Account%20Executive%29'
 
 export default function CareersPage() {
   return (
@@ -126,7 +126,7 @@ export default function CareersPage() {
                     href={APPLY_EMAIL}
                     className="text-neon underline underline-offset-2 transition hover:brightness-125"
                   >
-                    hello@sentientwebsite.com
+                    songday@sentientwebsite.com
                   </a>{' '}
                   with the subject line{' '}
                   <span className="text-cream/90">

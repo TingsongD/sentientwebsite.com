@@ -9,7 +9,7 @@ Status: operative runbook layered on counsel-approved timelines April 2026. Owne
 Accept privacy requests from:
 
 - `/data-request`
-- `hello@sentientwebsite.com`
+- `songday@sentientwebsite.com`
 - **`songday@sentientwebsite.com`** (primary operations escalation, SLA tracking, and vendor ticketing)
 - replies to marketing unsubscribe requests
 - counsel, regulator, or authorized-agent correspondence
@@ -125,7 +125,7 @@ Vendor actions: [summary or not applicable].
 Data retained, if any: [legal/security/contract reason].
 Appeal rights, if any: [instructions].
 
-Contact hello@sentientwebsite.com with questions about this response.
+Contact songday@sentientwebsite.com with questions about this response.
 ```
 
 ## Denials and Limitations

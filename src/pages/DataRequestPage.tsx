@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { LegalLink, LegalList, LegalPage } from '../components/LegalPage'
 
 const requestMailto =
-  'mailto:hello@sentientwebsite.com?subject=Privacy%20or%20Data%20Request%20-%20SentientWeb'
+  'mailto:songday@sentientwebsite.com?subject=Privacy%20or%20Data%20Request%20-%20SentientWeb'
 
 const REQUEST_TYPES = [
   'Access',
@@ -57,7 +57,7 @@ export default function DataRequestPage() {
           body: (
             <p>
               Email{' '}
-              <LegalLink href={requestMailto}>hello@sentientwebsite.com</LegalLink>{' '}
+              <LegalLink href={requestMailto}>songday@sentientwebsite.com</LegalLink>{' '}
               with your request type, the email address or contact details you used with us, your
               country, state, province, or territory, and enough detail for us to locate relevant
               records. Do not send government IDs or sensitive documents unless we specifically ask

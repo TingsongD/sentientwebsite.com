@@ -72,8 +72,8 @@ export default function BillingTermsPage() {
           body: (
             <p>
               Billing, cancellation, and refund questions:{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com?subject=Billing%20or%20Refund%20Question">
-                hello@sentientwebsite.com
+              <LegalLink href="mailto:songday@sentientwebsite.com?subject=Billing%20or%20Refund%20Question">
+                songday@sentientwebsite.com
               </LegalLink>
               .
             </p>

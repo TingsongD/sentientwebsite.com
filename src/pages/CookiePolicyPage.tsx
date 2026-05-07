@@ -80,7 +80,7 @@ export default function CookiePolicyPage() {
           body: (
             <p>
               Cookie questions:{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>.
+              <LegalLink href="mailto:songday@sentientwebsite.com">songday@sentientwebsite.com</LegalLink>.
             </p>
           ),
         },

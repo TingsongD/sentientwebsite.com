@@ -13,7 +13,7 @@ Status: operative register for contractual, technical, Stripe/PCI, and approval 
 | Contracting entity | Robanka Inc. | Confirm against incorporation and vendor agreement records. |
 | Registered address | 505 Burrard Street, Vancouver, BC V7X 1M5, Canada | As published on `/terms`. |
 | Primary operations, privacy operations routing, and vendor escalation | `songday@sentientwebsite.com` | First-line owner for rights requests triage, incident coordination, and vendor ticket routing. |
-| Public marketing / general | `hello@sentientwebsite.com` | As published on customer-facing pages. |
+| Public marketing / general | `songday@sentientwebsite.com` | As published on customer-facing pages. |
 | Authorized signatory | On file with Robanka corporate records | Request verification through `songday@sentientwebsite.com`. |
 | Owner approval memo | Restricted approval log | Apr 28, 2026 product, engineering, security/privacy, and counsel sign-off recorded off-repo. |
 

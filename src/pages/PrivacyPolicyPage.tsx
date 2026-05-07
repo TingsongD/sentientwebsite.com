@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
               SentientWeb is operated by Robanka Inc., 505 Burrard Street, Vancouver, BC V7X 1M5,
               Canada (“SentientWeb,” “we,” “us,” or “our”). We operate {SITE_HOSTNAME} and
               related product experiences. Contact us at{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>.
+              <LegalLink href="mailto:songday@sentientwebsite.com">songday@sentientwebsite.com</LegalLink>.
               We have determined that a Data Protection Officer and EU/UK representative are not
               required at this time. You may use the contact above for privacy rights and regulator
               inquiries.
@@ -226,7 +226,7 @@ export default function PrivacyPolicyPage() {
           body: (
             <p>
               Privacy requests and questions:{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>.
+              <LegalLink href="mailto:songday@sentientwebsite.com">songday@sentientwebsite.com</LegalLink>.
             </p>
           ),
         },

@@ -14,8 +14,8 @@ export default function UnsubscribePage() {
             <p>
               Marketing emails from SentientWeb should include an unsubscribe link. You can also
               email{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com?subject=Unsubscribe%20Request">
-                hello@sentientwebsite.com
+              <LegalLink href="mailto:songday@sentientwebsite.com?subject=Unsubscribe%20Request">
+                songday@sentientwebsite.com
               </LegalLink>{' '}
               with “Unsubscribe Request” in the subject and the email address you want removed from
               marketing lists.

@@ -76,7 +76,7 @@ Use short refusals that redirect to safe alternatives:
 | Request type | Response pattern |
 | --- | --- |
 | Professional advice | “I can’t provide professional advice. I can help you find SentientWeb’s public information or route you to a qualified human.” |
-| Sensitive data | “Please do not send that here. Use an approved secure workflow or contact hello@sentientwebsite.com.” |
+| Sensitive data | “Please do not send that here. Use an approved secure workflow or contact songday@sentientwebsite.com.” |
 | High-impact decision | “I can’t make or automate that kind of decision. A qualified human must review it.” |
 | Unverified capability/compliance claim | “I don’t have approved source material for that. I can share the public legal/security page or route this to the team.” |
 | Bystander recording | “Only use voice mode where people being recorded have any legally required notice and consent.” |

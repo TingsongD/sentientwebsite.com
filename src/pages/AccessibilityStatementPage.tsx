@@ -42,8 +42,8 @@ export default function AccessibilityStatementPage() {
               </LegalList>
               <p className="mt-4">
                 Email:{' '}
-                <LegalLink href="mailto:hello@sentientwebsite.com?subject=Accessibility%20Feedback">
-                  hello@sentientwebsite.com
+                <LegalLink href="mailto:songday@sentientwebsite.com?subject=Accessibility%20Feedback">
+                  songday@sentientwebsite.com
                 </LegalLink>
                 .
               </p>

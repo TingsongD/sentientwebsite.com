@@ -110,7 +110,7 @@ describe('route metadata manifest', () => {
     })
 
     expect(getPageMeta('/orchestrate')).toMatchObject({
-      title: 'Orchestrate Your Existing Tech',
+      title: 'Orchestration Layer Above Your Stack',
       canonicalPath: '/orchestrate',
     })
 
@@ -120,7 +120,7 @@ describe('route metadata manifest', () => {
     })
 
     expect(getPageMeta('/integrations/wordpress')).toMatchObject({
-      title: 'WordPress Stack Orchestration',
+      title: 'WordPress Orchestration Layer',
       canonicalPath: '/integrations/wordpress',
     })
 

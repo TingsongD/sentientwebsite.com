@@ -53,8 +53,8 @@ export default function DmcaPolicyPage() {
           body: (
             <p>
               Email:{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com?subject=Copyright%20Notice">
-                hello@sentientwebsite.com
+              <LegalLink href="mailto:songday@sentientwebsite.com?subject=Copyright%20Notice">
+                songday@sentientwebsite.com
               </LegalLink>
               . Because SentientWeb does not host user content at scale, a formal DMCA agent
               registration is not currently used. If user-content hosting changes materially,

@@ -5,7 +5,7 @@ import { BOOK_DEMO_URL, OPERATOR_LOGIN_URL } from '../constants'
 import { INTEGRATION_NAV_LINKS } from '../data/integrationPagesContent'
 
 const DROPDOWN_PANEL =
-  'liquid-glass absolute left-1/2 top-full z-[60] mt-2 min-w-[12rem] max-h-[min(24rem,70vh)] -translate-x-1/2 overflow-y-auto rounded-[20px] border border-white/[0.08] py-2 shadow-lg'
+  'liquid-glass absolute left-1/2 top-full z-[60] mt-2 min-w-[18rem] max-h-[min(24rem,70vh)] -translate-x-1/2 overflow-y-auto rounded-[20px] border border-white/[0.08] py-2 shadow-lg'
 
 const DROPDOWN_LINK =
   'block px-4 py-2.5 font-grotesk text-[12px] uppercase tracking-wide text-cream/90 transition hover:bg-white/[0.06] hover:text-neon'
@@ -17,6 +17,9 @@ const MOBILE_SUBLINK =
   'block w-full py-2.5 pl-4 text-left font-mono text-[12px] uppercase tracking-wide text-cream/75 transition hover:text-neon'
 
 type NavMenuId = 'stack' | 'use-cases'
+
+const STACK_ORCHESTRATION_COPY =
+  'SentientWeb sits above your stack and calls the right tool when the revenue workflow needs it.'
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -154,7 +157,7 @@ function PrimaryNavList() {
           aria-controls={stackMenuId}
           onClick={() => toggle('stack')}
         >
-          Existing stack
+          Stack orchestration
           <ChevronDown
             className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'stack' ? 'rotate-180' : ''}`}
             aria-hidden
@@ -166,6 +169,11 @@ function PrimaryNavList() {
             aria-labelledby={stackBtnId}
             className={DROPDOWN_PANEL}
           >
+            <li className="border-b border-white/[0.08] px-4 pb-3 pt-2">
+              <p className="font-mono text-[11px] normal-case leading-relaxed text-cream/58">
+                {STACK_ORCHESTRATION_COPY}
+              </p>
+            </li>
             {integrationLinks.map(({ id, label, to }) => (
               <li key={id}>
                 <Link to={to} className={DROPDOWN_LINK} onClick={close}>
@@ -332,13 +340,16 @@ function MobileNavPanel({
 
           <details className="group border-b border-white/10">
             <summary className={detailsSummary}>
-              Existing stack
+              Stack orchestration
               <ChevronDown
                 className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
                 aria-hidden
               />
             </summary>
             <div className="border-t border-white/[0.06] pb-2 pt-1">
+              <p className="px-4 py-3 font-mono text-[11px] normal-case leading-relaxed text-cream/55">
+                {STACK_ORCHESTRATION_COPY}
+              </p>
               {integrationLinks.map(({ id, label, to }) => (
                 <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
                   {label}

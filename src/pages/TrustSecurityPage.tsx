@@ -126,10 +126,10 @@ export default function TrustSecurityPage() {
               For security reviews, vendor questionnaires, or SOC 2-related questions, contact
               us at{' '}
               <a
-                href="mailto:hello@sentientwebsite.com"
+                href="mailto:songday@sentientwebsite.com"
                 className="text-neon underline underline-offset-2 transition hover:brightness-125"
               >
-                hello@sentientwebsite.com
+                songday@sentientwebsite.com
               </a>
               . We are happy to work with procurement and InfoSec teams before production launch.
             </p>

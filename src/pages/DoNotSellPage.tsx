@@ -24,8 +24,8 @@ export default function DoNotSellPage() {
           body: (
             <p>
               Email{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com?subject=Do%20Not%20Sell%20or%20Share%20Request">
-                hello@sentientwebsite.com
+              <LegalLink href="mailto:songday@sentientwebsite.com?subject=Do%20Not%20Sell%20or%20Share%20Request">
+                songday@sentientwebsite.com
               </LegalLink>{' '}
               with “Do Not Sell or Share Request” in the subject. You may also use the Privacy
               choices button in the footer to decline optional browser storage in this browser.

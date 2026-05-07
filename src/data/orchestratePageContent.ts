@@ -20,22 +20,22 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     id: 'overview',
     label: 'Overview',
     eyebrow: 'Overview',
-    title: 'SentientWeb accelerates the stack your team already has.',
+    title: 'SentientWeb is the orchestration layer above the stack your team already has.',
     body: [
-      'SentientWeb sits above your website, CRM, scheduling, routing, messaging, and sales tools as the decision layer for demo-ready intent.',
-      'It decides which system should act, what that system should do, when it should do it, and which visitor, contact, company, or deal it should apply to.',
+      'SentientWeb sits one level above your website, CRM, scheduling, routing, messaging, and sales tools as the decision layer for revenue recovery.',
+      'It decides which system should act, what that system should do, when it should do it, and which visitor, contact, company, subscription, or deal it should apply to.',
     ],
     bullets: [
       'Detect high-intent website behavior before the visitor leaves.',
       'Qualify the visitor before opening the next step.',
-      'Coordinate the existing tools your revenue team already trusts.',
+      'Call the existing tools your revenue team already trusts to complete the business action.',
     ],
   },
   {
     id: 'how-orchestration-works',
     label: 'How orchestration works',
     eyebrow: 'Operating model',
-    title: 'The AI decides the next business action, then uses the right tool for execution.',
+    title: 'The AI chooses the next business action, then calls the right tool to execute it.',
     body: [
       'A pricing-page visitor, a returning comparison-page visitor, and a security-page evaluator should not all get the same path. SentientWeb reads the page context, qualification state, stack fit, and urgency before choosing the next action.',
       'Sometimes that means asking one more qualification question. Sometimes it means opening the calendar. Sometimes it means writing context into HubSpot, preparing a sales opener, or routing the visitor to a human.',
@@ -43,7 +43,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     bullets: [
       'Intent signal: what the visitor is doing right now.',
       'Business rule: what your team agreed should happen next.',
-      'Execution surface: the tool SentientWeb uses to complete the task.',
+      'Execution surface: the existing tool SentientWeb calls to complete the task.',
     ],
   },
   {

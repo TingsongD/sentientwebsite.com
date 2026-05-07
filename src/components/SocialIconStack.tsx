@@ -7,7 +7,7 @@ export function SocialIconStack({ className = '' }: { className?: string }) {
     'liquid-glass flex h-14 w-14 shrink-0 items-center justify-center rounded-[1rem] text-cream transition hover:bg-white/10'
   return (
     <nav className={`flex flex-col gap-3 ${className}`} aria-label="Social links">
-      <a href="mailto:hello@sentientwebsite.com" className={btnClass} aria-label="Email SentientWeb">
+      <a href="mailto:songday@sentientwebsite.com" className={btnClass} aria-label="Email SentientWeb">
         <Mail className={iconClass} strokeWidth={1.75} />
       </a>
       <a

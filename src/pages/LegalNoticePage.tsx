@@ -15,7 +15,7 @@ export default function LegalNoticePage() {
             <p>
               SentientWeb is operated by Robanka Inc., 505 Burrard Street, Vancouver, BC V7X 1M5,
               Canada. Legal, privacy, security, accessibility, and copyright notices may be sent to{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>.
+              <LegalLink href="mailto:songday@sentientwebsite.com">songday@sentientwebsite.com</LegalLink>.
             </p>
           ),
         },

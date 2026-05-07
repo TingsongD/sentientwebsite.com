@@ -136,7 +136,7 @@ export default function TermsOfServicePage() {
               If future services host user-posted content, we may remove allegedly infringing
               material and terminate repeat infringers where required. Copyright concerns can be sent
               to{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com">hello@sentientwebsite.com</LegalLink>
+              <LegalLink href="mailto:songday@sentientwebsite.com">songday@sentientwebsite.com</LegalLink>
               . Include the work, the allegedly infringing material, your contact information, and a
               statement that your notice is accurate and authorized.
             </p>

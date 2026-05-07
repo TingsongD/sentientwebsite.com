@@ -125,12 +125,12 @@ export default function OrchestratePage() {
                 Orchestration layer
               </p>
               <h1 className="font-grotesk max-w-[850px] text-[38px] uppercase leading-[1.02] text-cream sm:text-[54px] md:text-[68px]">
-                Orchestrate your existing tech.
+                The orchestration layer above your existing stack.
               </h1>
               <p className="font-mono mt-7 max-w-[820px] border-l-2 border-neon/60 pl-4 text-[13px] uppercase leading-relaxed text-cream/72 sm:text-[14px] md:text-[15px]">
-                SentientWeb is the accelerator for the stack your team already has. It decides
-                what to do, when to do it, and whom to do it to, then uses the right tool to
-                complete the business task.
+                SentientWeb sits above the stack your team already has. It decides what business
+                action should happen next, then calls the right CRM, scheduler, router, messaging
+                tool, or webhook to complete it.
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
                 <a
@@ -247,11 +247,11 @@ export default function OrchestratePage() {
               id="tools-heading"
               className="font-grotesk max-w-[1040px] text-[30px] uppercase leading-tight text-cream sm:text-[44px]"
             >
-              How SentientWeb coordinates each tool inside one buyer journey.
+              How SentientWeb calls each tool inside one buyer journey.
             </h2>
             <p className="font-mono mt-5 max-w-4xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
               Each horizontal story shows the same position in practice: SentientWeb identifies the
-              buyer moment first, then uses the right connected system as the execution surface.
+              buyer moment first, then calls the connected system that should execute the next step.
             </p>
 
             <div className="mt-10 space-y-6">

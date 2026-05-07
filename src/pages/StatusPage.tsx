@@ -85,10 +85,10 @@ export default function StatusPage() {
           <p>
             For production incidents or SLA questions, email{' '}
             <a
-              href="mailto:hello@sentientwebsite.com"
+              href="mailto:songday@sentientwebsite.com"
               className="text-neon underline-offset-4 transition hover:underline"
             >
-              hello@sentientwebsite.com
+              songday@sentientwebsite.com
             </a>
             .
           </p>

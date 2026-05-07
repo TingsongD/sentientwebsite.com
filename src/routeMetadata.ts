@@ -181,9 +181,9 @@ const STATIC_META = {
     canonicalPath: '/revenue-leak-calculator',
   },
   '/orchestrate': {
-    title: 'Orchestrate Your Existing Tech',
+    title: 'Orchestration Layer Above Your Stack',
     description:
-      'How SentientWeb coordinates existing tools to turn demo-ready website intent into qualified meetings and sales-ready context.',
+      'How SentientWeb sits above your existing tools and calls the right CRM, scheduler, router, or webhook to complete each revenue recovery action.',
     canonicalPath: '/orchestrate',
   },
   '/careers': {
@@ -296,7 +296,7 @@ export function getPageMeta(pathname: string): PageMetaData {
   if (hasOwn(INTEGRATION_PAGES, integrationSlug)) {
     const page = INTEGRATION_PAGES[integrationSlug]
     return {
-      title: `${page.navLabel} Stack Orchestration`,
+      title: `${page.navLabel} Orchestration Layer`,
       description: page.deck,
       canonicalPath: path,
     }

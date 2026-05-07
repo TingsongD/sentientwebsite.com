@@ -13,8 +13,8 @@ export default function SecurityResponsePage() {
           body: (
             <p>
               If you believe you found a vulnerability, email{' '}
-              <LegalLink href="mailto:hello@sentientwebsite.com?subject=Security%20Report">
-                hello@sentientwebsite.com
+              <LegalLink href="mailto:songday@sentientwebsite.com?subject=Security%20Report">
+                songday@sentientwebsite.com
               </LegalLink>{' '}
               with enough detail for us to reproduce the issue. Do not access, modify, delete, or
               exfiltrate data that is not yours.
