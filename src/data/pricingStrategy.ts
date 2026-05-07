@@ -19,7 +19,7 @@ export type DemoRecoveryEstimate = {
 }
 
 export const QUALIFIED_BOOKED_DEMO_DEFINITION =
-  'A qualified booked demo means the visitor matched your agreed ICP, shared a relevant use case, provided business email or company domain, indicated role or buying involvement, met the stack-fit rules, and booked through the approved calendar path.'
+  'A qualified recovered action means the visitor or customer matched your agreed criteria, shared a relevant use case or account context, provided the needed identifier, met the stack-fit rules, and completed the approved next step.'
 
 export const PRICING_ROUTE_PATHS = [
   '/pricing/product',
@@ -32,32 +32,32 @@ export const PRICING_META = {
   '/pricing': {
     title: 'SentientWeb Pricing | 30-Day Recovery Pilot',
     description:
-      'Start with a 30-day recovery pilot for B2B SaaS demo recovery, measured by qualified booked demos and HubSpot-visible context.',
+      'Start with a 30-day revenue recovery pilot measured by qualified recovered actions and stack-visible context.',
     canonicalPath: '/pricing',
     absoluteTitle: true,
   },
   '/pricing/product': {
-    title: 'Demo Recovery Pilot Pricing',
+    title: 'Revenue Recovery Pilot Pricing',
     description:
-      'Legacy pricing path for the 30-day B2B SaaS demo recovery pilot measured by qualified booked demos.',
+      'Legacy pricing path for the 30-day revenue recovery pilot measured by qualified recovered actions.',
     canonicalPath: '/pricing/product',
   },
   '/pricing/service': {
-    title: 'Demo Recovery Monthly Pricing',
+    title: 'Revenue Recovery Monthly Pricing',
     description:
-      'Monthly B2B SaaS demo recovery pricing for teams turning high-intent pages into qualified booked demos.',
+      'Monthly revenue recovery pricing for teams turning high-intent pages into qualified next steps.',
     canonicalPath: '/pricing/service',
   },
   '/pricing/calculator': {
     title: 'Recovery ROI Calculator',
     description:
-      'Estimate recovered demos, qualified booked demos, pipeline influenced, and modeled SentientWeb fees.',
+      'Estimate recovered actions, qualified next steps, pipeline influenced, and modeled SentientWeb fees.',
     canonicalPath: '/pricing/calculator',
   },
   '/pricing/enterprise': {
-    title: 'Scale Demo Recovery Pricing',
+    title: 'Scale Revenue Recovery Pricing',
     description:
-      'Scale pricing for high-volume B2B SaaS demo recovery teams that need custom volume and CRM reporting.',
+      'Scale pricing for high-volume revenue recovery teams that need custom volume and stack reporting.',
     canonicalPath: '/pricing/enterprise',
   },
 } as const
@@ -81,29 +81,29 @@ export const TRACKS: Record<
   pilot: {
     label: 'First 10 Pilot',
     selectorLabel: 'Pilot',
-    audience: 'For B2B SaaS teams proving demo recovery before adding another revenue tool',
+    audience: 'For subscription businesses proving revenue recovery without adding another disconnected tool',
     price: '30-Day Rescue Pilot',
     priceDetail: '$0 setup for design partners',
-    included: 'Pricing, demo, comparison, and integration page setup',
+    included: 'Pricing, demo, checkout, billing, comparison, and integration page setup',
     kicker: '$100-$150 per qualified booked demo',
     features: [
-      'Calendly or Chili Piper booking path',
-      'HubSpot contact and note sync',
+      'Scheduler, router, or workflow action path',
+      'CRM, billing, or messaging context sync',
       'Qualified booked demo definition agreed before launch',
       'Pilot proof packet with sales-accepted outcomes',
     ],
-    cta: 'Book a demo recovery pilot',
+    cta: 'Book a revenue recovery pilot',
   },
   starter: {
     label: 'After Pilot Proof',
     selectorLabel: 'Monthly',
-    audience: 'For SaaS teams expanding after the pilot proves HubSpot-visible context and demo recovery',
+    audience: 'For subscription businesses expanding after the pilot proves stack-visible context and revenue recovery',
     price: '$999',
-    priceDetail: '/month includes 5 qualified booked demos',
+    priceDetail: '/month includes 5 qualified recovered actions',
     included: 'Monthly Recovery Plan',
     kicker: '$100 per additional qualified booked demo',
     features: [
-      'Ongoing visitor-to-demo recovery loop',
+      'Ongoing visitor-to-revenue recovery loop',
       'Page-specific recovery playbooks',
       'Qualified booking gate',
       'HubSpot context handoff',
@@ -113,10 +113,10 @@ export const TRACKS: Record<
   growth: {
     label: 'Growth',
     selectorLabel: 'Growth',
-    audience: 'For sales-led teams with meaningful traffic on pricing, demo, and comparison pages',
+    audience: 'For teams with meaningful traffic on pricing, demo, checkout, billing, account, and comparison pages',
     price: '$1,500',
-    priceDetail: '/month includes 15 qualified booked demos',
-    included: '15 qualified booked demos',
+    priceDetail: '/month includes 15 qualified recovered actions',
+    included: '15 qualified recovered actions',
     kicker: '$75 per additional qualified booked demo',
     features: [
       'Everything in Starter',
@@ -124,20 +124,20 @@ export const TRACKS: Record<
       'Sales-accepted demo reporting',
       'Monthly proof and objection review',
     ],
-    cta: 'Book a demo recovery pilot',
+    cta: 'Book a revenue recovery pilot',
   },
   scale: {
     label: 'Scale',
     selectorLabel: 'Scale',
     audience: 'For high-volume teams that need custom reporting and sales operations review',
     price: '$3,000',
-    priceDetail: '/month includes 40 qualified booked demos',
-    included: '40 qualified booked demos',
+    priceDetail: '/month includes 40 qualified recovered actions',
+    included: '40 qualified recovered actions',
     kicker: 'Custom success fee after included volume',
     features: [
       'Everything in Growth',
       'Custom qualification thresholds',
-      'RevOps-ready CRM field mapping',
+      'RevOps-ready stack field mapping',
       'Annual pricing review after a successful pilot',
     ],
     cta: 'Talk to Sales',
@@ -163,7 +163,7 @@ export const TIER_TABLES: Array<{
   {
     tier: 'starter',
     monthlyBase: '$999',
-    included: '5 qualified booked demos',
+    included: '5 qualified recovered actions',
     kicker: '$100 per additional qualified booked demo',
     additionalRecoveries: 'Soft review above 7',
     upgradeTrigger: '3-month average above 7',
@@ -171,7 +171,7 @@ export const TIER_TABLES: Array<{
   {
     tier: 'growth',
     monthlyBase: '$1,500',
-    included: '15 qualified booked demos',
+    included: '15 qualified recovered actions',
     kicker: '$75 per additional qualified booked demo',
     additionalRecoveries: 'Soft review above 20',
     upgradeTrigger: '3-month average above 20',
@@ -179,7 +179,7 @@ export const TIER_TABLES: Array<{
   {
     tier: 'scale',
     monthlyBase: '$3,000',
-    included: '40 qualified booked demos',
+    included: '40 qualified recovered actions',
     kicker: 'Custom success fee',
     additionalRecoveries: 'Manual review',
     upgradeTrigger: 'Sales-led only',

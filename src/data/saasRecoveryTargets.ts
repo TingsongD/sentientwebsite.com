@@ -11,8 +11,8 @@ export const SAAS_RECOVERY_TARGETS = [
   },
   {
     stat: 'Up to 35%',
-    label: 'Qualified demo recovery',
-    body: 'Recover up to 35% more qualified booked demos from the traffic you already have.',
+    label: 'Qualified action recovery',
+    body: 'Recover up to 35% more qualified next steps from the traffic you already have.',
   },
   {
     stat: 'Up to 30%',

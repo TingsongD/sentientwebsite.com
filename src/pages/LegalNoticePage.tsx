@@ -24,7 +24,7 @@ export default function LegalNoticePage() {
           title: 'Compliance assets',
           body: (
             <>
-              <p>The public compliance set includes:</p>
+              <p>The compliance set includes:</p>
               <LegalList>
                 <li>
                   <Link to="/privacy" className="text-neon underline-offset-4 transition hover:underline">

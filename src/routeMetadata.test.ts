@@ -36,7 +36,6 @@ const FORBIDDEN_PUBLIC_TERMS = [
   /\bintelligent\b/i,
   /\bautonomous\b/i,
   /\bbehavioral analysis\b/i,
-  /\bsubscription\b/i,
   /\busage-based\b/i,
   /\bauto-renew\b/i,
   /\boverage\b/i,
@@ -95,12 +94,12 @@ describe('route metadata manifest', () => {
     expect(getPageMeta('/pricing').noindex).toBeUndefined()
 
     expect(getPageMeta('/pricing/product')).toMatchObject({
-      title: 'Demo Recovery Pilot Pricing',
+      title: 'Revenue Recovery Pilot Pricing',
       canonicalPath: '/pricing/product',
     })
 
     expect(getPageMeta('/pricing/service')).toMatchObject({
-      title: 'Demo Recovery Monthly Pricing',
+      title: 'Revenue Recovery Monthly Pricing',
       canonicalPath: '/pricing/service',
     })
 
@@ -125,7 +124,7 @@ describe('route metadata manifest', () => {
     })
 
     expect(getPageMeta('/solutions/financial-services')).toMatchObject({
-      title: 'Fintech SaaS Demo Recovery',
+      title: 'Fintech Revenue Recovery',
       canonicalPath: '/solutions/financial-services',
     })
   })
@@ -149,7 +148,7 @@ describe('route metadata manifest', () => {
 
   it('keeps public solution navigation focused on Demo Recovery while preserving valid routes', () => {
     expect(SOLUTION_NAV_LIST).toEqual([
-      expect.objectContaining({ slug: 'saas', navLabel: 'B2B SaaS' }),
+      expect.objectContaining({ slug: 'saas', navLabel: 'Subscription' }),
     ])
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/legal')
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/financial-services')
@@ -242,7 +241,7 @@ describe('route metadata manifest', () => {
     )
     expect(solution['@graph']).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ serviceType: 'B2B SaaS demo recovery' }),
+        expect.objectContaining({ serviceType: 'Subscription business revenue recovery' }),
       ]),
     )
   })

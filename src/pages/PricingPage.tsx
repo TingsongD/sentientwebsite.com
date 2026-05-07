@@ -34,9 +34,9 @@ const number = new Intl.NumberFormat('en-US', {
 
 const TRUST_PILLS = [
   '30-day pilot',
-  'Qualified booked demos',
-  'HubSpot proof',
-  'Case-study discount',
+  'Qualified recovered actions',
+  'Stack-visible proof',
+  'Outcome-based pricing',
 ] as const
 
 const HIGH_INTENT_VISITOR_OPTIONS = [250, 500, 1000, 2500, 5000, 10000] as const
@@ -394,7 +394,7 @@ function DemoRecoveryCalculator() {
             </div>
             <div>
               <dt className="font-mono text-[11px] uppercase tracking-wide text-cream/50">
-                Estimated qualified booked demos
+                Estimated qualified recovered actions
               </dt>
               <dd className="font-grotesk mt-1 text-[24px] text-cream">
                 {formatNumber(estimate.qualifiedBookedDemos)}
@@ -589,9 +589,8 @@ export default function PricingPage() {
               Start with a 30-day recovery pilot.
             </h1>
             <p className="font-mono mx-auto mt-6 max-w-[760px] text-[14px] uppercase leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
-              Setup is waived for early B2B SaaS design partners. Pay around sales-accepted
-              qualified booked demos, then move monthly after the pilot proves HubSpot-visible
-              recovery.
+              Setup is waived for early design partners. Pay around sales-accepted recovered
+              actions, then move monthly after the pilot proves stack-visible recovery.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {TRUST_PILLS.map((pill) => (
@@ -648,7 +647,7 @@ export default function PricingPage() {
             aria-labelledby="calculator-heading"
           >
             <h2 id="calculator-heading" className="sr-only">
-              Demo recovery calculator
+              Revenue recovery calculator
             </h2>
             <DemoRecoveryCalculator />
           </section>
@@ -662,21 +661,21 @@ export default function PricingPage() {
                 id="how-pricing-works-heading"
                 className="font-grotesk text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
               >
-                Detect, qualify, book, and prove it where sales works.
+                Detect, qualify, trigger the action, and prove it where the business works.
               </h2>
               <ol className="mt-8 grid gap-5 md:grid-cols-3">
                 {[
                   {
                     title: 'We set the pilot rules',
-                    body: 'Agree on ICP, high-intent pages, qualification, scheduler, CRM fields, and proof criteria.',
+                    body: 'Agree on ICP, high-intent pages, qualification, execution surfaces, stack fields, and proof criteria.',
                   },
                   {
-                    title: 'We recover demo intent',
-                    body: 'SentientWeb handles page-specific hesitation and opens the booking path after qualification.',
+                    title: 'We recover revenue intent',
+                    body: 'SentientWeb handles page-specific hesitation and opens the right workflow path after qualification.',
                   },
                   {
-                    title: 'You measure booked demos',
-                    body: 'Reporting centers on qualified booked demos, sales acceptance, and CRM-visible context.',
+                    title: 'You measure recovered actions',
+                    body: 'Reporting centers on qualified recovered actions, business acceptance, and stack-visible context.',
                   },
                 ].map((step, index) => (
                   <li key={step.title} className="liquid-glass rounded-[22px] p-6 sm:p-7">
@@ -712,7 +711,7 @@ export default function PricingPage() {
                   id="tier-table-heading"
                   className="font-grotesk text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
                 >
-                  Demo recovery pricing
+                  Revenue recovery pricing
                 </h2>
               </div>
             </div>
@@ -733,28 +732,28 @@ export default function PricingPage() {
               <div className="mt-8 space-y-4">
                 {[
                   {
-                    q: 'What counts as a qualified booked demo?',
+                    q: 'What counts as a qualified recovered action?',
                     a: QUALIFIED_BOOKED_DEMO_DEFINITION,
                   },
                   {
                     q: 'Is the pilot priced by message volume?',
-                    a: 'No. Measure qualified booked demos and CRM-visible context, not message count.',
+                    a: 'No. Measure qualified recovered actions and stack-visible context, not message count.',
                   },
                   {
                     q: 'What happens if traffic is too low?',
                     a: 'We will call that out during setup. If high-intent pages do not have enough traffic yet, fix traffic, offer clarity, or sales infrastructure first.',
                   },
                   {
-                    q: 'Do we need HubSpot?',
-                    a: 'No. HubSpot is the fastest path. Salesforce, Pipedrive, API, webhook, and lightweight handoffs are reviewed before launch.',
+                    q: 'Do we need a specific CRM?',
+                    a: 'No. SentientWeb sits above your stack and can call the CRM, scheduler, billing tool, messaging system, API, webhook, or lightweight handoff that matches the workflow.',
                   },
                   {
-                    q: 'Can this work with Calendly or routing tools?',
-                    a: 'Yes. Calendly is simplest. Chili Piper or another router works when territory, ownership, or meeting-type logic matters.',
+                    q: 'Can this work with our scheduler or routing tools?',
+                    a: 'Yes. SentientWeb can call the scheduler, router, territory path, account-owner workflow, or custom booking flow that matches the business moment.',
                   },
                   {
                     q: 'Does this replace Chili Piper, Drift, or Qualified?',
-                    a: 'It replaces generic pricing-page popups, static demo forms, and manual chasing of demo-ready visitors. It can still use tools such as Chili Piper, Drift, or Qualified.',
+                    a: 'It replaces generic popups, static forms, and manual chasing across revenue moments. It can still use your existing sales, support, messaging, routing, and workflow tools.',
                   },
                   {
                     q: 'Are case-study rights required?',
@@ -762,7 +761,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'How do you prove incrementality?',
-                    a: 'The proof packet includes baseline pages, detected intent, qualification answers, booked demos, sales acceptance, CRM records, and pipeline assumptions.',
+                    a: 'The proof packet includes baseline pages, detected intent, qualification answers, recovered actions, business acceptance, stack records, and pipeline assumptions.',
                   },
                   {
                     q: 'How are AI answer quality and security handled?',
@@ -809,7 +808,7 @@ export default function PricingPage() {
                 Start with one measurable recovery loop.
               </h2>
               <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-                The 30-day pilot proves qualified booked demos with sales-accepted CRM context.
+                The 30-day pilot proves qualified recovered actions with business-accepted stack context.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a
@@ -819,7 +818,7 @@ export default function PricingPage() {
                   className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                   onClick={() => onCtaClick()}
                 >
-                  Book a demo recovery pilot
+                  Book a revenue recovery pilot
                 </a>
                 <a
                   href={BOOK_DEMO_URL}

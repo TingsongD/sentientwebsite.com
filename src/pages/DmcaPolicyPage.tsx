@@ -12,7 +12,7 @@ export default function DmcaPolicyPage() {
           title: 'Scope',
           body: (
             <p>
-              The public website does not host user content at scale. If a future SentientWeb
+              The website does not host user content at scale. If a future SentientWeb
               service hosts customer or user content, we may remove allegedly infringing material and
               terminate repeat infringers where required by law.
             </p>

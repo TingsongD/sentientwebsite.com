@@ -20,7 +20,7 @@ export default function NotFoundPage() {
         </h1>
         <p className="font-mono mt-6 text-[15px] normal-case leading-relaxed text-cream/80 sm:text-[16px]">
           This page does not exist or has moved. Head back to the main site, review pricing, or
-          book a demo recovery pilot with the team.
+          book a revenue recovery pilot with the team.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
@@ -41,7 +41,7 @@ export default function NotFoundPage() {
             rel="noopener noreferrer"
             className="font-mono text-[12px] uppercase tracking-wide text-cream/50 underline-offset-4 transition hover:text-neon hover:underline sm:text-[13px]"
           >
-            Book a demo recovery pilot
+            Book a revenue recovery pilot
           </a>
         </div>
       </section>

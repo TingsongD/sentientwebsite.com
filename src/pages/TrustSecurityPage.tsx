@@ -49,12 +49,12 @@ export default function TrustSecurityPage() {
             <p>
               Customer content processed through SentientWeb, including request transcripts,
               configuration, and knowledge sources you connect—is handled with contracts and
-              technical controls appropriate to a B2B SaaS provider. We use modern encryption for data
+              technical controls appropriate to a subscription-business software provider. We use modern encryption for data
               in transit, protect data at rest with industry-standard mechanisms, and limit internal
               access to what is required for support and operations.
             </p>
             <p className="mt-4">
-              We rely on reputable cloud and AI infrastructure providers (for example, for hosting,
+              We rely on reputable cloud and AI infrastructure providers for hosting,
               databases, and model inference). We evaluate subprocessors for security posture and
               contractual commitments; the current vendor evidence register is maintained in our
               compliance records and must be validated before production deployment.
@@ -149,7 +149,7 @@ export default function TrustSecurityPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a demo recovery pilot
+            Book a revenue recovery pilot
           </a>
           <Link
             to="/"

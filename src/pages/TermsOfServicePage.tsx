@@ -55,7 +55,7 @@ export default function TermsOfServicePage() {
                 SentientWeb and Robanka do not persist those assistant payloads on SentientWeb- or
                 Robanka-operated databases. Any persistence beyond your device follows HubSpot CRM
                 settings (when you exchange business information routed there) or Google Gemini Apps /
-                Gemini Live terms—for example Google has publicly disclosed activity durations such as{' '}
+                Gemini Live terms, including Google activity durations such as{' '}
                 <strong>eighteen months</strong> depending on settings, Gemini Live recordings not being
                 used to improve Google services by default depending on controls, and similar updates in
                 their help documentation.
@@ -110,7 +110,7 @@ export default function TermsOfServicePage() {
             <p>
               SentientWeb and its licensors own the website, software, workflows, branding, designs,
               documentation, and related technology. Subject to these Terms, we grant you a limited,
-              revocable, non-exclusive, non-transferable right to use the public site and any services
+              revocable, non-exclusive, non-transferable right to use the site and any services
               we make available to you for their intended purposes.
             </p>
           ),
@@ -120,7 +120,7 @@ export default function TermsOfServicePage() {
           title: 'Payments, cancellations, and refunds',
           body: (
             <p>
-              The public website does not currently process checkout payments. Any fees, taxes,
+              The website does not currently process checkout payments. Any fees, taxes,
               cancellation rights, renewal terms, refunds, service credits, consumer withdrawal
               rights, or return policies must be stated in the applicable order form or checkout
               terms before purchase. EU, UK, Canadian, Australian, New Zealand, and U.S. consumer

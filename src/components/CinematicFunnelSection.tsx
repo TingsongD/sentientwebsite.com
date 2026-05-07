@@ -50,9 +50,9 @@ const FEATURE_META: Record<string, CinematicMeta> = {
     signals: ['Comparison', 'Stack fit', 'Customer story'],
     word: 'Surface',
   },
-  'B2B SaaS-only scope': {
-    chip: 'Scope focused',
-    signals: ['B2B SaaS', 'Demo intent', 'Buying pages'],
+  'Business-goal orchestration': {
+    chip: 'Goal routed',
+    signals: ['Website', 'Billing', 'CRM'],
     word: 'Focus',
   },
   'Page-specific AI engagement': {
@@ -80,9 +80,9 @@ const FEATURE_META: Record<string, CinematicMeta> = {
     signals: ['CRM', 'Scheduler', 'Install path'],
     word: 'Context',
   },
-  'Calendly demo booking': {
-    chip: 'Booking opened',
-    signals: ['Calendar', 'Qualified', 'Meeting path'],
+  'Scheduler and workflow actions': {
+    chip: 'Action opened',
+    signals: ['Scheduler', 'Workflow', 'Handoff path'],
     word: 'Book',
   },
   'CRM context sync': {
@@ -261,7 +261,7 @@ export function CinematicFunnelSection() {
                     id="homepage-recovery-targets-heading"
                     className="font-grotesk max-w-[760px] text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
                   >
-                    What better demo recovery can move.
+                    What better recovery can move.
                   </h3>
                 </div>
                 <p className="font-mono max-w-[440px] text-[11px] uppercase leading-relaxed text-cream/52 sm:text-[12px] md:text-right">

@@ -41,12 +41,12 @@ const HOME_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What does SentientWeb do?',
     answer:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies fit, opens the booking path, and sends sales the context.',
+      'SentientWeb finds revenue leaks across your website, billing, CRM, scheduler, and messaging stack, then calls the right tool to recover the moment.',
   },
   {
     question: 'What does SentientWeb replace?',
     answer:
-      'SentientWeb replaces generic pricing-page popups, static demo forms, and manual chasing of buyers who already showed demo intent. It can still route qualified buyers through tools such as Calendly, Chili Piper, Salesforce, HubSpot, Pipedrive, or webhooks.',
+      'SentientWeb replaces generic popups, static forms, and manual chasing across revenue moments. It can route qualified buyers and customers through schedulers, CRMs, billing tools, messaging systems, routers, or webhooks.',
   },
   {
     question: 'How does SentientWeb prevent inaccurate AI answers?',
@@ -64,12 +64,12 @@ const PRICING_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Do teams need HubSpot to use SentientWeb?',
     answer:
-      'No. HubSpot is the fastest launch path, and HubSpot Free, Starter, Professional, and Enterprise can work after a field check. Salesforce, Pipedrive, API, webhook, and lightweight handoff requirements are reviewed before the pilot starts.',
+      'No. SentientWeb sits above your existing stack and calls the right CRM, workflow, API, webhook, or lightweight handoff after the business rules are mapped.',
   },
   {
     question: 'Can SentientWeb work with Chili Piper or Calendly?',
     answer:
-      'Yes. Calendly is the simplest booking path, and Chili Piper or another router can be the route when the sales motion needs territory, account ownership, or meeting-type logic.',
+      'Yes. SentientWeb can call the scheduler, router, territory path, account-owner workflow, or custom booking flow that matches the business moment.',
   },
   {
     question: 'How does SentientWeb prove incrementality?',
@@ -101,7 +101,7 @@ const STATIC_META = {
   ...PRICING_META,
   '/blog': {
     title: 'Blog',
-    description: 'Product updates and B2B SaaS demo recovery thinking from the SentientWeb team.',
+    description: 'Product updates and revenue recovery orchestration thinking from the SentientWeb team.',
     canonicalPath: '/blog',
   },
   '/privacy': {
@@ -161,23 +161,23 @@ const STATIC_META = {
   },
   '/legal': {
     title: 'Legal Notice',
-    description: 'SentientWeb legal contact, public notices, and compliance resources.',
+    description: 'SentientWeb legal contact, notices, and compliance resources.',
     canonicalPath: '/legal',
   },
   '/trust': {
     title: 'Trust and Security',
-    description: 'SentientWeb security, privacy, access, and compliance practices for demo recovery paths.',
+    description: 'SentientWeb security, privacy, access, and compliance practices for revenue recovery paths.',
     canonicalPath: '/trust',
   },
   '/about': {
     title: 'About',
-    description: 'How SentientWeb recovers demo intent hiding inside B2B SaaS websites.',
+    description: 'How SentientWeb orchestrates revenue recovery across subscription-business websites and revenue tools.',
     canonicalPath: '/about',
   },
   '/revenue-leak-calculator': {
     title: 'Recovery ROI Calculator',
     description:
-      'Estimate recovered demos, qualified booked demos, pipeline influenced, and modeled ROI for B2B SaaS demo recovery.',
+      'Estimate recovered actions, qualified next steps, pipeline influenced, and modeled ROI for revenue recovery orchestration.',
     canonicalPath: '/revenue-leak-calculator',
   },
   '/orchestrate': {
@@ -193,7 +193,7 @@ const STATIC_META = {
   },
   '/status': {
     title: 'System Status',
-    description: `Current health of SentientWeb public surfaces and customer-facing services. Source updates are published at ${GITHUB_REPO_URL}.`,
+    description: `Current health of SentientWeb customer-facing services. Source updates are published at ${GITHUB_REPO_URL}.`,
     canonicalPath: '/status',
   },
   '/knowledge-base': {
@@ -348,17 +348,17 @@ function organizationSchema(): StructuredData {
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE_URL,
     description:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, books qualified meetings, and syncs sales context.',
+      'SentientWeb orchestrates revenue recovery across subscription-business websites and revenue tools.',
     foundingDate: '2026',
     sameAs: [GITHUB_REPO_URL],
     knowsAbout: [
-      'B2B SaaS demo recovery',
+      'revenue recovery orchestration',
       'pricing page conversion',
       'comparison page conversion',
-      'qualified booked demos',
+      'qualified recovered actions',
       'CRM handoff',
       'approved-source AI answers',
-      'visitor-to-demo conversion',
+      'visitor-to-revenue conversion',
     ],
   }
 }
@@ -370,7 +370,7 @@ function websiteSchema(): StructuredData {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, books qualified meetings, and syncs sales context.',
+      'SentientWeb orchestrates revenue recovery across subscription-business websites and revenue tools.',
     publisher: { '@id': ORGANIZATION_ID },
     inLanguage: 'en-US',
   }
@@ -384,21 +384,21 @@ function softwareApplicationSchema(): StructuredData {
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     description:
-      'Demo recovery for B2B SaaS teams that detects demo intent, qualifies buyers, opens the booking path, and syncs CRM-ready context.',
+      'Revenue recovery orchestration for subscription businesses that detects intent, qualifies the moment, calls the right tool, and syncs stack-ready context.',
     featureList: [
       'High-intent page detection',
       'Approved-source objection handling',
       'Qualification before booking',
       'CRM context sync',
-      'Recovered demo reporting',
+      'Recovered revenue reporting',
     ],
     audience: {
       '@type': 'BusinessAudience',
-      audienceType: 'B2B SaaS revenue teams',
+      audienceType: 'Subscription business revenue teams',
     },
     offers: {
       '@type': 'Offer',
-      description: 'Book a demo recovery pilot.',
+      description: 'Book a revenue recovery pilot.',
       url: getCanonicalUrl('/pricing'),
     },
   }
@@ -539,11 +539,11 @@ export function getRouteStructuredData(pathname: string): StructuredData {
             '@type': 'BusinessAudience',
             audienceType: page.marketLabel,
           },
-          category: 'B2B SaaS revenue recovery',
+          category: 'Revenue recovery orchestration',
           serviceType:
             solutionSlug === 'saas'
-              ? 'B2B SaaS demo recovery'
-              : `${page.marketLabel} demo recovery`,
+              ? 'Subscription business revenue recovery'
+              : `${page.marketLabel} revenue recovery`,
           termsOfService: getCanonicalUrl('/terms'),
           url,
       },

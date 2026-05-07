@@ -243,25 +243,25 @@ test('known routes return route-specific JSON-LD', async ({ request }) => {
 test('known routes return prerendered route-specific metadata', async ({ request }) => {
   const cases = [
     ['/pricing', '<title>SentientWeb Pricing | 30-Day Recovery Pilot</title>'],
-    ['/pricing/product', '<title>Demo Recovery Pilot Pricing | SentientWeb</title>'],
-    ['/pricing/service', '<title>Demo Recovery Monthly Pricing | SentientWeb</title>'],
+    ['/pricing/product', '<title>Revenue Recovery Pilot Pricing | SentientWeb</title>'],
+    ['/pricing/service', '<title>Revenue Recovery Monthly Pricing | SentientWeb</title>'],
     ['/pricing/calculator', '<title>Recovery ROI Calculator | SentientWeb</title>'],
-    ['/pricing/enterprise', '<title>Scale Demo Recovery Pricing | SentientWeb</title>'],
+    ['/pricing/enterprise', '<title>Scale Revenue Recovery Pricing | SentientWeb</title>'],
     ['/revenue-leak-calculator', '<title>Recovery ROI Calculator | SentientWeb</title>'],
     ['/orchestrate', '<title>Orchestration Layer Above Your Stack | SentientWeb</title>'],
     ['/blog/phase-1-live-now', '<title>Phase 1 live now | SentientWeb</title>'],
     ['/integrations/wordpress', '<title>WordPress Orchestration Layer | SentientWeb</title>'],
     [
       '/solutions/saas',
-      '<title>Demo Recovery for B2B SaaS | SentientWeb</title>',
+      '<title>Revenue Recovery for Subscription Businesses | SentientWeb</title>',
     ],
     [
       '/solutions/financial-services',
-      '<title>Fintech SaaS Demo Recovery | SentientWeb</title>',
+      '<title>Fintech Revenue Recovery | SentientWeb</title>',
     ],
     [
       '/solutions/logistics',
-      '<title>Logistics SaaS Demo Recovery | SentientWeb</title>',
+      '<title>Logistics Revenue Recovery | SentientWeb</title>',
     ],
   ] as const
 
@@ -339,7 +339,7 @@ test('robots and llms files expose canonical crawl guidance for SEO and AEO', as
 
   expect(llmsResponse.status()).toBe(200)
   expect(llms).toContain('# SentientWeb')
-  expect(llms).toContain('visitor-to-demo engine for B2B SaaS revenue teams')
+  expect(llms).toContain('revenue recovery orchestration for modern subscription businesses')
   expect(llms).toContain(absoluteSiteUrl('/solutions/saas'))
   expect(llms).toContain(absoluteSiteUrl('/integrations/hubspot'))
   expect(llms).toContain('approved-source answers with human handoff')
@@ -991,7 +991,7 @@ test('owner-supplied legal facts render on public legal pages', async ({ page })
   await expect(page.getByText('use Stripe as its payment processor')).toBeVisible()
 
   await page.goto('/dmca')
-  await expect(page.getByText('The public website does not host user content at scale.')).toBeVisible()
+  await expect(page.getByText('The website does not host user content at scale.')).toBeVisible()
 })
 
 test('public legal pages do not expose drafting placeholders', async ({ request }) => {
@@ -1198,7 +1198,7 @@ test('assistant widget loader is absent before consent', async ({ page }) => {
   await expect(page.getByText('Optional assistant and measurement tools load only')).toBeVisible()
 
   const consentPanel = page.locator('section[aria-labelledby="privacy-choices-title"]')
-  const heroCta = page.getByRole('link', { name: 'Book a demo recovery pilot' }).first()
+  const heroCta = page.getByRole('link', { name: 'Book a revenue recovery pilot' }).first()
   await expect(async () => {
     const panelBox = await consentPanel.boundingBox()
     const ctaBox = await heroCta.boundingBox()
@@ -1299,7 +1299,7 @@ test('revenue calculator analytics events require analytics consent and honor GP
 
   await expect.poll(async () => (await readDataLayer(page)).length).toBe(0)
   await page.getByRole('button', { name: 'Reject optional' }).click()
-  await page.locator('#high-intent-visitors').fill('1200')
+  await page.locator('#monthly-moments').fill('1200')
   await expect.poll(async () => (await readDataLayer(page)).length).toBe(0)
 
   const gpcPage = await page.context().newPage()
@@ -1308,7 +1308,7 @@ test('revenue calculator analytics events require analytics consent and honor GP
     await seedDataLayer(gpcPage, true)
     await gpcPage.goto('/revenue-leak-calculator')
     await gpcPage.getByRole('button', { name: 'Accept all' }).click()
-    await gpcPage.locator('#high-intent-visitors').fill('1200')
+    await gpcPage.locator('#monthly-moments').fill('1200')
     await expect.poll(async () => (await readDataLayer(gpcPage)).length).toBe(0)
   } finally {
     await gpcPage.close()
@@ -1319,7 +1319,7 @@ test('revenue calculator analytics events are emitted after analytics consent', 
   await seedDataLayer(page)
   await page.goto('/revenue-leak-calculator')
   await page.getByRole('button', { name: 'Accept all' }).click()
-  await page.locator('#high-intent-visitors').fill('1200')
+  await page.locator('#monthly-moments').fill('1200')
 
   await expect
     .poll(async () =>
@@ -1339,14 +1339,24 @@ test('ROI calculator route returns 200 and appears in sitemap', async ({ request
   const main = page.locator('main')
   await expect(
     main.getByRole('heading', {
-      name: 'Estimate the ROI of recovering demo-ready website visitors.',
+      name: 'Estimate the ROI of recovering revenue-ready website and customer moments.',
     }),
   ).toBeVisible()
-  await expect(main.getByText('B2B SaaS demo recovery').first()).toBeVisible()
+  await expect(main.getByText('revenue recovery orchestration').first()).toBeVisible()
   await expect(main.getByText('Estimated recovered demos')).toBeVisible()
   await expect(main.getByText('Estimated pipeline influenced')).toBeVisible()
   await expect(main.getByText('Modeled ROI')).toBeVisible()
-  await expect(main.getByText('Sync to HubSpot')).toBeVisible()
+  await expect(main.getByRole('radio', { name: /Demo Recovery/i })).toBeVisible()
+  await expect(main.getByRole('radio', { name: /Failed Payment Recovery/i })).toBeVisible()
+  await expect(main.getByRole('radio', { name: /No-Show Recovery/i })).toBeVisible()
+  await expect(main.getByRole('radio', { name: /Buyer Insights/i })).toBeVisible()
+  await main.getByRole('radio', { name: /Failed Payment Recovery/i }).click()
+  await expect(main.getByText('Estimated revenue retained')).toBeVisible()
+  await expect(main.getByText('Payment recovery loop from failed charge to retained revenue.')).toBeVisible()
+  await main.getByRole('radio', { name: /No-Show Recovery/i }).click()
+  await expect(main.getByText('Estimated pipeline protected')).toBeVisible()
+  await main.getByRole('radio', { name: /Buyer Insights/i }).click()
+  await expect(main.getByText('Estimated qualified insights')).toBeVisible()
   await expect(main.getByText('Abandoned carts')).toHaveCount(0)
   await expect(main.getByText('Abandoned checkout')).toHaveCount(0)
   await expect(main.getByText('Reviews not replied')).toHaveCount(0)
@@ -1575,7 +1585,7 @@ test('orchestrate page renders the stack orchestration story', async ({ page, re
   await expect(
     page.getByRole('heading', { name: 'The orchestration layer above your existing stack.' }),
   ).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'HubSpot example' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'HubSpot use case' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Not another chatbot' })).toHaveCount(0)
   await expect(
     page.getByRole('heading', { name: 'Start with one measurable orchestration path.' }),
@@ -1624,7 +1634,7 @@ test('pricing calculator updates estimates and CTAs use Calendly', async ({ page
   await page.locator('#average-contract-value').selectOption('30000')
   await expect(page.getByTestId('calculator-pipeline-influenced')).toHaveText('$90,000')
 
-  const cta = page.getByRole('link', { name: 'Book a demo recovery pilot' }).first()
+  const cta = page.getByRole('link', { name: 'Book a revenue recovery pilot' }).first()
   await expect(cta).toHaveAttribute('href', 'https://calendly.com/tingsong-dai/30min')
 })
 
@@ -1646,11 +1656,11 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await expect(page.getByText('Logistics and vertical SaaS')).toHaveCount(0)
 
   await page.goto('/pricing')
-  await page.getByText('Do we need HubSpot?').click()
-  await expect(page.getByText('HubSpot is the fastest path')).toBeVisible()
-  await expect(page.getByText('Salesforce, Pipedrive, API, webhook')).toBeVisible()
-  await page.getByText('Can this work with Calendly or routing tools?').click()
-  await expect(page.getByText('Chili Piper or another router works')).toBeVisible()
+  await page.getByText('Do we need a specific CRM?').click()
+  await expect(page.getByText('SentientWeb sits above your stack')).toBeVisible()
+  await expect(page.getByText('CRM, scheduler, billing tool')).toBeVisible()
+  await page.getByText('Can this work with our scheduler or routing tools?').click()
+  await expect(page.getByText('scheduler, router, territory path')).toBeVisible()
   await page.getByText('Are case-study rights required?').click()
   await expect(page.getByText('No. Published proof rights are optional')).toBeVisible()
   await page.getByText('How do you prove incrementality?').click()
@@ -1672,8 +1682,8 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   }
 
   await page.goto('/integrations/salesforce')
-  await expect(page.getByText('Call Salesforce only after the sales handoff is clear.')).toBeVisible()
-  await expect(page.getByText('the pilot should not start')).toBeVisible()
+  await expect(page.getByText('Call Salesforce when the sales handoff is clear.')).toBeVisible()
+  await expect(page.getByText('credible enough for reps to act on')).toBeVisible()
 
   await page.goto('/integrations/pipedrive')
   await expect(page.getByText('Call Pipedrive without forcing a CRM migration.')).toBeVisible()
@@ -1685,7 +1695,7 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await expect(page.getByText('Works with HubSpot Free, Starter, Professional')).toBeVisible()
 
   await page.goto('/integrations/calendly')
-  await expect(page.getByText('Call your scheduler only after the visitor is qualified.')).toBeVisible()
+  await expect(page.getByText('Call your scheduler when the visitor is qualified.')).toBeVisible()
 
   await page.goto('/trust')
   await expect(page.getByRole('heading', { name: 'Procurement gates for regulated buyers' })).toBeVisible()
@@ -1727,7 +1737,14 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
 test('homepage and solution pages render new positioning and trust disclosure', async ({ page }) => {
   await page.goto('/')
   await expect(
-    page.getByRole('heading', { name: 'Recover demo-ready visitors before they disappear.' }),
+    page.getByRole('heading', {
+      name: 'Revenue recovery orchestration for modern subscription businesses.',
+    }),
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      'SentientWeb finds revenue leaks across your website, billing, CRM, scheduler, and messaging stack, then calls the right tool to recover the moment.',
+    ),
   ).toBeVisible()
   await expect(
     page.getByRole('heading', {
@@ -1741,16 +1758,16 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(features).toContainText('Mid-funnel')
   await expect(features).toContainText('Bottom of the funnel')
   await expect(features).toContainText('High-intent page detection')
-  await expect(features).toContainText('B2B SaaS-only scope')
+  await expect(features).toContainText('Business-goal orchestration')
   await expect(features).toContainText('Text and email reminders')
   await expect(
-    features.getByRole('heading', { name: 'What better demo recovery can move.' }),
+    features.getByRole('heading', { name: 'What better recovery can move.' }),
   ).toBeVisible()
   await expect(features.getByText('Increase demo booking rates by up to 80% from high-intent pages.')).toBeVisible()
   await expect(features.getByText('Reduce high-intent visitor drop-off by up to 50%.')).toBeVisible()
   await expect(
     features.getByText(
-      'Recover up to 35% more qualified booked demos from the traffic you already have.',
+      'Recover up to 35% more qualified next steps from the traffic you already have.',
     ),
   ).toBeVisible()
   await expect(
@@ -1873,7 +1890,6 @@ test('homepage and solution pages render new positioning and trust disclosure', 
       getComputedStyle(el).backgroundImage.includes('linear-gradient'),
     ),
   ).toBe(true)
-  await expect(page.getByRole('heading', { name: 'B2B SaaS demo recovery' })).toHaveCount(0)
   await expect(
     page.getByText(
       'Recover high-intent visitors from pricing, demo, comparison, integration, security, and customer story pages.',
@@ -1884,8 +1900,6 @@ test('homepage and solution pages render new positioning and trust disclosure', 
       'We are digital plumbers for your revenue leaks, but the first leak we fix is demo intent.',
     ),
   ).toHaveCount(0)
-  await expect(page.getByRole('heading', { name: 'One recovery path for B2B SaaS revenue teams.' })).toHaveCount(0)
-  await expect(page.getByText('Demo-Ready Visitor Recovery for B2B SaaS').first()).toHaveCount(0)
   await expect(
     page.getByText('Appointment-Ready Visitor Recovery for service businesses').first(),
   ).toHaveCount(0)
@@ -1900,7 +1914,11 @@ test('homepage and solution pages render new positioning and trust disclosure', 
       name: 'The pilot is designed to answer the questions your CEO, RevOps, and sales leader will ask.',
     }),
   ).toHaveCount(0)
-  await expect(page.getByRole('heading', { name: 'Best fit for SaaS teams with demo intent to recover.' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', {
+      name: 'Best fit for subscription businesses with revenue moments to recover.',
+    }),
+  ).toBeVisible()
   const roiCalculatorSection = page.locator('section[aria-label="ROI calculator"]').first()
   await expect(roiCalculatorSection.locator('video')).toHaveAttribute('src', roiCtaVideoUrl)
   const roiCalculatorLink = roiCalculatorSection.getByRole('link', {
@@ -1927,15 +1945,15 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(page.getByRole('dialog')).toHaveCount(0)
 
   await page.goto('/solutions/saas')
-  await expect(page.getByRole('heading', { name: 'Recover demo-ready visitors before they disappear.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Recover high-intent revenue moments before they disappear.' })).toBeVisible()
   await expect(
-    page.getByRole('heading', { name: 'What better demo recovery can move.' }),
+    page.getByRole('heading', { name: 'What better recovery can move.' }),
   ).toBeVisible()
   await expect(page.getByText('Increase demo booking rates by up to 80% from high-intent pages.')).toBeVisible()
   await expect(page.getByText('Reduce high-intent visitor drop-off by up to 50%.')).toBeVisible()
   await expect(
     page.getByText(
-      'Recover up to 35% more qualified booked demos from the traffic you already have.',
+      'Recover up to 35% more qualified next steps from the traffic you already have.',
     ),
   ).toBeVisible()
   await expect(
@@ -1948,7 +1966,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   ).toBeVisible()
   await expect(page.getByText('Modeled targets. Actual results depend on traffic quality')).toBeVisible()
   await expect(
-    page.getByRole('heading', { name: 'The visitor-to-demo journey, start to finish.' }),
+    page.getByRole('heading', { name: 'The revenue recovery journey, start to finish.' }),
   ).toBeVisible()
   await expect(page.getByText('Visitor arrives on a high-intent page')).toBeVisible()
   await expect(page.getByText('AI detects demo intent')).toBeVisible()
@@ -2138,7 +2156,9 @@ test('homepage visual assets use approved sources before consent', async ({ page
 
   await page.goto('/')
   await expect(
-    page.getByRole('heading', { name: 'Recover demo-ready visitors before they disappear.' }),
+    page.getByRole('heading', {
+      name: 'Revenue recovery orchestration for modern subscription businesses.',
+    }),
   ).toBeVisible()
   await expect(
     page.locator('section[aria-labelledby="hero-heading"] video[data-hero-background-video]'),

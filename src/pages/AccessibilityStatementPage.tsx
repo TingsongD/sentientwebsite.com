@@ -12,7 +12,7 @@ export default function AccessibilityStatementPage() {
           title: 'Our standard',
           body: (
             <p>
-              We aim to conform to WCAG 2.2 Level AA where practical for the public website,
+              We aim to conform to WCAG 2.2 Level AA where practical for the website,
               including keyboard navigation, readable contrast, semantic structure, responsive
               layouts, reduced-motion support, and accessible notices for the automated assistant.
             </p>

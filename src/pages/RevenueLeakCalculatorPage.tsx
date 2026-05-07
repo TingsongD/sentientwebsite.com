@@ -16,9 +16,13 @@ import { MarketingHeader } from '../components/MarketingHeader'
 import { SiteFooter } from '../components/SiteFooter'
 import { BOOK_DEMO_URL } from '../constants'
 import {
-  calculateDemoRoi,
-  DEFAULT_DEMO_ROI_INPUTS,
-  type DemoRoiCalculatorInputs,
+  calculateRecoveryRoi,
+  DEFAULT_RECOVERY_ROI_INPUTS,
+  DEFAULT_RECOVERY_USE_CASE_KEY,
+  getRecoveryUseCaseConfig,
+  RECOVERY_USE_CASES,
+  type RecoveryRoiCalculatorInputs,
+  type RecoveryUseCaseKey,
 } from '../data/revenueLeakCalculator'
 import { hasOptionalAnalyticsConsent } from '../privacyPreferences'
 
@@ -42,33 +46,7 @@ const decimal = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1,
 })
 
-const RECOVERY_STAGES = [
-  {
-    title: 'Detect',
-    body: 'Identify demo-ready behavior on pricing, demo, comparison, integration, security, docs, and customer-story pages.',
-    icon: MousePointerClick,
-  },
-  {
-    title: 'Qualify',
-    body: 'Confirm role, company domain, use case, stack, timing, urgency, and fit before opening the booking path.',
-    icon: Users,
-  },
-  {
-    title: 'Book',
-    body: 'Route qualified visitors to the agreed Calendly or demo path with the buying context preserved.',
-    icon: CalendarCheck,
-  },
-  {
-    title: 'Sync to HubSpot',
-    body: 'Send pages viewed, qualification answers, summary, booking details, and a suggested opener to HubSpot.',
-    icon: Database,
-  },
-  {
-    title: 'Remind',
-    body: 'Send text and email reminders before the meeting so the prospect shows up and sales starts prepared.',
-    icon: BellRing,
-  },
-] as const
+const STAGE_ICONS = [MousePointerClick, Users, CalendarCheck, Database, BellRing] as const
 
 function trackLeakEvent(event: string, payload: Record<string, unknown> = {}) {
   if (
@@ -78,7 +56,7 @@ function trackLeakEvent(event: string, payload: Record<string, unknown> = {}) {
   ) {
     return
   }
-  window.dataLayer.push({ event, model: 'b2b_saas_demo_recovery', ...payload })
+  window.dataLayer.push({ event, model: 'revenue_recovery_orchestration', ...payload })
 }
 
 function formatCurrency(value: number) {
@@ -249,17 +227,18 @@ function CalculatorShell({ children }: { children: ReactNode }) {
         <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-[760px]">
             <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              B2B SaaS inputs
+              Revenue recovery inputs
             </p>
             <h2
               id="calculator-heading"
               className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
             >
-              Model recovered demos from high-intent website traffic.
+              Model recovered outcomes across your revenue stack.
             </h2>
             <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/65 sm:text-[14px]">
-              Use this to estimate demo-ready visitors recovered from pricing, demo, comparison,
-              integration, security, docs, and customer-story pages.
+              Use this to estimate revenue-ready visitors and customers recovered from pricing,
+              demo, checkout, billing, account, comparison, integration, security, docs, and
+              customer-story pages.
             </p>
           </div>
         </div>
@@ -270,12 +249,18 @@ function CalculatorShell({ children }: { children: ReactNode }) {
 }
 
 export default function RevenueLeakCalculatorPage() {
-  const [inputs, setInputs] = useState<DemoRoiCalculatorInputs>(DEFAULT_DEMO_ROI_INPUTS)
+  const [selectedUseCaseKey, setSelectedUseCaseKey] =
+    useState<RecoveryUseCaseKey>(DEFAULT_RECOVERY_USE_CASE_KEY)
+  const [inputs, setInputs] = useState<RecoveryRoiCalculatorInputs>(DEFAULT_RECOVERY_ROI_INPUTS)
   const [mobileTotalOpen, setMobileTotalOpen] = useState(true)
   const interactionStartedRef = useRef(false)
   const totalEventSentRef = useRef(false)
 
-  const calculations = useMemo(() => calculateDemoRoi(inputs), [inputs])
+  const selectedUseCase = useMemo(
+    () => getRecoveryUseCaseConfig(selectedUseCaseKey),
+    [selectedUseCaseKey],
+  )
+  const calculations = useMemo(() => calculateRecoveryRoi(inputs), [inputs])
 
   useEffect(() => {
     trackLeakEvent('leak_calc_page_view')
@@ -285,24 +270,34 @@ export default function RevenueLeakCalculatorPage() {
     if (totalEventSentRef.current) return
     totalEventSentRef.current = true
     trackLeakEvent('leak_total_calculated', {
-      recoveredDemos: Math.round(calculations.recoveredDemos),
+      recoveredActions: Math.round(calculations.recoveredActions),
       pipelineInfluenced: Math.round(calculations.pipelineInfluenced),
+      useCase: selectedUseCaseKey,
     })
-  }, [calculations.pipelineInfluenced, calculations.recoveredDemos])
+  }, [calculations.pipelineInfluenced, calculations.recoveredActions, selectedUseCaseKey])
 
-  const updateInput = (field: keyof DemoRoiCalculatorInputs, value: number) => {
+  const updateInput = (field: keyof RecoveryRoiCalculatorInputs, value: number) => {
     setInputs((current) => ({ ...current, [field]: value }))
     if (!interactionStartedRef.current) {
       interactionStartedRef.current = true
       trackLeakEvent('leak_calc_started')
     }
-    trackLeakEvent('leak_input_changed', { field, value })
+    trackLeakEvent('leak_input_changed', { field, value, useCase: selectedUseCaseKey })
+  }
+
+  const selectUseCase = (useCaseKey: RecoveryUseCaseKey) => {
+    const nextUseCase = getRecoveryUseCaseConfig(useCaseKey)
+    setSelectedUseCaseKey(useCaseKey)
+    setInputs(nextUseCase.defaults)
+    totalEventSentRef.current = false
+    trackLeakEvent('leak_use_case_selected', { useCase: useCaseKey })
   }
 
   const onCtaClick = () => {
     trackLeakEvent('leak_cta_click', {
-      recoveredDemos: Math.round(calculations.recoveredDemos),
+      recoveredActions: Math.round(calculations.recoveredActions),
       pipelineInfluenced: Math.round(calculations.pipelineInfluenced),
+      useCase: selectedUseCaseKey,
     })
   }
 
@@ -322,25 +317,24 @@ export default function RevenueLeakCalculatorPage() {
         >
           <div className="mx-auto max-w-[1040px] text-center">
             <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Recovery ROI / B2B SaaS demo recovery
+              Recovery ROI / revenue recovery orchestration
             </p>
             <h1
               id="roi-heading"
               className="font-grotesk text-[38px] uppercase leading-none text-cream sm:text-[58px] md:text-[76px]"
             >
-              Estimate the ROI of recovering demo-ready website visitors.
+              Estimate the ROI of recovering revenue-ready website and customer moments.
             </h1>
             <p className="font-mono mx-auto mt-6 max-w-[820px] text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
-              This calculator focuses only on B2B SaaS demo recovery: high-intent website visitors,
-              recovered demos, qualified booked demos, pipeline influenced, and modeled
-              SentientWeb fees.
+              This calculator models high-intent website visitors, recovered revenue actions,
+              qualified next steps, pipeline influenced, and modeled SentientWeb fees.
             </p>
             <p className="font-mono mx-auto mt-3 max-w-[760px] text-[11px] normal-case leading-relaxed text-cream/50 sm:text-[12px]">
               Outputs are modeled estimates based on your inputs and assumptions. They are not a
               guarantee of revenue, conversion lift, pipeline, or business results.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              {['B2B SaaS only', 'High-intent pages', 'CRM-ready context'].map((pill) => (
+              {['Subscription businesses', 'High-intent pages', 'Stack-ready context'].map((pill) => (
                 <span
                   key={pill}
                   className="liquid-glass rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-wide text-cream/75"
@@ -370,48 +364,86 @@ export default function RevenueLeakCalculatorPage() {
         <CalculatorShell>
           <div className="grid gap-8 lg:grid-cols-[1fr_0.86fr]">
             <div className="grid gap-5">
+              <div>
+                <p className="font-grotesk mb-3 text-[12px] uppercase tracking-wide text-cream/80">
+                  Recovery use case
+                </p>
+                <div
+                  className="grid gap-2 sm:grid-cols-2"
+                  role="radiogroup"
+                  aria-label="Recovery use case"
+                >
+                  {RECOVERY_USE_CASES.map((useCase) => {
+                    const selected = selectedUseCaseKey === useCase.key
+                    return (
+                      <button
+                        key={useCase.key}
+                        type="button"
+                        role="radio"
+                        aria-checked={selected}
+                        className={`rounded-[16px] border px-4 py-3 text-left transition ${
+                          selected
+                            ? 'border-neon bg-neon/[0.1] text-cream'
+                            : 'border-white/10 bg-white/[0.02] text-cream/70 hover:border-white/20 hover:bg-white/[0.05]'
+                        }`}
+                        onClick={() => selectUseCase(useCase.key)}
+                      >
+                        <span className="font-grotesk block text-[13px] uppercase tracking-wide">
+                          {useCase.label}
+                        </span>
+                        <span className="font-mono mt-1 block text-[10px] uppercase leading-relaxed text-cream/45">
+                          {useCase.eyebrow}
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+                <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/60">
+                  {selectedUseCase.description}
+                </p>
+              </div>
               <NumberControl
-                id="high-intent-visitors"
-                label="Monthly high-intent page visitors"
-                value={inputs.highIntentVisitors}
-                suffix="visitors"
+                id="monthly-moments"
+                label={selectedUseCase.inputLabels.monthlyMoments}
+                value={inputs.monthlyMoments}
+                suffix="moments"
                 step={100}
-                onChange={(value) => updateInput('highIntentVisitors', value)}
+                onChange={(value) => updateInput('monthlyMoments', value)}
               />
               <SliderControl
-                id="current-demo-conversion-rate"
-                label="Current demo conversion rate"
+                id="current-recovery-rate"
+                label={selectedUseCase.inputLabels.currentRecoveryRate}
                 min={0}
-                max={10}
+                max={50}
                 step={0.1}
-                value={inputs.currentDemoConversionRate}
-                onChange={(value) => updateInput('currentDemoConversionRate', value)}
+                value={inputs.currentRecoveryRate}
+                onChange={(value) => updateInput('currentRecoveryRate', value)}
               />
               <SliderControl
-                id="recovered-demo-lift-rate"
-                label="Recovered demo lift"
+                id="recovered-lift-rate"
+                label={selectedUseCase.inputLabels.recoveredLiftRate}
                 min={0}
-                max={5}
+                max={30}
                 step={0.1}
-                value={inputs.recoveredDemoLiftRate}
-                onChange={(value) => updateInput('recoveredDemoLiftRate', value)}
+                value={inputs.recoveredLiftRate}
+                onChange={(value) => updateInput('recoveredLiftRate', value)}
               />
               <NumberControl
-                id="average-contract-value"
-                label="Average contract value"
+                id="average-value"
+                label={selectedUseCase.inputLabels.averageValue}
                 prefix="$"
-                value={inputs.averageContractValue}
+                value={inputs.averageValue}
                 step={1000}
-                onChange={(value) => updateInput('averageContractValue', value)}
+                onChange={(value) => updateInput('averageValue', value)}
               />
               <SliderControl
-                id="demo-to-opportunity-rate"
-                label="Demo-to-opportunity rate"
+                id="action-to-revenue-rate"
+                label={selectedUseCase.inputLabels.actionToRevenueRate}
                 min={0}
-                max={80}
+                max={100}
                 step={5}
-                value={inputs.demoToOpportunityRate}
-                onChange={(value) => updateInput('demoToOpportunityRate', value)}
+                value={inputs.actionToRevenueRate}
+                onChange={(value) => updateInput('actionToRevenueRate', value)}
               />
             </div>
 
@@ -426,27 +458,27 @@ export default function RevenueLeakCalculatorPage() {
                     Modeled output
                   </p>
                   <h2 className="font-grotesk mt-1 text-[22px] uppercase leading-tight text-cream">
-                    Demo recovery ROI
+                    {selectedUseCase.shortLabel} recovery ROI
                   </h2>
                 </div>
               </div>
               <dl className="grid gap-5">
                 <ResultStat
-                  label="Current demos from high-intent pages"
-                  value={formatNumber(calculations.currentDemos)}
+                  label={selectedUseCase.resultLabels.currentActions}
+                  value={formatNumber(calculations.currentActions)}
                 />
                 <ResultStat
-                  label="Estimated recovered demos"
-                  value={formatNumber(calculations.recoveredDemos)}
+                  label={selectedUseCase.resultLabels.recoveredActions}
+                  value={formatNumber(calculations.recoveredActions)}
                   tone="neon"
-                  testId="roi-recovered-demos"
+                  testId="roi-recovered-actions"
                 />
                 <ResultStat
-                  label="Estimated qualified booked demos"
-                  value={formatNumber(calculations.qualifiedBookedDemos)}
+                  label={selectedUseCase.resultLabels.qualifiedRecoveredActions}
+                  value={formatNumber(calculations.qualifiedRecoveredActions)}
                 />
                 <ResultStat
-                  label="Estimated pipeline influenced"
+                  label={selectedUseCase.resultLabels.pipelineInfluenced}
                   value={formatCurrency(calculations.pipelineInfluenced)}
                   tone="neon"
                   testId="roi-pipeline-influenced"
@@ -479,21 +511,19 @@ export default function RevenueLeakCalculatorPage() {
               id="recovery-loop-heading"
               className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
             >
-              One B2B SaaS recovery loop from intent to attended demo.
+              {selectedUseCase.loopTitle}
             </h2>
             <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/65 sm:text-[14px]">
-              The calculation is intentionally narrow. It models the wedge SentientWeb is selling:
-              recover demo-ready visitors, qualify them, book them, sync the context, and keep the
-              meeting visible.
+              {selectedUseCase.loopBody}
             </p>
           </div>
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-            {RECOVERY_STAGES.map((stage) => (
+            {selectedUseCase.stages.map((stage, index) => (
               <StageCard
                 key={stage.title}
                 title={stage.title}
                 body={stage.body}
-                icon={stage.icon}
+                icon={STAGE_ICONS[index] ?? MousePointerClick}
               />
             ))}
           </div>
@@ -512,7 +542,7 @@ export default function RevenueLeakCalculatorPage() {
               Use the estimate to scope a 30-day pilot.
             </h2>
             <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              The first pilot should prove qualified booked demos, CRM-visible context, and
+              The pilot should prove qualified recovered actions, stack-visible context, and
               sales-ready meetings from the high-intent traffic you already have.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -523,7 +553,7 @@ export default function RevenueLeakCalculatorPage() {
                 className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                 onClick={onCtaClick}
               >
-                Book a demo recovery pilot
+                Book a revenue recovery pilot
               </a>
               <Link
                 to="/pricing"

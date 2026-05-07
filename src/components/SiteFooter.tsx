@@ -131,7 +131,7 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
             SentientWeb
           </Link>
           <p className="font-mono max-w-[280px] text-[11px] uppercase leading-relaxed text-cream/50">
-            Revenue recovery for moments where intent already exists.
+            Revenue recovery orchestration for modern subscription businesses.
           </p>
           <SocialIconStack />
         </div>

@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
     <LegalPage
       eyebrow="Legal · Privacy"
       title="Privacy policy"
-      intro="This policy is written for SentientWeb’s public website and live automated assistant experience."
+      intro="This policy is written for SentientWeb’s website and live automated assistant experience."
       sections={[
         {
           id: 'pp-controller',
@@ -148,7 +148,7 @@ export default function PrivacyPolicyPage() {
               <strong>Google</strong>; related audio where applicable, transcripts, activity logs,
               page context forwarded for assistance, prompts, outputs, and similar metadata{' '}
               <strong>may be retained by Google</strong> (Gemini Apps / Gemini Live and related notices)
-              as updated from time to time—for illustration, Google publicly describes Gemini Apps activity
+              as updated from time to time. Google describes Gemini Apps activity
               that can be kept for periods such as{' '}
               <strong>eighteen months</strong>, that Gemini Live recordings are not used to improve Google
               services by default depending on configuration, and that transcript/activity handling depends

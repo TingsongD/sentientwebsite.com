@@ -52,7 +52,7 @@ export default function IntegrationPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a demo recovery pilot
+            Book a revenue recovery pilot
           </a>
           <Link
             to="/pricing"

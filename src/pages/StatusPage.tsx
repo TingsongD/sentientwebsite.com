@@ -31,7 +31,7 @@ export default function StatusPage() {
           System status
         </h1>
         <p className="font-mono mt-6 border-l-2 border-neon/50 pl-4 text-[13px] uppercase leading-relaxed text-cream/65 sm:text-[14px]">
-          Current health of SentientWeb public surfaces. This page is informational; subscribe to
+          Current health of SentientWeb customer-facing services. This page is informational; subscribe to
           updates via{' '}
           <a
             href={GITHUB_REPO_URL}

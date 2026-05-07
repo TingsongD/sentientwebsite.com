@@ -28,8 +28,8 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
         body: 'Handles pricing, demo, comparison, integration, security, and customer-story hesitation moments.',
       },
       {
-        title: 'B2B SaaS-only scope',
-        body: 'Keeps the offer focused on demo recovery for SaaS pricing, comparison, integration, security, docs, and customer-story pages.',
+        title: 'Business-goal orchestration',
+        body: 'Uses your website, CRM, billing, scheduler, messaging, and workflow tools to recover the revenue moment that matters next.',
       },
     ],
   },
@@ -64,8 +64,8 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
     summary: 'Turn qualified intent into a meeting sales can prepare for.',
     features: [
       {
-        title: 'Calendly demo booking',
-        body: 'Opens the agreed scheduler after the visitor shares enough context to qualify.',
+        title: 'Scheduler and workflow actions',
+        body: 'Opens the agreed scheduler, workflow, handoff, or recovery path after the visitor shares enough context to qualify.',
       },
       {
         title: 'CRM context sync',
@@ -77,7 +77,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
       },
       {
         title: 'Recovered demo reporting',
-        body: 'Tracks detected demo-ready visitors, qualified visitors, booked demos, and sales-visible context.',
+        body: 'Tracks detected revenue-ready moments, qualified visitors or customers, recovered actions, and stack-visible context.',
       },
       {
         title: 'ROI calculator',

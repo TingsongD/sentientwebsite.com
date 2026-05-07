@@ -16,9 +16,9 @@ export default function CareersPage() {
           Careers
         </h1>
         <p className="font-mono mt-6 max-w-2xl text-[14px] normal-case leading-relaxed text-cream/75 sm:text-[15px]">
-          SentientWeb is building demo recovery for B2B SaaS teams: detect demo-ready visitors,
-          qualify them, book the meeting, and sync the context into the sales workflow. Early hires
-          shape the market motion and the culture.
+          SentientWeb is building revenue recovery orchestration for subscription businesses:
+          detect revenue intent, qualify the moment, trigger the right action, and sync context into
+          the tools the business already uses. Early hires shape the market motion and the culture.
         </p>
 
         <section className="mt-14" aria-labelledby="open-roles-heading">
@@ -59,9 +59,9 @@ export default function CareersPage() {
                   About the role
                 </h4>
                 <p>
-                  You will own outbound and inbound pipeline for SentientWeb&apos;s demo recovery
+                  You will own outbound and inbound pipeline for SentientWeb&apos;s revenue recovery
                   offer. Our buyers are founders, revenue leaders, and operators who feel the gap
-                  between high-intent website behavior and booked sales meetings.
+                  between high-intent website or customer behavior and completed revenue actions.
                 </p>
               </div>
 
@@ -70,14 +70,14 @@ export default function CareersPage() {
                   What you will do
                 </h4>
                 <ul className="list-inside list-disc space-y-2 marker:text-neon">
-                  <li>Run disciplined outbound into a defined B2B SaaS ICP.</li>
-                  <li>Capture inbound demo recovery opportunities from the site, events, and partners.</li>
+                  <li>Run disciplined outbound into a defined subscription-business ICP.</li>
+                  <li>Capture inbound revenue recovery opportunities from the site, events, and partners.</li>
                   <li>
                     Own discovery that maps demo-page, pricing-page, and comparison-page intent to
-                    qualified booked demos.
+                    qualified recovered actions.
                   </li>
                   <li>Manage pipeline in HubSpot or similar tools with clean stage hygiene.</li>
-                  <li>Feed the team market signals, objections, and SaaS copy needs.</li>
+                  <li>Feed the team market signals, objections, and revenue recovery copy needs.</li>
                   <li>Contribute to messaging, one-pagers, and sales narratives as we scale.</li>
                 </ul>
               </div>
@@ -87,7 +87,7 @@ export default function CareersPage() {
                   What we are looking for
                 </h4>
                 <ul className="list-inside list-disc space-y-2 marker:text-neon">
-                  <li>2+ years closing or mixed B2B SaaS sales, SMB or mid-market.</li>
+                  <li>2+ years closing or mixed software sales, SMB or mid-market.</li>
                   <li>Comfort selling technical products to non-technical buyers.</li>
                   <li>Excellent written communication and credible discovery habits.</li>
                   <li>Self-directed operator in a remote environment.</li>
@@ -120,7 +120,7 @@ export default function CareersPage() {
                   How to apply
                 </h4>
                 <p>
-                  Send your resume and a short note on why this demo recovery wedge interests you
+                  Send your resume and a short note on why revenue recovery orchestration interests you
                   to{' '}
                   <a
                     href={APPLY_EMAIL}
@@ -144,7 +144,7 @@ export default function CareersPage() {
                 rel="noopener noreferrer"
                 className="liquid-glass rounded-full px-5 py-2.5 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:text-[12px]"
               >
-                See demo recovery
+                See revenue recovery
               </a>
               <Link
                 to="/about"

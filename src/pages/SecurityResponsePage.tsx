@@ -5,7 +5,7 @@ export default function SecurityResponsePage() {
     <LegalPage
       eyebrow="Legal · Security"
       title="Security and breach response"
-      intro="This page summarizes public security reporting and incident response practices."
+      intro="This page summarizes security reporting and incident response practices."
       sections={[
         {
           id: 'sr-report',
@@ -30,7 +30,7 @@ export default function SecurityResponsePage() {
               <li>Do not degrade, disrupt, or overload systems.</li>
               <li>Do not social engineer employees, contractors, customers, or vendors.</li>
               <li>Do not test physical security or third-party systems without permission.</li>
-              <li>Give us a reasonable opportunity to investigate before public disclosure.</li>
+              <li>Give us a reasonable opportunity to investigate before disclosure.</li>
             </LegalList>
           ),
         },
@@ -51,11 +51,11 @@ export default function SecurityResponsePage() {
         },
         {
           id: 'sr-backoffice',
-          title: 'Private controls',
+          title: 'Operating controls',
           body: (
             <p>
-              Public notices are not a substitute for internal security operations. SentientWeb should
-              maintain a private breach response runbook, data map, retention schedule, processor
+              Website notices are not a substitute for internal security operations. SentientWeb should
+              maintain a breach response runbook, data map, retention schedule, processor
               register, access review process, backup and recovery plan, and evidence of vendor
               security review.
             </p>

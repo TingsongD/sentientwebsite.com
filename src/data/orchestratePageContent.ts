@@ -47,10 +47,10 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     ],
   },
   {
-    id: 'hubspot-example',
-    label: 'HubSpot example',
-    eyebrow: 'Concrete example',
-    title: 'HubSpot example',
+    id: 'hubspot-use-case',
+    label: 'HubSpot use case',
+    eyebrow: 'Use case',
+    title: 'HubSpot use case',
     body: [
       'HubSpot becomes the system SentientWeb instructs, not another destination to manage.',
       'The SentientWeb AI backend can use HubSpot to accomplish business tasks: create or update records, attach context, and prepare sales actions.',
@@ -87,10 +87,10 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     id: 'calendly',
     label: 'Calendly',
     eyebrow: 'Use case story / Scheduling',
-    title: 'Calendly story: open the calendar only after the visitor earns the meeting path.',
+    title: 'Scheduler story: open the right path after the visitor earns it.',
     body: [
       'A demo-page visitor is ready to talk, but only if the product fits their stack and timeline. SentientWeb qualifies before it exposes the agreed booking path.',
-      'Calendly stays simple: it is the scheduling surface after SentientWeb confirms the meeting is worth protecting.',
+      'The scheduler stays simple: it is the scheduling surface after SentientWeb confirms the meeting is worth protecting.',
     ],
     toolStory: {
       scenario:
@@ -98,7 +98,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
       decision:
         'SentientWeb determines the visitor is in ICP, has a relevant use case, and has enough urgency to book.',
       toolAction:
-        'Calendly opens the approved demo path with the qualification context preserved for HubSpot and the salesperson.',
+        'The scheduler opens the approved path with the qualification context preserved for the stack and the owner.',
       result:
         'The meeting lands with role, use case, timeline, and stack context attached instead of becoming a cold calendar event.',
     },
@@ -167,9 +167,9 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     id: 'drift',
     label: 'Drift',
     eyebrow: 'Use case story / Conversational marketing',
-    title: 'Drift story: use the front-door surface when SentientWeb detects demo recovery intent.',
+    title: 'Drift story: use the front-door surface when SentientWeb detects revenue recovery intent.',
     body: [
-      'A conversational surface can be useful, but it should appear for the right buyer moment. SentientWeb uses approved rules to identify demo recovery intent.',
+      'A conversational surface can be useful, but it should appear for the right buyer or customer moment. SentientWeb uses approved rules to identify revenue recovery intent.',
       'If a team already owns a broader engagement platform, SentientWeb can coordinate when that surface should be used.',
     ],
     toolStory: {
@@ -209,8 +209,8 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     eyebrow: 'Use case story / Pipeline generation',
     title: 'Qualified story: keep the broad platform focused on moments SentientWeb has already judged.',
     body: [
-      'Broad pipeline platforms can cover many enterprise motions. SentientWeb is narrower by design: recover demo-ready visitors on high-intent pages.',
-      'For teams with a broader platform, SentientWeb can focus that surface on the precise visitor-to-demo recovery moment.',
+      'Broad pipeline platforms can cover many enterprise motions. SentientWeb gives that surface an orchestration layer for revenue-ready moments on high-intent pages and workflows.',
+      'For teams with a broader platform, SentientWeb can focus that surface on the precise recovery moment that needs action.',
     ],
     toolStory: {
       scenario:
@@ -220,7 +220,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
       toolAction:
         'A Qualified-style platform can be used as the engagement surface while SentientWeb supplies the timing, qualification criteria, and handoff package.',
       result:
-        'The broad platform becomes a coordinated surface for demo recovery instead of a separate parallel motion.',
+        'The broad platform becomes a coordinated surface for revenue recovery instead of a separate parallel motion.',
     },
   },
   {

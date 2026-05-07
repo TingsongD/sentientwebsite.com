@@ -28,27 +28,27 @@ export type SolutionPageContent = {
 export const SOLUTION_PAGES = {
   saas: {
     slug: 'saas',
-    navLabel: 'B2B SaaS',
-    marketLabel: 'CRM-powered B2B SaaS teams',
+    navLabel: 'Subscription',
+    marketLabel: 'Subscription businesses',
     accentColor: '#6366f1',
-    metaTitle: 'Demo Recovery for B2B SaaS',
+    metaTitle: 'Revenue Recovery for Subscription Businesses',
     metaDescription:
-      'Recover demo-ready visitors from pricing, demo, comparison, and integration pages. SentientWeb qualifies, books, and syncs the context into the sales workflow.',
-    plumberMetaphor: 'Recover demo-ready visitors while intent is still active.',
+      'Recover high-intent visitors and customers from pricing, demo, checkout, billing, account, comparison, and integration pages. SentientWeb qualifies the moment, calls the right tool, and syncs context into the revenue workflow.',
+    plumberMetaphor: 'Recover revenue intent while it is still active.',
     hero: {
-      eyebrow: 'Use cases / Demo Recovery',
-      title: 'Recover demo-ready visitors before they disappear',
+      eyebrow: 'Use cases / Revenue Recovery',
+      title: 'Recover high-intent revenue moments before they disappear',
       subtitle:
-        'SentientWeb gives high-intent SaaS visitors an instant AI demo preview, qualifies fit, opens the booking path, and syncs the full context into HubSpot.',
-      primaryCta: 'Book a demo recovery pilot',
+        'SentientWeb gives high-intent visitors and customers an approved-source recovery path, qualifies fit, calls the right tool, and syncs the full context into your revenue workflow.',
+      primaryCta: 'Book a revenue recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
       'The highest-intent visitors are often already on pricing, demo, comparison, integration, and security pages.',
     features: [
       {
-        title: 'Detect demo-ready behavior',
-        body: 'Score visits to pricing, demo, comparison, integration, security, docs, and customer story pages so the team can focus on real buying intent.',
+        title: 'Detect revenue-ready behavior',
+        body: 'Score visits to pricing, demo, checkout, billing, account, comparison, integration, security, docs, and customer story pages so the team can focus on real revenue intent.',
       },
       {
         title: 'Handle page-specific hesitation',
@@ -59,32 +59,32 @@ export const SOLUTION_PAGES = {
         body: 'Collect company domain, use case, role, timeline, and stack context before showing the booking path.',
       },
       {
-        title: 'Sync the full story to the CRM',
-        body: 'Send page path, summary, qualification answers, booking details, and suggested sales opener into the agreed sales workflow.',
+        title: 'Sync the full story to the stack',
+        body: 'Send page path, summary, qualification answers, action details, and suggested opener into the agreed revenue workflow.',
       },
     ],
     steps: [
       {
-        title: 'Visitor shows demo intent',
-        body: 'They revisit pricing, compare alternatives, inspect integrations, or start the demo path.',
+        title: 'Visitor or customer shows intent',
+        body: 'They revisit pricing, compare alternatives, inspect integrations, hit billing friction, or start the next-step path.',
       },
       {
         title: 'Concierge qualifies the buyer',
         body: 'SentientWeb asks the minimum questions needed to confirm fit, use case, role, timing, and stack.',
       },
       {
-        title: 'Qualified demo gets booked',
-        body: 'The visitor books through the approved scheduler and the full context lands where sales works.',
+        title: 'Qualified action gets completed',
+        body: 'The person completes the approved next step and the full context lands where the team works.',
       },
     ],
     caseStudy: {
-      eyebrow: 'Demo recovery',
-      title: 'Turn high-intent page visits into qualified booked demos.',
-      body: 'The first pilot should be judged on qualified booked demos, sales-accepted context, and whether the CRM shows incremental opportunity from existing website traffic.',
+      eyebrow: 'Revenue recovery',
+      title: 'Turn high-intent page visits into qualified recovered actions.',
+      body: 'The pilot should be judged on qualified recovered actions, business-accepted context, and whether the stack shows incremental opportunity from existing website and customer traffic.',
     },
     disclosure:
       'SentientWeb uses approved customer content for answers and routes sensitive or complex questions to humans.',
-    bottomCta: 'Book a demo recovery pilot',
+    bottomCta: 'Book a revenue recovery pilot',
   },
 
   'home-services': {
@@ -152,7 +152,7 @@ export const SOLUTION_PAGES = {
     navLabel: 'Insurtech SaaS',
     marketLabel: 'Insurance SaaS platforms',
     accentColor: '#2563eb',
-    metaTitle: 'Insurtech SaaS Demo Recovery',
+    metaTitle: 'Insurtech Revenue Recovery',
     metaDescription:
       'SentientWeb helps insurance SaaS teams recover integration, security, and demo-page buyers with approved-source answers, strict qualification, and human handoff.',
     plumberMetaphor: 'We seal the trust leaks between insurance workflow evaluation and a qualified demo.',
@@ -161,7 +161,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover insurance SaaS buyers who stall on risk and workflow fit',
       subtitle:
         'Carriers, MGAs, brokers, and commercial insurance teams inspect security, integration, underwriting, and implementation pages before booking. SentientWeb qualifies fit, answers from approved sources, and routes sensitive questions to humans.',
-      primaryCta: 'Book a demo recovery pilot',
+      primaryCta: 'Book a revenue recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -273,7 +273,7 @@ export const SOLUTION_PAGES = {
     navLabel: 'Healthcare',
     marketLabel: 'Healthcare SaaS',
     accentColor: '#0891b2',
-    metaTitle: 'Healthcare SaaS Demo Recovery',
+    metaTitle: 'Healthcare Revenue Recovery',
     metaDescription:
       'SentientWeb helps healthcare SaaS teams recover security, integration, and demo-page buyers with approved-source answers, human handoff, and compliance-aware scoping.',
     plumberMetaphor: 'We fix the trust leaks between healthcare evaluation and the demo request.',
@@ -282,7 +282,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover healthcare SaaS buyers who stall on trust questions',
       subtitle:
         'Healthcare operators, clinic groups, and IT teams often inspect security, HIPAA, EHR, and integration pages before booking. SentientWeb answers from approved sources, qualifies fit, and routes sensitive questions to humans.',
-      primaryCta: 'Book a demo recovery pilot',
+      primaryCta: 'Book a revenue recovery pilot',
       secondaryCta: 'See How It Works',
     },
     proofStat: 'Healthcare SaaS buyers often leave when HIPAA, EHR, workflow, or procurement questions go unanswered.',
@@ -333,7 +333,7 @@ export const SOLUTION_PAGES = {
     navLabel: 'Learning SaaS',
     marketLabel: 'Corporate training SaaS',
     accentColor: '#ea580c',
-    metaTitle: 'Learning SaaS Demo Recovery',
+    metaTitle: 'Learning Revenue Recovery',
     metaDescription:
       'SentientWeb helps learning and HR SaaS teams recover customer-story, integration, pricing, and demo-page buyers with CRM-ready context.',
     plumberMetaphor: 'We fix the evaluation leaks between learning-program interest and a qualified demo.',
@@ -342,7 +342,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover corporate training buyers before they leave',
       subtitle:
         'HR, enablement, and L&D leaders inspect integrations, customer stories, implementation pages, and pricing before booking. SentientWeb qualifies the account, answers from approved sources, and sends sales the buying context.',
-      primaryCta: 'Book a demo recovery pilot',
+      primaryCta: 'Book a revenue recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -574,7 +574,7 @@ export const SOLUTION_PAGES = {
     navLabel: 'Fintech SaaS',
     marketLabel: 'Fintech compliance SaaS',
     accentColor: '#059669',
-    metaTitle: 'Fintech SaaS Demo Recovery',
+    metaTitle: 'Fintech Revenue Recovery',
     metaDescription:
       'SentientWeb helps fintech and compliance SaaS teams recover security, pricing, integration, and demo-page buyers with approved-source answers and human handoff.',
     plumberMetaphor: 'We patch the trust leaks between fintech evaluation and a qualified demo.',
@@ -583,7 +583,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover fintech buyers who stall on trust and integration questions',
       subtitle:
         'Fintech, payroll API, billing, RevRec, and compliance buyers inspect security, docs, integrations, and pricing before booking. SentientWeb qualifies fit, answers from approved sources, and routes sensitive questions to humans.',
-      primaryCta: 'Book a demo recovery pilot',
+      primaryCta: 'Book a revenue recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -635,7 +635,7 @@ export const SOLUTION_PAGES = {
     navLabel: 'Logistics SaaS',
     marketLabel: 'Logistics and supply-chain SaaS',
     accentColor: '#0f766e',
-    metaTitle: 'Logistics SaaS Demo Recovery',
+    metaTitle: 'Logistics Revenue Recovery',
     metaDescription:
       'SentientWeb helps logistics SaaS teams recover pricing, integration, TMS, and demo-page buyers with approved-source answers and Pipedrive-ready context.',
     plumberMetaphor: 'We fix the workflow-fit leaks between TMS evaluation and a qualified demo.',
@@ -644,7 +644,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover logistics buyers who stall on workflow and integration fit',
       subtitle:
         'Fleet, dispatch, operations, and IT buyers inspect TMS, route optimization, hardware, and integration pages before booking. SentientWeb qualifies the account, answers from approved sources, and sends sales the route-ready context.',
-      primaryCta: 'Book a demo recovery pilot',
+      primaryCta: 'Book a revenue recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:

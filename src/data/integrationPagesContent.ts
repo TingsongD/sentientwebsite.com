@@ -17,8 +17,8 @@ export const INTEGRATION_PAGES = {
     deck:
       'SentientWeb sits above HubSpot, decides when a buyer is sales-ready, then uses HubSpot to create or update the record with the context sales needs.',
     body: [
-      'HubSpot is the first CRM wedge. The goal is not another dashboard; the goal is to make recovered demo intent visible where the revenue team already works.',
-      'Every qualified booked demo should arrive with the page path, use case, role, timeline, summary, and recommended sales opener. HubSpot Free and Starter can work when the needed contact, company, note, and meeting fields are available; Professional and Enterprise unlock deeper workflow options.',
+      'HubSpot is one execution surface in the revenue stack. The goal is not another dashboard; the goal is to make recovered intent visible where the revenue team already works.',
+      'Every recovered revenue moment should arrive with the page path, use case, role, timeline, summary, and recommended next action. HubSpot Free and Starter can work when the needed contact, company, note, and meeting fields are available; Professional and Enterprise unlock deeper workflow options.',
     ],
     bullets: [
       'Works with HubSpot Free, Starter, Professional, and Enterprise after a field check.',
@@ -31,17 +31,17 @@ export const INTEGRATION_PAGES = {
     slug: 'salesforce',
     navLabel: 'Salesforce',
     eyebrow: 'Orchestration layer / Salesforce',
-    title: 'Call Salesforce only after the sales handoff is clear.',
+    title: 'Call Salesforce when the sales handoff is clear.',
     deck:
       'SentientWeb acts one layer above Salesforce: qualify the buyer moment first, then use Salesforce when the handoff rules say sales should act.',
     body: [
-      'Many sales-led SaaS teams keep marketing activity in HubSpot but run the sales floor in Salesforce. The pilot should not create context that reps ignore because it lands in the wrong system.',
+      'Many revenue teams keep marketing activity in one system but run the sales floor in Salesforce. SentientWeb should not create context that reps ignore because it lands in the wrong system.',
       'During setup, SentientWeb maps the required Salesforce outcome first: lead or contact update, company or account context, campaign/source attribution, qualification answers, booking details, and the sales opener your RevOps team expects.',
     ],
     bullets: [
       'Salesforce field mapping is reviewed before launch.',
       'Fallback paths can use HubSpot handoff, CSV, or webhook while deeper sync is scoped.',
-      'If Salesforce context cannot be made credible, the pilot should not start.',
+      'Salesforce context should be credible enough for reps to act on.',
     ],
   },
   pipedrive: {
@@ -52,13 +52,13 @@ export const INTEGRATION_PAGES = {
     deck:
       'SentientWeb can keep Pipedrive as the execution surface while the orchestration layer decides what context should reach sales and when.',
     body: [
-      'Pipedrive teams are often lean and do not have RevOps capacity for a heavy implementation. The pilot should prove recovered demos without forcing a CRM migration.',
+      'Pipedrive teams are often lean and do not have RevOps capacity for a heavy implementation. SentientWeb should recover revenue moments without forcing a CRM migration.',
       'The setup conversation defines where a qualified booked demo should land, what fields sales needs, and what fallback is acceptable if a native sync is not the right first step.',
     ],
     bullets: [
       'Confirm Pipedrive handoff requirements before installing.',
       'Use webhook or structured export paths when a lightweight route is better.',
-      'Keep the pilot measured by sales-accepted demos, not integration theater.',
+      'Keep the work measured by sales-accepted outcomes, not integration theater.',
     ],
   },
   'api-webhooks': {
@@ -69,30 +69,30 @@ export const INTEGRATION_PAGES = {
     deck:
       'SentientWeb can use API and webhook routes as execution surfaces after it decides the visitor, account, or payment moment needs a custom action.',
     body: [
-      'Not every promising SaaS company has HubSpot, Salesforce, or a mature scheduler. If the website has real demo intent but the sales stack is still forming, the first question is operational fit.',
-      'The pilot fit check defines whether Calendly, a CRM, a shared inbox, or a webhook should receive qualified demo context, and whether traffic volume is high enough to justify a pilot now.',
+      'Not every subscription business has the same CRM, scheduler, billing system, or messaging stack. If the business has real revenue intent, the first question is which execution surface should receive the action.',
+      'The fit check defines whether a CRM, billing system, scheduler, shared inbox, lifecycle platform, or webhook should receive the context, and which business outcome should be recovered first.',
     ],
     bullets: [
-      'Clarify minimum traffic and scheduler prerequisites before launch.',
-      'Scope webhook payloads around use case, role, stack, page path, and booking status.',
-      'Show lean teams which prerequisites to fix before launching a pilot.',
+      'Clarify the revenue moment, traffic source, and execution surface before launch.',
+      'Scope webhook payloads around use case, role, stack, page path, subscription state, and action status.',
+      'Show teams which stack prerequisites unlock the strongest recovery loop.',
     ],
   },
   calendly: {
     slug: 'calendly',
     navLabel: 'Calendly',
     eyebrow: 'Orchestration layer / Calendly',
-    title: 'Call your scheduler only after the visitor is qualified.',
+    title: 'Call your scheduler when the visitor is qualified.',
     deck:
-      'SentientWeb sits above the calendar, qualifies the visitor first, then opens Calendly, Chili Piper, or another route when the meeting is worth protecting.',
+      'SentientWeb sits above the calendar, qualifies the visitor first, then opens the right scheduler, router, or workflow when the meeting is worth protecting.',
     body: [
-      'Calendly is the simplest scheduling surface, but the buying logic is the same for teams that use Chili Piper or another router: qualify first, then open the right meeting path.',
-      'For Salesforce-led teams, setup defines whether the handoff should go to a Calendly link, a Chili Piper route, a territory-specific URL, or a custom scheduler. The value is the qualification step before the calendar opens and the CRM context after the meeting is booked.',
+      'The buying logic is the same whether the team uses Calendly, Chili Piper, a custom scheduler, or a routed workflow: qualify first, then open the right meeting path.',
+      'Setup defines whether the handoff should go to a scheduler link, router, territory-specific URL, account owner, or custom workflow. The value is the qualification step before the calendar opens and the revenue context after the meeting is booked.',
     ],
     bullets: [
       'Show the booking path after qualification.',
       'Preserve use case, role, timeline, and page history.',
-      'Route to Calendly, Chili Piper, or a custom booking link based on the agreed launch rules.',
+      'Route to the right scheduler, router, or custom booking link based on the agreed rules.',
     ],
   },
   wordpress: {
@@ -101,15 +101,15 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Orchestration layer / WordPress',
     title: 'Put the orchestration layer above your WordPress site.',
     deck:
-      'Add the install script to pricing, demo, comparison, and integration pages so SentientWeb can recover demo-ready intent on the URLs you already rank for.',
+      'Add the install script to pricing, demo, comparison, billing, account, support, and integration pages so SentientWeb can recover revenue intent on the URLs you already rank for.',
     body: [
-      'WordPress powers many B2B SaaS marketing sites and landing pages. SentientWeb fits that reality: add one script tag or a small mu-plugin, then guide demo-ready visitors from high-intent pages toward the right next step.',
-      'Keep editorial workflows in the CMS. SentientWeb reads from the approved sources you connect, pairs with existing forms and CRM plugins, and moves qualified demo context into the sales workflow.',
+      'WordPress powers many subscription-business websites and landing pages. SentientWeb fits that reality: add one script tag or a small mu-plugin, then guide high-intent visitors and customers toward the right next step.',
+      'Keep editorial workflows in the CMS. SentientWeb reads from the approved sources you connect, pairs with existing forms and plugins, and moves qualified context into the right revenue workflow.',
     ],
     bullets: [
       'Install via theme footer, hooks, or a reputable header/footer script plugin.',
       'Works with caching and CDNs when loaded deferred like analytics.',
-      'Use page-level rules to focus on pricing, demo, comparison, integration, and security pages.',
+      'Use page-level rules to focus on pricing, demo, checkout, billing, comparison, integration, and security pages.',
     ],
   },
   webflow: {
@@ -118,15 +118,15 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Orchestration layer / Webflow',
     title: 'Put the orchestration layer above your Webflow site.',
     deck:
-      'Paste the embed in Project Settings custom code, or add it to specific high-intent demo recovery pages without a rebuild.',
+      'Paste the embed in Project Settings custom code, or add it to specific high-intent revenue recovery pages without a rebuild.',
     body: [
-      'Webflow teams move fast on layout and content; SentientWeb matches that pace. Add the install script site-wide before the closing body tag, or scope it to pricing, demo, comparison, and integration pages.',
-      'Styling stays on brand because your Webflow classes and interactions remain untouched while SentientWeb handles qualification, approved answers, and the path to a booked demo.',
+      'Webflow teams move fast on layout and content; SentientWeb matches that pace. Add the install script site-wide before the closing body tag, or scope it to pricing, demo, checkout, account, comparison, and integration pages.',
+      'Styling stays on brand because your Webflow classes and interactions remain untouched while SentientWeb handles qualification, approved answers, and the path to the next revenue action.',
     ],
     bullets: [
       'Global or per-page embeds from custom code settings.',
       'Compatible with Webflow hosting and exported static stacks.',
-      'Intent prompts can still fire on published URLs as demo-ready visitors return.',
+      'Intent prompts can still fire on published URLs as high-intent visitors and customers return.',
     ],
   },
   shopify: {
@@ -135,15 +135,15 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Orchestration layer / Shopify',
     title: 'Use Shopify pages as orchestration surfaces.',
     deck:
-      'The current focus is B2B SaaS demo recovery. Shopify remains reachable for review while commerce recovery is evaluated separately.',
+      'SentientWeb can sit above Shopify as an orchestration surface for purchase, subscription, cancellation, and support recovery moments.',
     body: [
-      'Commerce recovery requires different proof, pricing, and implementation details than HubSpot and Calendly demo recovery. SentientWeb is not positioning Shopify as the first wedge on the marketing site.',
-      'If a B2B catalog uses Shopify as a content surface for sales-led requests, the same high-intent recovery logic can be reviewed as a custom implementation.',
+      'Commerce recovery uses the same orchestration principle: detect the revenue moment, choose the next action, and call the right tool in the stack.',
+      'Shopify pages can support purchase recovery, subscription recovery, product-fit questions, account support, or sales-led requests when the workflow is scoped correctly.',
     ],
     bullets: [
-      'Commerce-specific recovery remains separate from the B2B SaaS pilot offer.',
-      'Custom review is required before claims about carts, checkout, or product matching.',
-      'CRM-visible demo context remains the primary stack story.',
+      'Recover checkout, subscription, cancellation, and product-fit moments.',
+      'Use Shopify together with CRM, billing, support, messaging, and webhook actions.',
+      'Route each moment to the system that can complete the outcome.',
     ],
   },
   wix: {
@@ -152,15 +152,15 @@ export const INTEGRATION_PAGES = {
     eyebrow: 'Orchestration layer / Wix',
     title: 'Put SentientWeb above Wix with a custom embed.',
     deck:
-      'Use Wix custom code or Velo for SaaS marketing pages where the goal is qualified demo recovery.',
+      'Use Wix custom code or Velo for subscription-business pages where the goal is revenue recovery.',
     body: [
-      'Marketing teams on Wix can still recover demo-ready visitors from high-intent pages. SentientWeb captures visitor intent, routes next steps, and uses approved content instead of improvising policy.',
-      'Place the script site-wide for parity with other platforms, or limit it to key pages such as pricing, demo, stack-fit, and contact.',
+      'Marketing teams on Wix can still recover high-intent visitors and customers from important pages. SentientWeb captures intent, routes next steps, and uses approved content instead of improvising policy.',
+      'Place the script site-wide for parity with other platforms, or limit it to key pages such as pricing, demo, checkout, account, stack-fit, and contact.',
     ],
     bullets: [
       'Custom code in Tracking & Analytics or page-level embeds.',
       'Velo-friendly if you gate load by consent or locale.',
-      'Same Calendly and HubSpot story as the rest of the B2B SaaS product.',
+      'Use the same orchestration model across CRM, scheduler, billing, messaging, and webhook tools.',
     ],
   },
   custom: {
@@ -171,7 +171,7 @@ export const INTEGRATION_PAGES = {
     deck:
       'If it serves HTML or SPA shells, you can install SentientWeb on high-intent pages with one origin, one install key, and deterministic rules.',
     body: [
-      'Custom stacks are the default for many B2B SaaS teams. Drop the loader on the document shell, behind your feature flag or consent banner, and route production versus staging with separate keys.',
+      'Custom stacks are common for subscription businesses. Drop the loader on the document shell, behind your feature flag or consent banner, and route production versus staging with separate keys.',
       'For SPAs, mount after hydration or lazy-load on intent so Core Web Vitals stay healthy. Server components and edge workers can inject the tag once per layout while your deployment pipeline stays in control.',
     ],
     bullets: [

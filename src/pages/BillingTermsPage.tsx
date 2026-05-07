@@ -13,7 +13,7 @@ export default function BillingTermsPage() {
           title: 'Current purchase flow',
           body: (
             <p>
-              SentientWeb’s public website currently schedules demos and access discussions. It does
+              SentientWeb’s website currently schedules demos and access discussions. It does
               not currently process self-serve checkout payments on {SITE_HOSTNAME}. If we offer
               paid services, the applicable order form, checkout page, invoice, or written agreement
               will state the price, taxes, renewal terms, usage limits, cancellation terms, and any

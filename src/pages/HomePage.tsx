@@ -66,7 +66,7 @@ const DEMO_RECOVERY_MODULES = [
   },
   {
     title: 'Recovered Demo Reporting',
-    body: 'Show demo-ready visitors detected, qualified visitors, booked demos, and sales-visible context.',
+    body: 'Show revenue-ready moments detected, qualified visitors or customers, recovered actions, and stack-visible context.',
   },
 ] as const
 
@@ -75,9 +75,9 @@ const REVENUE_RECOVERY_USE_CASES = [
     id: 'demo-recovery',
     status: 'Core workflow',
     title: 'Demo Recovery',
-    headline: 'Recover demo-ready visitors before they disappear.',
+    headline: 'Recover demo-ready visitors and route the next action.',
     sectionHeadline: 'Give high-intent visitors a demo trailer before they leave.',
-    body: 'High-intent SaaS visitors get an instant AI demo preview, qualification, a booking path, and HubSpot-visible context.',
+    body: 'High-intent visitors get approved-source answers, qualification, the right next step, and stack-visible context.',
     bullets: [
       'Pricing, demo, comparison, security, docs, and stack-fit pages.',
       'Approved-source answers and qualification before calendar handoff.',
@@ -85,9 +85,9 @@ const REVENUE_RECOVERY_USE_CASES = [
     ],
     cta: 'Open walkthrough',
     to: '#demo-recovery',
-    caseStudyTitle: 'Use case: SEO SaaS demo recovery',
+    caseStudyTitle: 'Use case: SEO subscription recovery',
     caseStudy:
-      'An SEO SaaS team gets steady traffic to pricing, comparison, and security pages, but too many ready buyers leave before booking. SentientWeb recognizes the demo-ready path, answers the final buying questions, confirms fit, opens the scheduler, and sends sales the page path, answers, and suggested opener before the meeting.',
+      'An SEO subscription company gets steady traffic to pricing, comparison, and security pages, but too many ready buyers leave before the next step. SentientWeb recognizes the revenue-ready path, answers the final buying questions, confirms fit, opens the right workflow, and sends the team the page path, answers, and suggested opener before the handoff.',
     outcome: 'The visitor books while the buying context is still fresh.',
     flow: [
       { label: 'Intent page', detail: 'Pricing, demo, security, or comparison behavior is detected.' },
@@ -162,7 +162,7 @@ const REVENUE_RECOVERY_USE_CASES = [
     to: '#buyer-insights',
     caseStudyTitle: 'Use case: buyer objection intelligence',
     caseStudy:
-      'A B2B SaaS team hears scattered objections about pricing, implementation, and security, but the patterns are buried in chat logs and missed meetings. SentientWeb groups the friction, highlights which page created the hesitation, and turns the pattern into sales follow-up, page updates, and weekly RevOps review.',
+      'A subscription business hears scattered objections about pricing, implementation, security, renewals, and cancellation risk, but the patterns are buried in chat logs, missed meetings, and disconnected systems. SentientWeb groups the friction, highlights which page or workflow created the hesitation, and turns the pattern into sales follow-up, lifecycle updates, and weekly RevOps review.',
     outcome: 'The team sees why qualified buyers hesitate and what to repair next.',
     flow: [
       { label: 'Buyer signal', detail: 'Questions, exits, bookings, and no-shows are captured across high-intent pages.' },
@@ -495,11 +495,11 @@ function LeakClockMethodology() {
   return (
     <details className="liquid-glass mt-8 rounded-[20px] p-5 sm:p-6">
       <summary className="cursor-pointer list-none font-grotesk text-[15px] uppercase tracking-wide text-cream [&::-webkit-details-marker]:hidden">
-        How this B2B SaaS estimate is modeled
+        How this recovery estimate is modeled
       </summary>
       <article className="mt-5 border-t border-white/10 pt-4">
         <h3 className="font-grotesk text-[13px] uppercase tracking-wide text-neon">
-          B2B SaaS
+          Revenue recovery
         </h3>
         <p className="font-mono mt-2 text-[11px] uppercase leading-relaxed text-cream/55">
           {estimate.sourceLabel}
@@ -509,7 +509,7 @@ function LeakClockMethodology() {
         </p>
       </article>
       <p className="font-mono mt-5 border-t border-white/10 pt-4 text-[11px] uppercase leading-relaxed text-cream/45">
-        This is a directional estimate for B2B SaaS demo recovery, not an audited financial claim
+        This is a directional estimate for revenue recovery, not an audited financial claim
         or product commitment.
       </p>
     </details>
@@ -556,21 +556,17 @@ export default function HomePage() {
             <div className="mx-auto flex w-full max-w-[1831px] flex-1 flex-col justify-center px-4 pb-16 pt-10 sm:px-6 md:px-8 lg:px-10 lg:pb-24">
               <div className="relative max-w-[880px] lg:ml-16 xl:ml-32">
                 <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                  Revenue recovery for moments where intent already exists
+                  SentientWeb
                 </p>
                 <h1
                   id="hero-heading"
                   className="font-grotesk uppercase leading-[1.05] text-cream sm:leading-none text-[40px] sm:text-[56px] md:text-[72px] lg:text-[84px]"
                 >
-                  Recover demo-ready visitors before they disappear.
+                  Revenue recovery orchestration for modern subscription businesses.
                 </h1>
-                <p className="font-mono mt-8 max-w-[540px] text-[13px] uppercase leading-relaxed text-neon sm:text-[14px] md:text-[15px]">
-                  Demo Recovery for B2B SaaS teams using HubSpot and Calendly.
-                </p>
-                <p className="mt-5 max-w-[540px] font-sans text-[15px] normal-case leading-relaxed text-cream sm:text-[16px] md:text-[17px]">
-                  Give high-intent SaaS visitors an instant AI demo preview, qualify fit, open the
-                  booking path, sync HubSpot context, and recover payment risk before it turns
-                  into churn.
+                <p className="mt-8 max-w-[540px] font-sans text-[15px] normal-case leading-relaxed text-cream sm:text-[16px] md:text-[17px]">
+                  SentientWeb finds revenue leaks across your website, billing, CRM, scheduler,
+                  and messaging stack, then calls the right tool to recover the moment.
                 </p>
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <a
@@ -579,7 +575,7 @@ export default function HomePage() {
                     rel="noopener noreferrer"
                     className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                   >
-                    Book a demo recovery pilot
+                    Book a revenue recovery pilot
                   </a>
                   <a
                     href="#features"
@@ -690,7 +686,7 @@ export default function HomePage() {
                   id="preview-url"
                   type="url"
                   inputMode="url"
-                  placeholder="https://example.com/pricing"
+                  placeholder="https://yourcompany.com/pricing"
                   value={previewUrl}
                   onChange={(event) => setPreviewUrl(event.target.value)}
                   aria-describedby="preview-url-help"
@@ -783,11 +779,11 @@ export default function HomePage() {
                     Detect, qualify, book, sync.
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
-                    Turn demo-ready behavior into qualified booked demos with CRM context attached.
+                    Turn revenue-ready behavior into qualified recovered actions with stack context attached.
                   </span>
                 </h2>
                 <p className="mb-6 font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
-                  Book a demo recovery pilot
+                  Book a revenue recovery pilot
                 </p>
                 <div className="flex flex-wrap justify-end gap-4">
                   <a
@@ -796,7 +792,7 @@ export default function HomePage() {
                     rel="noopener noreferrer"
                     className="inline-block rounded-full bg-neon px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-background transition hover:brightness-110 sm:px-8 sm:text-[13px]"
                   >
-                    Book a demo recovery pilot
+                    Book a revenue recovery pilot
                   </a>
                   <Link
                     to="/solutions/saas"
@@ -823,11 +819,12 @@ export default function HomePage() {
               id="first-customer-fit-heading"
               className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
             >
-              Best fit for SaaS teams with demo intent to recover.
+              Best fit for subscription businesses with revenue moments to recover.
             </h2>
             <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              Best fit: $1M-$20M ARR B2B SaaS, HubSpot, Calendly or Chili Piper, and visible
-              pricing, demo, comparison, docs, security, or integration-page traffic.
+              Best fit: subscription businesses with visible pricing, demo, checkout, billing,
+              account, docs, security, comparison, or integration traffic and enough stack access
+              to let SentientWeb call the right tools at the right time.
             </p>
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {[
@@ -837,7 +834,7 @@ export default function HomePage() {
                 },
                 {
                   title: 'Simple booking path',
-                  body: 'Calendly, Chili Piper, or another scheduler opens after qualification.',
+                  body: 'The right scheduler, router, workflow, or handoff opens after qualification.',
                 },
                 {
                   title: 'HubSpot context',
