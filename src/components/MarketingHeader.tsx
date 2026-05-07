@@ -3,7 +3,6 @@ import { ChevronDown, Menu, X } from 'lucide-react'
 import { Link, type To, useLocation } from 'react-router-dom'
 import { BOOK_DEMO_URL, OPERATOR_LOGIN_URL } from '../constants'
 import { INTEGRATION_NAV_LINKS } from '../data/integrationPagesContent'
-import { ORCHESTRATE_NAV_LINKS } from '../data/orchestratePageContent'
 
 const DROPDOWN_PANEL =
   'liquid-glass absolute left-1/2 top-full z-[60] mt-2 min-w-[12rem] max-h-[min(24rem,70vh)] -translate-x-1/2 overflow-y-auto rounded-[20px] border border-white/[0.08] py-2 shadow-lg'
@@ -17,7 +16,7 @@ const MOBILE_LINK =
 const MOBILE_SUBLINK =
   'block w-full py-2.5 pl-4 text-left font-mono text-[12px] uppercase tracking-wide text-cream/75 transition hover:text-neon'
 
-type NavMenuId = 'integrations' | 'orchestrate'
+type NavMenuId = 'stack' | 'use-cases'
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -44,14 +43,21 @@ function buildIntegrationLinks(): { id: string; label: string; to: To }[] {
   }))
 }
 
+const USE_CASE_LINKS: { id: string; label: string; to: To }[] = [
+  { id: 'demo-recovery', label: 'Demo Recovery', to: { pathname: '/', hash: 'demo-recovery' } },
+  { id: 'failed-payment-recovery', label: 'Failed Payment Recovery', to: { pathname: '/', hash: 'failed-payment-recovery' } },
+  { id: 'no-show-recovery', label: 'No-Show Recovery', to: { pathname: '/', hash: 'no-show-recovery' } },
+  { id: 'buyer-insights', label: 'Buyer Insights', to: { pathname: '/', hash: 'buyer-insights' } },
+] as const
+
 function PrimaryNavList() {
   const [openMenu, setOpenMenu] = useState<NavMenuId | null>(null)
   const navRootRef = useRef<HTMLUListElement>(null)
 
-  const integrationsBtnId = useId()
-  const integrationsMenuId = useId()
-  const orchestrateBtnId = useId()
-  const orchestrateMenuId = useId()
+  const stackBtnId = useId()
+  const stackMenuId = useId()
+  const useCasesBtnId = useId()
+  const useCasesMenuId = useId()
 
   const integrationLinks = buildIntegrationLinks()
 
@@ -94,50 +100,32 @@ function PrimaryNavList() {
           to="/solutions/saas"
           className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
         >
-          SOLUTION
-        </Link>
-      </li>
-
-      <li>
-        <Link
-          to="/pricing"
-          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
-        >
-          Pricing
-        </Link>
-      </li>
-
-      <li>
-        <Link
-          to="/revenue-leak-calculator"
-          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
-        >
-          Demo ROI
+          Demo Recovery
         </Link>
       </li>
 
       <li className="relative">
         <button
           type="button"
-          id={integrationsBtnId}
+          id={useCasesBtnId}
           className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
-          aria-expanded={openMenu === 'integrations'}
-          aria-controls={integrationsMenuId}
-          onClick={() => toggle('integrations')}
+          aria-expanded={openMenu === 'use-cases'}
+          aria-controls={useCasesMenuId}
+          onClick={() => toggle('use-cases')}
         >
-          Integrations
+          Use cases
           <ChevronDown
-            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'integrations' ? 'rotate-180' : ''}`}
+            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'use-cases' ? 'rotate-180' : ''}`}
             aria-hidden
           />
         </button>
-        {openMenu === 'integrations' ? (
+        {openMenu === 'use-cases' ? (
           <ul
-            id={integrationsMenuId}
-            aria-labelledby={integrationsBtnId}
+            id={useCasesMenuId}
+            aria-labelledby={useCasesBtnId}
             className={DROPDOWN_PANEL}
           >
-            {integrationLinks.map(({ id, label, to }) => (
+            {USE_CASE_LINKS.map(({ id, label, to }) => (
               <li key={id}>
                 <Link to={to} className={DROPDOWN_LINK} onClick={close}>
                   {label}
@@ -148,29 +136,37 @@ function PrimaryNavList() {
         ) : null}
       </li>
 
+      <li>
+        <Link
+          to="/revenue-leak-calculator"
+          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
+        >
+          Recovery ROI
+        </Link>
+      </li>
+
       <li className="relative">
         <button
           type="button"
-          id={orchestrateBtnId}
+          id={stackBtnId}
           className="inline-flex items-center gap-1 font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
-          aria-expanded={openMenu === 'orchestrate'}
-          aria-controls={orchestrateMenuId}
-          onClick={() => toggle('orchestrate')}
-          aria-label="Orchestrate your existing tech"
+          aria-expanded={openMenu === 'stack'}
+          aria-controls={stackMenuId}
+          onClick={() => toggle('stack')}
         >
-          Orchestrate stack
+          Existing stack
           <ChevronDown
-            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'orchestrate' ? 'rotate-180' : ''}`}
+            className={`h-3.5 w-3.5 shrink-0 transition-transform ${openMenu === 'stack' ? 'rotate-180' : ''}`}
             aria-hidden
           />
         </button>
-        {openMenu === 'orchestrate' ? (
+        {openMenu === 'stack' ? (
           <ul
-            id={orchestrateMenuId}
-            aria-labelledby={orchestrateBtnId}
+            id={stackMenuId}
+            aria-labelledby={stackBtnId}
             className={DROPDOWN_PANEL}
           >
-            {ORCHESTRATE_NAV_LINKS.map(({ id, label, to }) => (
+            {integrationLinks.map(({ id, label, to }) => (
               <li key={id}>
                 <Link to={to} className={DROPDOWN_LINK} onClick={close}>
                   {label}
@@ -302,8 +298,25 @@ function MobileNavPanel({
             className={`${MOBILE_LINK} border-b border-white/10`}
             onClick={onClose}
           >
-            SOLUTION
-          </Link>
+          Demo Recovery
+        </Link>
+
+          <details className="group border-b border-white/10">
+            <summary className={detailsSummary}>
+              Use cases
+              <ChevronDown
+                className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
+                aria-hidden
+              />
+            </summary>
+            <div className="border-t border-white/[0.06] pb-2 pt-1">
+              {USE_CASE_LINKS.map(({ id, label, to }) => (
+                <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </details>
 
           <Link to="/pricing" className={`${MOBILE_LINK} border-b border-white/10`} onClick={onClose}>
             Pricing
@@ -314,12 +327,12 @@ function MobileNavPanel({
             className={`${MOBILE_LINK} border-b border-white/10`}
             onClick={onClose}
           >
-            Demo ROI
+            Recovery ROI
           </Link>
 
           <details className="group border-b border-white/10">
             <summary className={detailsSummary}>
-              Integrations
+              Existing stack
               <ChevronDown
                 className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
                 aria-hidden
@@ -327,23 +340,6 @@ function MobileNavPanel({
             </summary>
             <div className="border-t border-white/[0.06] pb-2 pt-1">
               {integrationLinks.map(({ id, label, to }) => (
-                <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
-                  {label}
-                </Link>
-              ))}
-            </div>
-          </details>
-
-          <details className="group border-b border-white/10">
-            <summary className={detailsSummary}>
-              Orchestrate stack
-              <ChevronDown
-                className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
-                aria-hidden
-              />
-            </summary>
-            <div className="border-t border-white/[0.06] pb-2 pt-1">
-              {ORCHESTRATE_NAV_LINKS.map(({ id, label, to }) => (
                 <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
                   {label}
                 </Link>

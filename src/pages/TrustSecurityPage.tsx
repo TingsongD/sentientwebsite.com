@@ -77,7 +77,7 @@ export default function TrustSecurityPage() {
             <p className="mt-4">
               Healthcare and regulated deployments require extra scoping. SentientWeb is not
               currently offering a blanket BAA for every pilot. If your use case could involve PHI
-              or similarly regulated data, the pilot should be limited to approved public content,
+              or similarly regulated data, the pilot should be limited to approved website content,
               non-PHI demo qualification, and human escalation until a signed BAA or equivalent
               legal path is in place.
             </p>
@@ -149,7 +149,7 @@ export default function TrustSecurityPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a 30-day pilot
+            Book a demo recovery pilot
           </a>
           <Link
             to="/"

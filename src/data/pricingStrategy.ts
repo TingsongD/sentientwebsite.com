@@ -30,9 +30,9 @@ export const PRICING_ROUTE_PATHS = [
 
 export const PRICING_META = {
   '/pricing': {
-    title: 'SentientWeb Pricing | Visitor-to-Demo Engine',
+    title: 'SentientWeb Pricing | 30-Day Recovery Pilot',
     description:
-      'Start with a 30-day demo recovery pilot, prove qualified booked demos, then choose pricing based on volume, CRM fit, and sales-accepted context.',
+      'Start with a 30-day recovery pilot for B2B SaaS demo recovery, measured by qualified booked demos and HubSpot-visible context.',
     canonicalPath: '/pricing',
     absoluteTitle: true,
   },
@@ -49,7 +49,7 @@ export const PRICING_META = {
     canonicalPath: '/pricing/service',
   },
   '/pricing/calculator': {
-    title: 'Demo Recovery Calculator',
+    title: 'Recovery ROI Calculator',
     description:
       'Estimate recovered demos, qualified booked demos, pipeline influenced, and modeled SentientWeb fees.',
     canonicalPath: '/pricing/calculator',
@@ -79,36 +79,36 @@ export const TRACKS: Record<
   }
 > = {
   pilot: {
-    label: '30-Day Pilot',
+    label: 'First 10 Pilot',
     selectorLabel: 'Pilot',
     audience: 'For B2B SaaS teams proving demo recovery before adding another revenue tool',
-    price: '$0',
-    priceDetail: 'platform minimum waived during pilot setup',
-    included: 'Pilot setup around pricing, demo, comparison, and integration pages',
+    price: '30-Day Rescue Pilot',
+    priceDetail: '$0 setup for design partners',
+    included: 'Pricing, demo, comparison, and integration page setup',
     kicker: '$100-$150 per qualified booked demo',
     features: [
-      'CRM and scheduler fit check before launch',
-      'Approved-source answers and human handoff',
+      'Calendly or Chili Piper booking path',
+      'HubSpot contact and note sync',
       'Qualified booked demo definition agreed before launch',
       'Pilot proof packet with sales-accepted outcomes',
     ],
-    cta: 'Book a 30-day pilot',
+    cta: 'Book a demo recovery pilot',
   },
   starter: {
-    label: 'Starter',
-    selectorLabel: 'Starter',
-    audience: 'For SaaS teams validating demo recovery on a focused set of high-intent pages',
+    label: 'After Pilot Proof',
+    selectorLabel: 'Monthly',
+    audience: 'For SaaS teams expanding after the pilot proves HubSpot-visible context and demo recovery',
     price: '$999',
     priceDetail: '/month includes 5 qualified booked demos',
-    included: '5 qualified booked demos',
+    included: 'Monthly Recovery Plan',
     kicker: '$100 per additional qualified booked demo',
     features: [
-      'Demo-ready detection',
+      'Ongoing visitor-to-demo recovery loop',
       'Page-specific recovery playbooks',
-      'Calendly booking path after qualification',
-      'HubSpot, Salesforce, Pipedrive, or webhook fit review',
+      'Qualified booking gate',
+      'HubSpot context handoff',
     ],
-    cta: 'Book a 30-day pilot',
+    cta: 'Discuss monthly plan',
   },
   growth: {
     label: 'Growth',
@@ -124,7 +124,7 @@ export const TRACKS: Record<
       'Sales-accepted demo reporting',
       'Monthly proof and objection review',
     ],
-    cta: 'Book a 30-day pilot',
+    cta: 'Book a demo recovery pilot',
   },
   scale: {
     label: 'Scale',

@@ -90,7 +90,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     title: 'Calendly story: open the calendar only after the visitor earns the meeting path.',
     body: [
       'A demo-page visitor is ready to talk, but only if the product fits their stack and timeline. SentientWeb qualifies before it exposes the agreed booking path.',
-      'Calendly stays simple: it is the scheduling surface after SentientWeb decides the meeting is worth protecting.',
+      'Calendly stays simple: it is the scheduling surface after SentientWeb confirms the meeting is worth protecting.',
     ],
     toolStory: {
       scenario:
@@ -110,7 +110,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     title: 'Warmly story: use account identification as one signal in the buyer-moment decision.',
     body: [
       'Account identification can help, but it should not become the whole motion. SentientWeb treats identification as one input alongside page intent, behavior, and qualification answers.',
-      'The AI still decides whether to engage, ask, book, sync, route, or wait.',
+      'SentientWeb uses approved rules to choose whether to engage, ask, book, sync, route, or wait.',
     ],
     toolStory: {
       scenario:
@@ -129,14 +129,14 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     eyebrow: 'Use case story / Messaging',
     title: 'Podium story: use messaging as the reminder channel after the meeting is real.',
     body: [
-      'Messaging tools are useful when there is a real business moment to protect. SentientWeb decides whether a message is needed after it understands intent, qualification state, and booking status.',
+      'Messaging tools are useful when there is a real business moment to protect. SentientWeb uses intent, qualification state, and booking status to choose whether a message is needed.',
       'The buyer moment defines the channel, not the other way around.',
     ],
     toolStory: {
       scenario:
         'A qualified prospect books a demo from a security page but tends to miss calendar invites because their team is moving fast.',
       decision:
-        'SentientWeb decides the meeting deserves reminder coverage because the buyer is qualified and the slot is valuable.',
+        'SentientWeb applies the reminder rule because the buyer is qualified and the slot is valuable.',
       toolAction:
         'A Podium-style messaging surface can send the approved reminder, meeting link, and reason they booked through the connected channel.',
       result:
@@ -156,7 +156,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
       scenario:
         'A visitor asks three implementation questions but is not ready to book because the technical buyer still needs a checklist.',
       decision:
-        'SentientWeb decides this is a nurture-and-return path, not a calendar path, because urgency and stakeholder readiness are incomplete.',
+        'SentientWeb routes this to a nurture-and-return path, not a calendar path, because urgency and stakeholder readiness are incomplete.',
       toolAction:
         'A HighLevel-style workflow can send the approved checklist, tag the use case, and schedule a later sales task if the buyer returns.',
       result:
@@ -169,14 +169,14 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     eyebrow: 'Use case story / Conversational marketing',
     title: 'Drift story: use the front-door surface when SentientWeb detects demo recovery intent.',
     body: [
-      'A conversational surface can be useful, but it should appear for the right buyer moment. SentientWeb decides when the visitor is showing demo recovery intent.',
+      'A conversational surface can be useful, but it should appear for the right buyer moment. SentientWeb uses approved rules to identify demo recovery intent.',
       'If a team already owns a broader engagement platform, SentientWeb can coordinate when that surface should be used.',
     ],
     toolStory: {
       scenario:
         'A comparison-page visitor scrolls through competitor objections, opens pricing in another tab, then hesitates before the demo CTA.',
       decision:
-        'SentientWeb decides this is not generic engagement; it is a recovery moment around plan fit and competitive risk.',
+        'SentientWeb treats this as a recovery moment around plan fit and competitive risk, not generic engagement.',
       toolAction:
         'A Drift-style surface can present the approved objection-handling path while SentientWeb controls the qualification and booking logic behind it.',
       result:
@@ -196,7 +196,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
       scenario:
         'A strategic-account visitor qualifies on company size, stack, urgency, and buying role, then asks to meet this week.',
       decision:
-        'SentientWeb decides the visitor belongs in sales motion and should not be sent to a generic calendar path.',
+        'SentientWeb confirms the visitor belongs in sales motion and should not be sent to a generic calendar path.',
       toolAction:
         'A Chili Piper-style router can assign the right rep, territory, or meeting type after SentientWeb has already qualified the buyer.',
       result:
@@ -216,7 +216,7 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
       scenario:
         'An enterprise visitor moves between customer stories, security, and pricing, then returns from a sales email link.',
       decision:
-        'SentientWeb decides the visitor is showing a high-intent return pattern and needs a qualification path tied to their use case.',
+        'SentientWeb identifies a high-intent return pattern and starts a qualification path tied to the visitor use case.',
       toolAction:
         'A Qualified-style platform can be used as the engagement surface while SentientWeb supplies the timing, qualification criteria, and handoff package.',
       result:
@@ -227,16 +227,16 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     id: 'manychat',
     label: 'ManyChat',
     eyebrow: 'Use case story / Messaging automation',
-    title: 'ManyChat story: run the message flow after SentientWeb decides the channel matters.',
+    title: 'ManyChat story: run the message flow after SentientWeb confirms the channel matters.',
     body: [
-      'Messaging automation can execute a flow, but it should not decide the whole revenue motion by itself. SentientWeb decides when messaging is the right next step.',
+      'Messaging automation can execute a flow, but it should not decide the whole revenue motion by itself. SentientWeb uses approved rules to choose when messaging is the right next step.',
       'The intelligence lives in the buyer-moment decision; the flow becomes the execution surface.',
     ],
     toolStory: {
       scenario:
         'A qualified visitor books a demo, then asks to receive the meeting details and prep link through a messaging channel their team already uses.',
       decision:
-        'SentientWeb decides messaging is appropriate because the meeting is booked, the visitor is qualified, and reminder context will increase attendance.',
+        'SentientWeb selects messaging because the meeting is booked, the visitor is qualified, and reminder context will increase attendance.',
       toolAction:
         'A ManyChat-style flow can send the approved confirmation, reminder, prep link, and meeting reason after SentientWeb triggers the path.',
       result:

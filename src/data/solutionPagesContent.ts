@@ -31,16 +31,16 @@ export const SOLUTION_PAGES = {
     navLabel: 'B2B SaaS',
     marketLabel: 'CRM-powered B2B SaaS teams',
     accentColor: '#6366f1',
-    metaTitle: 'Visitor-to-Demo Engine for B2B SaaS',
+    metaTitle: 'Demo Recovery for B2B SaaS',
     metaDescription:
       'Recover demo-ready visitors from pricing, demo, comparison, and integration pages. SentientWeb qualifies, books, and syncs the context into the sales workflow.',
-    plumberMetaphor: 'Digital plumbing for your demo pipeline.',
+    plumberMetaphor: 'Recover demo-ready visitors while intent is still active.',
     hero: {
-      eyebrow: 'Solutions / B2B SaaS',
-      title: 'Recover demo-ready visitors before they leave',
+      eyebrow: 'Use cases / Demo Recovery',
+      title: 'Recover demo-ready visitors before they disappear',
       subtitle:
-        'SentientWeb detects high-intent website visitors, guides the right page-specific conversation, qualifies the buyer, books the meeting, and syncs the context into the sales workflow.',
-      primaryCta: 'Book a 30-day pilot',
+        'SentientWeb gives high-intent SaaS visitors an instant AI demo preview, qualifies fit, opens the booking path, and syncs the full context into HubSpot.',
+      primaryCta: 'Book a demo recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -84,7 +84,7 @@ export const SOLUTION_PAGES = {
     },
     disclosure:
       'SentientWeb uses approved customer content for answers and routes sensitive or complex questions to humans.',
-    bottomCta: 'Book a 30-day pilot',
+    bottomCta: 'Book a demo recovery pilot',
   },
 
   'home-services': {
@@ -161,7 +161,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover insurance SaaS buyers who stall on risk and workflow fit',
       subtitle:
         'Carriers, MGAs, brokers, and commercial insurance teams inspect security, integration, underwriting, and implementation pages before booking. SentientWeb qualifies fit, answers from approved sources, and routes sensitive questions to humans.',
-      primaryCta: 'Book a 30-day pilot',
+      primaryCta: 'Book a demo recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -282,7 +282,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover healthcare SaaS buyers who stall on trust questions',
       subtitle:
         'Healthcare operators, clinic groups, and IT teams often inspect security, HIPAA, EHR, and integration pages before booking. SentientWeb answers from approved sources, qualifies fit, and routes sensitive questions to humans.',
-      primaryCta: 'Book a 30-day pilot',
+      primaryCta: 'Book a demo recovery pilot',
       secondaryCta: 'See How It Works',
     },
     proofStat: 'Healthcare SaaS buyers often leave when HIPAA, EHR, workflow, or procurement questions go unanswered.',
@@ -292,8 +292,8 @@ export const SOLUTION_PAGES = {
         body: 'Visitors get responses from approved security, privacy, and product content instead of improvised compliance claims.',
       },
       {
-        title: 'EHR and integration fit',
-        body: 'Integration-page visitors can confirm stack fit, implementation path, and the right questions for sales before they book.',
+        title: 'EHR and stack fit',
+        body: 'Stack-fit page visitors can confirm implementation path and the right questions for sales before they book.',
       },
       {
         title: 'Compliance-aware pilot scope',
@@ -321,7 +321,7 @@ export const SOLUTION_PAGES = {
     caseStudy: {
       eyebrow: 'Healthcare SaaS trust',
       title: 'Recover demo intent without overclaiming compliance.',
-      body: 'Healthcare SaaS pilots should start with public pages, approved non-PHI source content, and clear human escalation. Production use involving PHI should wait for the right BAA and security review.',
+      body: 'Healthcare SaaS pilots should start with approved website pages, approved non-PHI source content, and clear human escalation. Production use involving PHI should wait for the right BAA and security review.',
     },
     disclosure:
       'AI supports demo qualification and approved-source guidance; humans handle clinical, legal, PHI, and procurement-sensitive issues.',
@@ -342,7 +342,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover corporate training buyers before they leave',
       subtitle:
         'HR, enablement, and L&D leaders inspect integrations, customer stories, implementation pages, and pricing before booking. SentientWeb qualifies the account, answers from approved sources, and sends sales the buying context.',
-      primaryCta: 'Book a 30-day pilot',
+      primaryCta: 'Book a demo recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -353,7 +353,7 @@ export const SOLUTION_PAGES = {
         body: 'Match proof to company size, workforce type, rollout goal, and stakeholder concern while the buyer is still reading.',
       },
       {
-        title: 'Integration-fit answers',
+        title: 'Stack-fit answers',
         body: 'Answer LMS, HRIS, SSO, analytics, and implementation questions from approved product and docs content.',
       },
       {
@@ -583,7 +583,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover fintech buyers who stall on trust and integration questions',
       subtitle:
         'Fintech, payroll API, billing, RevRec, and compliance buyers inspect security, docs, integrations, and pricing before booking. SentientWeb qualifies fit, answers from approved sources, and routes sensitive questions to humans.',
-      primaryCta: 'Book a 30-day pilot',
+      primaryCta: 'Book a demo recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -644,7 +644,7 @@ export const SOLUTION_PAGES = {
       title: 'Recover logistics buyers who stall on workflow and integration fit',
       subtitle:
         'Fleet, dispatch, operations, and IT buyers inspect TMS, route optimization, hardware, and integration pages before booking. SentientWeb qualifies the account, answers from approved sources, and sends sales the route-ready context.',
-      primaryCta: 'Book a 30-day pilot',
+      primaryCta: 'Book a demo recovery pilot',
       secondaryCta: 'See the recovery flow',
     },
     proofStat:
@@ -695,7 +695,7 @@ export const SOLUTION_PAGES = {
 export type SolutionSlug = keyof typeof SOLUTION_PAGES
 
 export const SOLUTION_NAV_LIST = (
-  Object.keys(SOLUTION_PAGES) as SolutionSlug[]
+  ['saas'] as SolutionSlug[]
 ).map((slug) => ({
   slug,
   navLabel: SOLUTION_PAGES[slug].navLabel,

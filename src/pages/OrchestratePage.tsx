@@ -250,7 +250,7 @@ export default function OrchestratePage() {
               How SentientWeb coordinates each tool inside one buyer journey.
             </h2>
             <p className="font-mono mt-5 max-w-4xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              Each horizontal story shows the same position in practice: SentientWeb decides the
+              Each horizontal story shows the same position in practice: SentientWeb identifies the
               buyer moment first, then uses the right connected system as the execution surface.
             </p>
 

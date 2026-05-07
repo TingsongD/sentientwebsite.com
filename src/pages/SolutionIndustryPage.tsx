@@ -142,23 +142,22 @@ function SaasSolutionPage({
           <header className="border-b border-white/10 px-4 py-14 sm:px-6 sm:py-16 md:px-8 md:py-20 lg:px-10">
             <div className="mx-auto max-w-[1120px]">
               <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                SOLUTION
+                Demo Recovery for B2B SaaS
               </p>
               <h1 className="font-grotesk max-w-[920px] text-[34px] uppercase leading-[1.08] text-cream sm:text-[48px] md:text-[56px] lg:text-[64px]">
-                Recover demo-ready visitors before they leave.
+                Recover demo-ready visitors before they disappear.
               </h1>
               <p className="font-mono mt-6 max-w-[860px] border-l-2 border-neon/60 pl-4 text-[13px] uppercase leading-relaxed text-cream/72 sm:text-[14px] md:text-[15px]">
-                From the first high-intent page view to the moment the prospect joins the demo,
-                SentientWeb detects intent, answers the active hesitation, qualifies fit, books the
-                meeting, sends text and email reminders, and gives sales the context to start
-                prepared.
+                SentientWeb gives high-intent SaaS visitors an instant AI demo preview from
+                approved content, qualifies fit, opens the booking path, and syncs the full context
+                into HubSpot for sales review.
               </p>
               <p className="font-condiment mt-8 text-[26px] leading-tight text-neon sm:text-[34px]">
                 {page.plumberMetaphor}
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
                 <CtaLink accentBackgroundClass={accentBackgroundClass}>
-                  Book a 30-day pilot
+                  Book a demo recovery pilot
                 </CtaLink>
                 <CtaLink accentBackgroundClass={accentBackgroundClass} variant="secondary">
                   See the recovery flow
@@ -220,7 +219,7 @@ function SaasSolutionPage({
                 One visitor-to-demo path
               </p>
               <p className="font-mono max-w-2xl text-[13px] uppercase leading-relaxed text-neon sm:text-[14px]">
-                Detect, engage, qualify, book, sync, remind, meet.
+                Detect intent, qualify fit, book, sync, remind, meet.
               </p>
             </div>
           </section>
@@ -387,12 +386,12 @@ function SaasSolutionPage({
           >
             <div className="mx-auto flex max-w-[1120px] flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-mono max-w-xl text-[13px] uppercase leading-relaxed text-cream/80 sm:text-[14px]">
-                Book a 30-day pilot and measure the path from detected intent to qualified booked
-                demos with sales-accepted CRM context.
+                Book a demo recovery pilot and measure the path from detected intent to qualified
+                booked demos with sales-accepted CRM context.
               </p>
               <div className="flex flex-wrap gap-4">
                 <CtaLink accentBackgroundClass={accentBackgroundClass}>
-                  Book a 30-day pilot
+                  Book a demo recovery pilot
                 </CtaLink>
                 <Link
                   to={{ pathname: '/', hash: 'features' }}

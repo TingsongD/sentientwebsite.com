@@ -171,7 +171,7 @@ function PricingCard({
           {content.cta}
         </a>
         <p className="font-mono mt-3 text-center text-[11px] uppercase leading-relaxed text-cream/45">
-          Final pilot rules are confirmed before launch. Public proof rights are optional.
+          Final pilot rules are confirmed before launch. Published proof rights are optional.
         </p>
       </div>
     </article>
@@ -580,17 +580,18 @@ export default function PricingPage() {
         >
           <div className="mx-auto max-w-[980px] text-center">
             <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              SentientWeb / Qualified booked demos
+              First 10 customer pilot
             </p>
             <h1
               id="pricing-heading"
               className="font-grotesk text-[40px] uppercase leading-none text-cream sm:text-[56px] md:text-[72px]"
             >
-              Pricing built around qualified booked demos.
+              Start with a 30-day recovery pilot.
             </h1>
             <p className="font-mono mx-auto mt-6 max-w-[760px] text-[14px] uppercase leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
-              Start with a 30-day pilot. Measure the work by qualified booked demos and
-              CRM-visible context your sales team accepts.
+              Setup is waived for early B2B SaaS design partners. Pay around sales-accepted
+              qualified booked demos, then move monthly after the pilot proves HubSpot-visible
+              recovery.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {TRUST_PILLS.map((pill) => (
@@ -667,15 +668,15 @@ export default function PricingPage() {
                 {[
                   {
                     title: 'We set the pilot rules',
-                    body: 'Agree on ICP, high-intent pages, qualification questions, scheduler path, CRM fields, and proof criteria.',
+                    body: 'Agree on ICP, high-intent pages, qualification, scheduler, CRM fields, and proof criteria.',
                   },
                   {
                     title: 'We recover demo intent',
-                    body: 'SentientWeb detects demo-ready behavior, handles the page-specific hesitation, and opens the booking path after qualification.',
+                    body: 'SentientWeb handles page-specific hesitation and opens the booking path after qualification.',
                   },
                   {
                     title: 'You measure booked demos',
-                    body: 'Reporting centers on demo-ready visitors, qualified visitors, booked demos, sales acceptance, and CRM-visible context.',
+                    body: 'Reporting centers on qualified booked demos, sales acceptance, and CRM-visible context.',
                   },
                 ].map((step, index) => (
                   <li key={step.title} className="liquid-glass rounded-[22px] p-6 sm:p-7">
@@ -705,7 +706,7 @@ export default function PricingPage() {
             <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                  Tier comparison
+                  After pilot proof
                 </p>
                 <h2
                   id="tier-table-heading"
@@ -736,44 +737,44 @@ export default function PricingPage() {
                     a: QUALIFIED_BOOKED_DEMO_DEFINITION,
                   },
                   {
-                    q: 'Do you charge for message volume?',
-                    a: 'No. The pilot should be measured around qualified booked demos and CRM-visible context, not message count.',
+                    q: 'Is the pilot priced by message volume?',
+                    a: 'No. Measure qualified booked demos and CRM-visible context, not message count.',
                   },
                   {
                     q: 'What happens if traffic is too low?',
-                    a: 'We will say so during setup. If pricing, demo, comparison, security, or integration pages do not have enough intent yet, the right next step may be fixing traffic, offer clarity, or sales infrastructure before buying SentientWeb.',
+                    a: 'We will call that out during setup. If high-intent pages do not have enough traffic yet, fix traffic, offer clarity, or sales infrastructure first.',
                   },
                   {
                     q: 'Do we need HubSpot?',
-                    a: 'No. HubSpot is the fastest launch path, and HubSpot Free, Starter, Professional, and Enterprise can work after a field check. Salesforce, Pipedrive, API, webhook, and lightweight handoff requirements are reviewed before the pilot starts. If context cannot reach the system sales uses, we should not launch.',
+                    a: 'No. HubSpot is the fastest path. Salesforce, Pipedrive, API, webhook, and lightweight handoffs are reviewed before launch.',
                   },
                   {
                     q: 'Can this work with Calendly or routing tools?',
-                    a: 'Yes. Calendly is the simplest booking path, and Chili Piper or another router can be the route when your sales motion needs territory, account ownership, or meeting-type logic. Setup defines the routing rule before SentientWeb opens the scheduler.',
+                    a: 'Yes. Calendly is simplest. Chili Piper or another router works when territory, ownership, or meeting-type logic matters.',
                   },
                   {
                     q: 'Does this replace Chili Piper, Drift, or Qualified?',
-                    a: 'It replaces generic pricing-page popups, static demo forms, and manual chasing of buyers who already showed demo intent. It usually orchestrates routing tools such as Chili Piper and can coexist with broader platforms such as Drift or Qualified until you decide what to sunset.',
+                    a: 'It replaces generic pricing-page popups, static demo forms, and manual chasing of demo-ready visitors. It can still use tools such as Chili Piper, Drift, or Qualified.',
                   },
                   {
                     q: 'Are case-study rights required?',
-                    a: 'No. Public proof rights are optional. Some customers may trade public proof rights for a discount, but the pilot can be evaluated without publishing your brand or conversion data.',
+                    a: 'No. Published proof rights are optional. The pilot can be evaluated without publishing your brand or conversion data.',
                   },
                   {
                     q: 'How do you prove incrementality?',
-                    a: 'The pilot proof packet includes baseline pages, detected intent, qualification answers, booked demos, sales acceptance, CRM records, and the pipeline assumptions used. If you need a holdout or page-by-page test, define it before launch.',
+                    a: 'The proof packet includes baseline pages, detected intent, qualification answers, booked demos, sales acceptance, CRM records, and pipeline assumptions.',
                   },
                   {
                     q: 'How are AI answer quality and security handled?',
-                    a: 'Answers are grounded in approved source content. Security, legal, pricing, and high-risk questions can be routed to a human, and the Trust page explains provider and compliance posture before procurement review.',
+                    a: 'Answers are grounded in approved source content. Sensitive security, legal, pricing, and high-risk questions route to a human.',
                   },
                   {
                     q: 'What does the annual tier include?',
-                    a: 'Annual is not the starting offer. After the pilot proves economics, annual pricing locks either Starter or Growth volume for the year, applies any agreed pilot credit, and can include an optional public-proof-rights discount if your team wants that trade.',
+                    a: 'Annual is not the starting offer. After pilot proof, annual pricing can lock Starter or Growth volume and apply any agreed pilot credit.',
                   },
                   {
                     q: 'What if procurement needs SOC 2 or a BAA?',
-                    a: 'SentientWeb is not currently SOC 2 certified and BAA support must be reviewed before any healthcare deployment involving PHI. Regulated pilots can be scoped around public pages, approved non-sensitive content, human handoff, and a security review gate until the required documents are in place.',
+                    a: 'SentientWeb is not currently SOC 2 certified. Regulated pilots should use approved website pages, approved non-sensitive content, human handoff, and a security review gate.',
                   },
                   {
                     q: 'Do you identify anonymous people?',
@@ -808,8 +809,7 @@ export default function PricingPage() {
                 Start with one measurable recovery loop.
               </h2>
               <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-                The 30-day pilot proves whether SentientWeb can turn existing high-intent website
-                traffic into qualified booked demos with sales-accepted CRM context attached.
+                The 30-day pilot proves qualified booked demos with sales-accepted CRM context.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a
@@ -819,7 +819,7 @@ export default function PricingPage() {
                   className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                   onClick={() => onCtaClick()}
                 >
-                  Book a 30-day pilot
+                  Book a demo recovery pilot
                 </a>
                 <a
                   href={BOOK_DEMO_URL}

@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { Link, type To } from 'react-router-dom'
 import { GITHUB_REPO_URL } from '../constants'
 import { FUNNEL_FEATURE_GROUPS, funnelFeatureId, funnelGroupId } from '../data/homeFeatures'
-import { SOLUTION_NAV_LIST } from '../data/solutionPagesContent'
 import { openPrivacyPreferences } from '../privacyPreferences'
 import { SocialIconStack } from './SocialIconStack'
 
@@ -26,6 +25,13 @@ const FOOTER_COMPANY: { label: string; to: To }[] = [
   { label: 'Careers', to: '/careers' },
   { label: 'Trust & security', to: '/trust' },
   { label: 'Legal notice', to: '/legal' },
+]
+
+const FOOTER_USE_CASES: { label: string; to: To }[] = [
+  { label: 'Demo Recovery', to: { pathname: '/', hash: 'demo-recovery' } },
+  { label: 'Failed Payment Recovery', to: { pathname: '/', hash: 'failed-payment-recovery' } },
+  { label: 'No-Show Recovery', to: { pathname: '/', hash: 'no-show-recovery' } },
+  { label: 'Buyer Insights', to: { pathname: '/', hash: 'buyer-insights' } },
 ]
 
 type FooterDevItem =
@@ -79,11 +85,11 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
             </li>
           ))}
         </LinkColumn>
-        <LinkColumn title="Solutions">
-          {SOLUTION_NAV_LIST.map(({ slug, navLabel }) => (
-            <li key={slug}>
-              <Link to={`/solutions/${slug}`} className="transition hover:text-neon">
-                {navLabel}
+        <LinkColumn title="Use cases">
+          {FOOTER_USE_CASES.map((item) => (
+            <li key={item.label}>
+              <Link to={item.to} className="transition hover:text-neon">
+                {item.label}
               </Link>
             </li>
           ))}
@@ -125,7 +131,7 @@ export function SiteFooter({ anchorId }: { anchorId?: string }) {
             SentientWeb
           </Link>
           <p className="font-mono max-w-[280px] text-[11px] uppercase leading-relaxed text-cream/50">
-            Demo recovery for CRM-powered B2B SaaS teams.
+            Revenue recovery for moments where intent already exists.
           </p>
           <SocialIconStack />
         </div>

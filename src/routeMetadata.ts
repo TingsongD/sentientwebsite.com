@@ -41,7 +41,7 @@ const HOME_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'What does SentientWeb do?',
     answer:
-      'SentientWeb recovers demo-ready B2B SaaS visitors from pricing, demo, comparison, integration, security, docs, and customer-story pages, qualifies fit, opens the agreed booking path, and sends sales the context.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies fit, opens the booking path, and sends sales the context.',
   },
   {
     question: 'What does SentientWeb replace?',
@@ -87,7 +87,7 @@ const TRUST_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How should regulated teams scope a SentientWeb pilot?',
     answer:
-      'Regulated pilots can be scoped around public pages, approved non-sensitive content, human handoff, and a security review gate until required documents or legal paths are in place.',
+      'Regulated pilots can be scoped around approved website pages, approved non-sensitive content, human handoff, and a security review gate until required documents or legal paths are in place.',
   },
 ]
 
@@ -175,7 +175,7 @@ const STATIC_META = {
     canonicalPath: '/about',
   },
   '/revenue-leak-calculator': {
-    title: 'Demo Recovery Calculator',
+    title: 'Recovery ROI Calculator',
     description:
       'Estimate recovered demos, qualified booked demos, pipeline influenced, and modeled ROI for B2B SaaS demo recovery.',
     canonicalPath: '/revenue-leak-calculator',
@@ -296,7 +296,7 @@ export function getPageMeta(pathname: string): PageMetaData {
   if (hasOwn(INTEGRATION_PAGES, integrationSlug)) {
     const page = INTEGRATION_PAGES[integrationSlug]
     return {
-      title: `${page.navLabel} Integration`,
+      title: `${page.navLabel} Stack Orchestration`,
       description: page.deck,
       canonicalPath: path,
     }
@@ -348,7 +348,7 @@ function organizationSchema(): StructuredData {
     url: SITE_URL,
     logo: DEFAULT_OG_IMAGE_URL,
     description:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into the sales workflow.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, books qualified meetings, and syncs sales context.',
     foundingDate: '2026',
     sameAs: [GITHUB_REPO_URL],
     knowsAbout: [
@@ -370,7 +370,7 @@ function websiteSchema(): StructuredData {
     url: SITE_URL,
     name: SITE_NAME,
     description:
-      'SentientWeb recovers demo-ready B2B SaaS visitors, qualifies them, books meetings, and syncs context into the sales workflow.',
+      'SentientWeb recovers demo-ready B2B SaaS visitors, books qualified meetings, and syncs sales context.',
     publisher: { '@id': ORGANIZATION_ID },
     inLanguage: 'en-US',
   }
@@ -384,7 +384,7 @@ function softwareApplicationSchema(): StructuredData {
     applicationCategory: 'BusinessApplication',
     operatingSystem: 'Web',
     description:
-      'Visitor-to-demo engine for B2B SaaS teams that detects demo intent, qualifies buyers, opens the booking path, and syncs CRM-ready context.',
+      'Demo recovery for B2B SaaS teams that detects demo intent, qualifies buyers, opens the booking path, and syncs CRM-ready context.',
     featureList: [
       'High-intent page detection',
       'Approved-source objection handling',
@@ -398,7 +398,7 @@ function softwareApplicationSchema(): StructuredData {
     },
     offers: {
       '@type': 'Offer',
-      description: 'Book a 30-day pilot.',
+      description: 'Book a demo recovery pilot.',
       url: getCanonicalUrl('/pricing'),
     },
   }

@@ -43,9 +43,8 @@ export default function AboutPage() {
           </p>
 
           <p>
-            We are digital plumbers for your revenue leaks, but the first leak we fix is demo
-            intent. If your site already attracts demand, our job is to help more of that demand
-            reach a qualified booked meeting.
+            If your site already attracts demand, our job is to help more of that demand reach a
+            qualified booked meeting with the right context attached.
           </p>
         </div>
 
@@ -56,7 +55,7 @@ export default function AboutPage() {
             rel="noopener noreferrer"
             className="rounded-full bg-neon px-6 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
           >
-            Book a 30-day pilot
+            Book a demo recovery pilot
           </a>
           <Link
             to="/pricing"

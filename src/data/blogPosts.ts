@@ -27,7 +27,7 @@ export const BLOG_POSTS = {
     date: '2026-05-04',
     eyebrow: 'Positioning',
     excerpt:
-      'SentientWeb is focusing on one measurable B2B SaaS problem: recovering demo-ready visitors from high-intent pages before they leave.',
+      'SentientWeb is focusing on one measurable B2B SaaS problem: recovering demo-ready visitors from high-intent pages before they disappear.',
     body: [
       'Broad revenue recovery created too many promises. Demo-ready visitor recovery gives us a sharper buyer, moment, surface, outcome, and proof metric.',
       'The first wedge is B2B SaaS teams with enough CRM and scheduler infrastructure to prove the handoff. We focus on pricing, demo, comparison, integration, security, and customer story pages because those pages reveal buying intent before a form submission does.',

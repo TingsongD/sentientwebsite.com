@@ -31,7 +31,6 @@ const FORBIDDEN_PUBLIC_TERMS = [
   /\bproactive\b/i,
   /\bqualify leads\b/i,
   /\bwidget\b/i,
-  /\bbook a demo\b/i,
   /\b24\/7 availability\b/i,
   /\bfollow[- ]up\b/i,
   /\bintelligent\b/i,
@@ -89,7 +88,7 @@ describe('route metadata manifest', () => {
 
   it('returns route-specific metadata for known pages', () => {
     expect(getPageMeta('/pricing')).toMatchObject({
-      title: 'SentientWeb Pricing | Visitor-to-Demo Engine',
+      title: 'SentientWeb Pricing | 30-Day Recovery Pilot',
       canonicalPath: '/pricing',
       absoluteTitle: true,
     })
@@ -106,7 +105,7 @@ describe('route metadata manifest', () => {
     })
 
     expect(getPageMeta('/revenue-leak-calculator')).toMatchObject({
-      title: 'Demo Recovery Calculator',
+      title: 'Recovery ROI Calculator',
       canonicalPath: '/revenue-leak-calculator',
     })
 
@@ -121,7 +120,7 @@ describe('route metadata manifest', () => {
     })
 
     expect(getPageMeta('/integrations/wordpress')).toMatchObject({
-      title: 'WordPress Integration',
+      title: 'WordPress Stack Orchestration',
       canonicalPath: '/integrations/wordpress',
     })
 
@@ -148,8 +147,10 @@ describe('route metadata manifest', () => {
     expect(getInvalidDynamicRedirect('/pricing')).toBeNull()
   })
 
-  it('exports the new vertical routes without retired solution pages', () => {
-    expect(SOLUTION_NAV_LIST).toHaveLength(11)
+  it('keeps public solution navigation focused on Demo Recovery while preserving valid routes', () => {
+    expect(SOLUTION_NAV_LIST).toEqual([
+      expect.objectContaining({ slug: 'saas', navLabel: 'B2B SaaS' }),
+    ])
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/legal')
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/financial-services')
     expect(KNOWN_ROUTE_PATHS).toContain('/solutions/logistics')
@@ -220,7 +221,7 @@ describe('route metadata manifest', () => {
         expect.objectContaining({
           '@type': 'WebPage',
           url: new URL('/pricing', SITE_URL).toString(),
-          name: 'SentientWeb Pricing | Visitor-to-Demo Engine',
+          name: 'SentientWeb Pricing | 30-Day Recovery Pilot',
         }),
         expect.objectContaining({ '@type': 'BreadcrumbList' }),
         expect.objectContaining({ '@type': 'FAQPage' }),

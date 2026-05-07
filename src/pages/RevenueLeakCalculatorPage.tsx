@@ -322,7 +322,7 @@ export default function RevenueLeakCalculatorPage() {
         >
           <div className="mx-auto max-w-[1040px] text-center">
             <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Demo ROI / B2B SaaS demo recovery
+              Recovery ROI / B2B SaaS demo recovery
             </p>
             <h1
               id="roi-heading"
@@ -523,7 +523,7 @@ export default function RevenueLeakCalculatorPage() {
                 className="rounded-full bg-neon px-8 py-4 font-grotesk text-[13px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[14px]"
                 onClick={onCtaClick}
               >
-                Book a 30-day pilot
+                Book a demo recovery pilot
               </a>
               <Link
                 to="/pricing"

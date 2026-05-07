@@ -12,8 +12,8 @@ export const INTEGRATION_PAGES = {
   hubspot: {
     slug: 'hubspot',
     navLabel: 'HubSpot',
-    eyebrow: 'Integrations / HubSpot',
-    title: 'Sync every recovered demo with the context sales needs.',
+    eyebrow: 'Existing stack / HubSpot',
+    title: 'Use HubSpot as the system of record for recovered demos.',
     deck:
       'SentientWeb sends contacts, companies, conversation summaries, page context, qualification answers, and booked-meeting details into HubSpot.',
     body: [
@@ -30,8 +30,8 @@ export const INTEGRATION_PAGES = {
   salesforce: {
     slug: 'salesforce',
     navLabel: 'Salesforce',
-    eyebrow: 'Integrations / Salesforce',
-    title: 'Confirm Salesforce fit before the pilot starts.',
+    eyebrow: 'Existing stack / Salesforce',
+    title: 'Orchestrate Salesforce only after the handoff is clear.',
     deck:
       'SentientWeb treats Salesforce fit as a launch gate for Salesforce-led teams, not an afterthought discovered after a pilot call.',
     body: [
@@ -47,8 +47,8 @@ export const INTEGRATION_PAGES = {
   pipedrive: {
     slug: 'pipedrive',
     navLabel: 'Pipedrive',
-    eyebrow: 'Integrations / Pipedrive',
-    title: 'Pipedrive teams should not have to migrate CRM to test demo recovery.',
+    eyebrow: 'Existing stack / Pipedrive',
+    title: 'Use Pipedrive without forcing a CRM migration.',
     deck:
       'SentientWeb scopes Pipedrive or webhook handoff during the pilot fit check so smaller SaaS teams do not create manual sales work.',
     body: [
@@ -64,8 +64,8 @@ export const INTEGRATION_PAGES = {
   'api-webhooks': {
     slug: 'api-webhooks',
     navLabel: 'API & Webhooks',
-    eyebrow: 'Integrations / API and webhooks',
-    title: 'Custom CRM, no CRM, or early sales stack: define the handoff first.',
+    eyebrow: 'Existing stack / API and webhooks',
+    title: 'Define the handoff before adding another tool.',
     deck:
       'SentientWeb can scope a webhook or lightweight handoff path before launch so founder-led teams know whether the prerequisites are in place.',
     body: [
@@ -75,14 +75,14 @@ export const INTEGRATION_PAGES = {
     bullets: [
       'Clarify minimum traffic and scheduler prerequisites before launch.',
       'Scope webhook payloads around use case, role, stack, page path, and booking status.',
-      'Tell lean teams when they should fix prerequisites before buying SentientWeb.',
+      'Show lean teams which prerequisites to fix before launching a pilot.',
     ],
   },
   calendly: {
     slug: 'calendly',
     navLabel: 'Calendly',
-    eyebrow: 'Integrations / Calendly',
-    title: 'Open the calendar only after the visitor is qualified.',
+    eyebrow: 'Existing stack / Calendly',
+    title: 'Use your scheduler after the visitor is qualified.',
     deck:
       'SentientWeb qualifies demo-ready visitors first, then routes them to the agreed Calendly, Chili Piper, or scheduler path.',
     body: [
@@ -98,7 +98,7 @@ export const INTEGRATION_PAGES = {
   wordpress: {
     slug: 'wordpress',
     navLabel: 'WordPress',
-    eyebrow: 'Integrations / WordPress',
+    eyebrow: 'Existing stack / WordPress',
     title: 'Run demo recovery on WordPress without rebuilding your site.',
     deck:
       'Add the install script to pricing, demo, comparison, and integration pages so SentientWeb can recover demo-ready intent on the URLs you already rank for.',
@@ -115,8 +115,8 @@ export const INTEGRATION_PAGES = {
   webflow: {
     slug: 'webflow',
     navLabel: 'Webflow',
-    eyebrow: 'Integrations / Webflow',
-    title: 'Ship SentientWeb on Webflow sites in minutes.',
+    eyebrow: 'Existing stack / Webflow',
+    title: 'Add demo recovery to Webflow without changing the site.',
     deck:
       'Paste the embed in Project Settings custom code, or add it to specific high-intent demo recovery pages without a rebuild.',
     body: [
@@ -132,10 +132,10 @@ export const INTEGRATION_PAGES = {
   shopify: {
     slug: 'shopify',
     navLabel: 'Shopify',
-    eyebrow: 'Integrations / Shopify',
-    title: 'Shopify recovery is a later expansion path.',
+    eyebrow: 'Existing stack / Shopify',
+    title: 'Use Shopify pages as demo recovery surfaces.',
     deck:
-      'The current public wedge is B2B SaaS demo recovery. Shopify remains reachable for review while commerce recovery is evaluated separately.',
+      'The current focus is B2B SaaS demo recovery. Shopify remains reachable for review while commerce recovery is evaluated separately.',
     body: [
       'Commerce recovery requires different proof, pricing, and implementation details than HubSpot and Calendly demo recovery. SentientWeb is not positioning Shopify as the first wedge on the marketing site.',
       'If a B2B catalog uses Shopify as a content surface for sales-led requests, the same high-intent recovery logic can be reviewed as a custom implementation.',
@@ -143,19 +143,19 @@ export const INTEGRATION_PAGES = {
     bullets: [
       'Commerce-specific recovery remains separate from the B2B SaaS pilot offer.',
       'Custom review is required before claims about carts, checkout, or product matching.',
-      'CRM-visible demo context remains the primary public integration story.',
+      'CRM-visible demo context remains the primary stack story.',
     ],
   },
   wix: {
     slug: 'wix',
     navLabel: 'Wix',
-    eyebrow: 'Integrations / Wix',
+    eyebrow: 'Existing stack / Wix',
     title: 'Add SentientWeb to Wix sites via custom embed.',
     deck:
       'Use Wix custom code or Velo for SaaS marketing pages where the goal is qualified demo recovery.',
     body: [
       'Marketing teams on Wix can still recover demo-ready visitors from high-intent pages. SentientWeb captures visitor intent, routes next steps, and uses approved content instead of improvising policy.',
-      'Place the script site-wide for parity with other platforms, or limit it to key pages such as pricing, demo, integrations, and contact.',
+      'Place the script site-wide for parity with other platforms, or limit it to key pages such as pricing, demo, stack-fit, and contact.',
     ],
     bullets: [
       'Custom code in Tracking & Analytics or page-level embeds.',
@@ -166,8 +166,8 @@ export const INTEGRATION_PAGES = {
   custom: {
     slug: 'custom',
     navLabel: 'Custom',
-    eyebrow: 'Integrations / Custom stack',
-    title: 'Any stack: Next.js, Rails, static HTML, or internal portals.',
+    eyebrow: 'Existing stack / Custom',
+    title: 'Any stack can become a recovery surface.',
     deck:
       'If it serves HTML or SPA shells, you can install SentientWeb on high-intent pages with one origin, one install key, and deterministic rules.',
     body: [

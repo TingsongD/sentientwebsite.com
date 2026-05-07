@@ -13,7 +13,7 @@ export type FunnelFeatureGroup = {
 export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
   {
     stage: 'Top of the funnel',
-    summary: 'Detect and recover buying intent before a visitor becomes another anonymous bounce.',
+    summary: 'Recover buying intent before it becomes another anonymous exit.',
     features: [
       {
         title: 'High-intent page detection',
@@ -21,7 +21,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
       },
       {
         title: 'Recovery Preview',
-        body: 'Lets prospects request a SentientWeb recovery map from a public pricing or website URL.',
+        body: 'Lets prospects request a recovery preview from a pricing or website URL.',
       },
       {
         title: 'Page recovery surfaces',
@@ -29,13 +29,13 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
       },
       {
         title: 'B2B SaaS-only scope',
-        body: 'Keeps the public offer focused on demo recovery for SaaS pricing, comparison, integration, security, docs, and customer-story pages.',
+        body: 'Keeps the offer focused on demo recovery for SaaS pricing, comparison, integration, security, docs, and customer-story pages.',
       },
     ],
   },
   {
     stage: 'Mid-funnel',
-    summary: 'Turn active hesitation into a guided buying path that confirms whether the visitor is worth sales time.',
+    summary: 'Turn active hesitation into a qualified booking path.',
     features: [
       {
         title: 'Page-specific AI engagement',
@@ -54,26 +54,26 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
         body: 'Routes complex, sensitive, or high-value sessions to a person with the full context preserved.',
       },
       {
-        title: 'Integration context',
-        body: 'Keeps HubSpot, Salesforce, Pipedrive, Chili Piper, Calendly, WordPress, Webflow, and custom install paths visible in the buying journey.',
+        title: 'Stack context',
+        body: 'Keeps CRM, scheduler, and install context visible in the buying journey.',
       },
     ],
   },
   {
     stage: 'Bottom of the funnel',
-    summary: 'Convert qualified website intent into a booked meeting sales can actually prepare for.',
+    summary: 'Turn qualified intent into a meeting sales can prepare for.',
     features: [
       {
         title: 'Calendly demo booking',
-        body: 'Opens the agreed Calendly, Chili Piper, or routed booking path only after the visitor has shared enough context to qualify the meeting.',
+        body: 'Opens the agreed scheduler after the visitor shares enough context to qualify.',
       },
       {
         title: 'CRM context sync',
-        body: 'Sends page behavior, qualification answers, summary, booking details, and a suggested opener into the agreed sales workflow.',
+        body: 'Sends page behavior, qualification, summary, booking details, and opener into sales.',
       },
       {
         title: 'Text and email reminders',
-        body: 'Sends reminders before the meeting so the prospect has the link, timing, and reason they booked.',
+        body: 'Sends reminders with the link, timing, and reason they booked.',
       },
       {
         title: 'Recovered demo reporting',

@@ -47,7 +47,7 @@ const FEATURE_META: Record<string, CinematicMeta> = {
   },
   'Page recovery surfaces': {
     chip: 'Surface matched',
-    signals: ['Comparison', 'Integration', 'Customer story'],
+    signals: ['Comparison', 'Stack fit', 'Customer story'],
     word: 'Surface',
   },
   'B2B SaaS-only scope': {
@@ -75,7 +75,7 @@ const FEATURE_META: Record<string, CinematicMeta> = {
     signals: ['High value', 'Sensitive', 'Full context'],
     word: 'Handoff',
   },
-  'Integration context': {
+  'Stack context': {
     chip: 'Stack connected',
     signals: ['CRM', 'Scheduler', 'Install path'],
     word: 'Context',
