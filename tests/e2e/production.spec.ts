@@ -2107,6 +2107,7 @@ test('reduced motion omits ambient video sources', async ({ page }) => {
 
   const videos = page.locator('video[data-ambient-video]')
   await expect(videos).toHaveCount(0)
+  await expect(page.locator('video[data-hero-background-video]')).toHaveCount(0)
   expect(hydrationErrors).toEqual([])
 })
 
@@ -2132,6 +2133,9 @@ test('homepage visual assets use approved sources before consent', async ({ page
   await expect(
     page.getByRole('heading', { name: 'Recover demo-ready visitors before they leave.' }),
   ).toBeVisible()
+  await expect(
+    page.locator('section[aria-labelledby="hero-heading"] video[data-hero-background-video]'),
+  ).toHaveAttribute('src', roiCtaVideoUrl)
 
   const html = await (await request.get('/')).text()
   expect(html).not.toContain('cdn.worldvectorlogo.com')

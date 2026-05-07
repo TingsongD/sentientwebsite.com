@@ -11,6 +11,8 @@ const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
 const BLACKHOLE_LEAK_VIDEO_URL =
   'https://cdn.shopify.com/videos/c/o/v/521a58b4518548b7ba7e3c5ac8c76075.mp4'
+const HERO_BACKGROUND_VIDEO_URL =
+  'https://cdn.shopify.com/videos/c/o/v/9fe664570f2b4284a76f522f11fcf58a.mp4'
 
 function withPreviewUrl(url: string, previewUrl: string) {
   const trimmed = previewUrl.trim()
@@ -267,6 +269,59 @@ function AmbientVideo({
   )
 }
 
+function HeroBackgroundVideo({ reducedMotion }: { reducedMotion: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [clientReady, setClientReady] = useState(false)
+  const [canPlay, setCanPlay] = useState(false)
+  const [hasError, setHasError] = useState(false)
+  const shouldRenderVideo = clientReady && !reducedMotion && !hasError
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- keep video URLs out of SSR/hydration markup
+    setClientReady(true)
+  }, [])
+
+  useEffect(() => {
+    if (!shouldRenderVideo) return
+    const video = videoRef.current
+    if (!video) return
+
+    let cancelled = false
+    void video.play().catch(() => {
+      if (!cancelled) setHasError(true)
+    })
+
+    return () => {
+      cancelled = true
+      video.pause()
+    }
+  }, [shouldRenderVideo])
+
+  return (
+    <div className="absolute inset-0 h-full w-full" aria-hidden>
+      <div className="ambient-video-fallback absolute inset-0 h-full w-full" />
+      {shouldRenderVideo ? (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+            canPlay ? 'opacity-70' : 'opacity-0'
+          }`}
+          src={HERO_BACKGROUND_VIDEO_URL}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          data-hero-background-video
+          onCanPlay={() => setCanPlay(true)}
+          onError={() => setHasError(true)}
+        />
+      ) : null}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_28%_42%,rgba(0,0,0,0.08),rgba(1,3,13,0.62)_58%,rgba(1,3,13,0.9)_100%)]" />
+    </div>
+  )
+}
+
 function IntegrationLogoItem({
   name,
   logoUrl,
@@ -426,7 +481,7 @@ export default function HomePage() {
           className="relative min-h-screen overflow-hidden rounded-b-[32px] bg-background"
           aria-labelledby="hero-heading"
         >
-          <div className="ambient-video-fallback absolute inset-0 h-full w-full" aria-hidden />
+          <HeroBackgroundVideo reducedMotion={prefersReducedMotion} />
 
           <div className="relative z-10 flex min-h-screen flex-col">
             <MarketingHeader layout="hero" />
