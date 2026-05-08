@@ -812,74 +812,127 @@ export default function HomePage() {
         {/* Recovery preview */}
         <section
           id="instant-demo-preview"
-          className="section-light-editorial scroll-mt-28 py-16 sm:py-20"
+          className="recovery-preview-spotlight section-light-editorial scroll-mt-28 py-16 sm:py-20"
           aria-labelledby="instant-demo-preview-heading"
         >
-          <div className="mx-auto flex max-w-[1831px] flex-col gap-8 px-4 sm:px-6 md:px-8 lg:px-10">
-            <div className="max-w-[980px]">
-              <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
-                Recovery Preview
-              </p>
-              <h2
-                id="instant-demo-preview-heading"
-                className="section-heading font-grotesk text-[30px] uppercase leading-tight sm:text-[42px] md:text-[52px]"
-              >
-                Find the demo-intent leak on your own site.
-              </h2>
-              <p className="section-copy mt-5 max-w-2xl font-sans text-[14px] normal-case leading-relaxed sm:text-[15px]">
-                Submit a pricing, demo, checkout, billing, account, or comparison page. Get a
-                recovery preview that shows where ready customers and buyers go quiet.
-              </p>
-            </div>
-
+          <div className="recovery-preview-shell mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
             <div
-              id="recovery-preview-panel"
-              className="ai-rainbow-panel w-full scroll-mt-28 rounded-[18px] p-6 sm:p-8"
+              className="recovery-preview-cta"
+              aria-labelledby="instant-demo-preview-heading"
             >
-              <label className="block" htmlFor="preview-url">
-                <span className="font-grotesk mb-2 block text-[12px] uppercase tracking-wide text-[#10213c]/80">
-                  Company website or pricing page URL
-                </span>
-                <input
-                  id="preview-url"
-                  type="url"
-                  inputMode="url"
-                  placeholder="https://yourcompany.com/pricing"
-                  value={previewUrl}
-                  onChange={(event) => setPreviewUrl(event.target.value)}
-                  aria-describedby="preview-url-help"
-                  className="min-h-12 w-full rounded-[14px] border border-[#10213c]/15 bg-white/80 px-4 py-3 font-mono text-[13px] normal-case text-[#10213c] outline-none transition placeholder:text-[#10213c]/35 focus:border-[#0b6a31]"
-                />
-              </label>
-              <div className="mt-5 flex flex-wrap items-center gap-4">
-                <a
-                  href={previewBookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={previewUrl.trim() ? `Request a preview for ${previewUrl.trim()}` : 'Request a preview'}
-                  className="rounded-full bg-[#0b6a31] px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-[#fffdf8] transition hover:brightness-110 sm:text-[13px]"
-                >
-                  Request recovery preview
-                </a>
-                <p
-                  id="preview-url-help"
-                  className="editorial-soft font-mono max-w-[360px] text-[11px] uppercase leading-relaxed"
-                >
-                  Add the URL so the recovery preview carries the right page context.
+              <div className="recovery-preview-headline-grid">
+                <div>
+                  <p className="recovery-preview-kicker section-kicker font-mono">
+                    Recovery Preview
+                  </p>
+                  <h2 id="instant-demo-preview-heading" className="recovery-preview-heading">
+                    Find the demo-intent leak on your own site.
+                  </h2>
+                  <span className="recovery-preview-script" aria-hidden="true">
+                    Scan your URL
+                  </span>
+                </div>
+                <p className="recovery-preview-deck">
+                  Paste a pricing, demo, checkout, billing, account, or comparison page.
+                  SentientWeb maps where ready customers and buyers go quiet before they book.
                 </p>
               </div>
-              <div className="editorial-rule mt-6 border-t pt-5">
-                <h3 className="font-grotesk text-[15px] uppercase tracking-wide text-[#10213c]">
-                  Claim your recovery preview.
-                </h3>
-                <p className="editorial-muted font-mono mt-2 text-[12px] normal-case leading-relaxed">
-                  Use a business email to receive the preview and review CRM, scheduler, and
-                  security setup.
-                </p>
-                <p className="editorial-soft font-mono mt-4 text-[11px] uppercase leading-relaxed">
-                  SentientWeb analyzes approved website pages for the preview. Gated pages,
-                  internal hosts, and large crawls are blocked by backend controls.
-                </p>
+
+              <div
+                id="recovery-preview-panel"
+                className="recovery-preview-cockpit scroll-mt-28"
+              >
+                <div className="recovery-preview-cockpit-content">
+                  <div className="recovery-preview-cockpit-top">
+                    <span className="recovery-preview-console-label">
+                      URL scanner console + sample output
+                    </span>
+                    <span className="recovery-preview-scanner-pulse">Ready to analyze</span>
+                  </div>
+
+                  <div className="recovery-preview-primary-row">
+                    <label className="recovery-preview-url-field" htmlFor="preview-url">
+                      <span className="recovery-preview-field-label">
+                        Company website or pricing page URL
+                      </span>
+                      <input
+                        id="preview-url"
+                        type="url"
+                        inputMode="url"
+                        placeholder="https://yourcompany.com/pricing"
+                        value={previewUrl}
+                        onChange={(event) => setPreviewUrl(event.target.value)}
+                        aria-describedby="preview-url-help"
+                        className="recovery-preview-url-input"
+                      />
+                    </label>
+                    <a
+                      href={previewBookingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={previewUrl.trim() ? `Scan my page for ${previewUrl.trim()}` : 'Scan my page'}
+                      className="recovery-preview-scan-button"
+                    >
+                      Scan my page
+                    </a>
+                  </div>
+
+                  <div className="recovery-preview-chips" aria-label="Supported page types">
+                    <span>Pricing pages</span>
+                    <span>Demo pages</span>
+                    <span>Comparison pages</span>
+                    <span>Billing pages</span>
+                    <span>Checkout pages</span>
+                  </div>
+
+                  <div className="recovery-preview-output" aria-label="Sample recovery preview output">
+                    <div className="recovery-preview-output-title">
+                      <p>Sample output</p>
+                      <h3>
+                        <span>Detected</span>
+                        <span>demo-intent leak</span>
+                      </h3>
+                    </div>
+                    <div className="recovery-preview-result-rows">
+                      <div>
+                        <span>Page</span>
+                        <span>Pricing page with comparison-page follow-up.</span>
+                      </div>
+                      <div>
+                        <span>Likely issue</span>
+                        <span>
+                          Ready buyers leave before seeing fit, security, and integration proof.
+                        </span>
+                      </div>
+                      <div>
+                        <span>Preview</span>
+                        <span>Recovery path, objection pattern, and booking handoff.</span>
+                      </div>
+                    </div>
+                    <div className="recovery-preview-proof-stack">
+                      <div>
+                        <strong>01</strong>
+                        <span>Page path captured</span>
+                      </div>
+                      <div>
+                        <strong>02</strong>
+                        <span>Buyer objection mapped</span>
+                      </div>
+                      <div>
+                        <strong>03</strong>
+                        <span>Recovery route proposed</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p id="preview-url-help" className="recovery-preview-bottom-note">
+                    <span>
+                      <strong>Safe by default:</strong> public pages only, no gated crawl, no
+                      internal hosts.
+                    </span>
+                    <span>Add the URL so the recovery preview carries the right page context.</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -1573,7 +1573,7 @@ test('homepage preview URL feeds booking link and closing CTA keeps links outsid
 
   const previewUrl = 'https://example.com/pricing?plan=pro'
   await page.locator('#preview-url').fill(previewUrl)
-  const previewCta = page.getByRole('link', { name: `Request a preview for ${previewUrl}` })
+  const previewCta = page.getByRole('link', { name: `Scan my page for ${previewUrl}` })
   await expect(previewCta).toHaveAttribute(
     'href',
     `https://calendly.com/tingsong-dai/30min?preview_url=${encodeURIComponent(previewUrl)}`,
