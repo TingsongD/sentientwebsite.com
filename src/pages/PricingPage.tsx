@@ -6,7 +6,6 @@ import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { BOOK_DEMO_URL } from '../constants'
 import {
-  calculateDemoRecoveryEstimate,
   pricingPlanFromPath,
   PRICING_PLAN_ORDER,
   QUALIFIED_BOOKED_DEMO_DEFINITION,
@@ -14,6 +13,15 @@ import {
   TRACKS,
   type PricingPlan,
 } from '../data/pricingStrategy'
+import {
+  calculateRecoveryRoi,
+  DEFAULT_RECOVERY_ROI_INPUTS,
+  DEFAULT_RECOVERY_USE_CASE_KEY,
+  getRecoveryUseCaseConfig,
+  RECOVERY_USE_CASES,
+  type RecoveryRoiCalculatorInputs,
+  type RecoveryUseCaseKey,
+} from '../data/revenueLeakCalculator'
 import { hasOptionalAnalyticsConsent } from '../privacyPreferences'
 
 declare global {
@@ -32,15 +40,16 @@ const number = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 })
 
+const decimal = new Intl.NumberFormat('en-US', {
+  maximumFractionDigits: 1,
+})
+
 const TRUST_PILLS = [
   '30-day pilot',
   'Qualified recovered actions',
   'Stack-visible proof',
   'Outcome-based pricing',
 ] as const
-
-const HIGH_INTENT_VISITOR_OPTIONS = [250, 500, 1000, 2500, 5000, 10000] as const
-const ACV_OPTIONS = [6000, 12000, 18000, 30000, 60000] as const
 
 function trackPricingEvent(event: string, payload: Record<string, unknown> = {}) {
   if (
@@ -59,6 +68,14 @@ function formatCurrency(value: number) {
 
 function formatNumber(value: number) {
   return number.format(Math.round(value))
+}
+
+function formatDecimal(value: number) {
+  return decimal.format(value)
+}
+
+function formatPercent(value: number) {
+  return `${formatNumber(value)}%`
 }
 
 function planFromQuery(search: string): PricingPlan | null {
@@ -178,19 +195,21 @@ function PricingCard({
   )
 }
 
-function SelectControl({
+function NumberControl({
   id,
   label,
   value,
-  options,
-  prefix = '',
-  suffix = '',
+  min = 0,
+  step = 1,
+  prefix,
+  suffix,
   onChange,
 }: {
   id: string
   label: string
   value: number
-  options: readonly number[]
+  min?: number
+  step?: number
   prefix?: string
   suffix?: string
   onChange: (value: number) => void
@@ -200,20 +219,29 @@ function SelectControl({
       <span className="font-grotesk mb-2 block text-[12px] uppercase tracking-wide text-cream/80">
         {label}
       </span>
-      <select
-        id={id}
-        value={value}
-        className="w-full rounded-[16px] border border-white/10 bg-background px-4 py-3 font-mono text-[13px] uppercase text-cream outline-none transition focus:border-neon"
-        onChange={(event) => onChange(Number(event.target.value))}
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
+      <span className="relative block">
+        {prefix ? (
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-mono text-[13px] text-cream/45">
             {prefix}
-            {number.format(option)}
+          </span>
+        ) : null}
+        <input
+          id={id}
+          type="number"
+          min={min}
+          step={step}
+          value={value}
+          className={`min-h-12 w-full rounded-[16px] border border-white/10 bg-background py-3 font-mono text-[13px] uppercase text-cream outline-none transition focus:border-neon ${
+            prefix ? 'pl-8' : 'pl-4'
+          } ${suffix ? 'pr-20' : 'pr-4'} text-right`}
+          onChange={(event) => onChange(Number(event.target.value) || 0)}
+        />
+        {suffix ? (
+          <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-mono text-[11px] uppercase text-cream/45">
             {suffix}
-          </option>
-        ))}
-      </select>
+          </span>
+        ) : null}
+      </span>
     </label>
   )
 }
@@ -225,7 +253,7 @@ function SliderControl({
   min,
   max,
   step = 1,
-  suffix = '%',
+  displayValue = `${formatDecimal(value)}%`,
   onChange,
 }: {
   id: string
@@ -234,17 +262,14 @@ function SliderControl({
   min: number
   max: number
   step?: number
-  suffix?: string
+  displayValue?: string
   onChange: (value: number) => void
 }) {
   return (
     <label className="block" htmlFor={id}>
-      <span className="font-grotesk mb-2 flex items-center justify-between text-[12px] uppercase tracking-wide text-cream/80">
+      <span className="font-grotesk mb-2 flex items-center justify-between gap-3 text-[12px] uppercase tracking-wide text-cream/80">
         <span>{label}</span>
-        <span className="text-neon">
-          {value}
-          {suffix}
-        </span>
+        <span className="shrink-0 text-neon">{displayValue}</span>
       </span>
       <input
         id={id}
@@ -253,6 +278,7 @@ function SliderControl({
         max={max}
         step={step}
         value={value}
+        aria-valuetext={displayValue}
         className="w-full accent-[#b5fc41]"
         onChange={(event) => onChange(Number(event.target.value))}
       />
@@ -260,168 +286,234 @@ function SliderControl({
   )
 }
 
+function ResultStat({
+  label,
+  value,
+  tone = 'cream',
+  testId,
+}: {
+  label: string
+  value: string
+  tone?: 'cream' | 'neon'
+  testId?: string
+}) {
+  return (
+    <div className="border-t border-white/10 pt-4">
+      <dt className="font-mono text-[10px] uppercase tracking-widest text-cream/45">{label}</dt>
+      <dd
+        className={`font-grotesk mt-2 text-[26px] uppercase leading-none sm:text-[34px] ${
+          tone === 'neon' ? 'text-neon' : 'text-cream'
+        }`}
+        data-testid={testId}
+      >
+        {value}
+      </dd>
+    </div>
+  )
+}
+
 function DemoRecoveryCalculator() {
-  const [highIntentVisitors, setHighIntentVisitors] = useState(1000)
-  const [currentDemoConversionRate, setCurrentDemoConversionRate] = useState(2)
-  const [recoveredDemoLiftRate, setRecoveredDemoLiftRate] = useState(1)
-  const [averageContractValue, setAverageContractValue] = useState(12000)
-  const [demoToOpportunityRate, setDemoToOpportunityRate] = useState(30)
+  const [selectedUseCaseKey, setSelectedUseCaseKey] =
+    useState<RecoveryUseCaseKey>(DEFAULT_RECOVERY_USE_CASE_KEY)
+  const [inputs, setInputs] = useState<RecoveryRoiCalculatorInputs>(DEFAULT_RECOVERY_ROI_INPUTS)
   const estimateViewedRef = useRef<string | null>(null)
 
-  const estimate = useMemo(
-    () =>
-      calculateDemoRecoveryEstimate({
-        highIntentVisitors,
-        currentDemoConversionRate,
-        recoveredDemoLiftRate,
-        averageContractValue,
-        demoToOpportunityRate,
-      }),
-    [
-      averageContractValue,
-      currentDemoConversionRate,
-      demoToOpportunityRate,
-      highIntentVisitors,
-      recoveredDemoLiftRate,
-    ],
+  const selectedUseCase = useMemo(
+    () => getRecoveryUseCaseConfig(selectedUseCaseKey),
+    [selectedUseCaseKey],
   )
+  const estimate = useMemo(() => calculateRecoveryRoi(inputs), [inputs])
 
   useEffect(() => {
     const signature = [
-      highIntentVisitors,
-      currentDemoConversionRate,
-      recoveredDemoLiftRate,
-      averageContractValue,
-      demoToOpportunityRate,
+      selectedUseCaseKey,
+      inputs.monthlyMoments,
+      inputs.currentRecoveryRate,
+      inputs.recoveredLiftRate,
+      inputs.averageValue,
+      inputs.actionToRevenueRate,
     ].join(':')
 
     if (estimateViewedRef.current === signature) return
     estimateViewedRef.current = signature
-    trackPricingEvent('estimate_viewed', { model: 'demo_recovery' })
-  }, [
-    averageContractValue,
-    currentDemoConversionRate,
-    demoToOpportunityRate,
-    highIntentVisitors,
-    recoveredDemoLiftRate,
-  ])
+    trackPricingEvent('estimate_viewed', {
+      model: 'revenue_recovery_orchestration',
+      useCase: selectedUseCaseKey,
+    })
+  }, [inputs, selectedUseCaseKey])
 
-  const onCalculatorChange = (setter: (value: number) => void, value: number) => {
-    setter(value)
-    trackPricingEvent('calculator_used', { model: 'demo_recovery' })
+  const updateInput = (field: keyof RecoveryRoiCalculatorInputs, value: number) => {
+    setInputs((current) => ({ ...current, [field]: value }))
+    trackPricingEvent('calculator_used', {
+      field,
+      model: 'revenue_recovery_orchestration',
+      useCase: selectedUseCaseKey,
+    })
+  }
+
+  const selectUseCase = (useCaseKey: RecoveryUseCaseKey) => {
+    const nextUseCase = getRecoveryUseCaseConfig(useCaseKey)
+    setSelectedUseCaseKey(useCaseKey)
+    setInputs(nextUseCase.defaults)
+    trackPricingEvent('calculator_use_case_selected', {
+      model: 'revenue_recovery_orchestration',
+      useCase: useCaseKey,
+    })
   }
 
   return (
     <div className="liquid-glass rounded-[28px] p-6 sm:p-8">
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-        <div>
+      <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-[760px]">
           <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-            Demo recovery calculator
+            Revenue recovery inputs
           </p>
-          <h2 className="font-grotesk text-[28px] uppercase leading-tight text-cream sm:text-[36px]">
-            Estimate recovered demos.
+          <h2
+            id="calculator-heading"
+            className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
+          >
+            Model recovered outcomes across your revenue stack.
           </h2>
-          <p className="font-mono mt-4 max-w-xl text-[12px] uppercase leading-relaxed text-cream/55 sm:text-[13px]">
-            Modeled estimate only. This does not promise revenue or guarantee pipeline.
+          <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/65 sm:text-[14px]">
+            Use this to estimate revenue-ready visitors and customers recovered from pricing,
+            demo, checkout, billing, account, comparison, integration, security, docs, and
+            customer-story pages.
           </p>
         </div>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_0.86fr]">
         <div className="grid gap-5">
-          <SelectControl
-            id="high-intent-visitors"
-            label="Monthly high-intent page visitors"
-            value={highIntentVisitors}
-            options={HIGH_INTENT_VISITOR_OPTIONS}
-            onChange={(value) => onCalculatorChange(setHighIntentVisitors, value)}
+          <div>
+            <p className="font-grotesk mb-3 text-[12px] uppercase tracking-wide text-cream/80">
+              Recovery use case
+            </p>
+            <div
+              className="grid gap-2 sm:grid-cols-2"
+              role="radiogroup"
+              aria-label="Recovery use case"
+            >
+              {RECOVERY_USE_CASES.map((useCase) => {
+                const selected = selectedUseCaseKey === useCase.key
+                return (
+                  <button
+                    key={useCase.key}
+                    type="button"
+                    role="radio"
+                    aria-checked={selected}
+                    className={`rounded-[16px] border px-4 py-3 text-left transition ${
+                      selected
+                        ? 'border-neon bg-neon/[0.1] text-cream'
+                        : 'border-white/10 bg-white/[0.02] text-cream/70 hover:border-white/20 hover:bg-white/[0.05]'
+                    }`}
+                    onClick={() => selectUseCase(useCase.key)}
+                  >
+                    <span className="font-grotesk block text-[13px] uppercase tracking-wide">
+                      {useCase.label}
+                    </span>
+                    <span className="font-mono mt-1 block text-[10px] uppercase leading-relaxed text-cream/45">
+                      {useCase.eyebrow}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+            <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/60">
+              {selectedUseCase.description}
+            </p>
+          </div>
+          <NumberControl
+            id="monthly-moments"
+            label={selectedUseCase.inputLabels.monthlyMoments}
+            value={inputs.monthlyMoments}
+            suffix="moments"
+            step={100}
+            onChange={(value) => updateInput('monthlyMoments', value)}
           />
           <SliderControl
-            id="current-demo-conversion-rate"
-            label="Current demo conversion rate"
-            min={1}
-            max={10}
-            value={currentDemoConversionRate}
-            onChange={(value) => onCalculatorChange(setCurrentDemoConversionRate, value)}
+            id="current-recovery-rate"
+            label={selectedUseCase.inputLabels.currentRecoveryRate}
+            min={0}
+            max={50}
+            step={0.1}
+            value={inputs.currentRecoveryRate}
+            onChange={(value) => updateInput('currentRecoveryRate', value)}
           />
           <SliderControl
-            id="recovered-demo-lift-rate"
-            label="Recovered demo lift"
-            min={1}
-            max={5}
-            value={recoveredDemoLiftRate}
-            onChange={(value) => onCalculatorChange(setRecoveredDemoLiftRate, value)}
+            id="recovered-lift-rate"
+            label={selectedUseCase.inputLabels.recoveredLiftRate}
+            min={0}
+            max={30}
+            step={0.1}
+            value={inputs.recoveredLiftRate}
+            onChange={(value) => updateInput('recoveredLiftRate', value)}
           />
-          <SelectControl
-            id="average-contract-value"
-            label="Average contract value"
-            value={averageContractValue}
-            options={ACV_OPTIONS}
+          <NumberControl
+            id="average-value"
+            label={selectedUseCase.inputLabels.averageValue}
             prefix="$"
-            onChange={(value) => onCalculatorChange(setAverageContractValue, value)}
+            value={inputs.averageValue}
+            step={1000}
+            onChange={(value) => updateInput('averageValue', value)}
           />
           <SliderControl
-            id="demo-to-opportunity-rate"
-            label="Demo-to-opportunity rate"
-            min={10}
-            max={60}
+            id="action-to-revenue-rate"
+            label={selectedUseCase.inputLabels.actionToRevenueRate}
+            min={0}
+            max={100}
             step={5}
-            value={demoToOpportunityRate}
-            onChange={(value) => onCalculatorChange(setDemoToOpportunityRate, value)}
+            value={inputs.actionToRevenueRate}
+            onChange={(value) => updateInput('actionToRevenueRate', value)}
           />
         </div>
 
-        <div className="rounded-[24px] border border-neon/25 bg-neon/[0.04] p-6">
-          <dl className="space-y-5">
+        <div
+          id="results"
+          className="scroll-mt-28 rounded-[24px] border border-neon/25 bg-neon/[0.04] p-6"
+        >
+          <div className="mb-6 flex items-center gap-3">
+            <CircleDollarSign className="h-8 w-8 text-neon" aria-hidden />
             <div>
-              <dt className="font-mono text-[11px] uppercase tracking-wide text-cream/50">
-                Current demos from high-intent pages
-              </dt>
-              <dd className="font-grotesk mt-1 text-[24px] text-cream">
-                {formatNumber(estimate.currentDemos)}
-              </dd>
+              <p className="font-mono text-[11px] uppercase tracking-widest text-neon">
+                Modeled output
+              </p>
+              <h2 className="font-grotesk mt-1 text-[22px] uppercase leading-tight text-cream">
+                {selectedUseCase.shortLabel} recovery ROI
+              </h2>
             </div>
-            <div>
-              <dt className="font-mono text-[11px] uppercase tracking-wide text-cream/50">
-                Estimated recovered demos
-              </dt>
-              <dd
-                className="font-grotesk mt-1 text-[30px] leading-none text-neon sm:text-[38px]"
-                data-testid="calculator-recovered-demos"
-              >
-                {formatNumber(estimate.recoveredDemos)}
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[11px] uppercase tracking-wide text-cream/50">
-                Estimated qualified recovered actions
-              </dt>
-              <dd className="font-grotesk mt-1 text-[24px] text-cream">
-                {formatNumber(estimate.qualifiedBookedDemos)}
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[11px] uppercase tracking-wide text-cream/50">
-                Estimated pipeline influenced
-              </dt>
-              <dd
-                className="font-grotesk mt-1 text-[32px] leading-none text-neon sm:text-[42px]"
-                data-testid="calculator-pipeline-influenced"
-              >
-                {formatCurrency(estimate.pipelineInfluenced)}
-              </dd>
-            </div>
-            <div className="border-t border-white/10 pt-5">
-              <dt className="font-mono text-[11px] uppercase tracking-wide text-cream/50">
-                Estimated SentientWeb fee
-              </dt>
-              <dd
-                className="font-grotesk mt-1 text-[24px] text-cream"
-                data-testid="calculator-fee"
-              >
-                {formatCurrency(estimate.estimatedFee)}
-              </dd>
-            </div>
+          </div>
+          <dl className="grid gap-5">
+            <ResultStat
+              label={selectedUseCase.resultLabels.currentActions}
+              value={formatNumber(estimate.currentActions)}
+            />
+            <ResultStat
+              label={selectedUseCase.resultLabels.recoveredActions}
+              value={formatNumber(estimate.recoveredActions)}
+              tone="neon"
+              testId="calculator-recovered-demos"
+            />
+            <ResultStat
+              label={selectedUseCase.resultLabels.qualifiedRecoveredActions}
+              value={formatNumber(estimate.qualifiedRecoveredActions)}
+            />
+            <ResultStat
+              label={selectedUseCase.resultLabels.pipelineInfluenced}
+              value={formatCurrency(estimate.pipelineInfluenced)}
+              tone="neon"
+              testId="calculator-pipeline-influenced"
+            />
+            <ResultStat
+              label="Estimated SentientWeb fee"
+              value={formatCurrency(estimate.estimatedFee)}
+              testId="calculator-fee"
+            />
+            <ResultStat
+              label="Modeled ROI"
+              value={formatPercent(estimate.modeledRoi)}
+              tone="neon"
+              testId="calculator-modeled-roi"
+            />
           </dl>
         </div>
       </div>
@@ -643,12 +735,9 @@ export default function PricingPage() {
           <section
             id="calculator"
             ref={calculatorRef}
-            className="scroll-mt-28 pt-16 sm:pt-20"
+            className="mx-auto max-w-[1220px] scroll-mt-28 px-4 pt-12 sm:px-6 md:px-8 lg:px-10"
             aria-labelledby="calculator-heading"
           >
-            <h2 id="calculator-heading" className="sr-only">
-              Revenue recovery calculator
-            </h2>
             <DemoRecoveryCalculator />
           </section>
 

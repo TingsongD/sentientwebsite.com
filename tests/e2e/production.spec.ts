@@ -1428,6 +1428,10 @@ test('primary nav links to focused use cases and existing stack orchestration', 
     '/solutions/saas',
   )
   await expect(nav.getByRole('button', { name: 'Use cases' })).toBeVisible()
+  await expect(nav.getByRole('link', { name: 'Pricing' })).toHaveAttribute(
+    'href',
+    '/pricing',
+  )
   await expect(nav.getByRole('link', { name: 'Recovery ROI' })).toHaveAttribute(
     'href',
     '/revenue-leak-calculator',
@@ -1668,10 +1672,24 @@ test('pricing plan selector highlights selected plans and dims the other cards',
 test('pricing calculator updates estimates and CTAs use Calendly', async ({ page }) => {
   await page.goto('/pricing/calculator')
 
+  await expect(
+    page.getByRole('heading', { name: 'Model recovered outcomes across your revenue stack.' }),
+  ).toBeVisible()
+  await expect(page.getByRole('radio', { name: /Demo Recovery/i })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  )
+  await expect(page.getByRole('radio', { name: /Failed Payment Recovery/i })).toBeVisible()
   await expect(page.getByTestId('calculator-recovered-demos')).toHaveText('10')
   await expect(page.getByTestId('calculator-pipeline-influenced')).toHaveText('$36,000')
-  await page.locator('#average-contract-value').selectOption('30000')
+  await expect(page.getByTestId('calculator-modeled-roi')).toHaveText('3,600%')
+
+  await page.locator('#average-value').fill('30000')
   await expect(page.getByTestId('calculator-pipeline-influenced')).toHaveText('$90,000')
+
+  await page.getByRole('radio', { name: /Failed Payment Recovery/i }).click()
+  await expect(page.getByText('Estimated revenue retained')).toBeVisible()
+  await expect(page.locator('#monthly-moments')).toHaveValue('300')
 
   const cta = page.getByRole('link', { name: 'Book a revenue recovery pilot' }).first()
   await expect(cta).toHaveAttribute('href', 'https://calendly.com/tingsong-dai/30min')
@@ -1848,6 +1866,8 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   ).toBeVisible()
   const revenueLeaks = page.locator('#revenue-recovery-use-cases')
   await expect(revenueLeaks.getByText('Revenue recovery use cases')).toBeVisible()
+  await expect(revenueLeaks.locator('.ambient-video-fallback')).toHaveCount(0)
+  await expect(revenueLeaks.locator('video[data-ambient-video]')).toHaveCount(0)
   await expect(revenueLeaks.getByText('Core workflow')).toBeVisible()
   await expect(revenueLeaks.getByText('Payment recovery', { exact: true })).toBeVisible()
   await expect(revenueLeaks.getByText('Meeting recovery')).toBeVisible()
@@ -2095,8 +2115,14 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(page.getByText('Human handoff when needed').first()).toBeVisible()
   await expect(page.getByText('Stack-ready context').first()).toBeVisible()
   await expect(page.getByText('Encrypted action paths').first()).toBeVisible()
-  await expect(page.getByText('Retention controls').first()).toBeVisible()
-  await expect(page.getByText('18-month maximum disclosed').first()).toBeVisible()
+  await expect(page.getByText('Result-based pricing').first()).toBeVisible()
+  await expect(page.getByText('Aligned to recovered revenue').first()).toBeVisible()
+  await expect(page.getByRole('link', { name: /Result-based pricing/i }).first()).toHaveAttribute(
+    'href',
+    '/pricing',
+  )
+  await expect(page.getByText('Retention controls')).toHaveCount(0)
+  await expect(page.getByText('18-month maximum disclosed')).toHaveCount(0)
   await expect(page.getByText('Powered by AI')).toHaveCount(0)
   await expect(page.getByText('Human support always available')).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'Transparent by design' })).toBeVisible()

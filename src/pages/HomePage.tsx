@@ -8,7 +8,6 @@ import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
 
-const ABOUT_MEDIA = '/media/home-about.svg'
 const CTA_MEDIA = '/media/home-cta.svg'
 const HERO_BACKGROUND_VIDEO_URL =
   'https://cdn.shopify.com/videos/c/o/v/9fe664570f2b4284a76f522f11fcf58a.mp4'
@@ -718,16 +717,10 @@ export default function HomePage() {
         {/* Revenue recovery use cases */}
         <section
           id="revenue-recovery-use-cases"
-          className="relative overflow-hidden bg-background"
+          className="bg-background"
           aria-labelledby="revenue-recovery-use-cases-heading"
         >
-          <AmbientVideo
-            className="absolute inset-0 h-full w-full overflow-hidden"
-            mediaSrc={ABOUT_MEDIA}
-            reducedMotion={prefersReducedMotion}
-          />
-
-          <div className="relative z-10 mx-auto max-w-[1831px] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-10 lg:py-24 xl:py-32">
+          <div className="mx-auto max-w-[1831px] px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-10 lg:py-24 xl:py-32">
             <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
               <div className="shrink-0">
                 <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">

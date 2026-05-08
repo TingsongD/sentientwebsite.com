@@ -1,4 +1,5 @@
-import { Bot, LockKeyhole, ShieldCheck } from 'lucide-react'
+import { BadgeDollarSign, Bot, ShieldCheck } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 type TrustStripProps = {
   className?: string
@@ -10,18 +11,21 @@ const TRUST_ITEMS = [
     detail: 'Human handoff when needed',
     Icon: Bot,
     badgeClass: 'border-violet-300/40 bg-violet-400/15 text-violet-100',
+    to: undefined,
   },
   {
     label: 'Stack-ready context',
     detail: 'Encrypted action paths',
     Icon: ShieldCheck,
     badgeClass: 'border-emerald-300/40 bg-emerald-400/15 text-emerald-100',
+    to: undefined,
   },
   {
-    label: 'Retention controls',
-    detail: '18-month maximum disclosed',
-    Icon: LockKeyhole,
+    label: 'Result-based pricing',
+    detail: 'Aligned to recovered revenue',
+    Icon: BadgeDollarSign,
     badgeClass: 'border-neon/40 bg-neon/15 text-neon',
+    to: '/pricing',
   },
 ] as const
 
@@ -29,28 +33,43 @@ export function TrustStrip({ className = '' }: TrustStripProps) {
   return (
     <div
       className={`liquid-glass grid gap-3 rounded-[24px] border border-white/[0.08] p-3 sm:grid-cols-3 ${className}`}
-      aria-label="Trust and privacy"
+      aria-label="Product highlights"
     >
-      {TRUST_ITEMS.map(({ label, detail, Icon, badgeClass }) => (
-        <div key={label} className="flex items-center gap-3 rounded-[18px] bg-white/[0.03] p-3">
-          <span
-            className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${badgeClass}`}
-            aria-hidden
-          >
-            <Icon className="h-4 w-4" strokeWidth={2.25} />
-          </span>
-          <span className="min-w-0">
-            <span className="block font-grotesk text-[11px] uppercase tracking-wide text-cream sm:text-[12px]">
-              {label}
+      {TRUST_ITEMS.map(({ label, detail, Icon, badgeClass, to }) => {
+        const content = (
+          <>
+            <span
+              className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${badgeClass}`}
+              aria-hidden
+            >
+              <Icon className="h-4 w-4" strokeWidth={2.25} />
             </span>
-            <span className="block font-mono text-[10px] uppercase leading-snug text-cream/55 sm:text-[11px]">
-              {detail}
+            <span className="min-w-0">
+              <span className="block font-grotesk text-[11px] uppercase tracking-wide text-cream sm:text-[12px]">
+                {label}
+              </span>
+              <span className="block font-mono text-[10px] uppercase leading-snug text-cream/55 sm:text-[11px]">
+                {detail}
+              </span>
             </span>
-          </span>
-        </div>
-      ))}
+          </>
+        )
+        const className =
+          'flex items-center gap-3 rounded-[18px] bg-white/[0.03] p-3 transition hover:bg-white/[0.07]'
+
+        return to ? (
+          <Link key={label} to={to} className={className}>
+            {content}
+          </Link>
+        ) : (
+          <div key={label} className={className}>
+            {content}
+          </div>
+        )
+      })}
       <p className="sr-only">
-        Human handoff is available when a revenue recovery path needs a person.
+        Human handoff is available when a revenue recovery path needs a person. Pricing is aligned
+        to recovered revenue.
       </p>
     </div>
   )

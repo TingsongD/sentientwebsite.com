@@ -141,6 +141,15 @@ function PrimaryNavList() {
 
       <li>
         <Link
+          to="/pricing"
+          className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
+        >
+          Pricing
+        </Link>
+      </li>
+
+      <li>
+        <Link
           to="/revenue-leak-calculator"
           className="font-grotesk text-[13px] uppercase tracking-wide text-cream transition hover:text-neon"
         >
