@@ -558,11 +558,14 @@ function UseCaseDetailSection({
   children?: ReactNode
 }) {
   const headingId = `${useCase.id}-heading`
+  const isLightSection = useCase.id === 'demo-recovery' || useCase.id === 'no-show-recovery'
 
   return (
     <section
       id={useCase.id}
-      className={`scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20 md:py-24 ${getUseCaseThemeClass(useCase)}`}
+      className={`scroll-mt-28 py-16 sm:py-20 md:py-24 ${getUseCaseThemeClass(useCase)} ${
+        isLightSection ? 'section-light-editorial use-case-section-light' : 'border-t border-white/10 bg-background'
+      }`}
       aria-labelledby={headingId}
     >
       <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
@@ -573,31 +576,45 @@ function UseCaseDetailSection({
             </p>
             <h2
               id={headingId}
-              className="font-grotesk max-w-[960px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+              className="section-heading font-grotesk max-w-[960px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
             >
               {useCase.sectionHeadline}
             </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+            <p className="section-copy font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
               {useCase.body}
             </p>
-            <ul className="mt-6 space-y-2 font-mono text-[12px] uppercase leading-relaxed text-cream/58">
+            <ul className="editorial-soft mt-6 space-y-2 font-mono text-[12px] uppercase leading-relaxed text-cream/58">
               {useCase.bullets.map((bullet) => (
                 <li key={bullet}>{bullet}</li>
               ))}
             </ul>
           </div>
 
-          <article className="liquid-glass rounded-[26px] p-5 sm:p-6">
+          <article
+            className={`${isLightSection ? 'editorial-panel-strong' : 'liquid-glass'} rounded-[26px] p-5 sm:p-6`}
+          >
             <p className="use-case-accent-pill font-mono inline-flex rounded-full border px-3 py-1 text-[10px] uppercase tracking-widest">
               Use case
             </p>
-            <h3 className="font-grotesk mt-5 text-[18px] uppercase leading-tight text-cream sm:text-[22px]">
+            <h3
+              className={`font-grotesk mt-5 text-[18px] uppercase leading-tight sm:text-[22px] ${
+                isLightSection ? 'text-[#10213c]' : 'text-cream'
+              }`}
+            >
               {useCase.caseStudyTitle}
             </h3>
-            <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/70 sm:text-[13px]">
+            <p
+              className={`font-mono mt-4 text-[12px] normal-case leading-relaxed sm:text-[13px] ${
+                isLightSection ? 'editorial-muted' : 'text-cream/70'
+              }`}
+            >
               {useCase.caseStudy}
             </p>
-            <p className="use-case-accent-text font-mono mt-4 border-t border-white/10 pt-4 text-[11px] uppercase leading-relaxed">
+            <p
+              className={`use-case-accent-text font-mono mt-4 border-t pt-4 text-[11px] uppercase leading-relaxed ${
+                isLightSection ? 'editorial-rule' : 'border-white/10'
+              }`}
+            >
               Ideal outcome: {useCase.outcome}
             </p>
           </article>
@@ -778,29 +795,29 @@ export default function HomePage() {
         {/* Recovery preview */}
         <section
           id="instant-demo-preview"
-          className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20"
+          className="section-light-editorial scroll-mt-28 py-16 sm:py-20"
           aria-labelledby="instant-demo-preview-heading"
         >
           <div className="mx-auto grid max-w-[1831px] gap-8 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
             <div>
-              <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
                 Recovery Preview
               </p>
               <h2
                 id="instant-demo-preview-heading"
-                className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+                className="section-heading font-grotesk text-[30px] uppercase leading-tight sm:text-[42px] md:text-[52px]"
               >
                 Find the demo-intent leak on your own site.
               </h2>
-              <p className="mt-5 max-w-2xl font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
+              <p className="section-copy mt-5 max-w-2xl font-sans text-[14px] normal-case leading-relaxed sm:text-[15px]">
                 Submit a pricing, demo, checkout, billing, account, or comparison page. Get a
                 recovery preview that shows where ready customers and buyers go quiet.
               </p>
             </div>
 
-            <div className="liquid-glass rounded-[28px] p-6 sm:p-8">
+            <div className="editorial-panel-strong rounded-[18px] p-6 sm:p-8">
               <label className="block" htmlFor="preview-url">
-                <span className="font-grotesk mb-2 block text-[12px] uppercase tracking-wide text-cream/80">
+                <span className="font-grotesk mb-2 block text-[12px] uppercase tracking-wide text-[#10213c]/80">
                   Company website or pricing page URL
                 </span>
                 <input
@@ -811,7 +828,7 @@ export default function HomePage() {
                   value={previewUrl}
                   onChange={(event) => setPreviewUrl(event.target.value)}
                   aria-describedby="preview-url-help"
-                  className="min-h-12 w-full rounded-[16px] border border-white/10 bg-background px-4 py-3 font-mono text-[13px] normal-case text-cream outline-none transition placeholder:text-cream/35 focus:border-neon"
+                  className="min-h-12 w-full rounded-[14px] border border-[#10213c]/15 bg-white/80 px-4 py-3 font-mono text-[13px] normal-case text-[#10213c] outline-none transition placeholder:text-[#10213c]/35 focus:border-[#0b6a31]"
                 />
               </label>
               <div className="mt-5 flex flex-wrap items-center gap-4">
@@ -820,26 +837,26 @@ export default function HomePage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={previewUrl.trim() ? `Request a preview for ${previewUrl.trim()}` : 'Request a preview'}
-                  className="rounded-full bg-neon px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
+                  className="rounded-full bg-[#0b6a31] px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-[#fffdf8] transition hover:brightness-110 sm:text-[13px]"
                 >
                   Request recovery preview
                 </a>
                 <p
                   id="preview-url-help"
-                  className="font-mono max-w-[360px] text-[11px] uppercase leading-relaxed text-cream/50"
+                  className="editorial-soft font-mono max-w-[360px] text-[11px] uppercase leading-relaxed"
                 >
                   Add the URL so the recovery preview carries the right page context.
                 </p>
               </div>
-              <div className="mt-6 border-t border-white/10 pt-5">
-                <h3 className="font-grotesk text-[15px] uppercase tracking-wide text-cream">
+              <div className="editorial-rule mt-6 border-t pt-5">
+                <h3 className="font-grotesk text-[15px] uppercase tracking-wide text-[#10213c]">
                   Claim your recovery preview.
                 </h3>
-                <p className="font-mono mt-2 text-[12px] normal-case leading-relaxed text-cream/65">
+                <p className="editorial-muted font-mono mt-2 text-[12px] normal-case leading-relaxed">
                   Use a business email to receive the preview and review CRM, scheduler, and
                   security setup.
                 </p>
-                <p className="font-mono mt-4 text-[11px] uppercase leading-relaxed text-cream/45">
+                <p className="editorial-soft font-mono mt-4 text-[11px] uppercase leading-relaxed">
                   SentientWeb analyzes approved website pages for the preview. Gated pages,
                   internal hosts, and large crawls are blocked by backend controls.
                 </p>
@@ -857,12 +874,12 @@ export default function HomePage() {
                 {DEMO_RECOVERY_MODULES.map((module) => (
                   <article
                     key={module.title}
-                    className="liquid-glass rounded-[24px] p-5 transition hover:bg-white/10 sm:p-6"
+                    className="editorial-panel rounded-[18px] p-5 transition hover:bg-white/70 sm:p-6"
                   >
-                    <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                    <h3 className="font-grotesk text-[17px] uppercase leading-tight text-[#10213c] sm:text-[19px]">
                       {module.title}
                     </h3>
-                    <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                    <p className="editorial-muted font-mono mt-4 text-[12px] normal-case leading-relaxed sm:text-[13px]">
                       {module.body}
                     </p>
                   </article>
@@ -929,20 +946,20 @@ export default function HomePage() {
 
         {/* Revenue recovery fit */}
         <section
-          className="border-t border-white/10 bg-background py-16 sm:py-20"
+          className="section-light-editorial py-16 sm:py-20"
           aria-labelledby="revenue-recovery-fit-heading"
         >
           <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+            <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
               Revenue recovery fit
             </p>
             <h2
               id="revenue-recovery-fit-heading"
-              className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
+              className="section-heading font-grotesk max-w-[900px] text-[30px] uppercase leading-tight sm:text-[42px] md:text-[52px]"
             >
               Built for subscription businesses with revenue moments to recover.
             </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+            <p className="section-copy font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed sm:text-[14px]">
               SentientWeb works across pricing, demo, checkout, billing, account, docs, security,
               comparison, and integration traffic, then uses the connected stack to complete the
               right revenue action.
@@ -966,11 +983,11 @@ export default function HomePage() {
                   body: 'Founder, growth, sales, support, finance, or RevOps can review recovered actions and weekly patterns.',
                 },
               ].map((item) => (
-                <article key={item.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
-                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-cream sm:text-[19px]">
+                <article key={item.title} className="editorial-panel rounded-[18px] p-5 sm:p-6">
+                  <h3 className="font-grotesk text-[17px] uppercase leading-tight text-[#10213c] sm:text-[19px]">
                     {item.title}
                   </h3>
-                  <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+                  <p className="editorial-muted font-mono mt-3 text-[12px] normal-case leading-relaxed sm:text-[13px]">
                     {item.body}
                   </p>
                 </article>

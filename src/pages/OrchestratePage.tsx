@@ -15,6 +15,25 @@ const OVERVIEW_SECTION = ORCHESTRATE_SECTIONS[0]
 const STORY_SECTIONS = ORCHESTRATE_SECTIONS.slice(1, 4)
 const TOOL_SECTIONS = ORCHESTRATE_SECTIONS.slice(4)
 
+const TOOL_STORY_LOGOS: Record<
+  string,
+  { src?: string; alt: string; label?: string; className?: string }
+> = {
+  hubspot: { src: '/logos/hubspot.svg', alt: 'HubSpot logo', className: 'max-w-[120px]' },
+  calendly: { src: '/logos/calendly.svg', alt: 'Calendly logo', className: 'max-w-[116px]' },
+  warmly: { src: '/logos/warmly.svg', alt: 'Warmly logo', className: 'max-w-[118px]' },
+  podium: { src: '/logos/podium.svg', alt: 'Podium logo', className: 'max-w-[112px]' },
+  highlevel: { src: '/logos/highlevel.png', alt: 'HighLevel logo', className: 'max-w-[118px]' },
+  drift: { src: '/logos/drift.svg', alt: 'Drift logo', className: 'max-w-[104px]' },
+  'chili-piper': {
+    src: '/logos/chili-piper.svg',
+    alt: 'Chili Piper logo',
+    className: 'max-w-[124px]',
+  },
+  qualified: { alt: 'Qualified logo mark', label: 'Qualified' },
+  manychat: { alt: 'ManyChat logo mark', label: 'ManyChat' },
+}
+
 function SectionBullets({ bullets }: { bullets?: readonly string[] }) {
   if (!bullets?.length) return null
 
@@ -29,6 +48,33 @@ function SectionBullets({ bullets }: { bullets?: readonly string[] }) {
         </li>
       ))}
     </ul>
+  )
+}
+
+function ToolStoryLogo({ sectionId }: { sectionId: string }) {
+  const logo = TOOL_STORY_LOGOS[sectionId]
+  if (!logo) return null
+
+  return (
+    <span className="flex h-12 min-w-[7rem] shrink-0 items-center justify-start sm:h-14">
+      {logo.src ? (
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          loading="lazy"
+          decoding="async"
+          className={`block h-auto max-h-10 w-auto object-contain drop-shadow-[0_8px_14px_rgba(16,33,60,0.12)] sm:max-h-11 ${logo.className ?? 'max-w-[120px]'}`}
+        />
+      ) : (
+        <span
+          role="img"
+          aria-label={logo.alt}
+          className="font-grotesk text-[18px] uppercase leading-none text-[#10213c] sm:text-[22px]"
+        >
+          {logo.label}
+        </span>
+      )}
+    </span>
   )
 }
 
@@ -52,43 +98,44 @@ function ToolStorySection({
     <section
       id={section.id}
       data-testid="tool-story-section"
-      className="scroll-mt-28 overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] lg:grid lg:grid-cols-[0.42fr_0.58fr]"
+      className="editorial-panel-strong scroll-mt-28 overflow-hidden rounded-[18px] lg:grid lg:grid-cols-[0.42fr_0.58fr]"
       aria-labelledby={`${section.id}-heading`}
     >
       <div className="p-6 sm:p-8 lg:p-9">
-        <p className="font-mono text-[11px] uppercase tracking-widest text-neon">
+        <p className="section-kicker font-mono text-[11px] uppercase tracking-widest">
           Story {String(index + 1).padStart(2, '0')} / {section.eyebrow}
         </p>
         <h3
           id={`${section.id}-heading`}
-          className="font-grotesk mt-4 text-[26px] uppercase leading-tight text-cream sm:text-[34px] lg:text-[40px]"
+          className="font-grotesk mt-4 flex flex-col gap-3 text-[26px] uppercase leading-tight text-[#10213c] sm:flex-row sm:items-center sm:gap-5 sm:text-[34px] lg:text-[40px]"
         >
-          {section.title}
+          <ToolStoryLogo sectionId={section.id} />
+          <span>{section.title}</span>
         </h3>
-        <div className="mt-5 space-y-4 font-mono text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[14px]">
+        <div className="editorial-muted mt-5 space-y-4 font-mono text-[13px] normal-case leading-relaxed sm:text-[14px]">
           {section.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
       </div>
 
-      <div className="border-t border-white/10 lg:border-l lg:border-t-0">
+      <div className="border-t border-[#10213c]/15 lg:border-l lg:border-t-0">
         <div className="grid h-full sm:grid-cols-2 xl:grid-cols-4">
           {storyItems.map(([label, body], itemIndex) => (
             <div
               key={label}
               className={`min-h-[190px] p-5 sm:p-6 ${
-                itemIndex > 0 ? 'border-t border-white/10 sm:border-t-0 sm:border-l' : ''
+                itemIndex > 0 ? 'border-t border-[#10213c]/15 sm:border-t-0 sm:border-l' : ''
               } ${
                 itemIndex === 2 ? 'sm:border-l-0 sm:border-t xl:border-l xl:border-t-0' : ''
               } ${
                 itemIndex === 3 ? 'sm:border-t xl:border-t-0' : ''
-              } border-white/10`}
+              } border-[#10213c]/15`}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest text-neon">
+              <p className="section-kicker font-mono text-[10px] uppercase tracking-widest">
                 {label}
               </p>
-              <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/74 sm:text-[13px]">
+              <p className="editorial-muted font-mono mt-4 text-[12px] normal-case leading-relaxed sm:text-[13px]">
                 {body}
               </p>
             </div>
@@ -221,20 +268,20 @@ export default function OrchestratePage() {
         </section>
 
         <section
-          className="border-y border-white/10 bg-[#020a2e]/50 px-4 py-14 sm:px-6 md:px-8 md:py-16 lg:px-10"
+          className="section-light-editorial px-4 py-14 sm:px-6 md:px-8 md:py-16 lg:px-10"
           aria-labelledby="tools-heading"
         >
           <div className="mx-auto max-w-[1831px]">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+            <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
               Use-case stories
             </p>
             <h2
               id="tools-heading"
-              className="font-grotesk max-w-[1040px] text-[30px] uppercase leading-tight text-cream sm:text-[44px]"
+              className="section-heading font-grotesk max-w-[1040px] text-[30px] uppercase leading-tight sm:text-[44px]"
             >
               How SentientWeb calls each tool inside one buyer journey.
             </h2>
-            <p className="font-mono mt-5 max-w-4xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
+            <p className="section-copy font-mono mt-5 max-w-4xl text-[13px] uppercase leading-relaxed sm:text-[14px]">
               Each horizontal story shows the same position in practice: SentientWeb identifies the
               buyer moment first, then calls the connected system that should execute the next step.
             </p>

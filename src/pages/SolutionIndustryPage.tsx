@@ -224,55 +224,57 @@ function SaasSolutionPage({
 
           <section
             id="how-it-works"
-            className="mx-auto max-w-[1260px] px-4 py-14 sm:px-6 md:px-8 md:py-16 lg:px-10"
+            className="section-light-editorial px-4 py-14 sm:px-6 md:px-8 md:py-16 lg:px-10"
             aria-labelledby="journey-heading"
           >
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              Complete journey
-            </p>
-            <h2
-              id="journey-heading"
-              className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
-            >
-              The revenue recovery journey, start to finish.
-            </h2>
-            <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              SentientWeb works the moment already happening on your site: a buyer is evaluating
-              fit, looking for proof, and deciding whether the demo is worth booking.
-            </p>
-            <ol className="mt-10 space-y-5">
-              {SAAS_JOURNEY_STAGES.map((stage, index) => (
-                <li key={stage.title} className="relative">
-                  {index < SAAS_JOURNEY_STAGES.length - 1 ? (
-                    <span
-                      className="absolute left-6 top-16 hidden h-[calc(100%+1.25rem)] w-px bg-neon/25 sm:block"
-                      aria-hidden
-                    />
-                  ) : null}
-                  <div className="liquid-glass relative grid gap-5 rounded-[24px] p-6 sm:grid-cols-[8rem_1fr] sm:p-7 lg:grid-cols-[10rem_1fr]">
-                    <div className="flex items-center gap-4 sm:block">
+            <div className="mx-auto max-w-[1260px]">
+              <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
+                Complete journey
+              </p>
+              <h2
+                id="journey-heading"
+                className="section-heading font-grotesk max-w-[900px] text-[30px] uppercase leading-tight sm:text-[42px]"
+              >
+                The revenue recovery journey, start to finish.
+              </h2>
+              <p className="section-copy font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed sm:text-[14px]">
+                SentientWeb works the moment already happening on your site: a buyer is evaluating
+                fit, looking for proof, and deciding whether the demo is worth booking.
+              </p>
+              <ol className="mt-10 space-y-5">
+                {SAAS_JOURNEY_STAGES.map((stage, index) => (
+                  <li key={stage.title} className="relative">
+                    {index < SAAS_JOURNEY_STAGES.length - 1 ? (
                       <span
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-neon/45 bg-background font-grotesk text-[18px] text-neon"
+                        className="absolute left-6 top-16 hidden h-[calc(100%+1.25rem)] w-px bg-[#0b6a31]/25 sm:block"
                         aria-hidden
-                      >
-                        {index + 1}
-                      </span>
-                      <p className="font-mono sm:mt-5 text-[11px] uppercase tracking-widest text-neon">
-                        {stage.label}
-                      </p>
+                      />
+                    ) : null}
+                    <div className="editorial-panel-strong relative grid gap-5 rounded-[18px] p-6 sm:grid-cols-[8rem_1fr] sm:p-7 lg:grid-cols-[10rem_1fr]">
+                      <div className="flex items-center gap-4 sm:block">
+                        <span
+                          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#0b6a31]/45 bg-[#fffdf8] font-grotesk text-[18px] text-[#0b6a31]"
+                          aria-hidden
+                        >
+                          {index + 1}
+                        </span>
+                        <p className="section-kicker font-mono sm:mt-5 text-[11px] uppercase tracking-widest">
+                          {stage.label}
+                        </p>
+                      </div>
+                      <div>
+                        <h3 className="font-grotesk text-[20px] uppercase leading-tight text-[#10213c] sm:text-[24px]">
+                          {stage.title}
+                        </h3>
+                        <p className="editorial-muted font-mono mt-4 max-w-3xl text-[12px] normal-case leading-relaxed sm:text-[13px]">
+                          {stage.body}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-grotesk text-[20px] uppercase leading-tight text-cream sm:text-[24px]">
-                        {stage.title}
-                      </h3>
-                      <p className="font-mono mt-4 max-w-3xl text-[12px] normal-case leading-relaxed text-cream/70 sm:text-[13px]">
-                        {stage.body}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ol>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </section>
 
           <section

@@ -807,14 +807,17 @@ export default function PricingPage() {
             <TierTable onEnterpriseClick={onEnterpriseClick} />
           </section>
 
-          <section className="pt-16 sm:pt-20" aria-labelledby="pricing-faq-heading">
+          <section
+            className="section-light-editorial relative left-1/2 w-screen -translate-x-1/2 px-4 py-16 sm:px-6 sm:py-20 md:px-8 lg:px-10"
+            aria-labelledby="pricing-faq-heading"
+          >
             <div className="mx-auto max-w-[980px]">
-              <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+              <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
                 FAQ
               </p>
               <h2
                 id="pricing-faq-heading"
-                className="font-grotesk text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
+                className="section-heading font-grotesk text-[28px] uppercase leading-tight sm:text-[36px]"
               >
                 Common questions
               </h2>
@@ -869,11 +872,11 @@ export default function PricingPage() {
                     a: 'The v1 promise is behavior-based demo intent and self-identified qualification. Person-level identification is not the lead claim.',
                   },
                 ].map((item) => (
-                  <details key={item.q} className="liquid-glass group rounded-[18px] p-5">
-                    <summary className="cursor-pointer list-none font-grotesk text-[15px] uppercase tracking-wide text-cream [&::-webkit-details-marker]:hidden">
+                  <details key={item.q} className="editorial-panel group rounded-[14px] p-5">
+                    <summary className="cursor-pointer list-none font-grotesk text-[15px] uppercase tracking-wide text-[#10213c] [&::-webkit-details-marker]:hidden">
                       {item.q}
                     </summary>
-                    <p className="font-mono mt-3 text-[13px] normal-case leading-relaxed text-cream/70 sm:text-[14px]">
+                    <p className="editorial-muted font-mono mt-3 text-[13px] normal-case leading-relaxed sm:text-[14px]">
                       {item.a}
                     </p>
                   </details>

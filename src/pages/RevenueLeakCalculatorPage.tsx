@@ -196,20 +196,38 @@ function StageCard({
   title,
   body,
   icon: Icon,
+  variant = 'dark',
 }: {
   title: string
   body: string
   icon: LucideIcon
+  variant?: 'dark' | 'light'
 }) {
+  const isLight = variant === 'light'
+
   return (
-    <article className="liquid-glass rounded-[24px] p-5 sm:p-6">
-      <span className="flex h-11 w-11 items-center justify-center rounded-[14px] bg-neon/[0.08] text-neon">
+    <article
+      className={`${isLight ? 'editorial-panel' : 'liquid-glass'} rounded-[24px] p-5 sm:p-6`}
+    >
+      <span
+        className={`flex h-11 w-11 items-center justify-center rounded-[14px] ${
+          isLight ? 'bg-[#0b6a31]/10 text-[#0b6a31]' : 'bg-neon/[0.08] text-neon'
+        }`}
+      >
         <Icon className="h-5 w-5" aria-hidden />
       </span>
-      <h3 className="font-grotesk mt-5 text-[19px] uppercase leading-tight text-cream sm:text-[22px]">
+      <h3
+        className={`font-grotesk mt-5 text-[19px] uppercase leading-tight sm:text-[22px] ${
+          isLight ? 'text-[#10213c]' : 'text-cream'
+        }`}
+      >
         {title}
       </h3>
-      <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/68 sm:text-[13px]">
+      <p
+        className={`font-mono mt-3 text-[12px] normal-case leading-relaxed sm:text-[13px] ${
+          isLight ? 'editorial-muted' : 'text-cream/68'
+        }`}
+      >
         {body}
       </p>
     </article>
@@ -500,32 +518,35 @@ export default function RevenueLeakCalculatorPage() {
         </CalculatorShell>
 
         <section
-          className="mx-auto max-w-[1220px] px-4 py-14 sm:px-6 md:px-8 md:py-16 lg:px-10"
+          className="section-light-editorial px-4 py-14 sm:px-6 md:px-8 md:py-16 lg:px-10"
           aria-labelledby="recovery-loop-heading"
         >
-          <div className="mb-8 max-w-[880px]">
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              What the model represents
-            </p>
-            <h2
-              id="recovery-loop-heading"
-              className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
-            >
-              {selectedUseCase.loopTitle}
-            </h2>
-            <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/65 sm:text-[14px]">
-              {selectedUseCase.loopBody}
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-            {selectedUseCase.stages.map((stage, index) => (
-              <StageCard
-                key={stage.title}
-                title={stage.title}
-                body={stage.body}
-                icon={STAGE_ICONS[index] ?? MousePointerClick}
-              />
-            ))}
+          <div className="mx-auto max-w-[1220px]">
+            <div className="mb-8 max-w-[880px]">
+              <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
+                What the model represents
+              </p>
+              <h2
+                id="recovery-loop-heading"
+                className="section-heading font-grotesk text-[30px] uppercase leading-tight sm:text-[42px]"
+              >
+                {selectedUseCase.loopTitle}
+              </h2>
+              <p className="section-copy font-mono mt-4 text-[13px] normal-case leading-relaxed sm:text-[14px]">
+                {selectedUseCase.loopBody}
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+              {selectedUseCase.stages.map((stage, index) => (
+                <StageCard
+                  key={stage.title}
+                  title={stage.title}
+                  body={stage.body}
+                  icon={STAGE_ICONS[index] ?? MousePointerClick}
+                  variant="light"
+                />
+              ))}
+            </div>
           </div>
         </section>
 

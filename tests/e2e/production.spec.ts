@@ -1631,6 +1631,12 @@ test('orchestrate page renders the stack orchestration story', async ({ page, re
   await expect(page.getByText('what HubSpot should do')).toBeVisible()
   await expect(page.getByText('what business action should happen next')).toBeVisible()
   await expect(page.getByTestId('tool-story-section')).toHaveCount(9)
+  await expect(
+    page
+      .getByTestId('tool-story-section')
+      .filter({ has: page.getByRole('heading', { name: /HubSpot story/i }) })
+      .getByRole('img', { name: 'HubSpot logo' }),
+  ).toBeVisible()
   await expect(page.getByText('SentientWeb decision').first()).toBeVisible()
   await expect(page.getByText('Tool action').first()).toBeVisible()
   await expect(page.getByText('Sales result').first()).toBeVisible()
