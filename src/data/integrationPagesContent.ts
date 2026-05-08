@@ -18,13 +18,13 @@ export const INTEGRATION_PAGES = {
       'SentientWeb sits above HubSpot, decides when a buyer is sales-ready, then uses HubSpot to create or update the record with the context sales needs.',
     body: [
       'HubSpot is one execution surface in the revenue stack. The goal is not another dashboard; the goal is to make recovered intent visible where the revenue team already works.',
-      'Every recovered revenue moment should arrive with the page path, use case, role, timeline, summary, and recommended next action. HubSpot Free and Starter can work when the needed contact, company, note, and meeting fields are available; Professional and Enterprise unlock deeper workflow options.',
+      'Every recovered revenue moment should arrive with the page path, use case, role, timeline, summary, and recommended next action. SentientWeb maps the CRM fields and workflow actions needed for the outcome your team wants to recover.',
     ],
     bullets: [
-      'Works with HubSpot Free, Starter, Professional, and Enterprise after a field check.',
+      'Works with the HubSpot workspace and workflow shape your team already uses.',
       'Create or update contacts and companies.',
       'Attach conversation and page-intent summaries.',
-      'Sync booked-demo context for sales preparation.',
+      'Sync recovered-action context for sales, success, or RevOps action.',
     ],
   },
   salesforce: {
@@ -39,8 +39,8 @@ export const INTEGRATION_PAGES = {
       'During setup, SentientWeb maps the required Salesforce outcome first: lead or contact update, company or account context, campaign/source attribution, qualification answers, booking details, and the sales opener your RevOps team expects.',
     ],
     bullets: [
-      'Salesforce field mapping is reviewed before launch.',
-      'Fallback paths can use HubSpot handoff, CSV, or webhook while deeper sync is scoped.',
+      'Salesforce field mapping follows the recovered action and team workflow.',
+      'API, webhook, or handoff routes can support custom workflow requirements.',
       'Salesforce context should be credible enough for reps to act on.',
     ],
   },
@@ -53,7 +53,7 @@ export const INTEGRATION_PAGES = {
       'SentientWeb can keep Pipedrive as the execution surface while the orchestration layer decides what context should reach sales and when.',
     body: [
       'Pipedrive teams are often lean and do not have RevOps capacity for a heavy implementation. SentientWeb should recover revenue moments without forcing a CRM migration.',
-      'The setup conversation defines where a qualified booked demo should land, what fields sales needs, and what fallback is acceptable if a native sync is not the right first step.',
+      'The setup conversation defines where a recovered action should land, what fields the team needs, and which workflow should run when SentientWeb calls Pipedrive.',
     ],
     bullets: [
       'Confirm Pipedrive handoff requirements before installing.',
@@ -69,11 +69,11 @@ export const INTEGRATION_PAGES = {
     deck:
       'SentientWeb can use API and webhook routes as execution surfaces after it decides the visitor, account, or payment moment needs a custom action.',
     body: [
-      'Not every subscription business has the same CRM, scheduler, billing system, or messaging stack. If the business has real revenue intent, the first question is which execution surface should receive the action.',
+      'Not every subscription business has the same CRM, scheduler, billing system, or messaging stack. When there is real revenue intent, SentientWeb decides which execution surface should receive the action.',
       'The fit check defines whether a CRM, billing system, scheduler, shared inbox, lifecycle platform, or webhook should receive the context, and which business outcome should be recovered first.',
     ],
     bullets: [
-      'Clarify the revenue moment, traffic source, and execution surface before launch.',
+      'Clarify the revenue moment, traffic source, and execution surface for each workflow.',
       'Scope webhook payloads around use case, role, stack, page path, subscription state, and action status.',
       'Show teams which stack prerequisites unlock the strongest recovery loop.',
     ],

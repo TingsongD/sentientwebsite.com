@@ -580,17 +580,17 @@ export default function PricingPage() {
         >
           <div className="mx-auto max-w-[980px] text-center">
             <p className="font-mono mb-4 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              First 10 customer pilot
+              Revenue recovery pricing
             </p>
             <h1
               id="pricing-heading"
               className="font-grotesk text-[40px] uppercase leading-none text-cream sm:text-[56px] md:text-[72px]"
             >
-              Start with a 30-day recovery pilot.
+              Price around recovered revenue actions.
             </h1>
             <p className="font-mono mx-auto mt-6 max-w-[760px] text-[14px] uppercase leading-relaxed text-cream/70 sm:text-[15px] md:text-[16px]">
-              Setup is waived for early design partners. Pay around sales-accepted recovered
-              actions, then move monthly after the pilot proves stack-visible recovery.
+              SentientWeb detects recovery moments, calls the right tool in your stack, and
+              measures business-accepted outcomes instead of message volume.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               {TRUST_PILLS.map((pill) => (
@@ -622,20 +622,20 @@ export default function PricingPage() {
           <section className="pt-10 sm:pt-12" aria-labelledby="qualified-demo-heading">
             <div className="liquid-glass mx-auto max-w-[980px] rounded-[24px] p-6 sm:p-8">
               <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                Qualified booked demo
+                Qualified recovered action
               </p>
               <h2
                 id="qualified-demo-heading"
                 className="font-grotesk text-[24px] uppercase leading-tight text-cream sm:text-[30px]"
               >
-                Define the result before the pilot starts.
+                Define the business outcome before the workflow runs.
               </h2>
               <p className="font-mono mt-4 text-[13px] normal-case leading-relaxed text-cream/75 sm:text-[14px]">
                 {QUALIFIED_BOOKED_DEMO_DEFINITION}
               </p>
               <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/55 sm:text-[13px]">
-                Your team approves the ICP, stack-fit rules, disqualification reasons, and what
-                counts as sales-accepted before any recovered meeting is billable.
+                Your team approves the ICP, stack-fit rules, recovery criteria, and what counts as
+                business-accepted before any recovered action is billable.
               </p>
             </div>
           </section>
@@ -666,8 +666,8 @@ export default function PricingPage() {
               <ol className="mt-8 grid gap-5 md:grid-cols-3">
                 {[
                   {
-                    title: 'We set the pilot rules',
-                    body: 'Agree on ICP, high-intent pages, qualification, execution surfaces, stack fields, and proof criteria.',
+                    title: 'We map the recovery rules',
+                    body: 'Agree on ICP, high-intent surfaces, qualification, execution tools, stack fields, and acceptance criteria.',
                   },
                   {
                     title: 'We recover revenue intent',
@@ -705,7 +705,7 @@ export default function PricingPage() {
             <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-                  After pilot proof
+                  Recovery plans
                 </p>
                 <h2
                   id="tier-table-heading"
@@ -757,7 +757,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'Are case-study rights required?',
-                    a: 'No. Published proof rights are optional. The pilot can be evaluated without publishing your brand or conversion data.',
+                    a: 'No. Published proof rights are optional. SentientWeb can be evaluated without publishing your brand or conversion data.',
                   },
                   {
                     q: 'How do you prove incrementality?',
@@ -769,7 +769,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'What does the annual tier include?',
-                    a: 'Annual is not the starting offer. After pilot proof, annual pricing can lock Starter or Growth volume and apply any agreed pilot credit.',
+                    a: 'Annual pricing can lock Starter or Growth volume and apply any agreed recovery credit.',
                   },
                   {
                     q: 'What if procurement needs SOC 2 or a BAA?',
@@ -805,10 +805,11 @@ export default function PricingPage() {
                 id="enterprise-heading"
                 className="font-grotesk text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
               >
-                Start with one measurable recovery loop.
+                Run the recovery loop across your stack.
               </h2>
               <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-                The 30-day pilot proves qualified recovered actions with business-accepted stack context.
+                SentientWeb turns qualified recovery moments into business-accepted actions with
+                stack context attached.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
                 <a

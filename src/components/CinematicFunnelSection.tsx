@@ -245,7 +245,7 @@ export function CinematicFunnelSection() {
             id="features-heading"
             className="font-grotesk max-w-[1040px] text-[32px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px] lg:text-[60px]"
           >
-            One scroll from top-of-funnel intent to a booked demo.
+            One operating layer from revenue intent to recovered action.
           </h2>
           <section
             className="relative left-1/2 mt-8 w-screen -translate-x-1/2 border-b border-white/10 bg-[#020a2e]/70 px-4 py-10 sm:px-6 md:px-8 md:py-12 lg:px-10"
@@ -269,18 +269,16 @@ export function CinematicFunnelSection() {
                   rate, sales process, and implementation scope.
                 </p>
               </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {SAAS_RECOVERY_TARGETS.map((target) => (
                   <article
                     key={target.label}
-                    className="liquid-glass rounded-[22px] border border-neon/10 p-5"
+                    className={`recovery-target-card recovery-target-card--${target.tone} liquid-glass rounded-[22px] p-5`}
                   >
-                    <p className="font-grotesk text-[32px] uppercase leading-none text-neon sm:text-[38px]">
-                      {target.stat}
+                    <p className="recovery-target-card__stat font-grotesk uppercase leading-none">
+                      <span>{target.stat}</span>{' '}
+                      <span>{target.label}</span>
                     </p>
-                    <h4 className="font-grotesk mt-5 text-[15px] uppercase leading-tight text-cream">
-                      {target.label}
-                    </h4>
                     <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/70">
                       {target.body}
                     </p>

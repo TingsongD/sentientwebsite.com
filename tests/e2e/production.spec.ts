@@ -1467,8 +1467,12 @@ test('primary nav links to focused use cases and existing stack orchestration', 
 
   await stackButton.click()
   await expect(
-    nav.getByText('SentientWeb sits above your stack and calls the right tool'),
+    nav.getByText('SentientWeb sits above your existing stack, chooses the next revenue action'),
   ).toBeVisible()
+  await expect(nav.getByRole('link', { name: 'Orchestration overview' })).toHaveAttribute(
+    'href',
+    '/orchestrate',
+  )
   await expect(nav.getByRole('link', { name: 'HubSpot', exact: true })).toHaveAttribute(
     'href',
     '/integrations/hubspot',
@@ -1535,8 +1539,12 @@ test('primary nav links to focused use cases and existing stack orchestration', 
   await expect(dialog.getByText('Stack orchestration')).toBeVisible()
   await dialog.getByText('Stack orchestration').click()
   await expect(
-    dialog.getByText('SentientWeb sits above your stack and calls the right tool'),
+    dialog.getByText('SentientWeb sits above your existing stack, chooses the next revenue action'),
   ).toBeVisible()
+  await expect(dialog.getByRole('link', { name: 'Orchestration overview' })).toHaveAttribute(
+    'href',
+    '/orchestrate',
+  )
   await expect(dialog.getByRole('link', { name: 'HubSpot', exact: true })).toHaveAttribute(
     'href',
     '/integrations/hubspot',
@@ -1568,10 +1576,28 @@ test('homepage preview URL feeds booking link and closing CTA keeps links outsid
   )
 
   await expect(
-    page.getByText('Add the URL so the pilot preview carries the right page context.'),
+    page.getByText('Add the URL so the recovery preview carries the right page context.'),
   ).toBeVisible()
-  await expect(page.locator('h2#cta-heading a')).toHaveCount(0)
-  await expect(page.locator('h2#cta-heading').getByText('Book a 30-day pilot')).toHaveCount(0)
+  const closingCta = page.locator('section[aria-labelledby="cta-heading"]')
+  await expect(closingCta.getByText('Your Stack, Orchestrated.')).toBeVisible()
+  await expect(closingCta.getByText('Your stack stays. SentientWeb orchestrates it.')).toBeVisible()
+  await expect(
+    closingCta.getByText(
+      'Backend revenue recovery service that calls your CRM, billing, scheduler, and messaging tools to complete the next business action.',
+    ),
+  ).toBeVisible()
+  await expect(closingCta.getByText('Keep the SaaS tools you already use.')).toBeVisible()
+  await expect(closingCta.getByRole('link', { name: 'See stack orchestration' })).toHaveAttribute(
+    'href',
+    '/orchestrate',
+  )
+  await expect(closingCta.getByRole('link', { name: 'Book a revenue recovery review' })).toHaveAttribute(
+    'href',
+    'https://calendly.com/tingsong-dai/30min',
+  )
+  await expect(closingCta.locator('h2#cta-heading a')).toHaveCount(0)
+  await expect(closingCta.locator('h2#cta-heading').getByText('Book a 30-day pilot')).toHaveCount(0)
+  await expect(closingCta.getByText('Detect, qualify, act, sync.')).toHaveCount(0)
 })
 
 test('orchestrate page renders the stack orchestration story', async ({ page, request }) => {
@@ -1586,6 +1612,13 @@ test('orchestrate page renders the stack orchestration story', async ({ page, re
     page.getByRole('heading', { name: 'The orchestration layer above your existing stack.' }),
   ).toBeVisible()
   await expect(page.getByRole('heading', { name: 'HubSpot use case' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', {
+      name: 'The orchestration layer improves from every recovered outcome.',
+    }),
+  ).toBeVisible()
+  await expect(page.getByText('Outcome feedback improves future routing.')).toBeVisible()
+  await expect(page.getByText('Repeated objections become repair work.')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Not another chatbot' })).toHaveCount(0)
   await expect(
     page.getByRole('heading', { name: 'Start with one measurable orchestration path.' }),
@@ -1597,16 +1630,22 @@ test('orchestrate page renders the stack orchestration story', async ({ page, re
   await expect(page.getByText('SentientWeb decision').first()).toBeVisible()
   await expect(page.getByText('Tool action').first()).toBeVisible()
   await expect(page.getByText('Sales result').first()).toBeVisible()
-  const sectionNav = page.getByRole('navigation', { name: 'Orchestrate page sections' })
-  await expect(sectionNav.getByRole('link', { name: 'HubSpot', exact: true })).toHaveAttribute(
-    'href',
-    '/orchestrate#hubspot',
-  )
-  await expect(sectionNav.getByRole('link', { name: 'ManyChat' })).toHaveAttribute(
-    'href',
-    '/orchestrate#manychat',
-  )
-  await expect(sectionNav.getByRole('link', { name: 'Book a pilot' })).toHaveCount(0)
+  await expect(page.getByRole('navigation', { name: 'Orchestrate page sections' })).toHaveCount(0)
+  const integrationsStrip = page.locator('section[aria-labelledby="integrations-strip-heading"]')
+  await expect(integrationsStrip).toHaveClass(/integration-logo-strip/)
+  await expect(
+    integrationsStrip.getByRole('heading', {
+      name: 'SentientWeb uses your existing stack as the execution layer for revenue recovery',
+    }),
+  ).toBeVisible()
+  const integrationLogoList = integrationsStrip.getByRole('list', {
+    name: 'Existing tech stack logos',
+  })
+  await expect(integrationLogoList.locator('img')).toHaveCount(18)
+  await expect(integrationLogoList.getByRole('img', { name: 'HubSpot logo' })).toBeVisible()
+  await expect(integrationLogoList.getByRole('img', { name: 'ManyChat logo' })).toHaveCount(0)
+  await expect(integrationsStrip.locator('.integration-logo-track[aria-hidden="true"] img')).toHaveCount(18)
+  await expect(integrationsStrip.getByRole('link')).toHaveCount(0)
 })
 
 test('pricing plan selector highlights selected plans and dims the other cards', async ({ page }) => {
@@ -1668,11 +1707,11 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await page.getByText('How are AI answer quality and security handled?').click()
   await expect(page.getByText('Answers are grounded in approved source content')).toBeVisible()
   await page.getByText('What does the annual tier include?').click()
-  await expect(page.getByText('Annual is not the starting offer')).toBeVisible()
+  await expect(page.getByText('Annual pricing can lock Starter or Growth volume')).toBeVisible()
   await page.getByText('What if procurement needs SOC 2 or a BAA?').click()
   await expect(page.getByText('SentientWeb is not currently SOC 2 certified')).toBeVisible()
   await expect(page.getByText('Modeled pricing only')).toHaveCount(0)
-  await expect(page.getByText('First 10 customer pilot')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Price around recovered revenue actions.' })).toBeVisible()
 
   const sitemap = await (await request.get('/sitemap.xml')).text()
   for (const path of ['/integrations/salesforce', '/integrations/pipedrive', '/integrations/api-webhooks']) {
@@ -1692,7 +1731,7 @@ test('ICP objections are answered on homepage, pricing, and integration pages', 
   await expect(page.getByText('Call a webhook when the workflow needs a custom handoff.')).toBeVisible()
 
   await page.goto('/integrations/hubspot')
-  await expect(page.getByText('Works with HubSpot Free, Starter, Professional')).toBeVisible()
+  await expect(page.getByText('Works with the HubSpot workspace and workflow shape')).toBeVisible()
 
   await page.goto('/integrations/calendly')
   await expect(page.getByText('Call your scheduler when the visitor is qualified.')).toBeVisible()
@@ -1748,7 +1787,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   ).toBeVisible()
   await expect(
     page.getByRole('heading', {
-      name: 'One scroll from top-of-funnel intent to a booked demo.',
+      name: 'One operating layer from revenue intent to recovered action.',
     }),
   ).toBeVisible()
   const features = page.locator('#features')
@@ -1763,21 +1802,42 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(
     features.getByRole('heading', { name: 'What better recovery can move.' }),
   ).toBeVisible()
-  await expect(features.getByText('Increase demo booking rates by up to 80% from high-intent pages.')).toBeVisible()
-  await expect(features.getByText('Reduce high-intent visitor drop-off by up to 50%.')).toBeVisible()
+  await expect(features.locator('.recovery-target-card')).toHaveCount(4)
   await expect(
     features.getByText(
-      'Recover up to 35% more qualified next steps from the traffic you already have.',
+      'Recover more demo-ready visitors from pricing, comparison, security, and integration pages.',
     ),
   ).toBeVisible()
   await expect(
-    features.getByText('Cut demo no-shows by up to 30% with text and email reminders.'),
+    features.getByText(
+      'Recover failed payments and cancellation-risk accounts before avoidable churn closes.',
+    ),
   ).toBeVisible()
   await expect(
     features.getByText(
-      'Every recovered demo arrives with page history, qualification answers, and a suggested sales opener.',
+      'Bring missed meetings back with context-aware reminders and low-friction reschedule paths.',
     ),
   ).toBeVisible()
+  await expect(
+    features.getByText(
+      'Surface more recurring objections, revenue friction, and repair work from live buyer behavior.',
+    ),
+  ).toBeVisible()
+  for (const [metric, label, tone, color] of [
+    ['Up to 80% Demo booking lift', 'Demo booking lift', 'demo', 'rgb(167, 139, 250)'],
+    ['Up to 45% Payment recovery', 'Payment recovery', 'payment', 'rgb(85, 214, 255)'],
+    ['Up to 30% No-show reduction', 'No-show reduction', 'meeting', 'rgb(255, 206, 92)'],
+    ['Up to 80% Buyer insight lift', 'Buyer insight lift', 'insights', 'rgb(255, 138, 203)'],
+  ] as const) {
+    const targetCard = features.locator('.recovery-target-card').filter({ hasText: label })
+    await expect(targetCard).toHaveClass(new RegExp(`recovery-target-card--${tone}`))
+    await expect(targetCard.locator('.recovery-target-card__stat')).toContainText(metric)
+    expect(
+      await targetCard
+        .locator('.recovery-target-card__stat')
+        .evaluate((el) => getComputedStyle(el).color),
+    ).toBe(color)
+  }
   await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span')).toHaveCount(54)
   await expect(features.locator('[data-testid="cinematic-funnel-particles"] > span[style]')).toHaveCount(0)
   await expect(features.locator('.cinematic-funnel-anchor[style]')).toHaveCount(0)
@@ -1796,33 +1856,80 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(revenueLeaks.getByRole('heading', { name: 'Failed Payment Recovery' })).toBeVisible()
   await expect(revenueLeaks.getByRole('heading', { name: 'No-Show Recovery' })).toBeVisible()
   await expect(revenueLeaks.getByRole('heading', { name: 'Buyer Insights' })).toBeVisible()
+  for (const useCaseTheme of [
+    {
+      heading: 'Demo Recovery',
+      id: 'demo-recovery',
+      themeClass: 'use-case-theme--purple',
+      color: 'rgb(167, 139, 250)',
+    },
+    {
+      heading: 'Failed Payment Recovery',
+      id: 'failed-payment-recovery',
+      themeClass: 'use-case-theme--blue',
+      color: 'rgb(85, 214, 255)',
+    },
+    {
+      heading: 'No-Show Recovery',
+      id: 'no-show-recovery',
+      themeClass: 'use-case-theme--yellow',
+      color: 'rgb(255, 206, 92)',
+    },
+    {
+      heading: 'Buyer Insights',
+      id: 'buyer-insights',
+      themeClass: 'use-case-theme--pink',
+      color: 'rgb(255, 138, 203)',
+    },
+  ]) {
+    const card = revenueLeaks
+      .getByRole('heading', { name: useCaseTheme.heading })
+      .locator('xpath=ancestor::article[1]')
+    await expect(card).toHaveClass(new RegExp(useCaseTheme.themeClass))
+    await expect(page.locator(`#${useCaseTheme.id}`)).toHaveClass(
+      new RegExp(useCaseTheme.themeClass),
+    )
+    expect(
+      await card.locator('.use-case-accent-pill').evaluate((el) => getComputedStyle(el).color),
+    ).toBe(useCaseTheme.color)
+  }
   for (const useCaseSection of [
     {
       id: 'demo-recovery',
       heading: 'Give high-intent visitors a demo trailer before they leave.',
-      flow: 'Demo Recovery flowchart',
+      storyboard: 'Demo Recovery storyboard',
+      surface: 'Meeting path opened',
     },
     {
       id: 'failed-payment-recovery',
       heading: 'Recover payment and cancellation risk before revenue walks away.',
-      flow: 'Failed Payment Recovery flowchart',
+      storyboard: 'Failed Payment Recovery storyboard',
+      surface: 'Save path opened',
     },
     {
       id: 'no-show-recovery',
       heading: 'Recover no-shows while the buying context is still usable.',
-      flow: 'No-Show Recovery flowchart',
+      storyboard: 'No-Show Recovery storyboard',
+      surface: 'Meeting rescheduled',
     },
     {
       id: 'buyer-insights',
       heading: 'Turn buyer hesitation into weekly revenue repair work.',
-      flow: 'Buyer Insights flowchart',
+      storyboard: 'Buyer Insights storyboard',
+      surface: 'Repair work queued',
     },
   ]) {
     const section = page.locator(`#${useCaseSection.id}`)
     await expect(section.getByRole('heading', { name: useCaseSection.heading })).toBeVisible()
-    await expect(section.getByText('Use case', { exact: true })).toBeVisible()
-    await expect(section.getByText('Walkthrough diagram')).toBeVisible()
-    await expect(section.getByRole('list', { name: useCaseSection.flow })).toBeVisible()
+    await expect(section.locator('article').getByText('Use case', { exact: true }).first()).toBeVisible()
+    await expect(section.getByText('Storyboard walkthrough')).toHaveCount(0)
+    await expect(
+      section.getByText('Four image-led moments show the workflow from the first signal'),
+    ).toHaveCount(0)
+    await expect(section.getByText('Walkthrough diagram')).toHaveCount(0)
+    await expect(section.getByRole('list', { name: useCaseSection.storyboard })).toBeVisible()
+    await expect(section.locator('.use-case-storyboard__panel')).toHaveCount(4)
+    await expect(section.getByText(useCaseSection.surface)).toBeVisible()
   }
   for (const removedVertical of [
     'Home Services',
@@ -1851,7 +1958,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(integrationsStrip).toHaveClass(/integration-logo-strip/)
   await expect(
     integrationsStrip.getByRole('heading', {
-      name: 'SentientWeb sits above your stack and calls the right tools at the right time',
+      name: 'SentientWeb uses your existing stack as the execution layer for revenue recovery',
     }),
   ).toBeVisible()
   const integrationLogoList = integrationsStrip.getByRole('list', {
@@ -1916,7 +2023,7 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   ).toHaveCount(0)
   await expect(
     page.getByRole('heading', {
-      name: 'Best fit for subscription businesses with revenue moments to recover.',
+      name: 'Built for subscription businesses with revenue moments to recover.',
     }),
   ).toBeVisible()
   const roiCalculatorSection = page.locator('section[aria-label="ROI calculator"]').first()
@@ -1949,19 +2056,25 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(
     page.getByRole('heading', { name: 'What better recovery can move.' }),
   ).toBeVisible()
-  await expect(page.getByText('Increase demo booking rates by up to 80% from high-intent pages.')).toBeVisible()
-  await expect(page.getByText('Reduce high-intent visitor drop-off by up to 50%.')).toBeVisible()
+  await expect(page.locator('.recovery-target-card')).toHaveCount(4)
   await expect(
     page.getByText(
-      'Recover up to 35% more qualified next steps from the traffic you already have.',
+      'Recover more demo-ready visitors from pricing, comparison, security, and integration pages.',
     ),
   ).toBeVisible()
   await expect(
-    page.getByText('Cut demo no-shows by up to 30% with text and email reminders.'),
+    page.getByText(
+      'Recover failed payments and cancellation-risk accounts before avoidable churn closes.',
+    ),
   ).toBeVisible()
   await expect(
     page.getByText(
-      'Every recovered demo arrives with page history, qualification answers, and a suggested sales opener.',
+      'Bring missed meetings back with context-aware reminders and low-friction reschedule paths.',
+    ),
+  ).toBeVisible()
+  await expect(
+    page.getByText(
+      'Surface more recurring objections, revenue friction, and repair work from live buyer behavior.',
     ),
   ).toBeVisible()
   await expect(page.getByText('Modeled targets. Actual results depend on traffic quality')).toBeVisible()
@@ -1978,9 +2091,14 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   await expect(
     page.getByRole('heading', { name: 'The prospect shows up to the demo meeting.' }),
   ).toBeVisible()
-  await expect(page.getByText('Powered by AI').first()).toBeVisible()
-  await expect(page.getByText('Encrypted in transit').first()).toBeVisible()
+  await expect(page.getByText('AI orchestration layer').first()).toBeVisible()
+  await expect(page.getByText('Human handoff when needed').first()).toBeVisible()
+  await expect(page.getByText('Stack-ready context').first()).toBeVisible()
+  await expect(page.getByText('Encrypted action paths').first()).toBeVisible()
   await expect(page.getByText('Retention controls').first()).toBeVisible()
+  await expect(page.getByText('18-month maximum disclosed').first()).toBeVisible()
+  await expect(page.getByText('Powered by AI')).toHaveCount(0)
+  await expect(page.getByText('Human support always available')).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'Transparent by design' })).toBeVisible()
 })
 
@@ -1999,7 +2117,7 @@ test('revenue recovery use-case cards render on mobile without overflow', async 
 
   await expect(demoRecoveryCard).toBeVisible()
   await expect(demoRecoveryCard.getByText('Core workflow')).toBeVisible()
-  await expect(demoRecoveryCard.getByText('Qualified booked demos as the first proof metric.')).toBeVisible()
+  await expect(demoRecoveryCard.getByText('Recovered actions measured across the stack.')).toBeVisible()
 
   const metrics = await demoRecoveryCard.evaluate((el) => {
     const rect = el.getBoundingClientRect()
@@ -2177,5 +2295,5 @@ test('social links do not point to generic placeholder domains', async ({ reques
 
   expect(html).not.toContain('href="https://x.com"')
   expect(html).not.toContain('href="https://github.com"')
-  expect(html).toContain('href="https://github.com/TingsongD/sentientweblanding2"')
+  expect(html).toContain('href="https://github.com/TingsongD/sentientwebsite.com"')
 })

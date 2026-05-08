@@ -47,6 +47,21 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
     ],
   },
   {
+    id: 'self-improving-layer',
+    label: 'Self-improving layer',
+    eyebrow: 'Learning loop',
+    title: 'The orchestration layer improves from every recovered outcome.',
+    body: [
+      'SentientWeb does not treat each visitor, payment event, no-show, or objection as a one-off interaction. It uses outcome feedback to refine which recovery path should run next.',
+      'When a save path works, a meeting is recovered, a CRM handoff is accepted, or a buyer objection repeats, the orchestration layer can adjust routing, playbooks, qualification, and reporting rules for the next similar moment.',
+    ],
+    bullets: [
+      'Outcome feedback improves future routing.',
+      'Repeated objections become repair work.',
+      'Human-approved rules keep the learning loop controlled.',
+    ],
+  },
+  {
     id: 'hubspot-use-case',
     label: 'HubSpot use case',
     eyebrow: 'Use case',
@@ -243,17 +258,4 @@ export const ORCHESTRATE_SECTIONS: readonly OrchestrateSection[] = [
         'The visitor receives useful reminders while HubSpot and sales keep the authoritative demo context.',
     },
   },
-] as const
-
-export const ORCHESTRATE_NAV_LINKS = [
-  {
-    id: 'page-overview',
-    label: 'Page overview',
-    to: ORCHESTRATE_PATH,
-  },
-  ...ORCHESTRATE_SECTIONS.filter((section) => section.id !== 'overview').map((section) => ({
-    id: section.id,
-    label: section.label,
-    to: `${ORCHESTRATE_PATH}#${section.id}`,
-  })),
 ] as const

@@ -57,9 +57,9 @@ const HOME_FAQ_ITEMS: FaqItem[] = [
 
 const PRICING_FAQ_ITEMS: FaqItem[] = [
   {
-    question: 'What counts as a qualified booked demo?',
+    question: 'What counts as a qualified recovered action?',
     answer:
-      'A qualified booked demo is a meeting booked after the visitor shares enough role, company, use case, timeline, stack, and fit context for sales to accept the meeting.',
+      'A qualified recovered action is a business outcome completed after the visitor or customer shares enough role, account, use case, timeline, stack, and fit context for the team to accept the action.',
   },
   {
     question: 'Do teams need HubSpot to use SentientWeb?',
@@ -74,7 +74,7 @@ const PRICING_FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How does SentientWeb prove incrementality?',
     answer:
-      'The pilot proof packet includes baseline pages, detected intent, qualification answers, booked demos, sales acceptance, CRM records, and the pipeline assumptions used.',
+      'The recovery proof packet includes baseline pages, detected intent, qualification answers, recovered actions, business acceptance, stack records, and the pipeline assumptions used.',
   },
 ]
 

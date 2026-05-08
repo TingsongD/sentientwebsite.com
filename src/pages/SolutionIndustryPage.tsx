@@ -189,18 +189,16 @@ function SaasSolutionPage({
                   rate, sales process, and implementation scope.
                 </p>
               </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {SAAS_RECOVERY_TARGETS.map((target) => (
                   <article
                     key={target.label}
-                    className="liquid-glass rounded-[22px] border border-neon/10 p-5"
+                    className={`recovery-target-card recovery-target-card--${target.tone} liquid-glass rounded-[22px] p-5`}
                   >
-                    <p className="font-grotesk text-[32px] uppercase leading-none text-neon sm:text-[38px]">
-                      {target.stat}
+                    <p className="recovery-target-card__stat font-grotesk uppercase leading-none">
+                      <span>{target.stat}</span>{' '}
+                      <span>{target.label}</span>
                     </p>
-                    <h3 className="font-grotesk mt-5 text-[15px] uppercase leading-tight text-cream">
-                      {target.label}
-                    </h3>
                     <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/70">
                       {target.body}
                     </p>
@@ -363,16 +361,17 @@ function SaasSolutionPage({
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="liquid-glass rounded-[18px] p-4">
                     <ShieldCheck className="mb-3 h-5 w-5 text-neon" aria-hidden />
-                    <p className="uppercase text-cream">Encrypted in transit</p>
+                    <p className="uppercase text-cream">Encrypted action paths</p>
                     <p className="mt-2 text-cream/60">
-                      Secure response handling protects visitor and qualification data in transit.
+                      Secure handling protects recovered context as it moves between SentientWeb
+                      and approved tools.
                     </p>
                   </div>
                   <div className="liquid-glass rounded-[18px] p-4">
                     <UserRound className="mb-3 h-5 w-5 text-neon" aria-hidden />
-                    <p className="uppercase text-cream">Human support path</p>
+                    <p className="uppercase text-cream">Human handoff path</p>
                     <p className="mt-2 text-cream/60">
-                      Sales or support can take over when the buyer needs a person.
+                      Sales or support can take over when the recovery moment needs a person.
                     </p>
                   </div>
                 </div>
@@ -574,16 +573,17 @@ export default function SolutionIndustryPage() {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="liquid-glass rounded-[18px] p-4">
                     <ShieldCheck className="mb-3 h-5 w-5 text-neon" aria-hidden />
-                    <p className="uppercase text-cream">Encrypted in transit</p>
+                    <p className="uppercase text-cream">Encrypted action paths</p>
                     <p className="mt-2 text-cream/60">
-                      Secure response handling protects visitor data in transit.
+                      Secure handling protects recovered context as it moves between SentientWeb
+                      and approved tools.
                     </p>
                   </div>
                   <div className="liquid-glass rounded-[18px] p-4">
                     <UserRound className="mb-3 h-5 w-5 text-neon" aria-hidden />
-                    <p className="uppercase text-cream">Human support path</p>
+                    <p className="uppercase text-cream">Human handoff path</p>
                     <p className="mt-2 text-cream/60">
-                      Visitors can ask for a person whenever the next step needs one.
+                      Visitors can ask for a person whenever the recovery path needs one.
                     </p>
                   </div>
                 </div>

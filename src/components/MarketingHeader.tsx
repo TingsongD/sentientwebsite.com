@@ -19,7 +19,7 @@ const MOBILE_SUBLINK =
 type NavMenuId = 'stack' | 'use-cases'
 
 const STACK_ORCHESTRATION_COPY =
-  'SentientWeb sits above your stack and calls the right tool when the revenue workflow needs it.'
+  'SentientWeb sits above your existing stack, chooses the next revenue action, and calls the right tool to complete it.'
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -173,6 +173,11 @@ function PrimaryNavList() {
               <p className="font-mono text-[11px] normal-case leading-relaxed text-cream/58">
                 {STACK_ORCHESTRATION_COPY}
               </p>
+            </li>
+            <li>
+              <Link to="/orchestrate" className={DROPDOWN_LINK} onClick={close}>
+                Orchestration overview
+              </Link>
             </li>
             {integrationLinks.map(({ id, label, to }) => (
               <li key={id}>
@@ -350,6 +355,9 @@ function MobileNavPanel({
               <p className="px-4 py-3 font-mono text-[11px] normal-case leading-relaxed text-cream/55">
                 {STACK_ORCHESTRATION_COPY}
               </p>
+              <Link to="/orchestrate" className={MOBILE_SUBLINK} onClick={onClose}>
+                Orchestration overview
+              </Link>
               {integrationLinks.map(({ id, label, to }) => (
                 <Link key={id} to={to} className={MOBILE_SUBLINK} onClick={onClose}>
                   {label}

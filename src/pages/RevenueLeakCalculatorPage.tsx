@@ -539,11 +539,11 @@ export default function RevenueLeakCalculatorPage() {
               id="roi-cta-heading"
               className="font-grotesk mt-5 text-[30px] uppercase leading-tight text-cream sm:text-[42px]"
             >
-              Use the estimate to scope a 30-day pilot.
+              Use the estimate to model recoverable revenue actions.
             </h2>
             <p className="font-mono mx-auto mt-5 max-w-2xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              The pilot should prove qualified recovered actions, stack-visible context, and
-              sales-ready meetings from the high-intent traffic you already have.
+              SentientWeb should prove qualified recovered actions, stack-visible context, and
+              business-accepted outcomes from the high-intent traffic you already have.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a

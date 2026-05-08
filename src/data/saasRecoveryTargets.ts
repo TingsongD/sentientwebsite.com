@@ -2,26 +2,25 @@ export const SAAS_RECOVERY_TARGETS = [
   {
     stat: 'Up to 80%',
     label: 'Demo booking lift',
-    body: 'Increase demo booking rates by up to 80% from high-intent pages.',
+    body: 'Recover more demo-ready visitors from pricing, comparison, security, and integration pages.',
+    tone: 'demo',
   },
   {
-    stat: 'Up to 50%',
-    label: 'Drop-off reduction',
-    body: 'Reduce high-intent visitor drop-off by up to 50%.',
-  },
-  {
-    stat: 'Up to 35%',
-    label: 'Qualified action recovery',
-    body: 'Recover up to 35% more qualified next steps from the traffic you already have.',
+    stat: 'Up to 45%',
+    label: 'Payment recovery',
+    body: 'Recover failed payments and cancellation-risk accounts before avoidable churn closes.',
+    tone: 'payment',
   },
   {
     stat: 'Up to 30%',
     label: 'No-show reduction',
-    body: 'Cut demo no-shows by up to 30% with text and email reminders.',
+    body: 'Bring missed meetings back with context-aware reminders and low-friction reschedule paths.',
+    tone: 'meeting',
   },
   {
-    stat: '100%',
-    label: 'CRM-context handoff',
-    body: 'Every recovered demo arrives with page history, qualification answers, and a suggested sales opener.',
+    stat: 'Up to 80%',
+    label: 'Buyer insight lift',
+    body: 'Surface more recurring objections, revenue friction, and repair work from live buyer behavior.',
+    tone: 'insights',
   },
 ] as const

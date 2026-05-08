@@ -6,20 +6,20 @@ type TrustStripProps = {
 
 const TRUST_ITEMS = [
   {
-    label: 'Powered by AI',
-    detail: 'Human support always available',
+    label: 'AI orchestration layer',
+    detail: 'Human handoff when needed',
     Icon: Bot,
     badgeClass: 'border-violet-300/40 bg-violet-400/15 text-violet-100',
   },
   {
-    label: 'Encrypted in transit',
-    detail: 'Protected response paths',
+    label: 'Stack-ready context',
+    detail: 'Encrypted action paths',
     Icon: ShieldCheck,
     badgeClass: 'border-emerald-300/40 bg-emerald-400/15 text-emerald-100',
   },
   {
     label: 'Retention controls',
-    detail: '18-month limit disclosed',
+    detail: '18-month maximum disclosed',
     Icon: LockKeyhole,
     badgeClass: 'border-neon/40 bg-neon/15 text-neon',
   },
@@ -49,7 +49,9 @@ export function TrustStrip({ className = '' }: TrustStripProps) {
           </span>
         </div>
       ))}
-      <p className="sr-only">Human support is available on request.</p>
+      <p className="sr-only">
+        Human handoff is available when a revenue recovery path needs a person.
+      </p>
     </div>
   )
 }

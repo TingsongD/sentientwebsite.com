@@ -35,7 +35,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
   },
   {
     stage: 'Mid-funnel',
-    summary: 'Turn active hesitation into a qualified booking path.',
+    summary: 'Turn active hesitation into a qualified next action.',
     features: [
       {
         title: 'Page-specific AI engagement',
@@ -47,7 +47,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
       },
       {
         title: 'Qualification questions',
-        body: 'Collects role, company domain, use case, stack, timeline, urgency, and fit before the calendar opens.',
+        body: 'Collects role, company domain, use case, stack, timeline, urgency, and fit before the next workflow opens.',
       },
       {
         title: 'Human handoff',
@@ -61,7 +61,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
   },
   {
     stage: 'Bottom of the funnel',
-    summary: 'Turn qualified intent into a meeting sales can prepare for.',
+    summary: 'Turn qualified intent into an action the business can complete.',
     features: [
       {
         title: 'Scheduler and workflow actions',
@@ -69,7 +69,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
       },
       {
         title: 'CRM context sync',
-        body: 'Sends page behavior, qualification, summary, booking details, and opener into sales.',
+        body: 'Sends page behavior, qualification, summary, action details, and opener into the right workflow.',
       },
       {
         title: 'Text and email reminders',
@@ -81,7 +81,7 @@ export const FUNNEL_FEATURE_GROUPS: readonly FunnelFeatureGroup[] = [
       },
       {
         title: 'ROI calculator',
-        body: 'Models recovered demos and pipeline influence from existing high-intent website traffic.',
+        body: 'Models recovered actions and pipeline influence from existing high-intent website and customer traffic.',
       },
       {
         title: 'Voice feedback add-on',

@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { CinematicFunnelSection } from '../components/CinematicFunnelSection'
+import { IntegrationLogoStrip } from '../components/IntegrationLogoStrip'
 import { MarketingHeader } from '../components/MarketingHeader'
 import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
@@ -25,27 +26,6 @@ function withPreviewUrl(url: string, previewUrl: string) {
     return `${url}${separator}preview_url=${encodeURIComponent(trimmed)}`
   }
 }
-
-const INTEGRATION_LOGOS = [
-  { name: 'HubSpot', logoUrl: '/logos/hubspot.svg', logoClassName: 'is-wide' },
-  { name: 'Salesforce', logoUrl: '/logos/salesforce.svg', logoClassName: 'is-wide' },
-  { name: 'Pipedrive', logoUrl: '/logos/pipedrive.svg', logoClassName: 'is-wide' },
-  { name: 'API and Webhooks', logoUrl: '/logos/api-webhooks.svg', logoClassName: 'is-wide' },
-  { name: 'Calendly', logoUrl: '/logos/calendly.svg', logoClassName: 'is-wide' },
-  { name: 'WordPress', logoUrl: '/logos/wordpress.svg', logoClassName: 'is-tall' },
-  { name: 'Webflow', logoUrl: '/logos/webflow.svg', logoClassName: 'is-wide' },
-  { name: 'Shopify', logoUrl: '/logos/shopify.svg', logoClassName: 'is-wide' },
-  { name: 'Wix', logoUrl: '/logos/wix.svg', logoClassName: 'is-wide' },
-  { name: 'OpenAI', logoUrl: '/logos/openai.svg', logoClassName: 'is-wide' },
-  { name: 'Claude', logoUrl: '/logos/claude.svg', logoClassName: 'is-wide' },
-  { name: 'Gemini', logoUrl: '/logos/gemini.svg', logoClassName: 'is-wide' },
-  { name: 'Warmly', logoUrl: '/logos/warmly.svg', logoClassName: 'is-wide' },
-  { name: 'Podium', logoUrl: '/logos/podium.svg', logoClassName: 'is-wide' },
-  { name: 'HighLevel', logoUrl: '/logos/highlevel.png', logoClassName: 'is-wide' },
-  { name: 'Drift', logoUrl: '/logos/drift.svg', logoClassName: 'is-wide' },
-  { name: 'Chili Piper', logoUrl: '/logos/chili-piper.svg', logoClassName: 'is-wide' },
-  { name: 'Custom stack', logoUrl: '/logos/custom.svg', logoClassName: 'is-wide' },
-] as const
 
 const DEMO_RECOVERY_MODULES = [
   {
@@ -73,6 +53,7 @@ const DEMO_RECOVERY_MODULES = [
 const REVENUE_RECOVERY_USE_CASES = [
   {
     id: 'demo-recovery',
+    theme: 'purple',
     status: 'Core workflow',
     title: 'Demo Recovery',
     headline: 'Recover demo-ready visitors and route the next action.',
@@ -81,7 +62,7 @@ const REVENUE_RECOVERY_USE_CASES = [
     bullets: [
       'Pricing, demo, comparison, security, docs, and stack-fit pages.',
       'Approved-source answers and qualification before calendar handoff.',
-      'Qualified booked demos as the first proof metric.',
+      'Recovered actions measured across the stack.',
     ],
     cta: 'Open walkthrough',
     to: '#demo-recovery',
@@ -98,6 +79,7 @@ const REVENUE_RECOVERY_USE_CASES = [
   },
   {
     id: 'failed-payment-recovery',
+    theme: 'blue',
     status: 'Payment recovery',
     title: 'Failed Payment Recovery',
     headline: 'Stop failed payments and cancellation risk from becoming silent churn.',
@@ -123,6 +105,7 @@ const REVENUE_RECOVERY_USE_CASES = [
   },
   {
     id: 'no-show-recovery',
+    theme: 'yellow',
     status: 'Meeting recovery',
     title: 'No-Show Recovery',
     headline: 'Keep booked demos from going quiet.',
@@ -148,6 +131,7 @@ const REVENUE_RECOVERY_USE_CASES = [
   },
   {
     id: 'buyer-insights',
+    theme: 'pink',
     status: 'Revenue insights',
     title: 'Buyer Insights',
     headline: 'Turn quiet buyer moments into weekly revenue insight.',
@@ -174,6 +158,120 @@ const REVENUE_RECOVERY_USE_CASES = [
 ] as const
 
 type RevenueRecoveryUseCase = (typeof REVENUE_RECOVERY_USE_CASES)[number]
+
+const USE_CASE_THEME_CLASS: Record<RevenueRecoveryUseCase['theme'], string> = {
+  purple: 'use-case-theme--purple',
+  blue: 'use-case-theme--blue',
+  yellow: 'use-case-theme--yellow',
+  pink: 'use-case-theme--pink',
+}
+
+function getUseCaseThemeClass(useCase: RevenueRecoveryUseCase) {
+  return USE_CASE_THEME_CLASS[useCase.theme]
+}
+
+type UseCaseStoryboardContext = {
+  url: string
+  previewUrl: string
+  persona: string
+  buyerQuestion: string
+  aiAnswer: string
+  role: string
+  useCase: string
+  timeline: string
+  stack: string
+  score: string
+  outcomeSurface: string
+  outcomeTitle: string
+  crmRows: ReadonlyArray<{ label: string; value: string }>
+}
+
+const USE_CASE_STORYBOARD_CONTEXT = {
+  'demo-recovery': {
+    url: 'yourcompany.com/pricing',
+    previewUrl: 'yourcompany.com/recovery-preview',
+    persona: 'Subscription buyer',
+    buyerQuestion: 'Does this fit our CRM and reporting stack?',
+    aiAnswer:
+      'Yes. Here is the approved integration path and the workflow your revenue team already uses.',
+    role: 'VP Marketing',
+    useCase: 'Recover revenue-ready pricing traffic',
+    timeline: 'This quarter',
+    stack: 'CRM, website, scheduler',
+    score: '82',
+    outcomeSurface: 'Scheduler',
+    outcomeTitle: 'Meeting path opened',
+    crmRows: [
+      { label: 'Pages', value: 'Pricing, comparison, security' },
+      { label: 'Need', value: 'Recover revenue-ready traffic' },
+      { label: 'Objection', value: 'CRM and reporting stack' },
+      { label: 'Opener', value: 'Lead with approved workflow context' },
+    ],
+  },
+  'failed-payment-recovery': {
+    url: 'yourcompany.com/billing/retry',
+    previewUrl: 'yourcompany.com/save-path',
+    persona: 'At-risk customer',
+    buyerQuestion: 'Can I fix billing without losing my workspace?',
+    aiAnswer:
+      'Yes. Here is the approved retry path, plan reminder, and owner escalation rule for this account.',
+    role: 'Account owner',
+    useCase: 'Resolve payment friction before churn',
+    timeline: 'Before renewal closes',
+    stack: 'Billing, CRM, email',
+    score: '76',
+    outcomeSurface: 'Billing',
+    outcomeTitle: 'Save path opened',
+    crmRows: [
+      { label: 'Signal', value: 'Failed charge and cancel intent' },
+      { label: 'Reason', value: 'Billing friction, not product rejection' },
+      { label: 'Action', value: 'Retry path plus owner task' },
+      { label: 'Outcome', value: 'Save, retry, or write-off synced' },
+    ],
+  },
+  'no-show-recovery': {
+    url: 'yourcompany.com/calendar/demo',
+    previewUrl: 'yourcompany.com/reschedule',
+    persona: 'No-show prospect',
+    buyerQuestion: 'Can we pick this back up without starting over?',
+    aiAnswer:
+      'Yes. Here is the original buying context, the reason you booked, and a low-friction reschedule path.',
+    role: 'Marketing leader',
+    useCase: 'Recover missed demo from high intent',
+    timeline: 'Same week',
+    stack: 'Scheduler, CRM, email',
+    score: '79',
+    outcomeSurface: 'Scheduler',
+    outcomeTitle: 'Meeting rescheduled',
+    crmRows: [
+      { label: 'Context', value: 'Original page path and reason booked' },
+      { label: 'Reminder', value: 'References comparison-page concern' },
+      { label: 'Route', value: 'Reschedule plus owner alert' },
+      { label: 'Next', value: 'Sales opens with preserved context' },
+    ],
+  },
+  'buyer-insights': {
+    url: 'yourcompany.com/security',
+    previewUrl: 'yourcompany.com/revops-review',
+    persona: 'Revenue team',
+    buyerQuestion: 'Why do qualified buyers hesitate before booking?',
+    aiAnswer:
+      'The pattern is implementation risk on security and pricing pages, concentrated among mid-market buyers.',
+    role: 'Founder / RevOps',
+    useCase: 'Find recurring buyer hesitation',
+    timeline: 'Weekly review',
+    stack: 'CRM, analytics, website',
+    score: '91',
+    outcomeSurface: 'RevOps',
+    outcomeTitle: 'Repair work queued',
+    crmRows: [
+      { label: 'Pattern', value: 'Security and implementation objections' },
+      { label: 'Segment', value: 'Mid-market buyers comparing vendors' },
+      { label: 'Repair', value: 'Page copy and playbook update' },
+      { label: 'Review', value: 'Weekly founder and RevOps agenda' },
+    ],
+  },
+} as const satisfies Record<RevenueRecoveryUseCase['id'], UseCaseStoryboardContext>
 
 type LeakClockEstimate = {
   usAnnualLeakUsd: number
@@ -331,94 +429,121 @@ function HeroBackgroundVideo({ reducedMotion }: { reducedMotion: boolean }) {
   )
 }
 
-function IntegrationLogoItem({
-  name,
-  logoUrl,
-  logoClassName,
-  hidden = false,
+function UseCaseStoryboardVisual({
+  useCase,
+  stepIndex,
 }: {
-  name: string
-  logoUrl: string
-  logoClassName: string
-  hidden?: boolean
+  useCase: RevenueRecoveryUseCase
+  stepIndex: number
 }) {
+  const context = USE_CASE_STORYBOARD_CONTEXT[useCase.id]
+
+  if (stepIndex === 0) {
+    return (
+      <div className="use-case-storyboard__pricing">
+        <div className="use-case-storyboard__mock-copy">
+          <p>{context.persona}</p>
+          <strong>{useCase.title}</strong>
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="use-case-storyboard__beacon" aria-hidden>
+          <span />
+        </div>
+      </div>
+    )
+  }
+
+  if (stepIndex === 1) {
+    return (
+      <div className="use-case-storyboard__preview">
+        <div className="use-case-storyboard__play" aria-hidden />
+        <div className="use-case-storyboard__chat">
+          <p>{context.buyerQuestion}</p>
+          <p>{context.aiAnswer}</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (stepIndex === 2) {
+    return (
+      <div className="use-case-storyboard__qualification">
+        <div className="use-case-storyboard__fields">
+          <span>
+            <b>Role</b>
+            {context.role}
+          </span>
+          <span>
+            <b>Use case</b>
+            {context.useCase}
+          </span>
+          <span>
+            <b>Timeline</b>
+            {context.timeline}
+          </span>
+          <span>
+            <b>Stack</b>
+            {context.stack}
+          </span>
+        </div>
+        <div className="use-case-storyboard__score" aria-label={`Fit score ${context.score}`}>
+          {context.score}
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <li
-      className="grid h-[66px] min-w-[126px] place-items-center px-2 py-3 sm:h-[68px] sm:min-w-[154px] sm:px-[18px]"
-      aria-hidden={hidden || undefined}
-    >
-      <img
-        src={logoUrl}
-        alt={hidden ? '' : `${name} logo`}
-        className={`integration-logo-image ${logoClassName}`}
-        loading="eager"
-        decoding="async"
-      />
-    </li>
+    <div className="use-case-storyboard__handoff">
+      <div className="use-case-storyboard__calendar">
+        <span>{context.outcomeSurface}</span>
+        <strong>{context.outcomeTitle}</strong>
+        <small>Context attached</small>
+      </div>
+      <div className="use-case-storyboard__crm">
+        {context.crmRows.map((row) => (
+          <span key={row.label}>
+            <b>{row.label}</b>
+            {row.value}
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }
 
-function IntegrationLogoStrip() {
-  return (
-    <section
-      className="integration-logo-strip overflow-hidden py-8 sm:py-10"
-      aria-labelledby="integrations-strip-heading"
-    >
-      <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
-        <h2
-          id="integrations-strip-heading"
-          className="font-mono mb-5 text-[11px] uppercase tracking-widest text-[#0B6A31] sm:text-[12px]"
-        >
-          SentientWeb sits above your stack and calls the right tools at the right time
-        </h2>
-      </div>
-      <div className="integration-logo-marquee">
-        <ul className="integration-logo-track" aria-label="Existing tech stack logos">
-          {INTEGRATION_LOGOS.map((logo) => (
-            <IntegrationLogoItem key={logo.name} {...logo} />
-          ))}
-        </ul>
-        <ul className="integration-logo-track" aria-hidden>
-          {INTEGRATION_LOGOS.map((logo) => (
-            <IntegrationLogoItem key={`duplicate-${logo.name}`} {...logo} hidden />
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
+function UseCaseStoryboard({ useCase }: { useCase: RevenueRecoveryUseCase }) {
+  const context = USE_CASE_STORYBOARD_CONTEXT[useCase.id]
 
-function UseCaseFlowDiagram({ useCase }: { useCase: RevenueRecoveryUseCase }) {
   return (
-    <div className="rounded-[22px] border border-white/10 bg-background/55 p-4 sm:p-5">
-      <p className="font-grotesk text-[12px] uppercase tracking-wide text-neon">
-        Walkthrough diagram
-      </p>
-      <ol
-        className="mt-5 grid gap-3 md:grid-cols-4"
-        aria-label={`${useCase.title} flowchart`}
-      >
+    <div className={`use-case-storyboard ${getUseCaseThemeClass(useCase)}`}>
+      <ol className="use-case-storyboard__panels" aria-label={`${useCase.title} storyboard`}>
         {useCase.flow.map((step, index) => (
-          <li key={step.label} className="relative">
-            <div className="h-full rounded-[18px] border border-neon/20 bg-white/[0.04] p-4">
-              <div className="font-mono mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-neon text-[11px] text-background">
-                {index + 1}
+          <li key={step.label} className="use-case-storyboard__panel">
+            <div className="use-case-storyboard__browser">
+              <div className="use-case-storyboard__bar">
+                <span />
+                <span />
+                <span />
+                <p>{index === 0 ? context.url : index === 1 ? context.previewUrl : step.label}</p>
               </div>
-              <h4 className="font-grotesk text-[14px] uppercase leading-tight text-cream sm:text-[15px]">
+              <div className="use-case-storyboard__screen">
+                <UseCaseStoryboardVisual useCase={useCase} stepIndex={index} />
+              </div>
+            </div>
+            <div className="use-case-storyboard__caption">
+              <span className="use-case-storyboard__number">
+                {index + 1}
+              </span>
+              <h4 className="font-grotesk text-[14px] uppercase leading-tight text-cream sm:text-[17px]">
                 {step.label}
               </h4>
               <p className="font-mono mt-2 text-[11px] normal-case leading-relaxed text-cream/62 sm:text-[12px]">
                 {step.detail}
               </p>
             </div>
-            {index < useCase.flow.length - 1 ? (
-              <div
-                className="font-mono hidden text-center text-[18px] text-neon/70 md:absolute md:-right-[1.15rem] md:top-1/2 md:block md:-translate-y-1/2"
-                aria-hidden
-              >
-                -&gt;
-              </div>
-            ) : null}
           </li>
         ))}
       </ol>
@@ -438,13 +563,13 @@ function UseCaseDetailSection({
   return (
     <section
       id={useCase.id}
-      className="scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20 md:py-24"
+      className={`scroll-mt-28 border-t border-white/10 bg-background py-16 sm:py-20 md:py-24 ${getUseCaseThemeClass(useCase)}`}
       aria-labelledby={headingId}
     >
       <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
         <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
           <div>
-            <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
+            <p className="use-case-accent-text font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
               {useCase.status}
             </p>
             <h2
@@ -464,7 +589,7 @@ function UseCaseDetailSection({
           </div>
 
           <article className="liquid-glass rounded-[26px] p-5 sm:p-6">
-            <p className="font-mono inline-flex rounded-full border border-neon/25 px-3 py-1 text-[10px] uppercase tracking-widest text-neon">
+            <p className="use-case-accent-pill font-mono inline-flex rounded-full border px-3 py-1 text-[10px] uppercase tracking-widest">
               Use case
             </p>
             <h3 className="font-grotesk mt-5 text-[18px] uppercase leading-tight text-cream sm:text-[22px]">
@@ -473,14 +598,14 @@ function UseCaseDetailSection({
             <p className="font-mono mt-4 text-[12px] normal-case leading-relaxed text-cream/70 sm:text-[13px]">
               {useCase.caseStudy}
             </p>
-            <p className="font-mono mt-4 border-t border-white/10 pt-4 text-[11px] uppercase leading-relaxed text-neon/85">
+            <p className="use-case-accent-text font-mono mt-4 border-t border-white/10 pt-4 text-[11px] uppercase leading-relaxed">
               Ideal outcome: {useCase.outcome}
             </p>
           </article>
         </div>
 
         <div className="mt-8">
-          <UseCaseFlowDiagram useCase={useCase} />
+          <UseCaseStoryboard useCase={useCase} />
         </div>
 
         {children}
@@ -623,8 +748,11 @@ export default function HomePage() {
 
             <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {REVENUE_RECOVERY_USE_CASES.map((useCase) => (
-                <article key={useCase.title} className="liquid-glass rounded-[24px] p-5 sm:p-6">
-                  <p className="font-mono inline-flex rounded-full border border-neon/25 px-3 py-1 text-[10px] uppercase tracking-widest text-neon">
+                <article
+                  key={useCase.title}
+                  className={`liquid-glass use-case-card rounded-[24px] p-5 sm:p-6 ${getUseCaseThemeClass(useCase)}`}
+                >
+                  <p className="use-case-accent-pill font-mono inline-flex rounded-full border px-3 py-1 text-[10px] uppercase tracking-widest">
                     {useCase.status}
                   </p>
                   <h3 className="font-grotesk mt-5 text-[18px] uppercase leading-tight text-cream sm:text-[20px]">
@@ -643,7 +771,7 @@ export default function HomePage() {
                   </ul>
                   <Link
                     to={useCase.to}
-                    className="font-grotesk mt-6 inline-flex text-[12px] uppercase tracking-wide text-neon transition hover:text-cream"
+                    className="use-case-accent-link font-grotesk mt-6 inline-flex text-[12px] uppercase tracking-wide transition hover:text-cream"
                   >
                     {useCase.cta}
                   </Link>
@@ -672,8 +800,8 @@ export default function HomePage() {
                 Find the demo-intent leak on your own site.
               </h2>
               <p className="mt-5 max-w-2xl font-sans text-[14px] normal-case leading-relaxed text-cream/72 sm:text-[15px]">
-                Submit a pricing, demo, or comparison page. Get a recovery preview that shows
-                where ready-to-book visitors go quiet.
+                Submit a pricing, demo, checkout, billing, account, or comparison page. Get a
+                recovery preview that shows where ready customers and buyers go quiet.
               </p>
             </div>
 
@@ -701,13 +829,13 @@ export default function HomePage() {
                   aria-label={previewUrl.trim() ? `Request a preview for ${previewUrl.trim()}` : 'Request a preview'}
                   className="rounded-full bg-neon px-7 py-3 font-grotesk text-[12px] uppercase tracking-wide text-background transition hover:brightness-110 sm:text-[13px]"
                 >
-                  Request pilot preview
+                  Request recovery preview
                 </a>
                 <p
                   id="preview-url-help"
                   className="font-mono max-w-[360px] text-[11px] uppercase leading-relaxed text-cream/50"
                 >
-                  Add the URL so the pilot preview carries the right page context.
+                  Add the URL so the recovery preview carries the right page context.
                 </p>
               </div>
               <div className="mt-6 border-t border-white/10 pt-5">
@@ -769,21 +897,21 @@ export default function HomePage() {
                   className="font-condiment pointer-events-none absolute -left-2 -top-8 z-10 text-[17px] text-neon mix-blend-exclusion sm:-top-10 sm:text-[28px] md:-top-14 md:text-[44px] lg:-left-[216px] lg:-top-16 lg:text-[56px] xl:text-[68px] normal-case"
                   aria-hidden
                 >
-                  One loop
+                  Your Stack, Orchestrated.
                 </p>
                 <h2
                   id="cta-heading"
                   className="font-grotesk uppercase leading-tight text-cream text-[18px] sm:text-[32px] md:text-[44px] lg:text-[52px] xl:text-[60px]"
                 >
                   <span className="mb-4 block text-[14px] sm:mb-6 sm:text-[20px] md:mb-8 md:text-[26px] lg:mb-10 lg:ml-20 lg:text-[30px] xl:ml-28 xl:text-[34px]">
-                    Detect, qualify, book, sync.
+                    Your stack stays. SentientWeb orchestrates it.
                   </span>
                   <span className="mb-5 block font-condiment text-[21px] normal-case leading-tight text-neon sm:mb-7 sm:text-[32px] md:text-[44px] lg:text-[52px]">
-                    Turn revenue-ready behavior into qualified recovered actions with stack context attached.
+                    Backend revenue recovery service that calls your CRM, billing, scheduler, and messaging tools to complete the next business action.
                   </span>
                 </h2>
                 <p className="mb-6 font-mono text-[11px] normal-case text-cream/70 sm:mb-8 sm:text-[13px] md:text-[14px]">
-                  Book a revenue recovery pilot
+                  Keep the SaaS tools you already use. Add the orchestration layer above them.
                 </p>
                 <div className="flex flex-wrap justify-end gap-4">
                   <a
@@ -792,13 +920,13 @@ export default function HomePage() {
                     rel="noopener noreferrer"
                     className="inline-block rounded-full bg-neon px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-background transition hover:brightness-110 sm:px-8 sm:text-[13px]"
                   >
-                    Book a revenue recovery pilot
+                    Book a revenue recovery review
                   </a>
                   <Link
-                    to="/solutions/saas"
+                    to="/orchestrate"
                     className="liquid-glass inline-block rounded-full px-6 py-3 font-grotesk text-[11px] uppercase tracking-wide text-cream transition hover:bg-white/10 sm:px-8 sm:text-[13px]"
                   >
-                    See qualified demo flow
+                    See stack orchestration
                   </Link>
                 </div>
               </div>
@@ -806,25 +934,25 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* First customer fit */}
+        {/* Revenue recovery fit */}
         <section
           className="border-t border-white/10 bg-background py-16 sm:py-20"
-          aria-labelledby="first-customer-fit-heading"
+          aria-labelledby="revenue-recovery-fit-heading"
         >
           <div className="mx-auto max-w-[1831px] px-4 sm:px-6 md:px-8 lg:px-10">
             <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
-              First 10 customer fit
+              Revenue recovery fit
             </p>
             <h2
-              id="first-customer-fit-heading"
+              id="revenue-recovery-fit-heading"
               className="font-grotesk max-w-[900px] text-[30px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px]"
             >
-              Best fit for subscription businesses with revenue moments to recover.
+              Built for subscription businesses with revenue moments to recover.
             </h2>
             <p className="font-mono mt-5 max-w-3xl text-[13px] uppercase leading-relaxed text-cream/70 sm:text-[14px]">
-              Best fit: subscription businesses with visible pricing, demo, checkout, billing,
-              account, docs, security, comparison, or integration traffic and enough stack access
-              to let SentientWeb call the right tools at the right time.
+              SentientWeb works across pricing, demo, checkout, billing, account, docs, security,
+              comparison, and integration traffic, then uses the connected stack to complete the
+              right revenue action.
             </p>
             <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {[
@@ -833,16 +961,16 @@ export default function HomePage() {
                   body: 'Pricing, demo, comparison, docs, security, and integration pages already attract buyers.',
                 },
                 {
-                  title: 'Simple booking path',
-                  body: 'The right scheduler, router, workflow, or handoff opens after qualification.',
+                  title: 'Execution paths',
+                  body: 'Schedulers, routers, billing tools, workflows, and handoffs become surfaces SentientWeb can call.',
                 },
                 {
-                  title: 'HubSpot context',
-                  body: 'Recovered meetings need contact, company, qualification, and conversation context.',
+                  title: 'Stack context',
+                  body: 'Recovered moments carry contact, account, subscription, qualification, and conversation context.',
                 },
                 {
-                  title: 'Clear proof review',
-                  body: 'Founder, growth, sales, or RevOps can review qualified demos and weekly proof.',
+                  title: 'Operational review',
+                  body: 'Founder, growth, sales, support, finance, or RevOps can review recovered actions and weekly patterns.',
                 },
               ].map((item) => (
                 <article key={item.title} className="liquid-glass rounded-[22px] p-5 sm:p-6">
@@ -855,10 +983,6 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
-            <p className="font-mono mt-8 max-w-3xl border-t border-white/10 pt-5 text-[11px] uppercase leading-relaxed text-cream/45 sm:text-[12px]">
-              Not a fit yet: very low-traffic startups, regulated intake, broad ecommerce, and teams
-              that need SOC 2 Type II before any pilot.
-            </p>
           </div>
         </section>
 
