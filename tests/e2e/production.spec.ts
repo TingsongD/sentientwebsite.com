@@ -2055,12 +2055,12 @@ test('homepage and solution pages render new positioning and trust disclosure', 
   const roiCalculatorSection = page.locator('section[aria-label="ROI calculator"]').first()
   await expect(roiCalculatorSection.locator('video')).toHaveAttribute('src', roiCtaVideoUrl)
   const roiCalculatorLink = roiCalculatorSection.getByRole('link', {
-    name: 'Estimate recoverable demos in the last 30 days.',
+    name: 'Estimate recoverable revenue in the last 30 days',
   })
-  await expect(roiCalculatorLink).toHaveAttribute('href', '/revenue-leak-calculator')
+  await expect(roiCalculatorLink).toHaveAttribute('href', '/#recovery-preview-panel')
   await expect(roiCalculatorLink).toHaveClass(/ai-rainbow-cta/)
   await expect(roiCalculatorLink.locator('.ai-rainbow-cta__label')).toHaveText(
-    'Estimate recoverable demos in the last 30 days.',
+    'Estimate recoverable revenue in the last 30 days',
   )
   await expect(roiCalculatorLink.locator('.ai-rainbow-cta__sparkles')).toHaveAttribute(
     'aria-hidden',

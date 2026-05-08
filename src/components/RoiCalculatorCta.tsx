@@ -25,7 +25,7 @@ export function RoiCalculatorCta() {
       />
       <div className="relative z-10 mx-auto flex max-w-[1831px] justify-center">
         <Link
-          to="/revenue-leak-calculator"
+          to="/#recovery-preview-panel"
           className="ai-rainbow-cta group inline-flex items-center justify-center rounded-full px-8 py-4 text-center transition hover:-translate-y-0.5 sm:px-10 sm:py-5"
         >
           <span className="ai-rainbow-cta__sparkles" aria-hidden="true">
@@ -34,7 +34,7 @@ export function RoiCalculatorCta() {
             ))}
           </span>
           <span className="ai-rainbow-cta__label font-grotesk whitespace-nowrap text-[15px] uppercase tracking-wide sm:text-[18px]">
-            Estimate recoverable demos in the last 30 days.
+            Estimate recoverable revenue in the last 30 days
           </span>
         </Link>
       </div>

@@ -236,35 +236,35 @@ export function CinematicFunnelSection() {
         ))}
       </div>
 
-      <div className="cinematic-funnel-intro section-light-editorial">
+      <div className="cinematic-funnel-intro">
         <div className="mx-auto max-w-[1120px]">
-          <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
+          <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
             Product
           </p>
           <h2
             id="features-heading"
-            className="section-heading font-grotesk max-w-[1040px] text-[32px] uppercase leading-tight sm:text-[42px] md:text-[52px] lg:text-[60px]"
+            className="font-grotesk max-w-[1040px] text-[32px] uppercase leading-tight text-cream sm:text-[42px] md:text-[52px] lg:text-[60px]"
           >
             One operating layer from revenue intent to recovered action.
           </h2>
           <section
-            className="relative left-1/2 mt-8 w-screen -translate-x-1/2 border-t border-[#10213c]/15 bg-white/30 px-4 py-10 sm:px-6 md:px-8 md:py-12 lg:px-10"
+            className="relative left-1/2 mt-8 w-screen -translate-x-1/2 border-b border-white/10 bg-[#020a2e]/70 px-4 py-10 sm:px-6 md:px-8 md:py-12 lg:px-10"
             aria-labelledby="homepage-recovery-targets-heading"
           >
             <div className="mx-auto max-w-[1120px]">
               <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
-                  <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
+                  <p className="font-mono mb-3 text-[11px] uppercase tracking-widest text-neon sm:text-[12px]">
                     Modeled recovery targets
                   </p>
                   <h3
                     id="homepage-recovery-targets-heading"
-                    className="section-heading font-grotesk max-w-[760px] text-[28px] uppercase leading-tight sm:text-[36px]"
+                    className="font-grotesk max-w-[760px] text-[28px] uppercase leading-tight text-cream sm:text-[36px]"
                   >
                     What better recovery can move.
                   </h3>
                 </div>
-                <p className="editorial-soft font-mono max-w-[440px] text-[11px] uppercase leading-relaxed sm:text-[12px] md:text-right">
+                <p className="font-mono max-w-[440px] text-[11px] uppercase leading-relaxed text-cream/52 sm:text-[12px] md:text-right">
                   Modeled targets. Actual results depend on traffic quality, current conversion
                   rate, sales process, and implementation scope.
                 </p>
@@ -279,7 +279,7 @@ export function CinematicFunnelSection() {
                       <span>{target.stat}</span>{' '}
                       <span>{target.label}</span>
                     </p>
-                    <p className="editorial-muted font-mono mt-3 text-[12px] normal-case leading-relaxed">
+                    <p className="font-mono mt-3 text-[12px] normal-case leading-relaxed text-cream/70">
                       {target.body}
                     </p>
                   </article>

@@ -180,6 +180,7 @@ type UseCaseStoryboardContext = {
   timeline: string
   stack: string
   score: string
+  ctaLabel: string
   outcomeSurface: string
   outcomeTitle: string
   crmRows: ReadonlyArray<{ label: string; value: string }>
@@ -198,6 +199,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     timeline: 'This quarter',
     stack: 'CRM, website, scheduler',
     score: '82',
+    ctaLabel: 'Estimate recoverable demo revenue in the last 30 days',
     outcomeSurface: 'Scheduler',
     outcomeTitle: 'Meeting path opened',
     crmRows: [
@@ -219,6 +221,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     timeline: 'Before renewal closes',
     stack: 'Billing, CRM, email',
     score: '76',
+    ctaLabel: 'Estimate recoverable failed-payment revenue in the last 30 days',
     outcomeSurface: 'Billing',
     outcomeTitle: 'Save path opened',
     crmRows: [
@@ -240,6 +243,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     timeline: 'Same week',
     stack: 'Scheduler, CRM, email',
     score: '79',
+    ctaLabel: 'Estimate recoverable no-show revenue in the last 30 days',
     outcomeSurface: 'Scheduler',
     outcomeTitle: 'Meeting rescheduled',
     crmRows: [
@@ -261,6 +265,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     timeline: 'Weekly review',
     stack: 'CRM, analytics, website',
     score: '91',
+    ctaLabel: 'Discover hidden buyer-intent revenue in the last 30 days',
     outcomeSurface: 'RevOps',
     outcomeTitle: 'Repair work queued',
     crmRows: [
@@ -447,9 +452,11 @@ function UseCaseStoryboardVisual({
           <span />
           <span />
         </div>
-        <div className="use-case-storyboard__beacon" aria-hidden>
-          <span />
-        </div>
+        <Link to="/#recovery-preview-panel" className="ai-rainbow-cta use-case-storyboard__cta-button">
+          <span className="ai-rainbow-cta__label use-case-storyboard__cta-label">
+            {context.ctaLabel}
+          </span>
+        </Link>
       </div>
     )
   }
@@ -487,8 +494,9 @@ function UseCaseStoryboardVisual({
             {context.stack}
           </span>
         </div>
-        <div className="use-case-storyboard__score" aria-label={`Fit score ${context.score}`}>
-          {context.score}
+        <div className="use-case-storyboard__score" aria-label={`Recover up to fit score ${context.score}`}>
+          <span>Recover up to</span>
+          <strong>{context.score}</strong>
         </div>
       </div>
     )
@@ -515,6 +523,7 @@ function UseCaseStoryboardVisual({
 
 function UseCaseStoryboard({ useCase }: { useCase: RevenueRecoveryUseCase }) {
   const context = USE_CASE_STORYBOARD_CONTEXT[useCase.id]
+  const isLightSection = useCase.id === 'demo-recovery' || useCase.id === 'no-show-recovery'
 
   return (
     <div className={`use-case-storyboard ${getUseCaseThemeClass(useCase)}`}>
@@ -536,10 +545,18 @@ function UseCaseStoryboard({ useCase }: { useCase: RevenueRecoveryUseCase }) {
               <span className="use-case-storyboard__number">
                 {index + 1}
               </span>
-              <h4 className="font-grotesk text-[14px] uppercase leading-tight text-cream sm:text-[17px]">
+              <h4
+                className={`font-grotesk text-[14px] uppercase leading-tight sm:text-[17px] ${
+                  isLightSection ? 'text-[#10213c]' : 'text-cream'
+                }`}
+              >
                 {step.label}
               </h4>
-              <p className="font-mono mt-2 text-[11px] normal-case leading-relaxed text-cream/62 sm:text-[12px]">
+              <p
+                className={`font-mono mt-2 text-[11px] normal-case leading-relaxed sm:text-[12px] ${
+                  isLightSection ? 'text-[#10213c]/62' : 'text-cream/62'
+                }`}
+              >
                 {step.detail}
               </p>
             </div>
@@ -798,8 +815,8 @@ export default function HomePage() {
           className="section-light-editorial scroll-mt-28 py-16 sm:py-20"
           aria-labelledby="instant-demo-preview-heading"
         >
-          <div className="mx-auto grid max-w-[1831px] gap-8 px-4 sm:px-6 md:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
-            <div>
+          <div className="mx-auto flex max-w-[1831px] flex-col gap-8 px-4 sm:px-6 md:px-8 lg:px-10">
+            <div className="max-w-[980px]">
               <p className="section-kicker font-mono mb-3 text-[11px] uppercase tracking-widest sm:text-[12px]">
                 Recovery Preview
               </p>
@@ -815,7 +832,10 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="editorial-panel-strong rounded-[18px] p-6 sm:p-8">
+            <div
+              id="recovery-preview-panel"
+              className="ai-rainbow-panel w-full scroll-mt-28 rounded-[18px] p-6 sm:p-8"
+            >
               <label className="block" htmlFor="preview-url">
                 <span className="font-grotesk mb-2 block text-[12px] uppercase tracking-wide text-[#10213c]/80">
                   Company website or pricing page URL
