@@ -1496,7 +1496,7 @@
 
 .use-case-storyboard__score {
   display: grid;
-  width: 128px;
+  width: 142px;
   aspect-ratio: 1;
   place-self: center;
   place-items: center;
@@ -1512,20 +1512,25 @@
 
 .use-case-storyboard__score span {
   align-self: end;
-  max-width: 82px;
-  color: rgba(241, 246, 255, 0.76);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.52rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  line-height: 1.18;
+  color: var(--use-case-accent);
+  font-family: Anton, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .use-case-storyboard__score strong {
   align-self: start;
-  font-size: 2.3rem;
-  font-weight: 900;
+  max-width: 94px;
+  color: rgba(241, 246, 255, 0.78);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .use-case-storyboard__handoff {

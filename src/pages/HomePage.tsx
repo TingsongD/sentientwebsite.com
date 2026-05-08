@@ -7,6 +7,7 @@ import { RoiCalculatorCta } from '../components/RoiCalculatorCta'
 import { SiteFooter } from '../components/SiteFooter'
 import { TrustStrip } from '../components/TrustStrip'
 import { BOOK_DEMO_URL } from '../constants'
+import { SAAS_RECOVERY_TARGETS } from '../data/saasRecoveryTargets'
 
 const CTA_MEDIA = '/media/home-cta.svg'
 const HERO_BACKGROUND_VIDEO_URL =
@@ -179,7 +180,7 @@ type UseCaseStoryboardContext = {
   useCase: string
   timeline: string
   stack: string
-  score: string
+  recoveryTarget: (typeof SAAS_RECOVERY_TARGETS)[number]
   ctaLabel: string
   outcomeSurface: string
   outcomeTitle: string
@@ -198,7 +199,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     useCase: 'Recover revenue-ready pricing traffic',
     timeline: 'This quarter',
     stack: 'CRM, website, scheduler',
-    score: '82',
+    recoveryTarget: SAAS_RECOVERY_TARGETS[0],
     ctaLabel: 'Estimate recoverable demo revenue in the last 30 days',
     outcomeSurface: 'Scheduler',
     outcomeTitle: 'Meeting path opened',
@@ -220,7 +221,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     useCase: 'Resolve payment friction before churn',
     timeline: 'Before renewal closes',
     stack: 'Billing, CRM, email',
-    score: '76',
+    recoveryTarget: SAAS_RECOVERY_TARGETS[1],
     ctaLabel: 'Estimate recoverable failed-payment revenue in the last 30 days',
     outcomeSurface: 'Billing',
     outcomeTitle: 'Save path opened',
@@ -242,7 +243,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     useCase: 'Recover missed demo from high intent',
     timeline: 'Same week',
     stack: 'Scheduler, CRM, email',
-    score: '79',
+    recoveryTarget: SAAS_RECOVERY_TARGETS[2],
     ctaLabel: 'Estimate recoverable no-show revenue in the last 30 days',
     outcomeSurface: 'Scheduler',
     outcomeTitle: 'Meeting rescheduled',
@@ -264,7 +265,7 @@ const USE_CASE_STORYBOARD_CONTEXT = {
     useCase: 'Find recurring buyer hesitation',
     timeline: 'Weekly review',
     stack: 'CRM, analytics, website',
-    score: '91',
+    recoveryTarget: SAAS_RECOVERY_TARGETS[3],
     ctaLabel: 'Discover hidden buyer-intent revenue in the last 30 days',
     outcomeSurface: 'RevOps',
     outcomeTitle: 'Repair work queued',
@@ -494,9 +495,12 @@ function UseCaseStoryboardVisual({
             {context.stack}
           </span>
         </div>
-        <div className="use-case-storyboard__score" aria-label={`Recover up to fit score ${context.score}`}>
-          <span>Recover up to</span>
-          <strong>{context.score}</strong>
+        <div
+          className="use-case-storyboard__score"
+          aria-label={`${context.recoveryTarget.stat} ${context.recoveryTarget.label}. ${context.recoveryTarget.body}`}
+        >
+          <span>{context.recoveryTarget.stat}</span>
+          <strong>{context.recoveryTarget.label}</strong>
         </div>
       </div>
     )

@@ -1925,24 +1925,32 @@ test('homepage and solution pages render new positioning and trust disclosure', 
       heading: 'Give high-intent visitors a demo trailer before they leave.',
       storyboard: 'Demo Recovery storyboard',
       surface: 'Meeting path opened',
+      metric: 'Up to 80%',
+      metricLabel: 'Demo booking lift',
     },
     {
       id: 'failed-payment-recovery',
       heading: 'Recover payment and cancellation risk before revenue walks away.',
       storyboard: 'Failed Payment Recovery storyboard',
       surface: 'Save path opened',
+      metric: 'Up to 45%',
+      metricLabel: 'Payment recovery',
     },
     {
       id: 'no-show-recovery',
       heading: 'Recover no-shows while the buying context is still usable.',
       storyboard: 'No-Show Recovery storyboard',
       surface: 'Meeting rescheduled',
+      metric: 'Up to 30%',
+      metricLabel: 'No-show reduction',
     },
     {
       id: 'buyer-insights',
       heading: 'Turn buyer hesitation into weekly revenue repair work.',
       storyboard: 'Buyer Insights storyboard',
       surface: 'Repair work queued',
+      metric: 'Up to 80%',
+      metricLabel: 'Buyer insight lift',
     },
   ]) {
     const section = page.locator(`#${useCaseSection.id}`)
@@ -1955,6 +1963,10 @@ test('homepage and solution pages render new positioning and trust disclosure', 
     await expect(section.getByText('Walkthrough diagram')).toHaveCount(0)
     await expect(section.getByRole('list', { name: useCaseSection.storyboard })).toBeVisible()
     await expect(section.locator('.use-case-storyboard__panel')).toHaveCount(4)
+    await expect(section.locator('.use-case-storyboard__score')).toContainText(useCaseSection.metric)
+    await expect(section.locator('.use-case-storyboard__score')).toContainText(
+      useCaseSection.metricLabel,
+    )
     await expect(section.getByText(useCaseSection.surface)).toBeVisible()
   }
   for (const removedVertical of [
